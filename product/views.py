@@ -497,6 +497,7 @@ def Tour(request, slug):
         page_obj = paginator.get_page(page_number)
         context = {
             'products': page_obj,
+            'slug':slug,
             'len': len(page_obj),
         }
     else:
@@ -516,12 +517,14 @@ def Tour(request, slug):
                 category='Tour', tag_category=slug), 15)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
+
         context = {
             'products': page_obj,
+            'slug':slug,
             'len': len(page_obj)
         }
 
-    return render(request, 'tour.html', context)
+    return render(request,'tour.html', context)
 
 
 @csrf_exempt
@@ -531,17 +534,23 @@ def FilterData(request):
     duration = request.POST.getlist('duration[]')
     typee = request.POST.getlist('type[]')
     citye = request.POST.getlist('citye[]')
+    category = request.POST.get('category')
     max_price = int(request.POST.get('maximum_price'))
     min_price = int(request.POST.get('minimum_price'))
     search = request.POST.get('search')
     loc = request.POST.getlist('loc[]')
+
+
     a = slug.split('-')
+
     allproducts = Product.objects.filter(
         category='Adventure', adventuretype=slug)
+
     if len(a) > 1:
         slug1 = a[0]+' '+a[1]
         allproducts = Product.objects.filter(
-            category='Adventure', tag_category=slug1).distinct()
+                category=category, tag_category=slug).distinct()
+    
     if len(typee) > 0:
         allproducts = Product.objects.filter(
             category='Adventure',  adventuretype__in=typee, sale__gte=min_price, sale__lte=max_price).distinct()
@@ -587,8 +596,32 @@ def FilterData(request):
         slug1 = a[0]+' '+a[1]
         allproducts = Product.objects.filter(
             category='Adventure', tag_category=slug1, sale__gte=min_price, sale__lte=max_price).order_by('sale').distinct()
+    if category == 'Tour':
+        allproducts = Product.objects.filter(category = category , tag_category=slug)
+        if len(citye) > 0:
+            allproducts = Product.objects.filter(category = category ,tag_category=slug, 
+            city__in= citye,sale__gte=min_price, sale__lte=max_price)
+        if len(duration) > 0:
+            allproducts = Product.objects.filter(
+                category=category,tag_category=slug, duration__in=duration, sale__gte=min_price, sale__lte=max_price).distinct()
+        if len(duration) > 0 and len(a) > 1:
+            allproducts = Product.objects.filter(
+                category=category, tag_category=slug,  duration__in=duration, sale__gte=min_price, sale__lte=max_price).distinct()
+        if len(search) > 0:
+            allproducts = Product.objects.filter(
+                category=category,tag_category=slug,  name__icontains=search,).distinct()
+        if len(search) > 0 and len(a) > 1:
+            allproducts = Product.objects.filter(
+                category=category, tag_category=slug,  name__icontains=search, sale__gte=min_price, sale__lte=max_price).distinct()
+        if min_price > 1000 or max_price < 100000:
+            allproducts = Product.objects.filter(
+                category=category,tag_category=slug, sale__gte=min_price, sale__lte=max_price).order_by('sale').distinct()
+        if min_price > 1000 or max_price < 100000 and len(a) > 1:
+            allproducts = Product.objects.filter(
+                category=category, tag_category=slug, sale__gte=min_price, sale__lte=max_price).order_by('sale').distinct()
 
     t = render_to_string('prodlist.html', {'products': allproducts})
+
     return JsonResponse({'data': t, 'len': len(t)})
 
 

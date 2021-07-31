@@ -416,44 +416,30 @@ The colourful catholic ceremonies and the stunning cathedrals also give you an i
                         </div>
                         <div  style="margin-top: 1rem;">
                             <h4>Cities</h4>
-                            <ul>
-                                {% for product in products %}
-                               {% ifequal product cities %}
-                               <li> <div class="form-check" style="display: none;">
+                            <ul class="custom-ul">
+                                {% for product in products|dictsort:'city' %}
+                                {% ifchanged product.city %}
+                                     <li> <div class="form-check">
                                 <input class="form-check-input city common_selector" type="checkbox" value="{{product.city}}" id="defaultCheck1" >
                                 {{product.city}}
-                              </div>
-                               {% endifequal %}
-                               <li> <div class="form-check">
-                                <input class="form-check-input city common_selector" type="checkbox" value="{{product.city}}" id="defaultCheck1" >
-                                {{product.city}}
-                              </div>
-                            </li>
-                               {% endfor %}
-
-                                {% for product in products %}
+                                </div>
+                                </li>
                                 
-                                {% endfor %}
+                                {% endifchanged %}
+                               {% endfor %}
+                                
                             </ul>
                         </div>
                             <h4 class="mt-2">Tour Category</h4>
                             <ul>
-                                <li> <div class="form-check">
-                                    <input class="form-check-input level common_selector" type="checkbox" value="Family Trip" id="defaultCheck1" >
-                                    Family Trip
+                            {% for product in products|dictsort:'tag_category' %}
+                             {% ifchanged product.tag_category %}
+                                 <li> <div class="form-check">
+                                    <input class="form-check-input level common_selector" type="checkbox" value="{{product.tag_category}}" id="defaultCheck1" >
+                                    {{product.tag_category}}
                                   </div></li>
-                                  <li> <div class="form-check">
-                                    <input class="form-check-input level common_selector" type="checkbox" value="Romantic Trip" id="defaultCheck1" >
-                                    Romantic Trip
-                                  </div></li>
-                                  <li> <div class="form-check">
-                                    <input class="form-check-input level common_selector" type="checkbox" value="Trip with Friends" id="defaultCheck1" >
-                                    Trip with Friends
-                                  </div></li>
-                                  <li> <div class="form-check">
-                                    <input class="form-check-input level common_selector" type="checkbox" value="Adventurous Trip" id="defaultCheck1" >
-                                    Adventurous Trip
-                                  </div></li>
+                             {% endifchanged %}
+                            {% endfor %}
                             </ul>
                         </div>
                     <div  style="margin-top: 1rem;">
@@ -791,26 +777,716 @@ The colourful catholic ceremonies and the stunning cathedrals also give you an i
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <script src= "https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.0.0/dist/js/BsMultiSelect.bs4.min.js"></script>
    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-$(function(){
+   <script>
+    $(function()
+    {
+    
+      $("#example").bsMultiSelect();
+    
+    });
+    $(document).ready(function() {
+            // Transition effect for navbar 
+            $(window).scroll(function() {
+              // checks if window is scrolled more than 500px, adds/removes solid class
+              if($(this).scrollTop() > 100) { 
+                  $('.dt-nav').addClass('solid');
+                  $('.mobile-nav').removeClass('custom-nav-display');
+                  $('.mobile-nav').removeClass('solid');
+              } else {
+                  $('.dt-nav').removeClass('solid');
+                  $('.mobile-nav').addClass('solid');
+              }
+            });
+    });
+    function inc(){
+        console.log($('#example').val())
+        var arr= $('#example').val()
+                var complete =``;
+                arr.forEach(element => {
+                    complete =complete + element
+                }); 
+    
+        $('#inclusion').val(complete)
+        console.log(complete)
+    }
+</script>
 
-  $("#example").bsMultiSelect();
+<script>
+   
+  $("#exploreview").click(function(){
+    $('#f1').empty();
+    card61=`     <div class="modal-body"  id="f1">
+        <center>
+          {% if user.is_authenticated %}
+         <h3 style="color:rgb(73, 73, 73);">Hi {{user}}</h3>
+         {% else %}
+         <h3 style="color:rgb(129, 127, 127);">Hi Explorer</h3>
+         {% endif %}
+         <h4 style="color:rgb(73, 73, 73);">What are you looking for? </h4>
+        </center> 
 
-});
+        <div class="container px-0 mobile-searchbox">
+          <div class="text-center">
+             <form class="form-group" method='get' action='/search'  style=" display: block;margin-left: auto; margin-right: auto;">
+                 <div class="input-group">
+                  <input class="form-control" style="border: 1px solid #656c8a;" type="search" name="search" id="search" placeholder="Search Adventure, Tours, Destinations" aria-label="Search">
+                  <div class="input-group-prepend mt-2">
+                      <button id="button-addon2" type="submit" class="btn" style="background-color: rgb(224, 223, 223); border-radius: 0px 5px 5px 0 ;margin-top: 5px;">
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+          </div>
+      </div>
 
-function inc(){
-    console.log($('#example').val())
-    var arr= $('#example').val()
-            var complete =``;
-            arr.forEach(element => {
-                complete =complete + element
-            }); 
 
-    $('#inclusion').val(complete)
-    console.log(complete)
-}
-    </script>
-    <script>
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;cursor: pointer;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f52()" >
+          <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Adventure modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+          
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Adventures</h3>
+                   </div>  
+           </div>        
+                                </span>
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f; cursor: pointer; filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f50()">
+          <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Tour modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Tour Packages</h3>
+                   </div>  
+           </div>
+           </span>
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+         <a href="/blog">
+               <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Blog modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+          
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Travel Blogs</h3>
+                   </div>  
+           </div>
+                             </a></span>
+
+         </div>`
+         $('#f1').html(card61);
+      $('#exampleModal').modal('show');
+  });
+  $("#exploreview2").click(function(){
+    $('#f1').empty();
+    card61=`     <div class="modal-body"  id="f1">
+        <center>
+          {% if user.is_authenticated %}
+         <h3 style="color:rgb(73, 73, 73);">Hi {{user}}</h3>
+         {% else %}
+         <h3 style="color:rgb(129, 127, 127);">Hi Explorer</h3>
+         {% endif %}
+         <h4 style="color:rgb(73, 73, 73);">What are you looking for? </h4>
+        </center> 
+
+        <div class="container px-0 mobile-searchbox">
+          <div class="text-center">
+             <form class="form-group" method='get' action='/search'  style=" display: block;margin-left: auto; margin-right: auto;">
+                 <div class="input-group">
+                  <input class="form-control" style="border: 1px solid #656c8a;" type="search" name="search" id="search" placeholder="Search Adventure, Tours, Destinations" aria-label="Search">
+                  <div class="input-group-prepend mt-2">
+                      <button id="button-addon2" type="submit" class="btn" style="background-color: rgb(224, 223, 223); border-radius: 0px 5px 5px 0 ;margin-top: 5px;">
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+          </div>
+      </div>
+
+
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;cursor: pointer;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f52()" >
+          <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Adventure modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+          
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Adventures</h3>
+                   </div>  
+           </div>        
+                                </span>
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f; cursor: pointer; filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f50()">
+          <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Tour modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Tour Packages</h3>
+                   </div>  
+           </div>
+           </span>
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+         <a href="/blog">
+               <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Blog modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+          
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Travel Blogs</h3>
+                   </div>  
+           </div>
+                             </a></span>
+
+         </div>`
+         $('#f1').html(card61);
+      $('#exampleModal').modal('show');
+  });
+  $("#exploreview1").click(function(){
+    $('#f1').empty();
+    card61=`     <div class="modal-body"  id="f1">
+        <center>
+          {% if user.is_authenticated %}
+         <h3 style="color:rgb(73, 73, 73);">Hi {{user}}</h3>
+         {% else %}
+         <h3 style="color:rgb(129, 127, 127);">Hi Explorer</h3>
+         {% endif %}
+         <h4 style="color:rgb(73, 73, 73);">What are you looking for? </h4>
+        </center> 
+
+        <div class="container px-0 mobile-searchbox">
+          <div class="text-center">
+             <form class="form-group" method='get' action='/search'  style=" display: block;margin-left: auto; margin-right: auto;">
+                 <div class="input-group">
+                  <input class="form-control" style="border: 1px solid #656c8a;" type="search" name="search" id="search" placeholder="Search Adventure, Tours, Destinations" aria-label="Search">
+                  <div class="input-group-prepend mt-2">
+                      <button id="button-addon2" type="submit" class="btn" style="background-color: rgb(224, 223, 223); border-radius: 0px 5px 5px 0 ;margin-top: 5px;">
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+          </div>
+      </div>
+
+
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;cursor: pointer;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f52()" >
+          <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Adventure modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+          
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Adventures</h3>
+                   </div>  
+           </div>        
+                                </span>
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f; cursor: pointer; filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f50()">
+          <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Tour modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Tour Packages</h3>
+                   </div>  
+           </div>
+           </span>
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+         <a href="/blog">
+               <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Blog modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+          
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Travel Blogs</h3>
+                   </div>  
+           </div>
+                             </a></span>
+
+         </div>`
+         $('#f1').html(card61);
+      $('#exampleModal').modal('show');
+  });
+  $("#exploreview22").click(function(){
+    $('#f1').empty();
+    card61=`     <div class="modal-body"  id="f1">
+        <center>
+          {% if user.is_authenticated %}
+         <h3 style="color:rgb(73, 73, 73);">Hi {{user}}</h3>
+         {% else %}
+         <h3 style="color:rgb(129, 127, 127);">Hi Explorer</h3>
+         {% endif %}
+         <h4 style="color:rgb(73, 73, 73);">What are you looking for? </h4>
+        </center> 
+
+        <div class="container px-0 mobile-searchbox">
+          <div class="text-center">
+             <form class="form-group" method='get' action='/search'  style=" display: block;margin-left: auto; margin-right: auto;">
+                 <div class="input-group">
+                  <input class="form-control" style="border: 1px solid #656c8a;" type="search" name="search" id="search" placeholder="Search Adventure, Tours, Destinations" aria-label="Search">
+                  <div class="input-group-prepend mt-2">
+                      <button id="button-addon2" type="submit" class="btn" style="background-color: rgb(224, 223, 223); border-radius: 0px 5px 5px 0 ;margin-top: 5px;">
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+          </div>
+      </div>
+
+
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;cursor: pointer;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f52()" >
+          <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Adventure modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+          
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Adventures</h3>
+                   </div>  
+           </div>        
+                                </span>
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f; cursor: pointer; filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f50()">
+          <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Tour modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Tour Packages</h3>
+                   </div>  
+           </div>
+           </span>
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+         <a href="/blog">
+               <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Blog modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+          
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Travel Blogs</h3>
+                   </div>  
+           </div>
+                             </a></span>
+
+         </div>`
+         $('#f1').html(card61);
+      $('#exampleModal').modal('show');
+  });
+  $("#dropdownMenuButton").click(function(){
+      $("#options").toggle();
+  });
+  $("#dropdownMenuButton2").click(function(){
+      $("#options2").toggle();
+  });
+  $("#mobilemodal").click(function(){
+      $("#exampleModalmobile").modal('show');
+  });
+  $("#mobilemodal2").click(function(){
+      $("#exampleModalmobile").modal('show');
+  });
+  $("#closemodalmain").click(function(){
+  $("#exampleModal").modal('hide');    
+  });
+  $("#adventurenear").click(function(){
+    $("#adventurelist").css("display","none");
+    $("#adventurelocationnear").css("display","block");
+  });
+  function f52(){
+    $("#f1").empty();
+      card52=`<div class="modal-body"   style=" height:350px">       
+                          
+                          <span class="badge badge-light mb-2 w-100 mt-5" onclick="f54()" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;"  name="adventure" >
+                          <div class="row">
+                         <div class="col-4">
+                          <img src={% static 'img//Modal icons//Adventure by Location Modal Icon.png' %} style="float:left;margin-left:2vw;height: 5em;">
+                         </div>
+                         <div class="col-8">
+                          <p class="mr-3" style="font-size: 21px;float:right; margin-top: 3px;color: #38495a;font-weight: 500;text-align: right;">Adventure By<br>Destinations</p>
+                          </div>
+                          </div>
+                         
+                          </span>
+                           <span class="badge badge-light mb-2 w-100" onclick="f53()" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;"  name="adventure" >
+                          <div class="row">
+                         <div class="col-4">
+                          <img src={% static 'img//Modal icons//Popular Adventures Modal Icon.png' %} style="float:left;margin-left:2vw;height: 5em;">
+
+                         </div>
+                         <div class="col-8">
+                          <p class="mr-3" style="font-size: 21px;float:right; margin-top: 3px;color: #38495a;font-weight: 500;text-align: right;">Popular<br>Adventures</p>
+                          </div>
+                          </div>
+                         
+                          </span>
+                          <span class="badge badge-light mb-2 w-100" onclick="f51()" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f1(this)" value="Romantic Trip" name="adventure" >
+                          <div class="row">
+                         <div class="col-4">
+                          <img src={% static 'img//Modal icons//Adventure category modal Icon.png' %} style="float:left;margin-left:2vw;height: 5em;">
+
+                         </div>
+                         <div class="col-8">
+                          <p class="mr-3" style="font-size: 21px;float:right; margin-top: 3px;color: #38495a;font-weight: 500;text-align: right;">Adventure By<br>Categories</p>
+                          </div>
+                          </div>
+                         
+                          </span>
+                        
+                         </div>`
+   $("#f1").html(card52);
+  };
+  function f51(){
+    $("#f1").empty();
+      card51=`<div class="modal-body"   style="margin-top:-50px">
+                           <br><br/>
+                           <a href="/adventures/High-Fly">
+                             <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" >
+                             <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">High Fly</h5>
+                              </div>
+                              </div>
+                              </span>
+                              </a>
+
+                              <a href="/adventure/High-Thrills">
+                              <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))"  >
+                              <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">High Thrills</h5>
+                              </div>
+                              </div>
+                             
+                              </span>
+                              </a>
+                               
+                               <a href="/adventure/Aqua-Experience">
+                              <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))"  >
+                              <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">Aqua Experience</h5>
+                              </div>
+                              </div>
+                             
+                              </span>
+                              </a>
+
+                              <a href="/adventure/Land-Adventure">
+                              <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))"  >
+                              <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">Land Adventure</h5>
+                              </div>
+                              </div>
+                             
+                              </span>
+                               </a>
+                         </div>`
+  $("#f1").html(card51);
+  };
+  function f53(){
+  $("#f1").empty();
+     card53=`<div class="modal-body"  style="margin-top:-50px">
+                           <br><br/>
+                            <a href="/adventure/Paragliding"> 
+                            <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" >
+                             <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">Paragliding</h5>
+                              </div>
+                              </div>
+                              </span>
+                              </a>
+                              
+                              <a href="/adventure/Bungee-Jumping">
+                              <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" >
+                              <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">Bungee Jumping</h5>
+                              </div>
+                              </div>
+                             
+                              </span>
+                              </a>
+                              <a href="/adventure/Camping">
+                              <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" >
+                              <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">Camping</h5>
+                              </div>
+                              </div>
+                             
+                              </span>
+                              </a>
+                              
+                              <a href="/adventure/Trekking">
+                              <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))"  >
+                              <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">Trekking</h5>
+                              </div>
+                              </div>
+                             
+                              </span>
+                              </a>
+
+                              <a href="/adventure/River-Rafting">
+                              <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" >
+                              <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">River Rafting</h5>
+                              </div>
+                              </div>
+                             
+                              </span>
+                                 </a>
+                              
+
+                              <a href="/adventures/Scuba-Diving">
+                              <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))"  >
+                              <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">Scuba Diving</h5>
+                              </div>
+                              </div>
+                             
+                              </span>
+                              </a>
+                 
+                         </div>`
+ $("#f1").html(card53);
+ };
+  function f50(){
+    $('#f1').empty();
+    card50=`<div class="modal-body"   style="margin-top:-50px">
+                           <br></br>
+                           <center>
+                             <h4  style="color:rgb(73, 73, 73);">What Type of Tour?</h4>
+                            </center>
+                            
+                            <a onclick="f1(this)" value="Family Trip">
+                              <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+                              
+                                <div class="row">
+                             <div class="col-4">
+                              <img src={% static 'img//Modal icons//Family Trip.png' %} style="float:left;margin-left:2vw;height: 5em;">
+                             </div>
+                             <div class="col-8">
+                                <p class="mr-3" style="font-size: 21px;float:right; margin-top: 16px;color: #38495a;font-weight: 500;">Family Trip</p>
+                              </div>
+                              </div>
+                              </span>
+                               </a>
+                                <a onclick="f1(this)" value="Romantic Trip">
+                                  <span class="badge badge-light mt-1 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+                                    <div class="row">
+                             <div class="col-4">
+                              <img src={% static 'img//Modal icons//Romantic Trip.png' %} style="float:left;margin-left:2vw;height: 5em;">
+                             </div>
+                             <div class="col-8">
+                                <p class="mr-3" style="font-size: 21px;float:right; margin-top: 16px;color: #38495a;font-weight: 500;">Romantic Trip</p>
+                              </div>
+                              </div>
+                             
+                              </span></a>
+                                     
+                            <a onclick="f1(this)" value="Trip with Friends">
+                              <span class="badge badge-light mt-1 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+                              
+                              <div class="row">
+                             <div class="col-4">
+                              <img src={% static 'img//Modal icons//Trip with friends.png' %} style="float:left;margin-left:2vw;height: 5em;">
+                             </div>
+                             <div class="col-8">
+                                <p class="mr-3" style="font-size: 21px;float:right; margin-top: 16px;color: #38495a;font-weight: 500;">Trip with Friends</p>
+                              </div>
+                              </div>
+                            </span>
+                            </a>
+
+                            <a onclick="f1(this)" value="Adventurous Trip">
+                              <span class="badge badge-light mt-1 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+                                 
+                              <div class="row">
+                             <div class="col-4">
+                              <img src={% static 'img//Modal icons//Adventurous Trip Modal Icon.png' %} style="float:left;margin-left:2vw;height: 5em;">
+                             </div>
+                             <div class="col-8">
+                                <p class="mr-3" style="font-size: 21px;float:right; margin-top: 16px;color: #38495a;font-weight: 500;">Adventurous Trip</p>
+                              </div>
+                              </div>
+                        
+                              </span>
+                              </a>
+                            
+                             </div>`
+    $("#f1").html(card50);
+  };
+ function f54(){
+    $('#f1').empty();
+    card54=`        <div class="modal-body" id="adventureonlocation"  style="height:350px">
+             <div style="margin-left:25%">
+             <select class="custom-select w-75 mt-5" id="selectstate">
+                    <option selected>Select State</option>
+                       {% for i in statelist %}
+                            <option value="{{i.name}}">{{i.name}}</option>
+                          {% endfor %}
+                    </select>
+                 </div>   
+             
+            </div>`
+            $('#f1').html(card54);
+  };
+
+function f1(e){
+  value1= $(e).attr('value')
+    $('#f1').empty();
+    $('#f1').css("margin-top","0px");
+     let card1=` <div class="modal-body">
+          <h5 style="color:red;">When are you planning to go?</h5>
+          <span class="badge badge-light mb-2 w-100" onclick="f2(this)" value="In 1-2 week" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" id="${value1}" name="adventure2">
+          <center>
+          <h5 class="mt-2">1-2 Weeks</h5> 
+          </center>
+          </span>
+          <span class="badge badge-light mb-2 w-100" onclick="f2(this)" value="In 1-2 month" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" id="${value1}" name="adventure2">
+          <center>
+          <h5 class="mt-2">1-2 Months</h5> 
+          </center>
+          </span>
+          <span class="badge badge-light mb-2 w-100" onclick="f2(this)" value="In 3-4 month" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" id="${value1}" name="adventure2">
+          <center>
+          <h5 class="mt-2">1-2 Months</h5> 
+          </center>
+          </span>
+          <span class="badge badge-light mb-2 w-100" onclick="f2(this)" value="After 5 months" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" id="${value1}" name="adventure2">
+          <center>
+          <h5 class="mt-2">After 5 months</h5> 
+          </center>
+          </span>
+          </div>`;
+     $('#f1').html(card1)
+  }
+  function f2(e){
+      value1= $(e).attr('value')
+      value2= $(e).attr('id')
+      $('#f1').empty()
+    let card2= `<div class="modal-body">
+          <h3  style="color: black;">Searching best tour destinations of the season! 
+              Please wait.</h3>
+              
+  <img src="https://i.ibb.co/Jcq8M33/giphy.gif" alt="giphy" border="0" width="200px" height="200px"style=" display: block;
+margin-left: auto;
+margin-right: auto;
+width: 50%;">
+
+      </div>`
+      $('#f1').html(card2)
+      setTimeout(function() {
+          $('#f1').empty()
+           n =  new Date();
+           y = n.getFullYear();
+           m = n.getMonth()+1;
+           h = n.getHours();
+           mm= n.getMinutes()
+           d = n.getDate();
+          let date = d + "/" + m + "/" + y +"("+h+":"+mm+")";                 
+          let num=Math.floor(Math.random() * (400 - 100 + 1)) + 100;
+      let card3= `<div class="modal-body">
+          <h3  style="color: black;">Found ${num} results for you...</h3><br>
+          Please provide your contact number, our <b> ${value2} </b> expert will discuss tour package with you over phone call.
+          <form action="\" name="popup">
+              <input type="hidden" value="${date}"   name="Timestamp" ></input>
+              <input type="hidden" value="${value2}" name="Type"></input>
+              <input type="hidden" value="${value1}" name="Time"></input>
+          <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                  <label>Name</label>
+                  <input type="text" class="form-control" name="Name" required>
+              </div>
+              <div class="form-group col-md-6 mb-0">
+                  <label>Phone Number</label>
+                  <input type="tel" class="form-control" name="Phone" required>
+              </div>
+          </div>
+  <br>
+         <button type="submit" onclick="finish()" class="btn btn-success btn-block  float-right" >Submit</button>
+  </form>
+          <br><br>
+          <div class="text-center">OR</div>
+          You can directly call our expert now:<br><button onclick="location.href='tel:8882654593'"class="btn btn-danger btn-block"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;8882654593</button>
+      </div>`
+      $('#f1').html(card3)
+  }, 3000);
+  }
+   function finish(){
+const scriptURL = 'https://script.google.com/macros/s/AKfycbz5GdxDJ5-LmqJMEEIZKCQpOT9VRdN4wpqjwnc_4VgVLzqSW-79/exec'
+   const form = document.forms['popup']
+ 
+   form.addEventListener('submit', e => {
+     e.preventDefault()
+     fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+       .then(response => console.log("Thanks for Contacting us..! We Will Contact You Soon..."))
+       .catch(error => console.error('Error!', error.message))
+   })
+   
+   $('#exampleModal').modal('hide')
+   
+  }
+
+
+</script>
+
+<script>
+  function openForm() {
+    document.getElementById("myForm").style.display = "block";
+    
+  }
+  
+  function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+   
+  }
+  function Sub() {
+          document.getElementById("formg").style.display = "none";
+          document.getElementById("fr2").style.display = "block";
+      }
+  </script>
+  <script>
         $('#datepicker').datepicker({
             iconsLibrary: 'fontawesome',
             icons: {
@@ -854,12 +1530,20 @@ function inc(){
         </script>
           <script>
             function filter_data(){
-            var state= `{{state.name}}`
+            var state= `{{state}}`
+            var city= `{{city}}`
+            var slug = `{{slug}}`
             var level = get_filter('level')
             var duration = get_filter('duration')
-            var city= get_filter('city')
+            var citye= get_filter('city')
             var type=get_filter('type')
             var location=get_filter('loc')
+            if (state.length<1){
+                state='None'
+            }
+            if (city.length<1){
+                city='None'
+            }
             var searchh= ''
             var da= ``;
             var formData = {
@@ -867,8 +1551,10 @@ function inc(){
             'duration': duration,
             'state': state,
             'type':type,
-            'city':city,
+            'citye':citye,
+            'slug': slug,
             'loc':location,
+            'category':'Tour',
             'search':searchh,
             'minimum_price':$('#hidden_minimum_price').val(),
             'maximum_price':$('#hidden_maximum_price').val()
@@ -881,7 +1567,8 @@ function inc(){
             beforeSend:function(){
                 $('#products').html('Loading...')
             },
-            success: function(res){
+            success: function(res)
+            {
                 da= da+ res.data
                 document.getElementById('products').innerHTML=da
             }
@@ -903,19 +1590,30 @@ function inc(){
             var state= `{{state.name}}`
             var level = get_filter('level')
             var duration = get_filter('duration')
-            var city= get_filter('city')
+            var citye= get_filter('city')
             var type=get_filter('type')
             var loca=get_filter('loc')
-            
+            var state= `{{state}}`
+            var city= `{{city}}`
+            var slug = `{{slug}}`
+            if (state.length<1){
+                state='None'
+            }
+            if (city.length<1){
+                city='None'
+            }
             var searchh= search
             var da= ``;
             var formData = {
             'level': level,
             'duration': duration,
             'state': state,
+            'city': city,
             'type':type,
-            'city':city,
+            'citye':citye,
+            'slug': slug,
             'loc':loca,
+            'category':'Tour',
             'search':searchh,
             'minimum_price':$('#hidden_minimum_price').val(),
             'maximum_price':$('#hidden_maximum_price').val()
@@ -953,6 +1651,47 @@ function inc(){
                     filter_data();
                 }
             } );
+            $( "#price_range1" ).slider({
+                range: true,
+                min: 1000,
+                max: 100000,
+                values: [ 1000, 100000 ],
+                step:500,
+                slide: function( event, ui ) {
+                    $('#price_show1').html('&#8377;'+ui.values[0]+ '-' +'&#8377;'+ ui.values[1]);
+                },
+                stop:function(event,ui){
+                    $('#price_show1').html('&#8377;'+ui.values[0]+ '-' +'&#8377;'+ ui.values[1]);
+                    $('#hidden_minimum_price').val(ui.values[0]);
+                    $('#hidden_maximum_price').val(ui.values[1]);
+                    filter_data();
+                }
+            } );
+            </script>
+            <script>
+                var width= $(window).width();
+                (function() {
+            window.onresize = displayWindowSize;
+            window.onload = displayWindowSize;
+            
+            function displayWindowSize() {
+            let myWidth = window.innerWidth;
+            if (myWidth<='576'){
+            $('#van').css('display','none')
+            $('#dan').css('display','block')
+            $('#dan').removeClass( "col-lg-9 col-md-9 col-sm-9 col-9" )
+            $('#dan').addClass( "col-lg-12 col-md-12 col-sm-12 col-12 mt-5" )
+            
+            }
+            else{
+            $('#van').css('display','block')
+            $('#dan').removeClass( "col-lg-12 col-md-12 col-sm-12 col-12 mt-5" )
+            $('#dan').addClass( "col-lg-9 col-md-9 col-sm-9 col-9" )
+            }
+            };
+            
+            })();
+            
             </script>
             <script>
                 function myFunction() {
@@ -972,7 +1711,18 @@ function inc(){
     
                   }
                 }
+
+      $("#filterview").click(function(){
+        $('#filterModal').modal('show');
+    });    
+    $("#filterviewclose").click(function(){
+        $('#filterModal').modal('hide');
+    }); 
+    $("#exploreview").click(function(){
+        $('#exampleModa').modal('show');
+    });
     </script>
+
 </body>
 
 </html>
