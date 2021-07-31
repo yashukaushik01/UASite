@@ -1,0 +1,131 @@
+{% load static %}
+{% block content %}
+{% load socialaccount %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Universal Adventures</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KH59H8J');</script>
+
+<!-- End Google Tag Manager -->
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="icon" href={% static './img/uni.png' %} sizes="16x16" type="image/png">
+    <link rel="stylesheet" href={% static 'css/style.css' %}>
+    <link rel="icon" href={% static './img/Universal Adventures Logo.png' %} sizes="16x16" type="image/png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/owl.carousel.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/magnific-popup.css' %}>
+    <link rel="stylesheet" href={% static 'css/font-awesome.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/themify-icons.css' %}>
+    <link rel="stylesheet" href={% static 'css/nice-select.css' %}>
+    <link rel="stylesheet" href={% static 'css/flaticon.css' %}>
+    <link rel="stylesheet" href={% static 'css/gijgo.css' %}"">
+    <link rel="stylesheet" href={% static ' css/animate.css' %}>
+    <link rel="stylesheet" href={% static 'css/slick.css' %}>
+    <link rel="stylesheet" href={% static 'css/slicknav.css' %}>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+</head>
+
+<body onload="generatePDF()">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <div id="invoice" class="container ">
+        <div class="row" style="margin-top:10px;">
+            <div class="col-6">
+                <img class="" style="height: 80px;border-radius: 50%;" alt="User Picture" src={% static 'img//Universal Adventures Logo.png' %}>
+            </div> 
+            <div class="col-6 center">
+                <p><b style="color: black;">Date: </b><span id="datetime"></span></p>
+                            
+            </div>
+        </div>
+        <div class="detail">
+            <p><b style="color: black;">Adventure Name: </b>{{purchase.product.name}} </p>
+            <p><b style="color: black;">Payment status:</b>{{purchase.status}} </p>
+            <p><b style="color: black;">Date of Book: </b>{{purchase.date}} </p>
+            <p><b style="color: black;">Number of Adult: </b>{{purchase.days}} </p>
+            <p><b style="color: black;">Date of Booking: </b>{{purchase.created}} </p>
+            <p><b style="color: black;">Booking Amount: </b>{{purchase.orderAmount}} </p>
+            <p><b style="color: black;">Booking Reference Id: </b>{{purchase.referenceId}} </p>
+        </div> 
+        <div class="last">
+            <h3>Person Detail</h3>
+            <p><b style="color: black;">Name: </b> {{purchase.user.get_full_name}}</p>
+            <p><b style="color: black;">Email: </b>{{purchase.user.email}} </p>
+            <p><b style="color: black;">Phone Number:</b>{{purchase.user.phone}} </p>
+        </div> 
+        <div class="foot text-center">
+            <p><b style="color: black;">www.universaladventures.in</b></p>
+        </div>
+
+    </div>
+
+    <script src={% static 'js/vendor/modernizr-3.5.0.min.js' %}></script>
+    <script src={% static 'js/vendor/jquery-1.12.4.min.js' %}></script>
+    <script src={% static 'js/popper.min.js' %}></script>
+    <script src={% static 'js/bootstrap.min.js' %}></script>
+    <script src={% static 'js/owl.carousel.min.js' %}></script>
+    <script src={% static 'js/isotope.pkgd.min.js' %}></script>
+    <script src={% static 'js/ajax-form.js' %}></script>
+    <script src={% static 'js/waypoints.min.js' %}></script>
+    <script src={% static 'js/jquery.counterup.min.js' %}></script>
+    <script src={% static 'js/imagesloaded.pkgd.min.js' %}></script>
+    <script src={% static 'js/scrollIt.js' %}></script>
+    <script src={% static 'js/jquery.scrollUp.min.js' %}></script>
+    <script src={% static 'js/wow.min.js' %}""></script>
+    <script src={% static 'js/nice-select.min.js' %}></script>
+    <script src={% static 'js/jquery.slicknav.min.js' %}></script>
+    <script src={% static 'js/jquery.magnific-popup.min.js' %}""></script>
+    <script src={% static 'js/plugins.js' %}></script>
+    <script src={% static 'js/gijgo.min.js' %}></script>
+    <script src={% static 'js/slick.min.js' %}></script>
+
+
+
+    <!--contact js-->
+
+    <script src={% static 'js/contact.js' %}></script>
+    <script src={% static 'js/jquery.ajaxchimp.min.js' %}></script>
+    <script src={% static 'js/jquery.form.js' %}></script>
+    <script src={% static 'js/jquery.validate.min.js' %}></script>
+    <script src={% static 'js/mail-script.js' %}></script>
+
+
+    <script src={% static 'js/main.js' %}></script>
+<script src={% static 'js/html2pdf.bundle.min.js' %}></script>
+<script>
+    var dt = new Date();
+    document.getElementById("datetime").innerHTML = dt.toLocaleString();
+    </script>
+    <script>
+      function generatePDF() {
+        // Choose the element that our invoice is rendered in.
+        const element = document.getElementById("invoice");
+        // Choose the element and save the PDF for our user.
+        html2pdf()
+          .from(element)
+          .save();
+        
+          setTimeout(function(){var ww = window.open(window.location, '_self'); ww.close(); }, 500)
+      }
+    </script>
+    
+</body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Universal Adventures</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="icon" href={% static './img/uni.png' %} sizes="16x16" type="image/png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
+
+<body>
+    <div class="popular_destination_area">
+    <div class="container">
+        <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section_title text-center mb_70">
+                        <h1>Popular Tag Entry Form</h1>
+                    </div>
+                </div>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>Name of the Tag*</label>
+            <input type="text" class="form-control" name="name" required><br>
+            <label>Link of the Tag*</label>
+            <input type="text" class="form-control" name="link" required><br>
+            <label>Tag Description*</label>
+            <select  name="tag"  class="form-control">
+                <option selected="selected" disabled>Select Tag:</option>
+                <option value="Index Tag">Index Tag</option>
+                <option value="Goa">Goa</option>
+                <option value="Himachal">Himachal</option>
+                <option value="Kashmir">Kashmir</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="Manali">Manali</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Rishikesh">Rishikesh</option>
+                <option value="Ladakh">Ladakh</option>
+                <option value="Agra">Agra</option>
+            </select>
+            <input type="submit" value="Create" class="btn-danger">
+        </form>
+    </div>
+    </div>
+
+
+</body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,1244 @@
+﻿{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Universal Adventures</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ <!-- Google Tag Manager -->
+<script src="https://cdn.tiny.cloud/1/2n06ucf71roagptkroonkrn3btoomt1rrw0na61zi98zhb6w/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+tinymce.init({selector:'#textarea-main'})
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KH59H8J');
+</script>
+
+
+<!-- End Google Tag Manager -->
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="icon" href={% static './img/uni.png' %} sizes="16x16" type="image/png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/owl.carousel.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/magnific-popup.css' %}>
+    <link rel="stylesheet" href={% static 'css/font-awesome.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/themify-icons.css' %}>
+    <link rel="stylesheet" href={% static 'css/nice-select.css' %}>
+    <link rel="stylesheet" href={% static 'css/flaticon.css' %}>
+    <link rel="stylesheet" href={% static 'css/gijgo.css' %}"">
+    <link rel="stylesheet" href={% static ' css/animate.css' %}>
+    <link rel="stylesheet" href={% static 'css/slick.css' %}>
+    <link rel="stylesheet" href={% static 'css/slicknav.css' %}>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+
+    <link rel="stylesheet" href={% static 'css/style.css' %}>
+    <link rel="stylesheet" href={% static 'css/tagsinput.css' %}>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <style>
+        .form-control:focus {
+            box-shadow: none;
+        }
+
+        .form-control-underlined {
+            border-width: 0;
+            border-bottom-width: 1px;
+            border-radius: 0;
+            padding-left: 0;
+        }
+        .form-control::placeholder {
+            font-size: 0.95rem;
+            color: #aaa;
+            font-style: italic;
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+</head>
+<script>
+    var state_arr = new Array("Himachal","kerela","GOA","Darjeeling-Sikkim","Kashmir","Rajasthan");
+    var agent_arr = new Array("Aditya","Naval","Charan Reddy","Sunny","Shivani Kapoor","Suraj Kumar","Aswini");
+    var days = new Array("2 Nights 3 Days"," 3 Nights 4 Days","4 Nights 5 Days","5 Nights 6 Days","6 Nights 7 Days"," 7 Nights 8 Days","8 Nights 9 Days ","9 Nights 10 Days","10 Nights 11 Days","11 Nights 12 Days","12 Nights 13 Days");
+var s_a = new Array();
+s_a[0]="";
+s_a[1]=" Delhi Airport/Railway Station/ Bus Terminus | Chandigarh Airport/Railway Station/ Bus Terminus | Shimla Railway Station/ Bus Terminus | Manali Bus Terminus | Dharamshala Bus Terminus | Dalhousie Bus Terminus | Amritsar Airport/Railway Station/ Bus Terminus";
+s_a[2]=" Cochin Airport/ Railway Station |Trivandrum Airport/ Railway station";
+s_a[3]=" Airport/ Railway Station, Goa |Bus Terminus, Goa";
+s_a[4]="Bagdogra / NJP Airport/Railway station| Gangtok Airport";
+s_a[5]="Srinagar Airport/Bus Terminus";
+s_a[6]=" Adra | Alipurduar | Amlagora | Arambagh | Asansol | Balurghat | Bankura | Bardhaman | Basirhat | Berhampur | Bethuadahari | Birbhum | Birpara | Bishanpur | Bolpur | Bongoan | Bulbulchandi | Burdwan | Calcutta | Canning | Champadanga | Contai | Cooch Behar | Daimond Harbour | Dalkhola | Dantan | Darjeeling | Dhaniakhali | Dhuliyan | Dinajpur | Dinhata | Durgapur | Gangajalghati | Gangarampur | Ghatal | Guskara | Habra | Haldia | Harirampur | Harishchandrapur | Hooghly | Howrah | Islampur | Jagatballavpur | Jalpaiguri | Jhalda | Jhargram | Kakdwip | Kalchini | Kalimpong | Kalna | Kandi | Karimpur | Katwa | Kharagpur | Khatra | Krishnanagar | Mal Bazar | Malda | Manbazar | Mathabhanga | Medinipur | Mekhliganj | Mirzapur | Murshidabad | Nadia | Nagarakata | Nalhati | Nayagarh | Parganas | Purulia | Raiganj | Rampur Hat | Ranaghat | Seharabazar | Siliguri | Suri | Takipur | Tamluk";
+
+var s_b = new Array();
+s_b[0]="";
+s_b[1]=" Delhi to Shimla Transfer (overnight by bus) | Delhi to Manali (overnight by bus) | Chandigarh to Shimla (day trip by car) | Chandigarh to Manali (overnight by bus) | Kalka to Shimla (by car) | Pathankot to Dalhousie (by car) | Amritsar to Dharamshala (by car) | Shimla Local Exploration | Shimla-Kufri Exploration | Shimla to Delhi Departure (by bus) | Shimla to manali Transfer | Manali to Shimla Transfer | Manali Local Exploration | Manali-Solang Valley Exploration | Kullu Exploration | Kasol-Manikaran Exploration | Manali to Delhi Departure (by bus) | Manali to Chandigarh (by car) | Manali to Dharamshala Transfer | Dharamshala Local Exploration | Dharamshala to Dalhousie | Dalhousie-Khajjiar Exploration | Dalhousie to Pathankot Departure (by car) | Pathankot to Delhi Departure (by Bus/Train) | Dalhousie to Delhi Departure (by Bus)";
+s_b[2]=" Day 1- Welcome to Cochin, Transfer to Munnar | Day 2 - Sightseeing tour of Munnar | Day 3 - Munnar to Thekkady & Jungle Safari | Day 4 - Thekkady Sightseeing | Day 5 - Thekkady to Alleppey & the houseboat stay | Day 5 - Munnar to Alleppey & the houseboat stay | Day 6 - Alleppey Houseboat to Cochin & Sightseeing | Day 7 – Departure from Cochin | Other activity";
+s_b[3]=" Airport/Railway Station to Hotel Transfer | South Goa Exploration | North Goa Exploration | Adventure Boat Party | Dudhsagar Waterfall Trip | Scuba Diving and 5 Water Sports at Island | Scuba Diving and 5 Water Sports at Malvan | Goa Island Tour | Bungee Jumping | Flyboard | Paragliding or Power Paragliding | Leisure Day | Departure|Other Activities You Can Choose:";
+s_b[4]=" Day 1: Arrival at Airport/Railway station & Gangtok Transfer  | Day 2 - Gangtok Local Sightseeing: | Day 3 Gangtok city tour & transfer to Pelling | Day 4 Pelling city tour & transfer to Darjeeling | Day 5 - Gangtok to Darjeeling | Day 6 - Tiger Hill and Darjeeling Sight Seeing | Transfer to Airport/Railway station & Departure | Day 3 - Gangtok – Lachung | Day 4 - Lachung Yumthang Valley – Gangtok | Day 4 - Lachen - Gurudongmar lake – Lachung";
+s_b[5]=" Day 1: Arrival at Airport & Houseboat Stay | Day 2: Srinagar to Gulmarg & Full Day Excursion  | Day 3: Srinagar to Pehalgam & Exploration | Day 4: Pehalgam to Srinagar & Exploration | Day 5: Srinagar to Sonamarg & Full Day Excursion | Transfer to Airport & Departure";
+s_b[6]=" Delhi to Shimla Transfer By AC Volvo Bus | Shimla Arrival and Local Sightseeing | Shimla to Manali transfer & Sightseeing | Manali Local Sightseeing | Manali-Solang Sightseeing | Manali to Dharamshala Transfer | Dharamshala – Dalhousie transfer | Dalhousie – Khajjiar Sightseeing | Dalhousie - Pathankot - Delhi Transfer";
+
+var s_c = new Array();
+s_c[0]="";
+s_c[1]=" Shimla | Manali | Dharamshala | Kasol / Manikaran | Dalhousie | Chandigarh | Amritsar";
+s_c[2]=" Cochin|Munnar|Thekkady|Alleppey|Kovalam";
+s_c[3]=" North Goa | South Goa"
+s_c[4]=" Gangtok|Darjeeling|Pelling|Lachung|Lachen";
+s_c[5]="Srinagar | Pahalgam | Gulmarg | Sonamarg";
+s_c[6]=" Adra | Alipurduar | Amlagora | Arambagh | Asansol | Balurghat | Bankura | Bardhaman | Basirhat | Berhampur | Bethuadahari | Birbhum | Birpara | Bishanpur | Bolpur | Bongoan | Bulbulchandi | Burdwan | Calcutta | Canning | Champadanga | Contai | Cooch Behar | Daimond Harbour | Dalkhola | Dantan | Darjeeling | Dhaniakhali | Dhuliyan | Dinajpur | Dinhata | Durgapur | Gangajalghati | Gangarampur | Ghatal | Guskara | Habra | Haldia | Harirampur | Harishchandrapur | Hooghly | Howrah | Islampur | Jagatballavpur | Jalpaiguri | Jhalda | Jhargram | Kakdwip | Kalchini | Kalimpong | Kalna | Kandi | Karimpur | Katwa | Kharagpur | Khatra | Krishnanagar | Mal Bazar | Malda | Manbazar | Mathabhanga | Medinipur | Mekhliganj | Mirzapur | Murshidabad | Nadia | Nagarakata | Nalhati | Nayagarh | Parganas | Purulia | Raiganj | Rampur Hat | Ranaghat | Seharabazar | Siliguri | Suri | Takipur | Tamluk";
+
+var s_d = new Array();
+s_d[0]="";
+s_d[1]=`<h4><span style="color: #ff6600;">Day 1: Delhi to Shimla Transfer By AC Volvo Bus</span></h4><ul>\n\n<li>Start your journey from Delhi To Shimla by AC Volvo Bus.</li>\n\n<li>Relax and get ready for the next day of your adventure trip.</li></ul> | <h4><span style="color: #ff6600;">Day 1 &ndash; Delhi to Manali(Overnight by Bus)</span></h4><ul>\n\n<li>On your first day of the trip, you will travel from Delhi to Manali overnight by Volvo bus.</li>\n\n<li>&nbsp;Travel with utmost comfort and reliability.</li></ul> | <h4><span style="color: #ff6600;">Day 1 &ndash; Chandigarh to Shimla(Day Trip by Personal Vehicle)</span></h4><ul>\n\n<li>&nbsp;Enjoy your day trip from Chandigarh to Shimla by personal vehicle.</li>\n\n<li>&nbsp;Travel with utmost comfort and reliability.</li>\n\n<li>&nbsp;Reach the destination by evening and check-in at the hotel at Shimla.</li></ul> | <h4><span style="color: #ff6600;">Day 1: Chandigarh to Shimla Transfer By AC Volvo Bus</span></h4><ul>\n\n<li>Start your journey from Chandigarh To Shimla by AC Volvo Bus.</li>\n\n<li>Relax and get ready for the next day of your adventure trip.</li></ul> | <h4><span style="color: #ff6600;">Day 1: Kalka To Shimla(By Personal Vehicle)</span></h4><ul>\n\n<li>Get into the personal vehicle &amp; Drive towards Shimla from Kalka.</li>\n\n<li>Shimla is the capital of Himachal Pradesh &amp; the former summer capital of the British Raj known as the queen of hills, which offer some of the most beautiful views of the Himalayas.</li>\n\n<li>&nbsp;Check into the hotel and overnight at Shimla.</li></ul> | <h4><span style="color: #ff6600;">Day 1 &ndash; Pathankot to Dalhousie(Day Trip by Personal Vehicle)</span></h4><ul>\n\n<li>&nbsp;Enjoy your day trip from Pathankot to Dalhousie by personal vehicle.</li>\n\n<li>&nbsp;Travel with utmost comfort and reliability.</li>\n\n<li>&nbsp;Reach the destination by evening and check-in at the hotel at Dalhousie.</li></ul> | <h4><span style="color: #ff6600;">Day 5: Amritsar to Dharamsala Transfer(By Personal Vehicle)</span></h4><ul>\n\n<li>Enjoy your journey from Amritsar to Dharamsala by persona vehicle.</li>\n\n<li>On arrival at Dharamsala after 5 hours of your journey, check in to your hotel and get relaxed.</li>\n\n<li>Explore local markets nearby your hotel in the evening.</li>\n\n<li>Overnight stay at hotel in Dharamsala.&nbsp;&nbsp;</li></ul> | <h4><span style="color: #ff6600;">Day 2 - Shimla Local Exploration</span></h4><ul>\n\n<li>Reach Shimla &amp; Check-in into your hotel. Get fresh &amp; relax.</li>\n\n<li>On the second day of your Shimla Kullu Manali package, you will enjoy a local sightseeing tour of Shimla.</li>\n\n<li>Head for a fun-filled sightseeing tour and visit the top attractions of Shimla including the Mall, Jakhoo Temple, The Ridge, and Himachal State Museum.</li>\n\n<li>Spend the rest of the day at leisure, strolling on the streets, shopping for souvenirs, or just relaxing.</li>\n\n<li>Your overnight stay will be in your hotel in Shimla.</li></ul> | <h4><span style="color: #ff6600;">Day 3 &ndash; Shimla- Kufri Exploration</span></h4><ul>\n\n<li>Wake up to your last day at Shimla and enjoy a scrumptious 
+    breakfast at your hotel.</li>\n\n<li>Start your journey to explore Kufri &amp; Nearby places</li>\n\n<li>Experience Skiing, Horse Riding, Yak Rides, Zipline, etc. visit Kufri Fun World, Mahasu peak, etc</li>\n\n<li>Spend the rest of the day at leisure, strolling on the streets, shopping for souvenirs, or just relaxing.</li>\n\n<li>Your overnight stay will be in your hotel in Shimla.</li></ul> | <h4><span style="color: #ff6600;">Day 6 - Departure from Shimla(By Volvo Bus)</span></h4><ul>\n\n<li>The sixth day of your Shimla Kullu Manali tour package will be the last day of your holiday tour.</li>\n\n<li>Wake up to your last serene morning in the hills and enjoy your final breakfast in Shimla.</li>\n\n<li>Get ready and check-out of your hotel in Shimla.</li>\n\n<li>You will now be transferred to Delhi by bus to catch your flight to proceed on your onward journey towards home.</li></ul> | <h4><span style="color: #ff6600;">Day 3 &ndash; Transfer from Shimla to Manali</span></h4><ul>\n\n<li>The third day of your Shimla Kullu Manali tour package will take you to Manali from Shimla.</li>\n\n<li>Wake up to your last day at Shimla and enjoy a scrumptious breakfast at your hotel.</li>\n\n<li>Check-out from your Shimla hotel and proceed to Manali by road through the hill station of Kullu.</li>\n\n<li>Halt at Kullu for enjoying fun-filled local sightseeing, visiting the top attractions of the hill town including Kullu Valley, Pandoh Dam, Sundar Nagar Lake, Hanogi Mata Temple, Kullu Shawl Factories, and Vaishno Devi Temple.</li>\n\n<li>Arrive at Manali by evening after covering a distance of around 290 kilometers.</li>\n\n<li>Check-in to your Manali hotel, freshen up and relax for some time.</li>\n\n<li>Spend the rest of the day at leisure, standing on your balcony and soaking in the scenic beauty of the place.</li>\n\n<li>Your overnight stay will be at a hotel in Manali.</li></ul> | <h4><span style="color: #ff6600;">Day 3 &ndash; Transfer from Manali to Shimla</span></h4><ul>\n\n<li>The third day of your Shimla Kullu Manali tour package will take you to Shimla from Manali.</li>\n\n<li>Wake up to your last day at Manali and enjoy a scrumptious breakfast at your hotel.</li>\n\n<li>Check-out from your Manali hotel and proceed to Manali by road through the hill station of Kullu.</li>\n\n<li>Halt at Kullu for enjoying fun-filled local sightseeing, visiting the top attractions of the hill town including Kullu Valley, Pandoh Dam, Sundar Nagar Lake, Hanogi Mata Temple, Kullu Shawl Factories, and Vaishno Devi Temple.</li>\n\n<li>Arrive at Shimla by evening after covering a distance of around 290 kilometers.</li>\n\n<li>Check-in to your Shimla hotel, freshen up and relax for some time.</li>\n\n<li>Spend the rest of the day at leisure, standing on your balcony and soaking in the scenic beauty of the place.</li>\n\n<li>Your overnight stay will be at a hotel in Shimla.</li></ul> | <h4><span style="color: #ff6600;">Day 5 - Manali Local Exploration</span></h4><ul>\n\n<li>On the five days of your Shimla Kullu Manali package, you will enjoy a local sightseeing tour of Manali.</li>\n\n<li>Wake up to the refreshing morning of Manali and take a good breakfast at the hotel.</li>\n\n<li>Head for a joyous sightseeing tour of Manali and visit the top attractions of the hill station including Hadimba Temple, and Vashisht Temple.</li>\n\n<li>Spend the rest of the day at leisure, walking on the streets, shopping for souvenirs, or relishing the local cuisine.</li>\n\n<li>Overnight stay at hotel in Manali.</li></ul> | <h4><span style="color: #ff6600;">Day 6 - Manali-Solang Valley Exploration</span></h4><ul>\n\n<li>The six-day of your Shimla Kullu Manali tour package will take you on an outing to Solang Valley.</li>\n\n<li>Wake up to yet another cool morning of Manali and enjoy a piping hot breakfast.</li>\n\n<li>Solang Valley, you will proceed on your journey right after breakfast.</li>\n\n<li>Once you reach the site, you can experience a plethora of adventurous activities including skiing, paragliding, horse riding, and zorbing (Extra Charges)</li>\n\n<li>Overnight stay at hotel in Manali.</li></ul> | <h4><span style="color: #ff6600;">Day 4 &ndash; Kullu Exploration</span></h4><ul>\n\n<li>Wake up in the morning and enjoy a wholesome breakfast after freshening up yourself.</li>\n\n<li>Today you will be taken to the Kullu for local sightseeing.</li>\n\n<li>Explore nearby places of Great Himalayan National Park, Raghunath Temple,&nbsp; Beas river.&nbsp;</li>\n\n<li>Enjoy your remaining day at leisure.</li>\n\n<li>Return back to Manali after undergoing the delightful activities &amp; sightseeing.</li>\n\n<li>Later, Back to the hotel after having dinner outside.</li></ul> | <h4><span style="color: #ff6600;">Day 5 &ndash; Kasol and Manikaran Exploration.</span></h4><ul>\n\n<li>Wake up in the morning and enjoy a delicious breakfast.</li>\n\n<li>Checkout from hotel &amp; Move to Kasol &amp; Manikaran</li>\n\n<li>Reach Kasol &amp; Checkin to Campsite.&nbsp;</li>\n\n<li>Visit Manikaran Gurudwara, Hot water spring &amp; Shiv temple.</li>\n\n<li>Explore Local kasol &amp; back to the campsite for musical bonefire&nbsp;</li>\n\n<li>After dinner, stay in camp overnight.</li></ul> | <h4><span style="color: #ff6600;">Day 5 &ndash; Manali to Delhi(By Volvo AC Bus)</span></h4><ul>\n\n<li>You will reach delhi in a very comfort way by Volvo AC bus.</li>\n\n<li>You can catch Bus/Train/Flight towards your Home.</li>\n\n<li>On 5th Day, the delightful journey comes to an end where you shall be reaching Delhi conveniently. Cherish the memories that you witnessed throughout the journey.</li></ul> | <h4><span style="color: #ff6600;">Day 1 &ndash; Manali to Chandigarh( Trip by Personal Vehicle)</span></h4><ul>\n\n<li>&nbsp;Enjoy your trip from Manali to Chandigarh by personal vehicle.</li>\n\n<li>&nbsp;Travel with utmost comfort and reliability.</li>\n\n<li>&nbsp;Reach the destination by evening and check-in at the hotel at Chandigarh.</li>\n\n<li>&nbsp;Explore the local market near hotel.</li></ul> | <h4><span style="color: #ff6600;">Day 6: Manali-Dharamshala Transfer</span></h4><ul>\n\n<li>After breakfast drive to Dharamshala from Manali has everything for a perfect holiday.</li>\n\n<li>&nbsp;Covering a wide area in the form of a twin settlement, Lower Dharamsala (1380m) is a busy commercial center. While upper Dharamsala (1830m) with the suburbs of Mcleodganj and Forsyth Ganj, retains a British flavor and colonial lifestyle on the way to visit Palampur Tea Gardens.&nbsp;</li>\n\n<li>On arrival check into the hotel and overnight at Dharamshala.</li></ul> | <h4><span style="color: #ff6600;">Day 4: Dharamshala Local Exploration</span></h4><ul>\n\n<li>Today wake up at Dharamshala &amp; have a delicious breakfast.&nbsp;</li>\n\n<li>
+    You can explore the local market. near your hotel.</li>\n\n<li>&nbsp;If you're an adventure enthusiast, you can do an adventurous trek to Triund which is 9 km from Mcleodganj. you can easily cover the trekking in a single day or you can spend overnight in a tent at Triund top &amp; witness the most beautiful sky along with glittering Dharamshala.</li>\n\n<li>Return back to Hotel &amp; overnight stay at Dharamshala.</li></ul> | <h4><span style="color: #ff6600;">Day 7: Dharamshala &ndash; Dalhousie (160kms/4-5hrs)</span></h4><ul>\n\n<li>After breakfast drive towards Dalhousie situated at 2039 meters in the outer slopes of the DhaulaDhar range with its natural beauty and natural surroundings.</li>\n\n<li>Arrive &amp; transfer to hotel. Dalhousie still has a touch of the British Raj and its colonial-style building and houses bring back the flavors of an earlier era.</li>\n\n<li>&nbsp;On arrival visit Panch Pulla, Subhash Baoli, Mall Road.</li>\n\n<li>&nbsp;Overnight stay at hotel in Dalhousie.</li></ul> | <h4><span style="color: #ff6600;">Day 8: Dalhousie &ndash;Khajjiar Exploration</span></h4><ul>\n\n<li>After breakfast, we proceed to Khajjiar. Often called India's Switzerland, Along its fringes, thick forests of deodar climb the slopes, the snow-line rests above these woods, and in the center of the glade, is a small lake fed by streams that traverse the green carpet.</li>\n\n<li>&nbsp;Khajjiar was probably a glacial bowl formed during the last Himalayan ice age and left with a lake that gradually withered away.</li>\n\n<li>&nbsp;Khajjiar is part of the notified Kalatop - Khajjiar sanctuary &amp; returns back to Dalhousie.&nbsp;</li>\n\n<li>Overnight stay at hotel in Dalhousie.</li></ul> | <h4><span style="color: #ff6600;">Day 5: Dalhousie to Pathankhot Transfer(By Personal Vehicle)</span></h4><ul>\n\n<li>Enjoy your journey from Dalhousie to Pathankot by personal vehicle.</li>\n\n<li>On arrival at Pathankot after 3 hours of your journey, check in to your hotel and get relaxed.</li>\n\n<li>Explore local markets nearby your hotel in the evening.</li>\n\n<li>Overnight stay at hotel in Pathankot.&nbsp;&nbsp;</li></ul> | <h4><span style="color: #ff6600;">Day 6 - Departure from Pathankot(By Volvo Bus)</span></h4><ul>\n\n<li>The sixth day of your Himachal tour package will be the last day of your holiday tour.</li>\n\n<li>Wake up to your last serene morning in the hills and enjoy your final breakfast in Pathankot.</li>\n\n<li>Get ready and check-out of your hotel in Pathankot.</li>\n\n<li>You will now be transferred to Delhi by bus to catch your flight to proceed on your onward journey towards home.</li></ul> | <h4><span style="color: #ff6600;">Day 6 - Dalhousie to Delhi Departure(By Volvo Bus)</span></h4><ul>\n\n<li>The sixth day of your Himachal tour package will be the last day of your holiday tour.</li>\n\n<li>Wake up to your last serene morning in the hills and enjoy your final breakfast in Dalhousie.</li>\n\n<li>Get ready and check-out of your hotel in Dalhousie.</li>\n\n<li>You will now be transferred to Delhi by bus to catch your flight to proceed on your onward journey towards home.</li></ul>`;
+s_d[2]='<h4><span style="color: #ff6600;">Day 1- Welcome to Cochin, Transfer to Munnar</span></h4><ul>\n\n<li>Arrival at Cochin International Airport / Railway station</li>\n\n<li>Move to Munnar in a personal vehicle</li>\n\n<li>Enjoy the Sightseeing such as Tea Garden, Cheeyappara Waterfalls and Valara waterfalls&nbsp; on the way to munnar&nbsp;</li>\n\n<li>Check-in to your hotel at Munnar &amp; Overnight stay</li>\n\n<li>Distance from Cochin to Munnar:&nbsp;130 km</li>\n\n<li>Travel Time (Cochin to Munnar):&nbsp;Approx. 3.5 hours</li></ul> | <h4><span style="color: #ff6600;">Day 2 - Sightseeing tour of Munnar</span></h4><ul>\n\n<li>Have breakfast &amp; get ready for full day sightseeing</li>\n\n<li>Visit Pothamedu, the sweeping Mattupetty and Kundala Dam, Echo Point,</li>\n\n<li>Visit Eravikulam National Park and Tea Museum along with enjoying a boating stint in the lake.&nbsp;</li>\n\n<li>Opt out for paragliding in Munnar Hills.</li>\n\n<li>Overnight stay at Hotel in Munnar</li></ul> | <h4><span style="color: #ff6600;">Day 3 - Munnar to Thekkady &amp; Jungle Safari</span></h4><ul>\n\n<li>Get up early to enjoy sunrise and breakfast before proceeding to Thekkady.</li>\n\n<li>Upon arrival , check-in at hotel in Thekkady.</li>\n\n<li>In evening enjoy scenic Periyar Lake and glimpse of wildlife like varieties of birds.</li>\n\n<li>Enjoy a Jungle Safari in the Periyar National Park.</li>\n\n<li>Overnight stay at hotel in Thekkady,</li>\n\n<li>Distance from Munnar to Thekkady: 94 km</li>\n\n<li>Travel Time (Munnar to Thekkady): Approx. 3 hours.</li></ul> | <h4><span style="color: #ff6600;">Day 4 - Thekkady Sightseeing </span></h4><ul>\n\n<li>Get up early to enjoy sunrise and breakfast at Thekkady.</li>\n\n<li>Spend a memorable day for sightseeing in lap of nature.</li>\n\n<li>Enjoy the optional activities like boating in Periyar Lake.</li>\n\n<li>Visit Spice plantations,bamboo rafting and elephant rides.</li>\n\n<li>Overnight stay at hotel in Thekkady.</li></ul> | <h4><span style="color: #ff6600;">Day 5 - Thekkady to Alleppey &amp; the houseboat stay</span></h4><ul>\n\n<li>After a healthy&nbsp; breakfast ,embark on the journey towards&nbsp; next destination Alleppey.</li>\n\n<li>Check-in houseboat at Alleppey ,the most awaited part.</li>\n\n<li>Have a delicious lunch on the houseboat and relax across backwaters of Alleppey</li>\n\n<li>Overnight stay at houseboat in Alleppey.</li>\n\n<li>Distance from Thekkady to Alleppey: 140 km</li>\n\n<li>Travel Time (Thekkady to Alleppey): Approx. 4 hours.</li></ul> | <h4><span style="color: #ff6600;">Day 5 - Munnar to Alleppey &amp; the houseboat stay</span></h4><ul>\n\n<li>After a healthy breakfast, embark on the journey towards next destination Alleppey.</li>\n\n<li>Check-in houseboat at Alleppey, the most awaited part.</li>\n\n<li>Have a delicious lunch on the houseboat and relax across the backwaters of Alleppey</li>\n\n<li>Overnight stay at houseboat in Alleppey.</li>\n\n<li>Distance from Thekkady to Alleppey: 140 km</li>\n\n<li>Travel Time (Thekkady to Alleppey): Approx. 4 hours.</li></ul> | <h4><span style="color: #ff6600;">Day 6 - Alleppey Houseboat to Cochin &amp; Sightseeing</span></h4><ul>\n\n<li>Get up early to see sunrise and get a chance to see fishermen catching fish.</li>\n\n<li>Check&nbsp; out from houseboat&nbsp; and proceed to Cochin.</li>\n\n<li>Check in to your hotel and later in day get ready for sightseeing expedition&nbsp;</li>\n\n<li>Enjoy sightseeing including Fort Cochin ,Mattancherry Palace,St.Francis Church etc</li>\n\n<li>Take a leisure walk at the Marine Drive and splendid views of the sunset.</li>\n\n<li>Overnight stay at Hotel in Alleppey.</li>\n\n<li>Distance between Alleppey to Cochin is 50 Kms / 1 hour by road.</li></ul> | <h4><span style="color: #ff6600;">Day 7 &ndash; Departure from Cochin </span></h4><ul>\n\n<li>Have delicious breakfast and checkout from hotel.</li>\n\n<li>Proceed to Cochin Airport for your onward journey back home.</li></ul> | <h4><span style="color: #ff6600;">Other Activities You Can Choose:</span></h4><p>⚡ Paragliding</p><p>⚡ Hot Air Balloon</p><p>⚡ Jungle Jeep Safari</p><p>⚡ Kayaking</p>';
+s_d[3]='<h4><span style="color: #ff6600;">Day 1: Airport/Railway Station to Hotel Transfer</span></h4><ul>\n\n<li>Pickup from Airport/Railway Station and Transfer</li>\n\n<li>Check-in to your hotel, get fresh and relax if required</li>\n\n<li>This is your Leisure day. You can customize any adventure activity from us.</li>\n\n<li>Take a walk to the nearby beach and explore the local market in the evening</li>\n\n<li>Overnight stay at hotel.</li></ul> | <h4><span style="color: #ff6600;">Day 2: South Goa Exploration</span></h4><ul>\n\n<li>Personal Vehicle for Goa Exploration</li>\n\n<li>Pickup Time 9 AM</li>\n\n<li>Mangesh Temple &amp; Balaji Temple</li>\n\n<li>Old Historical Church</li>\n\n<li>Great Goa Museum</li>\n\n<li>Dauna Paula (Singham Point)</li>\n\n<li>Miramar Beach</li>\n\n<li>Panjim City and Shopping Place</li>\n\n<li>Drop Time: 6 PM</li>\n\n<li>Overnight stay at hotel.</li></ul> | <h4><span style="color: #ff6600;">Day 3: North Goa Exploration</span></h4><ul>\n\n<li>Personal Vehicle for Goa Explorations</li>\n\n<li>Pickup at 9 AM</li>\n\n<li>Sinquerim Fort and Chapora Fort</li>\n\n<li>Candolim beach and Calangute Beach</li>\n\n<li>Baga Beach and Vagator beach</li>\n\n<li>Fort Lighthouse</li>\n\n<li>Anjuna beach</li>\n\n<li>Vagator beach</li>\n\n<li>Drop Time: 6 PM</li>\n\n<li>Overnight stay at hotel.</li></ul> | <h4><span style="color: #ff6600;">Day 4: Adventure Boat Party</span></h4><ul>\n\n<li><strong>Inclusion:</strong> Pickup-Drop, Lunch, Beer/softdrink, 7+ Water Activity, DJ Music, Sightseeing and Much More!</li>\n\n<li>Pickup from your hotel at 12:30 AM &amp; You will be taken to the boarding point at Mandovi River for your adventurous party trip in catamaran boat.</li>\n\n<li>Welcome with Beer/Cold drink &amp; Snacks. Take a scenic view of mandovi river while going towards Arabian Sea</li>\n\n<li>Dance to the DJ music at the Boat and also Enjoy the adventurous activities which includes kayaking, swimming and snorkelling, boat trip to the famous attractions points, fishing, dolphin spotting, stand up paddle sailing and many more.</li>\n\n<li>Have the Lunch &amp; Dance to DJ Music.</li>\n\n<li>Return to the hotel at 6:00 PM &amp; Enjoy the night life at beach.</li></ul> | <h4><span style="color: #ff6600;">Day 5: Dudhsagar Waterfall Trip</span></h4><ul>\n\n<li>Pickup Time 5:30 AM - 6 AM (Shared vehicle for pickup-drop)</li>\n\n<li>45 minutes Jungle Tour in Jeep Safari</li>\n\n<li>Waterfall stay 1 to 1:30 hour</li>\n\n<li>Waterfall swimming with life jacket</li>\n\n<li>Spice plantation tour and Delicious lunch with special spices</li>\n\n<li>Old Historical Goa Church Visit</li>\n\n<li>Drop at Hotel: 5:00 PM</li>\n\n<li>Explore Beaches in the evening</li></ul> | <h4><span style="color: #ff6600;">Day 6: Scuba Diving and 5 Water Sports at Island</span></h4><ul>\n\n<li>Pickup Time 7:00 AM to 8:00AM (Shared vehicle for pickup-drop)</li>\n\n<li>45 minutes Boat Tour along with Siteseeing (Dolphins watch, Aguda fort,</li>\n\n<li>Portuges jail, Villa, Miramar beach).</li>\n\n<li>Fresh fruit/Snacks, Mineral Water, Beer/Soft Drink &amp; Buffet lunch (veg/non-veg).</li>\n\n<li>Main Scuba Diving with underwater videos.</li>\n\n<li>5 water sports (Jet ski, Banana ride, Bumper ride, Speed boat, Parasailing)</li>\n\n<li>Drop Time: 5:00 PM</li>\n\n<li>Explore Beaches in the evening</li></ul> | <h4><span style="color: #ff6600;">Day 7: Scuba Diving and 5 Water Sports at Malvan</span></h4><ul>\n\n<li>Pickup Time 7:00 AM to 8:00AM (Shared vehicle for pickup-drop)</li>\n\n<li>Breakfast, Mineral Water, &amp; Buffet lunch (veg/non-veg).</li>\n\n<li>Main Scuba Diving with underwater videos.</li>\n\n<li>5 water sports (Jet ski, Banana ride, Bumper ride, Speed boat, Parasailing)</li>\n\n<li>Drop Time: 4:00 PM</li>\n\n<li>Explore Beaches in the evening.</li></ul> | <h4><span style="color: #ff6600;">Day 8: Goa Island Tour</span></h4><ul>\n\n<li>Pickup Time 7:30 AM &ndash; 8:00AM (Shared vehicle for pickup-drop)</li>\n\n<li>45 minutes Boat Tour, Sightseeing (dolphins watch, aguda fort, Portuges jail villa, Miramar beach).</li>\n\n<li>Fresh fruit/Snacks, Mineral Water, Beer/Soft Drink &amp; Buffet lunch (veg/non-veg).</li>\n\n<li>Drop Time: 4:00 PM</li>\n\n<li>Explore Beaches in the evening.</li></ul> | <h4><span style="color: #ff6600;">Day 9: Bungee Jumping</span></h4><ul>\n\n<li>Reach to the Bungee Jumping Point by your own vehicle or by Paid taxi (price not included)</li>\n\n<li>Get Ready to jump from 61 m high Bungee point.</li>\n\n<li>Enjoy the mesmerising view of goa from top.</li>\n\n<li>Inclusion: Bungee Jump Photos, Video &amp; Certificate</li>\n\n<li>Enjoy the rest of the time as leisure.</li></ul> | <h4><span style="color: #ff6600;">Day 10: Flyboard</span></h4><ul>\n\n<li>Reach to the Bungee Jumping Point by your own vehicle or by Paid taxi (price not included)</li>\n\n<li>Get flyboard training &amp; useful instructions.</li>\n\n<li>Enjoy 25 minutes flyboard. Our instructure will assist you through out the activity.</li>\n\n<li>Return back to Hotel. Enjoy rest of the time as leisure time.</li></ul> | <h4><span style="color: #ff6600;">Day 11: Paragliding or Power Paragliding</span></h4><ul>\n\n<li>Reach to the Paragliding location by your own vehicle or pickup can be provided(extra charges).</li>\n\n<li>Enjoy the scenic view of Arabian sea &amp; beautiful Goa beaches while flying like an Eagle.</li>\n\n<li>Enjoy 10 minutes Air time of Paragliding or Power Paragliding (Motor Paragliding)</li>\n\n<li>Enjoy rest of the day as leisure.</li></ul> | <h4><span style="color: #ff6600;">Day 12: Leisure Day</span></h4><ul>\n\n<li>This whole day will be leisure day.</li>\n\n<li>Opt for any adventure activity on this day like Scuba Diving, Water sports, Flyboard, Bungee Jump, Hot air balloon etc.</li>\n\n<li>Get a Bike/scooty/scooter to explore near by places</li>\n\n<li>Explore your near by beach &amp; Goa&rsquo;s Local cuisine</li>\n\n<li>You can visit to the In water Casino at Mandovi river</li>\n\n<li>Visit Titos Lane, LPK Club if you are party enthusiast.</li></ul> | <h4><span style="color: #ff6600;">Day 13: Departure</span></h4><ul>\n\n<li>After Breakfast, explore near by market for shopping.</li>\n\n<li>Checkout from hotel &amp; Drive to Airport/ Railway station.</li></ul> | <h4><span style="color: #ff6600;">Other Activities You Can Choose:</span></h4><p>⚡ Scuba Diving + Water Sports</p><p>⚡ Dudhsagar waterfall</p><p>⚡ Flyboard</p><p>⚡ Paragliding</p><p>⚡ Motor Paragliding</p><p>⚡ Bungee Jumping</p><p>⚡ Hot Air Balloon</p><p>⚡ Island Tour</p><p>⚡ Adventure Boat Party</p><p>⚡ Self Driving Vehicle</p>'
+s_d[4]=`<h4><span style="color: #ff6600;">Day 1 - Arrival at Airport/Railway Station and Gangtok Transfer (125km | 4 Hours)</span></h4><ul>\n\n<li>As you arrive at the airport/railway station, our representative will transfer you to the capital of Sikkim, Gangtok.</li>\n\n<li>Here, after check-in, the rest of the day is for you to spend on your leisure, which you can use to explore the famous M G Marg.</li>\n\n<li>Overnight at hotel.</li></ul> | <h4><span style="color: #ff6600;">Day 2 - Gangtok Local Sightseeing: Tsongmo Lake | Baba Mandir</span></h4><ul>\n\n<li>After breakfast this morning, you will leave to enjoy the beautiful sights of Gangtok. The tour starts with you visiting the glacial lake of Tsongmo at the height of 3,780 m above sea level. At just 40 km from the city, the oval-shaped lake is famously the home of Brahminy Ducks and experiences a good number of migratory birds throughout the year.</li>\n\n<li>17 km from the lake is the famous shrine of Baba Harbhajan Singh, called the Baba Mandir.</li>\n\n<li>Return to Gangtok and spend another amazing night here.</li></ul> | <h4><span style="color: #ff6600;">Day 3 - Gangtok city tour &amp; transfer to Pelling</span></h4><ul>\n\n<li>Have a filling breakfast and set off for a half-day city tour of Gangtok. First up on the third day of your Sikkim trip itinerary is a visit to the Banjhakri Waterfalls. Next, visit the Dro-Dul Chorten Stupa &amp; Research Institute of Tibetology.</li>\n\n<li>Next up is the Directorate of Handicraft and Handloom from where you can buy traditional North Eastern goods like Thangka paintings, carpets, handlooms, wooden carved and painted items, wooden masks, and many more. Later, explore Sikkim&rsquo;s monumental range of species of flowers and ferns at the Gangtok Flower Show.</li>\n\n<li>After an eventful day, ride off to Pelling, the next and final stop on your intoxicating Sikkim tour. Upon reaching your hotel in Pelling, complete your swift check-in procedure and head to your room. End your day with a sound sleep.</li>\n\n<li>Distance: 130 km (4 hours)</li></ul> 
+| <h4><span style="color: #ff6600;">Day 4 - Pelling city tour &amp; transfer to Darjeeling</span></h4><ul>\n\n<li>Post a wholesome breakfast at the hotel, proceed for a full day city tour of Pelling.</li>\n\n<li>First up on your Sikkim holiday itinerary is Darap Village - a small photogenic hamlet known for its vibrant culture, lively traditions, and its stunning location. Also, visit Rimbi Waterfalls, Khecheopalri Lake, and the bewitchingly beautiful Kanchenjunga Waterfalls. What follows is the Pemayangtse Monastery, Rabdentse Ruins, &amp; the New Helipad Ground, which is essentially a peak point that offers stunning views of the town and the surrounding hills, especially at night.</li>\n\n<li>After a spirited day out in Pelling, proceed to Darjeeling. Upon your arrival at your hotel in Darjeeling, complete your quick check-in formalities and head to your room.</li>\n\n<li>End this action-packed day of your 4 days Sikkim vacation with some refreshing sleep,</li>\n\n<li>Distance: 80km (3 hours)</li></ul> | <h4><span style="color: #ff6600;">Day 5 - Gangtok to Darjeeling</span></h4><ul>\n\n<li>After breakfast transfer from Gangtok to Darjeeling. En route, experience the beautiful view of the valley 
+    surrounded by lush green heavenly plants. Evening free to go around the Mall Road for some shopping and experiencing local cuisine.</li>\n\n<li>Overnight at Darjeeling.</li></ul> | <h4><span style="color: #ff6600;">Day 6 - Tiger Hill and Darjeeling Sight Seeing</span></h4><ul>\n\n<li>Early morning (4 am) visit Tiger hill, Batasia Loop, and Ghoom Monastery. After the return has your breakfast and proceeds for sightseeing. Overnight at Darjeeling.</li>\n\n<li>Sightseeing includes -</li></ul><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Zoological Park</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Himalayan Mountaineering Institute</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Tibetan Refugee Self Help Center</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Tensing Rock</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Japanese Temple</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Toy Train Trip</p> | <h4><span style="color: #ff6600;">Day 7 - Transfer to Airport/Railway Station &amp; Departure</span></h4><ul>\n\n<li>Drive to Siliguri, on the way to Bagdogra Airport (IXB) / New Jalpaiguri Railway Station (NJP) (120 kilometers, 2 &frac12; - 3 hours) - Morning breakfast .</li>\n\n<li>After breakfast transfer to Bagdogra Airport (IXB) / New Jalpaiguri Railway Station (NJP) /Siliguri - Guest are advised to start early and not to rush - Forwarding Journey.</li></ul> | <h4><span style="color: #ff6600;">Day 3 &ndash; Gangtok to Lachung</span></h4><ul>\n\n<li>After having breakfast, proceed for excursion trip to Lachung</li>\n\n<li>Forest grove of KabiLang chuk.</li>\n\n<li>Glorious view of Kanchenjunga</li>\n\n<li>Visit Chungthang</li>\n\n<li>Views of Vimala waterfalls</li>\n\n<li>Overnight stay at hotel in Lachung.</li></ul> | <h4><span style="color: #ff6600;">Day 4 - Lachung Yumthang Valley &ndash; Gangtok</span></h4><ul>\n\n<li>Early Morning after breakfast visit Yumthang-valley (known as Valley of Flowers), Yumthang is the summer grazing ground of the yaks &amp; winter playgrounds of yetis.</li>\n\n<li>On the way back visit the Hot Spring considered to have medicinal properties. Back to the resort for lunch and transfer to Gangtok.</li>\n\n<li>Overnight stay at Gangtok hotel.</li></ul> 
+    | <h4><span style="color: #ff6600;">Day 4 - Lachen - Gurudongmar lake &ndash; Lachung</span></h4><ul>\n\n<li>&nbsp;Start early at 4 am, morning breakfast at Thangu then<br />proceed for an excursion trip through the Kanchenjunga<br />The national park, to Gurudongmar Lake.</li>\n\n<li>After visit return to Lachen post lunch transfer to Lachung.</li>\n\n<li>En-route visit at, The confluence of Lachen Chu and Lachung Chu at<br />Chungthang.</li>\n\n<li>Overnight dinner and stay at Lachung hotel.</li></ul> `;
+s_d[5]=`<h4><span style="color: #ff6600;">Day 1 Srinagar: Arrival at Airport &amp; Houseboat Stay</span></h4><ul>/n/n<li>On arrival at the Srinagar Airport, you will be welcomed by the agent&rsquo;s representative who will then transfer you to a jetty around the Dal Lake</li>/n/n<li>The houseboats in Dal Lake are docked at the jetty and are perfect for a romantic stay in Srinagar.</li>/n/n<li>After check-in and lunch in the houseboat, you can relax for a while. Later in the evening, you will be taken for a Shikara ride to Nehru Park.&nbsp;</li>/n/n<li>Call it a day with a delicious dinner in the houseboat. Overnight stay will be in the houseboat.</li></ul><h4>Distance from Srinagar Airport to Dal Lake: 24 km</h4> | <h4><span style="color: #ff6600;">Day 2: Srinagar to Gulmarg &amp; Full Day Excursion</span></h4><ul>/n/n<li>On day 2 of your Kashmir holiday package, wake up to a beautiful morning and enjoy a hearty and nutritious breakfast in the houseboat.&nbsp;</li>/n/n<li>Soon after, check-out to proceed for Gulmarg.</li>/n/n<li>Once you reach the destination, check into the hotel and get ready for a day out with family.&nbsp;</li>/n/n<li>Have a gala time in Gulmarg with leisure activities such as golf, nature walks, and bird watching.</li>/n/n<li>Pony rides are quite fun for kids, whereas Gondola rides towards Apharwat are popular among both young and older members.</li>/n/n<li>In the evening, check-in to the hotel for dinner and overnight stay.</li></ul><h4>Optional: Pony rides &amp; gondola ride (charges extra)</h4><h4>Distance from Dal Lake to Gulmarg: 56 km (approx.)</h4><h4>Travel Time: 1 hour, 30 minutes (approx.)</h4> | <h4><span style="color: #ff6600;">Day 3: Srinagar to Pahalgam &amp; Exploration</span></h4><ul>/n/n<li>After breakfast, checkout from the hotel as you will be transferred to Pahalgam.</li>/n/n<li>&nbsp;Home to some amazing sceneries, Pahalgam captivates with lush saffron fields and Anantnag Sulpher Springs en route.</li>/n/n<li>Have lunch at a local restaurant and enjoy the rest of the day with your family.&nbsp;</li>/n/n<li>The Amusement Park by the Lidder River is perfect for a complete family outing. It has exciting rides for all, especially the younger ones in the family.&nbsp;</li>/n/n<li>&nbsp;You can enjoy pony rides to Baisaran, Betaab Valley, and Chandanwari.</li>/n/n<li>In the evening, you will be picked up from Gulmarg and transferred to Srinagar.&nbsp;</li>/n/n<li>Head to the hotel in Srinagar for check-in, dinner, and overnight stay.</li>/n/n<li>Distance from Gulmarg to Pahalgam: 140 km (approx.)</li>/n/n<li>Distance from Pahalgam to Srinagar: 88 km (approx.)</li></ul> | <h4><span style="color: #ff6600;">Day 4: Pahalgam to Srinagar &amp; Exploration</span></h4><ul>/n/n<li>Drive back to Srinagar and explore Mughal Gardens in Kashmir Valley</li>/n/n<li>After enjoying breakfast in Pahalgam, hop in your cab to return to Srinagar as per your Jammu and Kashmir tour itinerary.</li>/n/n<li>&nbsp;Take a guided sightseeing tour of terraced Mughal Gardens in Srinagar such as Shalimar, Nishat Garden, Pari Mahal, Chashma Shahi Garden, and more.</li>/n/n<li>&nbsp;Start your walk in the Old City of Kashmir from Lal Chowk to explore intricate wooden windows, Sufi mosques, winding alleys, the shrine of Shahi-Hamdan, and more.&nbsp;</li>/n/n<li>Check into your hotel for an overnight stay in Srinagar.</li></ul> | <h4><span style="color: #ff6600;">Day 5: Srinagar to Sonamarg &amp; Full Day Excursion</span></h4><ul>/n/n<li>Day 5 of your Kashmir itinerary is in Sonamarg.&nbsp;</li>/n/n<li>After a filling breakfast at the hotel in Srinagar, head to the serene valley of Sonamarg.</li>/n/n<li>&nbsp;Enjoy a pony ride at the Thajiwas Glacier. You can also visit Khir-Bhawani and Narang temples.</li>/n/n<li>In the evening, you will be taken back to the hotel in Srinagar for dinner and an overnight stay.</li>/n/n<li>Optional: Pony ride (charges extra)</li>/n/n<li>Distance from Srinagar to Sonamarg: 80 km (approx.)</li>/n/n<li>Travel Time: 1 hour 45 minutes per side.</li></ul> | <h4><span style="color: #ff6600;">Day 6 Srinagar: Departure from Srinagar</span></h4><ul>/n/n<li>Departure</li>/n/n<li>It is time to bid adieu to paradise and board the flight back home.</li>/n/n<li>Return to Srinagar after your breakfast in Gulmarg. Enjoy the drive as it&rsquo;s the final day of your Kashmir tour itinerary.</li>/n/n<li>You will be dropped at the airport to catch your flight back home or your next destination.</li></ul>`
+s_d[6]=" Adra | Alipurduar | Amlagora | Arambagh | Asansol | Balurghat | Bankura | Bardhaman | Basirhat | Berhampur | Bethuadahari | Birbhum | Birpara | Bishanpur | Bolpur | Bongoan | Bulbulchandi | Burdwan | Calcutta | Canning | Champadanga | Contai | Cooch Behar | Daimond Harbour | Dalkhola | Dantan | Darjeeling | Dhaniakhali | Dhuliyan | Dinajpur | Dinhata | Durgapur | Gangajalghati | Gangarampur | Ghatal | Guskara | Habra | Haldia | Harirampur | Harishchandrapur | Hooghly | Howrah | Islampur | Jagatballavpur | Jalpaiguri | Jhalda | Jhargram | Kakdwip | Kalchini | Kalimpong | Kalna | Kandi | Karimpur | Katwa | Kharagpur | Khatra | Krishnanagar | Mal Bazar | Malda | Manbazar | Mathabhanga | Medinipur | Mekhliganj | Mirzapur | Murshidabad | Nadia | Nagarakata | Nalhati | Nayagarh | Parganas | Purulia | Raiganj | Rampur Hat | Ranaghat | Seharabazar | Siliguri | Suri | Takipur | Tamluk";
+
+
+function print_state(state_id){
+// given the id of the <select> tag as function argument, it inserts <option> tags
+var option_str = document.getElementById(state_id);
+option_str.length=0;
+option_str.options[0] = new Option('Select Location','');
+option_str.selectedIndex = 0;
+for (var i=0; i<state_arr.length; i++) {
+    option_str.options[option_str.length] = new Option(state_arr[i],state_arr[i]);
+}
+}
+
+function agent_names(agent_id){
+// given the id of the <select> tag as function argument, it inserts <option> tags
+var option_str = document.getElementById(agent_id);
+option_str.length=0;
+option_str.options[0] = new Option('Select Agent','');
+option_str.selectedIndex = 0;
+for (var i=0; i<agent_arr.length; i++) {
+    option_str.options[option_str.length] = new Option(agent_arr[i],agent_arr[i]);
+}
+}
+function print_days(state_id){
+// given the id of the <select> tag as function argument, it inserts <option> tags
+var option_str = document.getElementById(state_id);
+option_str.length=0;
+option_str.options[0] = new Option('Select Days','');
+option_str.selectedIndex = 0;
+for (var i=0; i<days.length; i++) {
+    option_str.options[option_str.length] = new Option(days[i],days[i]);
+}
+}
+
+function print_city(city_id, city_index){
+var option_str = document.getElementById(city_id);
+option_str.length=0;	// Fixed by Julian Woods
+option_str.options[0] = new Option('Select City','');
+option_str.selectedIndex = 0;
+var city_arr = s_a[city_index].split("|");
+for (var i=0; i<city_arr.length; i++) {
+    option_str.options[option_str.length] = new Option(city_arr[i],city_arr[i]);
+}
+}
+
+function print_city2(city_id, city_index){
+var option_str = document.getElementById(city_id);
+option_str.length=0;	// Fixed by Julian Woods
+option_str.options[0] = new Option('Select City','');
+option_str.selectedIndex = 0;
+var city_arr = s_a[city_index].split("|");
+for (var i=0; i<city_arr.length; i++) {
+    option_str.options[option_str.length] = new Option(city_arr[i],city_arr[i]);
+}
+}
+function iterary(city_id, city_index){
+var option_str = document.getElementsByClassName(city_id);
+for(var t=0; t<=11;t++)
+{
+option_str[t].length=0;	// Fixed by Julian Woods
+option_str[t].options[0] = new Option('Select Heading','');
+option_str[t].selectedIndex = 0;
+var city_arr = s_b[city_index].split("|");
+for (var i=0; i<city_arr.length; i++) {
+    option_str[t].options[option_str[t].length] = new Option(city_arr[i],city_arr[i]);
+}
+}	
+}
+function hotels(city_id, city_index){
+var option_str = document.getElementsByClassName(city_id);
+for(var t=0; t<=11;t++)
+{
+option_str[t].length=0;	// Fixed by Julian Woods
+option_str[t].options[0] = new Option('Select Location','');
+option_str[t].selectedIndex = 0;
+var city_arr = s_c[city_index].split("|");
+for (var i=0; i<city_arr.length; i++) {
+    option_str[t].options[option_str[t].length] = new Option(city_arr[i],city_arr[i]);
+}
+}	
+}
+function text(city_id, city_index,location){
+var option_str = document.getElementById(city_id);
+var id;
+if (location==="Himachal")
+{
+ id=1
+}
+if (location==="kerela")
+{
+ id=2
+}
+if (location==="GOA")
+{
+ id=3
+}
+if (location==="Darjeeling and Sikkim")
+{
+ id=4
+}
+if (location==="Kashmir")
+{
+ id=5
+}
+if (location==="Rajasthan")
+{
+ id=6
+}
+var city_arr = s_d[id].split("|");
+var value=city_arr[city_index-1];
+$(option_str).summernote('reset');
+$(option_str).summernote('pasteHTML', value);
+}	
+
+function Agent(city_id,city_index){
+var option_str = document.getElementById(city_id);
+var id;
+if (city_index==1)
+{
+ id=8882654593
+}
+if (city_index==2)
+{
+ id=8630767663
+}
+if (city_index==3)
+{
+ id=7288920559
+}
+if (city_index==4)
+{
+ id=9528812938
+}
+if (city_index==5)
+{
+ id=08092849233
+}
+if (city_index==6)
+{
+ id=9911668810
+}
+if (city_index==7)
+{
+ id=8847633907
+}
+console.log(id);
+$(option_str).val(id);
+}
+
+</script>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <nav class="navbar  navbar-expand-lg  fixed-top navbar-light" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/"><img
+                    src={% static 'img//Universal Adventures Logo.png' %} width="70px">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#adv">Welcome Admin!</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="popular_destination_area">
+    <div class="container">
+        <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section_title text-center mb_70">
+                        <h3>Add Itinerary</h3>
+                    </div>
+                </div>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h1 class="mt-3">User Detail</h1>
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Phone*</label>
+                    <input type="text" class="form-control" name="phone" required>
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    <label>Name*</label>
+                    <input type="text" class="form-control" name="name" required>
+                </div>
+            </div>
+            <h1 class="mt-3">Trip Summary</h1>
+            <div class="form-row">   
+                <div class="form-group col-md-3 mb-0">
+                    <label>location*</label>
+                    <select name="location" id="location" onchange="print_city('start_loc', this.selectedIndex);print_city2('end_loc', this.selectedIndex);iterary('days_schedule', this.selectedIndex);hotels('hotel_location', this.selectedIndex); " id="location" class="form-control">
+                </select>
+                <script language="javascript">print_state("location");</script>
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    <label>no of days*</label>
+                    <select name="days" class="form-control" onchange="iterary('iterary', this.selectedIndex)" id="days">
+                </select>
+                <script language="javascript">print_days("days");</script>
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    <label>no of persons*</label>
+                    <input type="text" class="form-control" name="person" required>
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    <label>Tour category*</label>
+                    <select name="category"  class="form-control">
+                            <option selected="selected" disabled>Select Tour category:</option>
+                            <option value="Honemoon Special"> Honemoon Special</option>
+                            <option value=" Family Trip"> Family Trip</option>
+                            <option value=" Bachelor Trip"> Bachelor Trip</option>
+                            <option value="Romantic Trip"> Romantic Trip</option>
+                            <option value="Budget Trip"> Budget Trip</option>
+                            <option value="Fixed Departure"> Fixed Departure</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                        <label> Hotel type*</label>
+                        <select name="hotel_type"  class="form-control">
+                         <option selected="selected" disabled>Select Hotel type:</option>
+                         <option value="Flat">Flat</option>
+                         <option value="Villa">Villa</option>
+                         <option value="Budget Hotel">Budget Hotel</option>
+                         <option value="2 Star">2 Star</option>
+                         <option value="3 Star">3 Star</option>
+                         <option value="4 Star">4 Star</option>
+                         <option value="5 Star">5 Star</option>
+                         <option value="Standard Room">Standard Room</option>
+                         <option value="Deluxe Room">Deluxe Room</option>
+                         <option value="Luxury Room">Luxury Room</option>
+                        </select>
+                </div>
+                 <div class="form-group col-md-3 mb-0">
+                    <label>Meal Type*</label>
+                    <select name="meal_type"  class="form-control">
+                    <option selected="selected" disabled>Meal type:</option>
+                    <option value="No Meal">No Meal</option> 
+                    <option value="Customized Meal">Customized Meal</option>
+		            <option value="Breakfast">Breakfast</option> 
+                    <option value="Breakfast + Dinner">Breakfast + Dinner</option> 
+                </select>    
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    <label>vehicle*</label>
+                    <select  name="vehicle"  class="form-control">
+                    <option selected="selected" disabled>Select Vehicle type:</option>
+                    <option value="Swift DZire or Similar">Swift DZire or Similar</option> 
+                    <option value="Innova/Ertiga">Innova/Ertiga</option> 
+                    <option value="Traveller or Similar">Traveller or Similar</option>
+                </select>
+                </div>
+                </div>
+            <div class="form-row"> 
+                <div class="form-group col-md-3 mb-0">
+                    <label>Start Location*</label>
+                    <select name ="start_loc" id="start_loc" class="form-control" required class="form-control">
+                   </select>     
+                 </div>
+                 <div class="form-group col-md-3 mb-0">
+                    <label>End Location*</label>
+                    <select name ="end_loc" id="end_loc" class="form-control" required class="form-control">
+                   </select>     
+                 </div>
+                 <div class="form-group col-md-9 mb-0">
+                    <label>Other Inclusion</label>
+                    <textarea id="summernote" class="form-control" name="other_inclusion"></textarea>
+                 </div>
+            </div>
+            <h1 class="mt-3">Days schedule</h1>
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                  <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Add days schedule
+                      </button>
+                    </h2>
+                  </div>
+              
+                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-2 mb-0">
+                                <label>Select Day</label>
+                                <select name ="days1" id="days1" class="form-control">
+                                    <option selected="selected" disabled>Select Day</option>
+                                    <option value="Day 1">1</option>
+                                    <option value="Day 2">2</option>
+                                    <option value="Day 3">3</option>
+                                    <option value="Day 4">4</option>
+                                    <option value="Day 5">5</option>
+                                    <option value="Day 6">6</option>
+                                    <option value="Day 7">7</option>
+                                    <option value="Day 8">8</option>
+                                    <option value="Day 9">9</option>
+                                    <option value="Day 10">10</option>
+                                    <option value="Day 11">11</option>
+                                    <option value="Day 12">12</option>
+                               </select>     
+                             </div>
+                             <div class="form-group col-md-9 mb-0">
+                                <label>Select Heading</label>
+                                <select class="form-control days_schedule" class="form-control" onchange="text('textdays1', this.selectedIndex, $('#location').val());">
+                                </select> 
+                                <label>Day Itinerary</label>
+                                <textarea id="textdays1"  name="textdays1">
+                                </textarea> 
+                             </div>
+                        </div>
+                        <div id='days_schedule-1' style="display:none;">
+                        <div class="form-row">
+                            <div class="form-group col-md-2 mb-0">
+                                <label>Select Day</label>
+                                <select name ="days2" id="days2" class="form-control">
+                                    <option selected="selected" disabled>Select Day</option>
+                                    <option value="Day 1">1</option>
+                                    <option value="Day 2">2</option>
+                                    <option value="Day 3">3</option>
+                                    <option value="Day 4">4</option>
+                                    <option value="Day 5">5</option>
+                                    <option value="Day 6">6</option>
+                                    <option value="Day 7">7</option>
+                                    <option value="Day 8">8</option>
+                                    <option value="Day 9">9</option>
+                                    <option value="Day 10">10</option>
+                                    <option value="Day 11">11</option>
+                                    <option value="Day 12">12</option>
+                               </select>     
+                             </div>
+                             <div class="form-group col-md-9 mb-0">
+                                <label>Select Heading</label>
+                                <select class="form-control days_schedule" class="form-control" onchange="text('textdays2', this.selectedIndex, $('#location').val());">
+                                </select> 
+                                <label>Day Itinerary</label>
+                                <textarea id="textdays2"  name="textdays2">
+                                </textarea> 
+                             </div>
+                        </div>
+                        </div>
+                        <div id='days_schedule-2' style="display:none;">
+                        <div class="form-row">
+                            <div class="form-group col-md-2 mb-0">
+                                <label>Select Day</label>
+                                <select name ="days3" id="days3" class="form-control">
+                                    <option selected="selected" disabled>Select Day</option>
+                                    <option value="Day 1">1</option>
+                                    <option value="Day 2">2</option>
+                                    <option value="Day 3">3</option>
+                                    <option value="Day 4">4</option>
+                                    <option value="Day 5">5</option>
+                                    <option value="Day 6">6</option>
+                                    <option value="Day 7">7</option>
+                                    <option value="Day 8">8</option>
+                                    <option value="Day 9">9</option>
+                                    <option value="Day 10">10</option>
+                                    <option value="Day 11">11</option>
+                                    <option value="Day 12">12</option>
+                               </select>     
+                             </div>
+                             <div class="form-group col-md-9 mb-0">
+                                <label>Select Heading</label>
+                                <select class="form-control days_schedule" class="form-control" onchange="text('textdays3', this.selectedIndex, $('#location').val());">
+                                </select> 
+                                <label>Day Itinerary</label>
+                                <textarea id="textdays3"  name="textdays3">
+                                </textarea> 
+                             </div>
+                        </div>
+                        </div>
+                        <div id='days_schedule-3' style="display:none;">
+                        <div class="form-row">
+                            <div class="form-group col-md-2 mb-0">
+                                <label>Select Day</label>
+                                <select name ="days4" id="days4" class="form-control">
+                                    <option selected="selected" disabled>Select Day</option>
+                                    <option value="Day 1">1</option>
+                                    <option value="Day 2">2</option>
+                                    <option value="Day 3">3</option>
+                                    <option value="Day 4">4</option>
+                                    <option value="Day 5">5</option>
+                                    <option value="Day 6">6</option>
+                                    <option value="Day 7">7</option>
+                                    <option value="Day 8">8</option>
+                                    <option value="Day 9">9</option>
+                                    <option value="Day 10">10</option>
+                                    <option value="Day 11">11</option>
+                                    <option value="Day 12">12</option>
+                               </select>     
+                             </div>
+                             <div class="form-group col-md-9 mb-0">
+                                <label>Select Heading</label>
+                                <select class="form-control days_schedule" class="form-control" onchange="text('textdays4', this.selectedIndex, $('#location').val());">
+                                </select> 
+                                <label>Day Itinerary</label>
+                                <textarea id="textdays4"  name="textdays4">
+                                </textarea> 
+                             </div>
+                        </div>
+                        </div>
+                        <div id='days_schedule-4' style="display:none;">
+                            <div class="form-row">
+                                <div class="form-group col-md-2 mb-0">
+                                    <label>Select Day</label>
+                                    <select name ="days5" id="days5" class="form-control">
+                                        <option selected="selected" disabled>Select Day</option>
+                                    <option value="Day 1">1</option>
+                                    <option value="Day 2">2</option>
+                                    <option value="Day 3">3</option>
+                                    <option value="Day 4">4</option>
+                                    <option value="Day 5">5</option>
+                                    <option value="Day 6">6</option>
+                                    <option value="Day 7">7</option>
+                                    <option value="Day 8">8</option>
+                                    <option value="Day 9">9</option>
+                                    <option value="Day 10">10</option>
+                                    <option value="Day 11">11</option>
+                                    <option value="Day 12">12</option>
+                                   </select>     
+                                 </div>
+                                 <div class="form-group col-md-9 mb-0">
+                                    <label>Select Heading</label>
+                                    <select class="form-control days_schedule" class="form-control" onchange="text('textdays5', this.selectedIndex, $('#location').val());">
+                                    </select> 
+                                    <label>Day Itinerary</label>
+                                    <textarea id="textdays5"  name="textdays5">
+                                    </textarea> 
+                                 </div>
+                            </div>
+                            </div>
+                        <div id='days_schedule-5' style="display:none;">
+                            <div class="form-row">
+                                <div class="form-group col-md-2 mb-0">
+                                    <label>Select Day</label>
+                                    <select name ="days6" id="days6" class="form-control">
+                                    <option selected="selected" disabled>Select Day</option>
+                                    <option value="Day 1">1</option>
+                                    <option value="Day 2">2</option>
+                                    <option value="Day 3">3</option>
+                                    <option value="Day 4">4</option>
+                                    <option value="Day 5">5</option>
+                                    <option value="Day 6">6</option>
+                                    <option value="Day 7">7</option>
+                                    <option value="Day 8">8</option>
+                                    <option value="Day 9">9</option>
+                                    <option value="Day 10">10</option>
+                                    <option value="Day 11">11</option>
+                                    <option value="Day 12">12</option>
+                                   </select>     
+                                 </div>
+                                 <div class="form-group col-md-9 mb-0">
+                                    <label>Select Heading</label>
+                                    <select class="form-control days_schedule" class="form-control" onchange="text('textdays6', this.selectedIndex, $('#location').val());">
+                                    </select> 
+                                    <label>Day Itinerary</label>
+                                    <textarea id="textdays6"  name="textdays6">
+                                    </textarea> 
+                                 </div>
+                            </div>
+                            </div>
+                            <div id='days_schedule-6' style="display:none;">
+                                <div class="form-row">
+                                    <div class="form-group col-md-2 mb-0">
+                                        <label>Select Day</label>
+                                        <select name ="days7" id="days7" class="form-control">
+                                            <option selected="selected" disabled>Select Day</option>
+                                            <option value="Day 1">1</option>
+                                            <option value="Day 2">2</option>
+                                            <option value="Day 3">3</option>
+                                            <option value="Day 4">4</option>
+                                            <option value="Day 5">5</option>
+                                            <option value="Day 6">6</option>
+                                            <option value="Day 7">7</option>
+                                            <option value="Day 8">8</option>
+                                            <option value="Day 9">9</option>
+                                            <option value="Day 10">10</option>
+                                            <option value="Day 11">11</option>
+                                            <option value="Day 12">12</option>
+                                       </select>     
+                                     </div>
+                                     <div class="form-group col-md-9 mb-0">
+                                        <label>Select Heading</label>
+                                        <select class="form-control days_schedule" class="form-control" onchange="text('textdays7', this.selectedIndex, $('#location').val());">
+                                        </select> 
+                                        <label>Day Itinerary</label>
+                                        <textarea id="textdays7"  name="textdays7">
+                                        </textarea> 
+                                     </div>
+                                </div>
+                                </div>
+                                <div id='days_schedule-7' style="display:none;">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Select Day</label>
+                                            <select name ="days8" id="days8" class="form-control">
+                                                <option selected="selected" disabled>Select Day</option>
+                                                <option value="Day 1">1</option>
+                                                <option value="Day 2">2</option>
+                                                <option value="Day 3">3</option>
+                                                <option value="Day 4">4</option>
+                                                <option value="Day 5">5</option>
+                                                <option value="Day 6">6</option>
+                                                <option value="Day 7">7</option>
+                                                <option value="Day 8">8</option>
+                                                <option value="Day 9">9</option>
+                                                <option value="Day 10">10</option>
+                                                <option value="Day 11">11</option>
+                                                <option value="Day 12">12</option>
+                                           </select>     
+                                         </div>
+                                         <div class="form-group col-md-9 mb-0">
+                                            <label>Select Heading</label>
+                                            <select class="form-control days_schedule" class="form-control" onchange="text('textdays8', this.selectedIndex, $('#location').val());">
+                                            </select> 
+                                            <label>Day Itinerary</label>
+                                            <textarea id="textdays8"  name="textdays8">
+                                            </textarea> 
+                                         </div>
+                                    </div>
+                                    </div>
+                                    <div id='days_schedule-8' style="display:none;">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-2 mb-0">
+                                                <label>Select Day</label>
+                                                <select name ="days9" id="days9" class="form-control">
+                                                    <option selected="selected" disabled>Select Day</option>
+                                                    <option value="Day 1">1</option>
+                                                    <option value="Day 2">2</option>
+                                                    <option value="Day 3">3</option>
+                                                    <option value="Day 4">4</option>
+                                                    <option value="Day 5">5</option>
+                                                    <option value="Day 6">6</option>
+                                                    <option value="Day 7">7</option>
+                                                    <option value="Day 8">8</option>
+                                                    <option value="Day 9">9</option>
+                                                    <option value="Day 10">10</option>
+                                                    <option value="Day 11">11</option>
+                                                    <option value="Day 12">12</option>
+                                               </select>     
+                                             </div>
+                                             <div class="form-group col-md-9 mb-0">
+                                                <label>Select Heading</label>
+                                                <select class="form-control days_schedule" class="form-control" onchange="text('textdays9', this.selectedIndex, $('#location').val());">
+                                                </select> 
+                                                <label>Day Itinerary</label>
+                                                <textarea id="textdays9"  name="textdays9">
+                                                </textarea> 
+                                             </div>
+                                        </div>
+                                        </div>
+                                        <div id='days_schedule-9' style="display:none;">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-2 mb-0">
+                                                    <label>Select Day</label>
+                                                    <select name ="days9" id="days9" class="form-control">
+                                                        <option selected="selected" disabled>Select Day</option>
+                                                        <option value="Day 1">1</option>
+                                                        <option value="Day 2">2</option>
+                                                        <option value="Day 3">3</option>
+                                                        <option value="Day 4">4</option>
+                                                        <option value="Day 5">5</option>
+                                                        <option value="Day 6">6</option>
+                                                        <option value="Day 7">7</option>
+                                                        <option value="Day 8">8</option>
+                                                        <option value="Day 9">9</option>
+                                                        <option value="Day 10">10</option>
+                                                        <option value="Day 11">11</option>
+                                                        <option value="Day 12">12</option>
+                                                   </select>     
+                                                 </div>
+                                                 <div class="form-group col-md-9 mb-0">
+                                                    <label>Select Heading</label>
+                                                    <select class="form-control days_schedule" class="form-control" onchange="text('textdays10', this.selectedIndex, $('#location').val());">
+                                                    </select> 
+                                                    <label>Day Itinerary</label>
+                                                    <textarea id="textdays10"  name="textdays10">
+                                                    </textarea> 
+                                                 </div>
+                                            </div>
+                                            </div>
+                                            <div id='days_schedule-10' style="display:none;">
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-2 mb-0">
+                                                        <label>Select Day</label>
+                                                        <select name ="days11" id="days11" class="form-control">
+                                                            <option selected="selected" disabled>Select Day</option>
+                                                            <option value="Day 1">1</option>
+                                                            <option value="Day 2">2</option>
+                                                            <option value="Day 3">3</option>
+                                                            <option value="Day 4">4</option>
+                                                            <option value="Day 5">5</option>
+                                                            <option value="Day 6">6</option>
+                                                            <option value="Day 7">7</option>
+                                                            <option value="Day 8">8</option>
+                                                            <option value="Day 9">9</option>
+                                                            <option value="Day 10">10</option>
+                                                            <option value="Day 11">11</option>
+                                                            <option value="Day 12">12</option>
+                                                       </select>     
+                                                     </div>
+                                                     <div class="form-group col-md-9 mb-0">
+                                                        <label>Select Heading</label>
+                                                        <select class="form-control days_schedule" class="form-control" onchange="text('textdays11', this.selectedIndex, $('#location').val());">
+                                                        </select> 
+                                                        <label>Day Itinerary</label>
+                                                        <textarea id="textdays11"  name="textdays11">
+                                                        </textarea> 
+                                                     </div>
+                                                </div>
+                                                </div>
+                                                <div id='days_schedule-11' style="display:none;">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-2 mb-0">
+                                                            <label>Select Day</label>
+                                                            <select name ="days12" id="days12" class="form-control">
+                                                                <option selected="selected" disabled>Select Day</option>
+                                                                <option value="Day 1">1</option>
+                                                                <option value="Day 2">2</option>
+                                                                <option value="Day 3">3</option>
+                                                                <option value="Day 4">4</option>
+                                                                <option value="Day 5">5</option>
+                                                                <option value="Day 6">6</option>
+                                                                <option value="Day 7">7</option>
+                                                                <option value="Day 8">8</option>
+                                                                <option value="Day 9">9</option>
+                                                                <option value="Day 10">10</option>
+                                                                <option value="Day 11">11</option>
+                                                                <option value="Day 12">12</option>
+                                                           </select>     
+                                                         </div>
+                                                         <div class="form-group col-md-9 mb-0">
+                                                            <label>Select Heading</label>
+                                                            <select class="form-control Days_schedule" class="form-control" onchange="text('textdays12', this.selectedIndex, $('#location').val());">
+                                                            </select> 
+                                                            <label>Day Itinerary</label>
+                                                            <textarea id="textdays12"  name="textdays12">
+                                                            </textarea> 
+                                                         </div>
+                                                    </div>
+                                                    </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-0">
+                            <br />
+                            <button type="button" class="btn btn-outline-info" onclick="dayScheduleDisplay()">
+                                Add Another days schedule
+                            </button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+     
+            <h1 class="mt-3">Hotel Details</h1>
+            <div class="accordion" id="accordionExample2">
+                <div class="card">
+                  <div class="card-header" id="headingOne2">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2">
+                        Add Hotel Details
+                      </button>
+                    </h2>
+                  </div>
+                  <div id="collapseOne2" class="collapse" aria-labelledby="headingOne2" data-parent="#accordionExample2">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-3 mb-0">
+                                <label>Hotel Location</label>
+                                <select name ="hotel_location1" id="hotel_location1" class="form-control hotel_location">
+                               </select>     
+                             </div>
+                             <div class="form-group col-md-2 mb-0">
+                                <label>Nights</label>
+                                <select name ="hotel_nights1" id="hotel_nights1" class="form-control"  class="form-control">
+                                    <option selected="selected" disabled>Select nights</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                               </select>     
+                             </div>
+                             <div class="form-group col-md-3 mb-0">
+                                <label>Meal Type</label>
+                                <select name="meal_type1"  class="form-control" >
+                                <option selected="selected" disabled>Meal type:</option>
+                                <option value="Breakfast">Breakfast</option> 
+                                <option value="Breakfast & Dinner">Breakfast & Dinner</option> 
+                                <option value="Breakfast,Lunch & Dinner">Breakfast, Lunch & Dinner</option> 
+                                <option value="No Meal Available">No Meal Available</option>  
+                            </select>      
+                             </div>
+                             <div class="form-group col-md-1 mb-0">
+                                <label>no of rooms</label>
+                                <input type="text" class="form-control" name="hotel_rooms1" >       
+                             </div>
+                             <div class="form-group col-md-3 mb-0">
+                                <label>Hotel Name</label>
+                                <input type="text" class="form-control" name="hotel_name1" >       
+                             </div>
+                        </div>
+                        <div id='Hotel_schedule-1' style="display:none;">
+                        <div class="form-row">
+                            <div class="form-group col-md-3 mb-0">
+                                <label>Hotel Location</label>
+                                <select name ="hotel_location2" id="hotel_location2" class="form-control hotel_location"  class="form-control" >
+                               </select>     
+                             </div>
+                             <div class="form-group col-md-2 mb-0">
+                                <label>Nights</label>
+                                <select name ="hotel_nights2" id="hotel_nights2" class="form-control"  class="form-control">
+                                    <option selected="selected" disabled>Select nights</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                               </select>     
+                             </div>
+                             <div class="form-group col-md-3 mb-0">
+                                <label>Meal Type</label>
+                                <select name="meal_type2"  class="form-control" >
+                                <option selected="selected" disabled>Meal type:</option>
+                                <option value="Breakfast">Breakfast</option> 
+                                <option value="Breakfast & Dinner">Breakfast & Dinner</option> 
+                                <option value="Breakfast,Lunch & Dinner">Breakfast, Lunch & Dinner</option> 
+                                <option value="No Meal Available">No Meal Available</option>  
+                            </select>      
+                             </div>
+                             <div class="form-group col-md-1 mb-0">
+                                <label>no of rooms</label>
+                                <input type="text" class="form-control" name="hotel_rooms2" >       
+                             </div>
+                             <div class="form-group col-md-3 mb-0">
+                                <label>Hotel Name</label>
+                                <input type="text" class="form-control" name="hotel_name2" >       
+                             </div>
+                            </div>
+                        </div>
+                        <div id='Hotel_schedule-2' style="display:none;">
+                            <div class="form-row">
+                                <div class="form-group col-md-3 mb-0">
+                                    <label>Hotel Location</label>
+                                    <select name ="hotel_location3" id="hotel_location3" class="form-control hotel_location"  class="form-control" >
+                                   </select>     
+                                 </div>
+                                 <div class="form-group col-md-2 mb-0">
+                                    <label>Nights</label>
+                                    <select name ="hotel_nights3" id="hotel_nights3" class="form-control"  class="form-control">
+                                        <option selected="selected" disabled>Select nights</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                   </select>     
+                                 </div>
+                                 <div class="form-group col-md-3 mb-0">
+                                    <label>Meal Type</label>
+                                    <select name="meal_type3"  class="form-control" >
+                                    <option selected="selected" disabled>Meal type:</option>
+                                    <option value="Breakfast">Breakfast</option> 
+                                    <option value="Breakfast & Dinner">Breakfast & Dinner</option> 
+                                    <option value="Breakfast,Lunch & Dinner">Breakfast, Lunch & Dinner</option> 
+                                    <option value="No Meal Available">No Meal Available</option>  
+                                </select>      
+                                 </div>
+                                 <div class="form-group col-md-1 mb-0">
+                                    <label>no of rooms</label>
+                                    <input type="text" class="form-control" name="hotel_rooms3" >       
+                                 </div>
+                                 <div class="form-group col-md-3 mb-0">
+                                    <label>Hotel Name</label>
+                                    <input type="text" class="form-control" name="hotel_name3" >       
+                                 </div>
+                                </div>
+                        </div>
+                        <div id='Hotel_schedule-3' style="display:none;">
+                            <div class="form-row">
+                                <div class="form-group col-md-3 mb-0">
+                                    <label>Hotel Location</label>
+                                <select name ="hotel_location4" id="hotel_location4" class="form-control hotel_location"  class="form-control" >
+                               </select>     
+                                 </div>
+                                 <div class="form-group col-md-2 mb-0">
+                                    <label>Nights</label>
+                                    <select name ="hotel_nights4" id="hotel_nights4" class="form-control"  class="form-control">
+                                        <option selected="selected" disabled>Select nights</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                   </select>     
+                                 </div>
+                                 <div class="form-group col-md-3 mb-0">
+                                    <label>Meal Type</label>
+                                    <select name="meal_type4"  class="form-control" >
+                                    <option selected="selected" disabled>Meal type:</option>
+                                    <option value="Breakfast">Breakfast</option> 
+                                    <option value="Breakfast & Dinner">Breakfast & Dinner</option> 
+                                    <option value="Breakfast,Lunch & Dinner">Breakfast, Lunch & Dinner</option> 
+                                    <option value="No Meal Available">No Meal Available</option>  
+                                </select>      
+                                 </div>
+                                 <div class="form-group col-md-1 mb-0">
+                                    <label>no of rooms</label>
+                                    <input type="text" class="form-control" name="hotel_rooms4" >       
+                                 </div>
+                                 <div class="form-group col-md-3 mb-0">
+                                    <label>Hotel Name</label>
+                                    <input type="text" class="form-control" name="hotel_name4" >       
+                                 </div>
+                                </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-3 mb-0">
+                            <br />
+                            <button type="button" class="btn btn-outline-info" onclick="hotelScheduleDisplay()">
+                                Add Another days schedule
+                            </button>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <h1  class="mt-3">Payment</h1>
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Price</label>
+                    <input type="text" class="form-control" name="payment">      
+                 </div>
+                 <div class="form-group col-md-3 mb-0">
+                    <label>Payment type</label>
+                    <select name="payment_type"  class="form-control">
+                        <option selected="selected" disabled>Payment type:</option>
+                        <option value="Per Person">Per Person</option>
+                        <option value="Per Couple">Per Couple</option> 
+                        <option value="Total">Total</option> 
+                    </select>        
+                 </div>
+                <div class="form-group col-md-9 mb-0">
+                    <label>Price</label>
+                    <textarea id='summernote2'type="text" class="form-control" name="payment2"></textarea>    
+                 </div>
+            </div>
+            <h1 class="mt-3">Publish</h1>
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Agent*</label>
+                    <select name="agent" class="form-control" id="agent" onchange="Agent('agent_phone',this.selectedIndex);" required>
+                    </select>        
+                 </div>
+                 <script language="javascript">agent_names("agent");</script>
+                 <input type="hidden" class="form-control" name="agent_phone" id="agent_phone">
+                 <div class="form-group col-md-3 mb-0" style="margin: 20px;">
+                    <input type="submit" value="Create" class="btn-danger mt-5">
+                 </div>
+            </div>     
+        </form>
+    </div>
+    </div>
+</div>
+
+    <footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-lg-4 ">
+                        <div class="footer_widget">
+                            <div class="footer_logo">
+                                <a href="#">
+                                     <img src={% static 'img/footer.png' %} height="120px" width="300px" alt="">
+                                </a>
+                            </div>
+                            <a href="#">+91 8882654593</a> <br>
+                            <a href="mailto:contact@universaladventures.in">contact@universaladventures.in</a>
+                            </p>
+                            <div class="socail_links">
+                                <ul>
+                                    <li>
+                                        <a href="https://www.facebook.com/universaladventuresindia/">
+                                            <i class="ti-facebook"></i>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="https://www.instagram.com/universaladventuresindia/">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://g.co/kgs/FEs31r">
+                                            <i class="fa fa-google-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Company
+                            </h3>
+                            <ul class="links">
+                                <ul class="links">
+                                <li><a href="/about/">About</a></li>
+                                <li><a href="/contact/"> Contact</a></li>
+                                <li><a href="/privacy-policy/">Privacy-Policy</a></li>
+                                <li><a href="/partial-payment/">Partial Payment</a></li>
+                                <li><a href="/refund-policy">Payments & Refund Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Popular destination
+                            </h3>
+                            <ul class="links double_links">
+                                <li><a href="/destination/Goa/">Goa</a></li>
+                                <li><a href="/destination/Karnataka/">Karnataka</a></li>
+                                <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
+                                <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
+                                <li><a href="/destination/Rajasthan/">Rajasthan</a></li>
+                                <li><a href="/destination/Maharashtra/">Maharashtra</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Instagram
+                            </h3>
+                            <div class="instagram_feed">
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/1.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/2.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/3.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/4.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/5.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/6.png' %} alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- JS here -->
+    <script src={% static 'js/vendor/modernizr-3.5.0.min.js' %}></script>
+    <script src={% static 'js/vendor/jquery-1.12.4.min.js' %}></script>
+    <script src={% static 'js/popper.min.js' %}></script>
+    <script src={% static 'js/bootstrap.min.js' %}></script>
+    <script src={% static 'js/owl.carousel.min.js' %}></script>
+    <script src={% static 'js/isotope.pkgd.min.js' %}></script>
+    <script src={% static 'js/ajax-form.js' %}></script>
+    <script src={% static 'js/waypoints.min.js' %}></script>
+    <script src={% static 'js/jquery.counterup.min.js' %}></script>
+    <script src={% static 'js/imagesloaded.pkgd.min.js' %}></script>
+    <script src={% static 'js/scrollIt.js' %}></script>
+    <script src={% static 'js/jquery.scrollUp.min.js' %}></script>
+    <script src={% static 'js/wow.min.js' %}""></script>
+    <script src={% static 'js\nice-select.min.js' %}></script>
+    <script src={% static 'js/jquery.slicknav.min.js' %}></script>
+    <script src={% static 'js/jquery.magnific-popup.min.js' %}""></script>
+    <script src={% static 'js/plugins.js' %}></script>
+    <script src={% static 'js/gijgo.min.js' %}></script>
+    <script src={% static 'js/slick.min.js' %}></script>
+    <script src={% static 'js/tagsinput.js' %}></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <!--contact js-->
+
+    <script src={% static 'js/contact.js' %}></script>
+    <script src={% static 'js/jquery.ajaxchimp.min.js' %}></script>
+    <script src={% static 'js/jquery.form.js' %}></script>
+    <script src={% static 'js/jquery.validate.min.js' %}></script>
+    <script src={% static 'js/mail-script.js' %}></script>
+
+
+    <script src={% static 'js/main.js' %}></script>
+    <script>
+        $("#post-form").submit(function(e){
+            e.preventDefault();
+        });
+    </script>
+    </body>
+    <script>
+        $('#datepicker').datepicker({
+            iconsLibrary: 'fontawesome',
+            icons: {
+                rightIcon: '<span class="fa fa-caret-down"></span>'
+            }
+        });
+    </script>
+    <script>
+        $(function () {
+            $(window).scroll(function () {
+                var mainbottom = $("header").offset().top + $("header").height();
+                if ($(this).scrollTop() < mainbottom) {
+
+                    $('nav').removeClass('first');
+
+                } else {
+
+                    $('nav').addClass('first');
+
+                }
+            })
+        })
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script>
+        $('#summernote').summernote({
+        tabsize: 2,
+        height: 250
+        });
+        $('#summernote2').summernote({
+         tabsize: 2,
+        height: 250
+        });
+        $('#textdays1').summernote({
+        tabsize: 2,
+        height: 350
+        });
+        $('#textdays2').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#textdays3').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#textdays4').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#textdays5').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#textdays6').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#textdays7').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#textdays8').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#textdays9').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#textdays10').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#textdays11').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#textdays12').summernote({
+            tabsize: 2,
+        height: 350
+        });
+    </script>
+    <script>
+    var count = 1;
+    var countMax = 11;
+    var hotelLength = 1;
+    var hotelLengthMax = 4;
+    function dayScheduleDisplay(){
+        if(count > countMax)
+            return;
+        document.getElementById('days_schedule-' + count + '').style.display = 'block';
+        count++;
+    }
+    function hotelScheduleDisplay(){
+        if(hotelLength > hotelLengthMax)
+            return;
+        document.getElementById('Hotel_schedule-' + hotelLength + '').style.display = 'block';
+        hotelLength++;
+    }
+    </script>
+
+</body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,406 @@
+﻿{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Universal Adventures</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KH59H8J');</script>
+
+<!-- End Google Tag Manager -->
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="icon" href={% static './img/uni.png' %} sizes="16x16" type="image/png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/owl.carousel.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/magnific-popup.css' %}>
+    <link rel="stylesheet" href={% static 'css/font-awesome.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/themify-icons.css' %}>
+    <link rel="stylesheet" href={% static 'css/nice-select.css' %}>
+    <link rel="stylesheet" href={% static 'css/flaticon.css' %}>
+    <link rel="stylesheet" href={% static 'css/gijgo.css' %}"">
+    <link rel="stylesheet" href={% static ' css/animate.css' %}>
+    <link rel="stylesheet" href={% static 'css/slick.css' %}>
+    <link rel="stylesheet" href={% static 'css/slicknav.css' %}>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+
+    <link rel="stylesheet" href={% static 'css/style.css' %}>
+    <link rel="stylesheet" href={% static 'css/tagsinput.css' %}>
+    <style>
+        .form-control:focus {
+            box-shadow: none;
+        }
+
+        .form-control-underlined {
+            border-width: 0;
+            border-bottom-width: 1px;
+            border-radius: 0;
+            padding-left: 0;
+        }
+        .form-control::placeholder {
+            font-size: 0.95rem;
+            color: #aaa;
+            font-style: italic;
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <nav class="navbar  navbar-expand-lg  fixed-top navbar-light" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/"><img
+                    src={% static 'img//Universal Adventures Logo.png' %} width="200px">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#adv">Welcome Admin!</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="popular_destination_area">
+    <div class="container">
+        <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section_title text-center mb_70">
+                        <h3>Update Product-{{product.name}} </h3>
+                        <p class="text-muted"> Leave the fields if dont want to change</p>
+                    </div>
+                </div>
+        </div>
+        <form method="post" enctype="multipart/form-data" id="post-form">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-0">
+                    <label>Rating of Product (1-5)*</label>
+                    <input type="text" class="form-control" name="rating" value={{product.rating}} >
+                </div>
+                <div class="form-group col-md-6 mb-0">
+                    <label>Duration of product (Number Only)*</label>
+                    <input type="text" class="form-control" name="days" value={{product.days}} >
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-0">
+                    <label>Regular Price*</label>
+                    <input type="text" class="form-control" name="regular" value={{product.regular}} >
+                </div>
+                <div class="form-group col-md-6 mb-0">
+                    
+                        <label>Sale Price*</label>
+                        <input type="text" class="form-control" name="sale" value={{product.sale}} >
+                    
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-0">
+                    <label>Short Description of Product*</label>
+                    <input type="text" class="form-control" name="description" id="productdes">
+                </div>
+                <div class="form-group col-md-6 mb-0">
+                    <label>Enter the html code for itenary*</label>
+                    <input type="text" class="form-control" name="itenary">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4 mb-0">
+                    <label>Select Country*</label>
+                    <input type="text" class="form-control" name="country" value="India" >
+                </div>
+                <div class="form-group col-md-4 mb-0">
+                    <label>Select state*</label>
+                    <select name="state"  class="form-control">
+                            <option selected="selected" value={{product.state}}>{{product.state}}</option>
+                            <option value="Puducherry">Puducherry</option>
+                            <option value="Lakshadweep">Lakshadweep</option>
+                            <option value="Ladakh">Ladakh</option>
+                            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                            <option value="West Bengal">West Bengal</option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+
+                            <option value="Uttar-Pradesh">Uttar-Pradesh</option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="Telangana">Telangana</option>
+
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Sikkim">Sikkim</option>
+                            <option value="Rajasthan">Rajasthan</option>
+
+                            <option value="Punjab">Punjab</option>
+                            <option value="Odisha">Odisha</option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Mizoram">Mizoram</option>
+                            <option value="Meghalaya">Meghalaya</option>
+                            <option value="Manipur">Manipur</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Kerala">Kerala</option>
+
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+
+                    </select>
+                </div>
+                <div class="form-group col-md-4 mb-0">
+                    <label>Enter the city*</label>
+                    <input type="text" class="form-control" name="location" value={{product.location}}>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-0">
+                    <label>Enter the location within city*</label>
+                    <input type="text" class="form-control" name="loca_city" value={{product.loca_city}}>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-0">
+                    <label>Select duration type*</label>
+                    <select name="duration_type"  class="form-control" >
+                            <option selected="selected" value={{product.duration_type}}>{{product.duration_type}}</option>
+                            <option value="0-2 hours">0-2 hours</option>
+                            <option value="2-5 hours">2-5 hours</option>
+                            <option value="Half Day">Half Day</option>
+                            <option value="Full Day">Full Day</option>
+                            <option value="Multiple Day">Multiple Day</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6 mb-0">
+                    <label>Select Adventure Type*</label>
+                    <select name="adventuretype"  class="form-control">
+                            <option selected="selected" value={{product.adventuretype}}>{{product.adventuretype}}</option>
+                            <option value="Less Adventure">Less Adventure</option>
+                            <option value="Moderate Adventure">Moderate Adventure</option>
+                            <option value="Extreme Adventure">Extreme Adventure</option>
+                            <option value="Tour">Tour</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <h3>Enter Product Images</h3>
+                    <p>(*First Image For Card And Other Four For Carousel)</p>
+                    {{ formset.management_form }}
+                    {% for form in formset %}
+                        <div class='table'>
+                            <table class='no_error'>
+                                {{ form.as_table }}
+                            </table>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <input type="submit" value="Create" class="btn-danger">
+        </form>
+    </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-lg-4 ">
+                        <div class="footer_widget">
+                            <div class="footer_logo">
+                                <a href="#">
+                                     <img src={% static 'img/footer.png' %}  width="200px" alt="">
+                                </a>
+                            </div>
+                            <a href="#">+91 8882654593</a> <br>
+                            <a href="mailto:contact@universaladventures.in">contact@universaladventures.in</a>
+                            </p>
+                            <div class="socail_links">
+                                <ul>
+                                    <li>
+                                        <a href="https://www.facebook.com/universaladventuresindia/">
+                                            <i class="ti-facebook"></i>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="https://www.instagram.com/universaladventuresindia/">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://g.co/kgs/FEs31r">
+                                            <i class="fa fa-google-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Company
+                            </h3>
+                            <ul class="links">
+                                <ul class="links">
+                                <li><a href="/about/">About</a></li>
+                                <li><a href="/contact/"> Contact</a></li>
+                                <li><a href="/privacy-policy/">Privacy-Policy</a></li>
+                                <li><a href="/partial-payment/">Partial Payment</a></li>
+                                <li><a href="/refund-policy">Payments & Refund Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Popular destination
+                            </h3>
+                            <ul class="links double_links">
+                                <li><a href="/destination/Goa/">Goa</a></li>
+                                <li><a href="/destination/Karnataka/">Karnataka</a></li>
+                                <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
+                                <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
+                                <li><a href="/destination/Rajasthan/">Rajasthan</a></li>
+                                <li><a href="/destination/Maharashtra/">Maharashtra</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Instagram
+                            </h3>
+                            <div class="instagram_feed">
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/1.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/2.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/3.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/4.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/5.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/6.png' %} alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- JS here -->
+    <script src={% static 'js/vendor/modernizr-3.5.0.min.js' %}></script>
+    <script src={% static 'js/vendor/jquery-1.12.4.min.js' %}></script>
+    <script src={% static 'js/popper.min.js' %}></script>
+    <script src={% static 'js/bootstrap.min.js' %}></script>
+    <script src={% static 'js/owl.carousel.min.js' %}></script>
+    <script src={% static 'js/isotope.pkgd.min.js' %}></script>
+    <script src={% static 'js/ajax-form.js' %}></script>
+    <script src={% static 'js/waypoints.min.js' %}></script>
+    <script src={% static 'js/jquery.counterup.min.js' %}></script>
+    <script src={% static 'js/imagesloaded.pkgd.min.js' %}></script>
+    <script src={% static 'js/scrollIt.js' %}></script>
+    <script src={% static 'js/jquery.scrollUp.min.js' %}></script>
+    <script src={% static 'js/wow.min.js' %}""></script>
+    <script src={% static 'js/nice-select.min.js' %}></script>
+    <script src={% static 'js/jquery.slicknav.min.js' %}></script>
+    <script src={% static 'js/jquery.magnific-popup.min.js' %}""></script>
+    <script src={% static 'js/plugins.js' %}></script>
+    <script src={% static 'js/gijgo.min.js' %}></script>
+    <script src={% static 'js/slick.min.js' %}></script>
+    <script src={% static 'js/tagsinput.js' %}></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <!--contact js-->
+
+    <script src={% static 'js/contact.js' %}></script>
+    <script src={% static 'js/jquery.ajaxchimp.min.js' %}></script>
+    <script src={% static 'js/jquery.form.js' %}></script>
+    <script src={% static 'js/jquery.validate.min.js' %}></script>
+    <script src={% static 'js/mail-script.js' %}></script>
+
+
+    <script src={% static 'js/main.js' %}></script>
+    <script>
+
+    </script>
+    </body>
+    <script>
+        $('#datepicker').datepicker({
+            iconsLibrary: 'fontawesome',
+            icons: {
+                rightIcon: '<span class="fa fa-caret-down"></span>'
+            }
+        });
+    </script>
+    <script>
+        $(function () {
+            $(window).scroll(function () {
+                var mainbottom = $("header").offset().top + $("header").height();
+                if ($(this).scrollTop() < mainbottom) {
+
+                    $('nav').removeClass('first');
+
+                } else {
+
+                    $('nav').addClass('first');
+
+                }
+            })
+        })
+    </script>
+
+</body>
+
+</html>
+{% endblock %}

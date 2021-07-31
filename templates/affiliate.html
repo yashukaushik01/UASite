@@ -1,0 +1,410 @@
+﻿{% load static %}
+{% block content %}
+{% load socialaccount %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Universal Adventures</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KH59H8J');</script>
+
+<!-- End Google Tag Manager -->
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="icon" href={% static './img/uni.png' %} sizes="16x16" type="image/png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/owl.carousel.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/magnific-popup.css' %}>
+    <link rel="stylesheet" href={% static 'css/font-awesome.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/themify-icons.css' %}>
+    <link rel="stylesheet" href={% static 'css/nice-select.css' %}>
+    <link rel="stylesheet" href={% static 'css/flaticon.css' %}>
+    <link rel="stylesheet" href={% static 'css/gijgo.css' %}"">
+    <link rel="stylesheet" href={% static ' css/animate.css' %}>
+    <link rel="stylesheet" href={% static 'css/slick.css' %}>
+    <link rel="stylesheet" href={% static 'css/slicknav.css' %}>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css"
+        integrity="sha512-YdYyWQf8AS4WSB0WWdc3FbQ3Ypdm0QCWD2k4hgfqbQbRCJBEgX0iAegkl2S1Evma5ImaVXLBeUkIlP6hQ1eYKQ=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href={% static 'css/style.css' %}>
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <nav class="navbar  navbar-expand-lg  fixed-top navbar-light" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/"><img
+                    src={% static 'img//Universal Adventures Logo.png' %} width="200px">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                       <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/">Home</a></li>
+                      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/blog">Our Blog</a></li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/accounts/logout">logout</a></li>
+                    {% else %}<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#" id="modal"
+                            data-toggle="modal" data-target="#log">Login</a></li>
+
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="modal fade" id="log" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <a href="{% provider_login_url "facebook" method="js_sdk" %}"
+                        class="btn btn-block btn-social btn-facebook"
+                        style="background-color:#3b5998;text-align:center;color:white">
+                        <span class="fa fa-facebook"></span>
+                        Sign in with Facebook
+                    </a>
+                    <a href="{% provider_login_url "google"  %}" process="connect"
+                        class="btn btn-block btn-social btn-google"
+                        style="background-color:red;text-align:center;color:white">
+                        <span class="fa fa-google-plus"></span>
+                        Sign in with Google
+                    </a>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h3 class="modal-title" id="lineModalLabel">Get A Call</h3>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span
+                            class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- content goes here -->
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail2">Name</label>
+                            <input type="text" class="form-control" id="exampleInputEmail2"
+                                placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPhone1">Phone Number</label>
+                            <input type="password" class="form-control" id="exampleInputPhone1"
+                                placeholder="+91-XXXXXXXXXX" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea class="form-control textarea" rows="3" name="Message" id="Message"
+                                        placeholder="Ask Anything related to your dream  Adventure or Destination"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popular_destination_area" id="des">
+        <div class="container mt-4">
+            <div class="row">
+        <div class="col-md-6">
+            {% if user.is_authenticated %}
+            {% if length == 0 %}
+            {% else %}
+            <h3>Name : {{user.username}}</h3>
+            <h3>Email : {{user.email}}</h3>
+            <h3>Phone : {{phone}}</h3><br>
+            {% endif %}
+            {% else %}
+            <h3>Hi Explorer</h3>
+            <h3>Please Login to Earn As Affiliator..</h3>
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            {% if user.is_authenticated %}
+            {% if length == 0 %}
+            {% else %}
+            <h2><span class="badge badge-warning">Total Margin Earned : Rs. {{total}}</span> </h2>
+            <h2><span class="badge badge-primary" style="cursor: pointer; margin-left: 135px;">Withdraw Amount</span> </h2>
+            {% endif %}
+            {% else %}
+            <h2><span class="badge badge-primary" style="cursor: pointer; margin-left: 135px;"><a  href="#" id="modal"
+                data-toggle="modal" data-target="#log">Login Now</a></span> </h2>
+            {% endif %}
+        </div>
+        </div>
+        {% if user.is_authenticated %}
+        {% if length == 0 %}
+        <h2 style="margin-top: 50px;">Hi {{user.username}} welcome to affiliator program of Universal Adventures</h2>
+        {% else %}
+        <h4 class="mt-4"> Your Coupons</h4><br>
+        <table class="table table-responsive" >
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Coupon Code</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Margin (excl. tax)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pur in coupons %}
+               
+                <tr>
+                    <td></td>
+                    <td>{{pur.coupon}}</td>
+                    <td>{{pur.date}}</td>
+                    <td>{{pur.status}}</td>
+                    <td>{{pur.margin}} % of MRP</td>
+                </tr>
+                
+                {% endfor %}
+                {% endif %}
+                {% endif %}
+            </tbody>
+        </table>
+        {% if user.is_authenticated %}
+
+        {% if length == 0 %}
+        <h2 style="margin-top: 50px;">Please Contact Our Executive(+91 8882654593) To Become An Affiliator</h2><br>
+        {% else %}
+            <h4 style="margin-top: 50px;">Here are your coupons used history</h4><br>
+            <table class="table table-responsive" id="booking">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Coupon Code</th>
+                        <th scope="col">Use Date</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Total Price</th>
+                        <th scope="col">Margin Earned</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for purchase in affiliate %}
+                   
+                    <tr>
+                        <td></td>
+                        <td>{{purchase.coupon}}</td>
+                        <td>{{purchase.date}}</td>
+                        <td>{{purchase.product}}</td>
+                        <td>{{purchase.total_price}} </td>
+                        <td>{{purchase.margin_earned}}</td>
+                    </tr>
+                    
+                    {% endfor %}
+                    {% endif %}
+                    {% endif %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-lg-4 ">
+                        <div class="footer_widget">
+                            <div class="footer_logo">
+                                <a href="#">
+                                     <img src={% static 'img/footer.png' %}  width="200px" alt="">
+                                </a>
+                            </div>
+                            <a href="#">+91 8882654593</a> <br>
+                            <a href="mailto:contact@universaladventures.in">contact@universaladventures.in</a>
+                            </p>
+                            <div class="socail_links">
+                                <ul>
+                                    <li>
+                                        <a href="https://www.facebook.com/universaladventuresindia/">
+                                            <i class="ti-facebook"></i>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="https://www.instagram.com/universaladventuresindia/">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://g.co/kgs/FEs31r">
+                                            <i class="fa fa-google-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Company
+                            </h3>
+                             <ul class="links">
+                                <ul class="links">
+                                <li><a href="/about/">About</a></li>
+                                <li><a href="/contact/"> Contact</a></li>
+                                <li><a href="/privacy-policy/">Privacy-Policy</a></li>
+                                <li><a href="/partial-payment/">Partial Payment</a></li>
+                                <li><a href="/refund-policy">Payments & Refund Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Popular destination
+                            </h3>
+                            <ul class="links double_links">
+                               <li><a href="/destination/Goa/">Goa</a></li>
+                                <li><a href="/destination/Karnataka/">Karnataka</a></li>
+                                <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
+                                <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
+                                <li><a href="/destination/Rajasthan/">Rajasthan</a></li>
+                                <li><a href="/destination/Maharashtra/">Maharashtra</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Instagram
+                            </h3>
+                            <div class="instagram_feed">
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/1.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/2.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/3.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/4.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/5.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/6.png' %} alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- JS here -->
+    <script src={% static 'js/vendor/modernizr-3.5.0.min.js' %}></script>
+    <script src={% static 'js/vendor/jquery-1.12.4.min.js' %}></script>
+    <script src={% static 'js/popper.min.js' %}></script>
+    <script src={% static 'js/bootstrap.min.js' %}></script>
+    <script src={% static 'js/owl.carousel.min.js' %}></script>
+    <script src={% static 'js/isotope.pkgd.min.js' %}></script>
+    <script src={% static 'js/ajax-form.js' %}></script>
+    <script src={% static 'js/waypoints.min.js' %}></script>
+    <script src={% static 'js/jquery.counterup.min.js' %}></script>
+    <script src={% static 'js/imagesloaded.pkgd.min.js' %}></script>
+    <script src={% static 'js/scrollIt.js' %}></script>
+    <script src={% static 'js/jquery.scrollUp.min.js' %}></script>
+    <script src={% static 'js/wow.min.js' %}""></script>
+    <script src={% static 'js/nice-select.min.js' %}></script>
+    <script src={% static 'js/jquery.slicknav.min.js' %}></script>
+    <script src={% static 'js/jquery.magnific-popup.min.js' %}""></script>
+    <script src={% static 'js/plugins.js' %}></script>
+    <script src={% static 'js/gijgo.min.js' %}></script>
+    <script src={% static 'js/slick.min.js' %}></script>
+
+
+
+    <!--contact js-->
+
+    <script src={% static 'js/contact.js' %}></script>
+    <script src={% static 'js/jquery.ajaxchimp.min.js' %}></script>
+    <script src={% static 'js/jquery.form.js' %}></script>
+    <script src={% static 'js/jquery.validate.min.js' %}></script>
+    <script src={% static 'js/mail-script.js' %}></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"
+        integrity="sha512-RCgrAvvoLpP7KVgTkTctrUdv7C6t7Un3p1iaoPr1++3pybCyCsCZZN7QEHMZTcJTmcJ7jzexTO+eFpHk4OCFAg=="
+        crossorigin="anonymous"></script>
+
+    <script src={% static 'js/main.js' %}></script>
+    <script>
+        $(function () {
+            $(window).scroll(function () {
+                var mainbottom = $("header").offset().top + $("header").height();
+                if ($(this).scrollTop() < mainbottom) {
+
+                    $('nav').removeClass('first');
+
+                } else {
+
+                    $('nav').addClass('first');
+
+                }
+            })
+        })
+        var addSerialNumber = function () {
+            $('table tr').each(function (index) {
+                $(this).find('td:nth-child(1)').html(index -1 + 1);
+            });
+        };
+
+        addSerialNumber();
+    </script>
+</body>
+
+</html>
+{% endblock %}

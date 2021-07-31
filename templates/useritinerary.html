@@ -1,0 +1,954 @@
+{% load static %}
+{% block content %}
+{% load socialaccount %}
+{% load crispy_forms_tags %}
+
+
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Universal Adventures</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KH59H8J');</script>
+
+<!-- End Google Tag Manager -->
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="icon" href={% static './img/Uni.png' %} sizes="16x16" type="image/png">
+    <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/owl.carousel.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/magnific-popup.css' %}>
+    <link rel="stylesheet" href={% static 'css/font-awesome.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/themify-icons.css' %}>
+    <link rel="stylesheet" href={% static 'css/nice-select.css' %}>
+    <link rel="stylesheet" href={% static 'css/flaticon.css' %}>
+    <link rel="stylesheet" href={% static 'css/gijgo.css' %}>
+    <link rel="stylesheet" href={% static 'css/animate.css' %}>
+    <link rel="stylesheet" href={% static 'css/slick.css' %}>
+    <link rel="stylesheet" href={% static 'css/slicknav.css' %}>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href={% static 'css/style.css' %}>
+    <style>
+     
+html,body {
+            overflow-x: hidden;
+            scroll-behavior: smooth !important;
+            transition: all 0.25s ease;
+        }
+        .datepicker td, .datepicker th {
+            width: 2.5rem;
+            height: 2.5rem;
+            font-size: 0.85rem;
+        }
+
+        .datepicker {
+            margin-bottom: 3rem;
+        }
+.navbar {
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;
+
+    /* the rest of your styling */
+}
+  .footer2{
+    -webkit-box-shadow: 0px -4px 5px 0px #999;
+-moz-box-shadow: 0px -4px 5px 0px #999;
+box-shadow: 0px -4px 5px 0px #999;
+  }
+    .carousel-control-prev,
+    .carousel-control-next {
+        top: auto;
+        bottom: auto;
+        padding: 20px;
+    }
+  li{
+    display: list-item;
+    list-style-type: disc;
+}
+    
+
+.carousel .carousel-indicators {
+	bottom: -50px;
+}
+.carousel-indicators li, .carousel-indicators li.active {
+	width: 10px;
+	height: 10px;
+	margin: 4px;
+    border-radius: 50%;
+    cursor: pointer;
+	border-color: transparent;
+}
+.carousel-indicators li {	
+	background: rgba(0, 0, 0, 0.2);
+}
+.carousel-indicators li.active {	
+	background: rgba(0, 0, 0, 0.6);
+}
+           .open-button {
+  color: white;
+  padding: 16px 10px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 4px;
+  right: 4px;
+  background: transparent;
+  text-decoration: none;
+  z-index: 8;
+}
+
+/* The popup chat - hidden by default */
+.chat-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border-radius: 10px;
+  z-index: 9;
+}
+#fr2{
+    display: none;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.hotel-div{
+  padding: 20px;
+  border: 1px solid rgb(198, 199, 200);
+  border-radius: 8px;
+}
+.hotel-div h4{
+    margin-bottom: 30px;
+}
+.hotel-div h5{
+    margin: 20px;
+}
+.button-div-main{
+    display: flex;
+    flex-direction: row;
+}
+.button-div{
+    margin: 10px;
+    width: 50%;
+}
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+        <div class="loader_bg">
+        <div class="loader">
+        <h2 class="text-center" style="margin-top:200px">Hi</h2>
+        <h3 class="text-center">{{post.name}}</h3>                
+        </div>
+    </div>
+  <nav class="navbar  navbar-expand-lg  fixed-top navbar-light" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/"><img
+                    src={% static 'img//Universal Adventures Logo.png' %} width="100px">
+            </a>
+            <h3 class="text-center" style="color: black;">{{post.name}}</h3>
+        </div>
+        
+    </nav>
+  <header class="masthead" style="height:220px;width:100% ;background-image:url('/static/img/{{post.location}}.jpg');background-size:cover;background-position: center;">
+        <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+            <source src="./images/video.webm" type="video/mp4">
+        </video>
+        <div class="container s" style="margin-left:12px;">
+            <div class="float-right" style=" position: relative;
+            padding-top: 2%;
+            padding-left: 2%;
+            padding-right: 2%;
+            padding-bottom: 4%;
+            overflow: hidden;
+            margin-bottom: 12%;
+            background-color: rgba(0, 0, 0, 0.5);
+            max-width: 660px;
+            text-align: center;">
+                <h2 style="color: white; text-align: right;"><em>{{post.location}}</em></h2>
+                <h4 style="color: white; text-align: right;"><em>{{post.days}}</em></h4>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row mt-2">
+            <div class="col-md-6">
+               <h4>Tour Type: {{post.category}}</h4>
+            </div>
+          </div>
+    <div class="container mt-2">
+          <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-4 nopadding">
+                <h2 class="text-center">&#127978;</h2> 
+                <p class="text-center" style="color: #000000;">{{post.hotel_type}}</p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-4 nopadding">
+                  <h2 class="text-center">&#129379;</h2> 
+                <p class="text-center" style="color: #000000;">{{post.meal_type}}</p>
+           </div>
+           <div class="col-lg-4 col-md-4 col-sm-4 col-4 nopadding">
+             <h2 class="text-center">&#128662;</h2>    
+                <p class="text-center"style="color: #000000;">{{post.vehicle}}</p>
+           </div>
+          </div>
+</div><br>
+ {% autoescape off %}
+          <div class="row mt-1">
+            <div class="col-md-4" id="inclusion">
+               <h4>Inclusions:</h4>
+               <h6 class="p-2"><ul>{{post.other_inclusion}}</ul></h6><br>
+            </div>
+          </div>
+          <!--  -->
+<hr>
+          <div class="container py-2">
+              <div class="row mt-3 ">
+                <div class="col-md-8">
+                <h4><span style="color: #ff6600;">Start Location:</span></h4>
+		<p>{{post.start_loc}}</p>
+                </div>
+              </div>    
+
+            <!-- timeline item 1 -->
+            <div class="row" id="days1">
+                <div class="col-auto text-center flex-column d-none d-sm-flex">
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                    <h5 class="m-2">
+                        <span class="badge badge-pill bg-success">&nbsp;</span>
+                    </h5>
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="col py-2">
+                    <p class="card-text">{{post.days1}}</p>
+                    <div class="card border-success shadow">
+                        <div class="card-body">
+                              <!-- <h4 class="card-title text-success">Day 1: {{post.days1}}</h4> -->
+                            <p class="card-text">{{post.textdays1}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/row-->
+            <!-- timeline item 2 -->
+            <div class="row" id="days2">
+                <div class="col-auto text-center flex-column d-none d-sm-flex">
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                    <h5 class="m-2">
+                        <span class="badge badge-pill bg-success">&nbsp;</span>
+                    </h5>
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="col py-2">
+                    <p class="card-text">{{post.days2}}</p>
+                    <div class="card border-success shadow">
+                        <div class="card-body">
+                            <!-- <h4 class="card-title text-success">Day 1: {{post.days1}}</h4> -->
+                            <p class="card-text">{{post.textdays2}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/row-->
+            <!-- timeline item 3 -->
+            <div class="row" id="days3">
+                <div class="col-auto text-center flex-column d-none d-sm-flex">
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                    <h5 class="m-2">
+                        <span class="badge badge-pill bg-success">&nbsp;</span>
+                    </h5>
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="col py-2">
+                    <p class="card-text">{{post.days3}}</p>
+                    <div class="card border-success shadow">
+                        <div class="card-body">
+                             <!-- <h4 class="card-title text-success">Day 1: {{post.days1}}</h4> -->
+                            <p class="card-text">{{post.textdays3}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/row-->
+            <!-- timeline item 4 -->
+            <div class="row" id="days4">
+                <div class="col-auto text-center flex-column d-none d-sm-flex">
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                    <h5 class="m-2">
+                        <span class="badge badge-pill bg-success">&nbsp;</span>
+                    </h5>
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="col py-2">
+                    <p class="card-text">{{post.days4}}</p>
+                    <div class="card border-success shadow">
+                        <div class="card-body">
+                             <!-- <h4 class="card-title text-success">Day 1: {{post.days1}}</h4> -->
+                            <p class="card-text">{{post.textdays4}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/row-->
+            <div class="row" id="days5">
+                <div class="col-auto text-center flex-column d-none d-sm-flex">
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                    <h5 class="m-2">
+                        <span class="badge badge-pill bg-success">&nbsp;</span>
+                    </h5>
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="col py-2" >
+                    <p class="card-text">{{post.days5}}</p>
+                    <div class="card border-success shadow">
+                        <div class="card-body">
+                             <!-- <h4 class="card-title text-success">Day 1: {{post.days1}}</h4> -->
+                            <p class="card-text">{{post.textdays5}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="days6">
+                <div class="col-auto text-center flex-column d-none d-sm-flex">
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                    <h5 class="m-2">
+                        <span class="badge badge-pill bg-success">&nbsp;</span>
+                    </h5>
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="col py-2" >
+                    <p class="card-text">{{post.days6}}</p>
+                    <div class="card border-success shadow">
+                        <div class="card-body">
+                           <!-- <h4 class="card-title text-success">Day 1: {{post.days1}}</h4> -->
+                            <p class="card-text">{{post.textdays6}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="days7">
+                <div class="col-auto text-center flex-column d-none d-sm-flex">
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                    <h5 class="m-2">
+                        <span class="badge badge-pill bg-success">&nbsp;</span>
+                    </h5>
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="col py-2">
+                    <p class="card-text">{{post.days7}}</p>
+                    <div class="card border-success shadow">
+                        <div class="card-body">
+                             <!-- <h4 class="card-title text-success">Day 1: {{post.days1}}</h4> -->
+                            <p class="card-text">{{post.textdays7}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="days8">
+                <div class="col-auto text-center flex-column d-none d-sm-flex">
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                    <h5 class="m-2">
+                        <span class="badge badge-pill bg-success">&nbsp;</span>
+                    </h5>
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="col py-2">
+                    <p class="card-text">{{post.days8}}</p>
+                    <div class="card border-success shadow">
+                        <div class="card-body">
+                             <!-- <h4 class="card-title text-success">Day 1: {{post.days1}}</h4> -->
+                            <p class="card-text">{{post.textdays8}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="row" id="days9">
+                <div class="col-auto text-center flex-column d-none d-sm-flex">
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                    <h5 class="m-2">
+                        <span class="badge badge-pill bg-success">&nbsp;</span>
+                    </h5>
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="col py-2" >
+                    <p class="card-text">{{post.days9}}</p>
+                    <div class="card border-success shadow">
+                        <div class="card-body">
+                           <!-- <h4 class="card-title text-success">Day 1: {{post.days1}}</h4> -->
+                            <p class="card-text">{{post.textdays9}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="row" id="days10">
+                <div class="col-auto text-center flex-column d-none d-sm-flex">
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                    <h5 class="m-2">
+                        <span class="badge badge-pill bg-success">&nbsp;</span>
+                    </h5>
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="col py-2" >
+                    <p class="card-text">{{post.days10}}</p>
+                    <div class="card border-success shadow">
+                        <div class="card-body">
+                           <!-- <h4 class="card-title text-success">Day 1: {{post.days1}}</h4> -->
+                            <p class="card-text">{{post.textdays10}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="row" id="days11">
+                <div class="col-auto text-center flex-column d-none d-sm-flex">
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                    <h5 class="m-2">
+                        <span class="badge badge-pill bg-success">&nbsp;</span>
+                    </h5>
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="col py-2" >
+                    <p class="card-text">{{post.days11}}</p>
+                    <div class="card border-success shadow">
+                        <div class="card-body">
+                           <!-- <h4 class="card-title text-success">Day 1: {{post.days1}}</h4> -->
+                            <p class="card-text">{{post.textdays11}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+              <div class="row" id="days12">
+                <div class="col-auto text-center flex-column d-none d-sm-flex">
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                    <h5 class="m-2">
+                        <span class="badge badge-pill bg-success">&nbsp;</span>
+                    </h5>
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="col py-2" >
+                    <p class="card-text">{{post.days12}}</p>
+                    <div class="card border-success shadow">
+                        <div class="card-body">
+                           <!-- <h4 class="card-title text-success">Day 1: {{post.days1}}</h4> -->
+                            <p class="card-text">{{post.textdays12}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+              <div class="row mt-3 ">
+                <div class="col-md-8">
+                <h4><span style="color: #ff6600;">End Location:</span></h4>
+		<p>{{post.end_loc}}</p>
+                </div>
+              </div>
+        </div>
+<hr>
+          <!--  -->
+          <div class="row mt-2">
+            <div class="col-md-4 mt-2">
+            <h3>Accomodation</h3>
+            </div>
+          </div>
+          <div class="hotel-div">
+          <div class="row mt-1" id='hotel1' style="border-bottom: 1px solid rgb(146, 197, 248);">
+            <div class="col-md-6">
+           
+                    <h4><b><i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; {{post.hotel_location1}}</b></h4>
+                 
+                    <h5><i class="fa fa-building fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; {{post.hotel_name1}}</h5>
+                
+                    <h5><i class="fa fa-star fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<i>{{post.hotel_type}}</i></h5>
+               
+                    <h5><i class="fa fa-bed fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; {{post.hotel_rooms1}} room</h5>
+                
+                    <h5><i class="fa fa-cutlery fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; {{post.meal_type1}}</h5>
+              
+            </div>
+          </div><br>
+        <div class="row mt-1" id='hotel2' style="border-bottom: 1px solid rgb(146, 197, 248);">
+            <div class="col-md-6">
+           
+                    <h4><b><i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; {{post.hotel_location2}}</b></h4>
+                 
+                    <h5><i class="fa fa-building fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; {{post.hotel_name2}}</h5>
+                
+                    <h5><i class="fa fa-star fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<i></i><i>{{post.hotel_type}}</i></h5>
+               
+                    <h5><i class="fa fa-bed fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; {{post.hotel_rooms2}} room</h5>
+                
+                    <h5><i class="fa fa-cutlery fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; {{post.meal_type2}}</h5>
+              
+            </div>
+          </div><br>
+        <div class="row mt-1" id='hotel3' style="border-bottom: 1px solid rgb(146, 197, 248);">
+            <div class="col-md-6">
+           
+                    <h4><b><i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; {{post.hotel_location3}}</b></h4> 
+                 
+                    <h5><i class="fa fa-building fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; {{post.hotel_name3}}</h5>
+                
+                    <h5><i class="fa fa-star fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<i></i><i>{{post.hotel_type}}</i></h5>
+               
+                    <h5><i class="fa fa-bed fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; {{post.hotel_rooms3}} room</h5>
+                
+                    <h5><i class="fa fa-cutlery fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; {{post.meal_type3}}</h5>
+              
+            </div>
+          </div><br>
+            <div class="row mt-1" id='hotel4' style="border-bottom: 1px solid rgb(146, 197, 248);">
+            <div class="col-md-6">
+           
+                    <h4><b><i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; {{post.hotel_location4}}</b></h4> 
+                 
+                    <h5><i class="fa fa-building fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; {{post.hotel_name4}}</h5>
+                
+                    <h5><i class="fa fa-star fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<i></i><i>{{post.hotel_type}}</i></h5>
+               
+                    <h5><i class="fa fa-bed fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; {{post.hotel_rooms4}} room</h5>
+                
+                    <h5><i class="fa fa-cutlery fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; {{post.meal_type4}}</h5>
+              
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6" style="padding: 20px;">
+           
+                
+                
+                    <h4><i class="fa fa-users fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;No of persons: {{post.person}}</h4><br>
+
+                    <h4><i class="fa fa-money fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;Package Cost:&nbsp;{{post.payment}}&nbsp;&nbsp; {{post.payment_type}}</h4><br>
+              
+                    <h4 id="price2"> {{post.payment2}}</h4><br>
+             
+           
+            </div>
+          </div>
+          <div class="button-div-main">
+            <div class="button-div">
+            <button onclick="location.href='tel:{{post.agent_phone}}'" class="btn btn-success btn-block">Call&nbsp;{{post.agent}}</button>
+            </div>
+            <div class="button-div">
+            <button class="btn btn-danger btn-block" onclick='location.href="/tour-payment/{{post.id}}"'>Book Now</button>
+            </div>
+          </div><br>
+
+    {% endautoescape %}
+    
+</div>
+   <div class="footer2" style="position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    background-color: white;
+    color: black;
+    text-align: center;">
+    <div class="row">
+        <div class="col-lg-7 col-md-7 col-sm-7 col-7 mt-1">
+        <h3 class="text-center" style="color: black;" id="pricenav"> <span class="text-center">&#8377;</span>{{post.payment}}<span style="font-size: small;">*{{post.payment_type}}</span></h3>
+    </div> 
+    <div class="col-lg-5 col-md-5 col-sm-5 col-5 mt-1">
+        <h3 class="btn btn-primary"><a class="nav-link js-scroll-trigger" href="/tour-payment/{{post.id}}">Book Now</a></h3>   
+   </div>
+ </div>
+</div>    
+        <footer class="footer">
+            <div class="footer_top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6 col-lg-4 ">
+                            <div class="footer_widget">
+                                <div class="footer_logo">
+                                    <a href="#">
+                                        <img src={% static 'img/footer.png' %}  width="200px" alt="">
+                                    </a>
+                                </div>
+                                 <a href="mailto:contact@universaladventures.in">contact@universaladventures.in</a><br>
+                      <a>E-447, Sector Beta 1, Greater Noida, Gautam Buddha Nagar, U.P.</a><br><a>
++91 8882654593
++91 9528812938</a> 
+                                </p>
+                                <div class="socail_links">
+                                    <ul>
+                                        <li>
+                                            <a href="https://www.facebook.com/universaladventuresindia/">
+                                                <i class="ti-facebook"></i>
+                                            </a>
+                                        </li>
+    
+                                        <li>
+                                            <a href="https://www.instagram.com/universaladventuresindia/">
+                                                <i class="fa fa-instagram"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://g.co/kgs/FEs31r">
+                                                <i class="fa fa-google-plus"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+    
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-md-6 col-lg-2">
+                            <div class="footer_widget">
+                                <h3 class="footer_title">
+                                    Company
+                                </h3>
+                                 <ul class="links">
+                                <ul class="links">
+                                <li><a href="/about/">About</a></li>
+                                <li><a href="/contact/"> Contact</a></li>
+                                <li><a href="/privacy-policy/">Privacy-Policy</a></li>
+                                <li><a href="/partial-payment/">Partial Payment</a></li>
+                                <li><a href="/refund-policy">Payments & Refund Policy</a></li>
+                            </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-lg-3">
+                            <div class="footer_widget">
+                                <h3 class="footer_title">
+                                    Popular destination
+                                </h3>
+                                <ul class="links double_links">
+                                    <li><a href="/destination/Goa/">Goa</a></li>
+                                    <li><a href="/destination/Karnataka/">Karnataka</a></li>
+                                    <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
+                                    <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
+                                    <li><a href="/destination/Rajasthan/">Rajasthan</a></li>
+                                    <li><a href="/destination/Maharashtra/">Maharashtra</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-lg-3">
+                            <div class="footer_widget">
+                                <h3 class="footer_title">
+                                    Instagram
+                                </h3>
+                                <div class="instagram_feed" id="ing">
+    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- JS here -->
+        <script src={% static 'js/vendor/modernizr-3.5.0.min.js' %}></script>
+        <script src={% static 'js/vendor/jquery-1.12.4.min.js' %}></script>
+        <script src={% static 'js/popper.min.js' %}></script>
+        <script src={% static 'js/bootstrap.min.js' %}></script>
+        <script src={% static 'js/owl.carousel.min.js' %}></script>
+        <script src={% static 'js/isotope.pkgd.min.js' %}></script>
+        <script src={% static 'js/ajax-form.js' %}></script>
+        <script src={% static 'js/waypoints.min.js' %}></script>
+        <script src={% static 'js/jquery.counterup.min.js' %}></script>
+        <script src={% static 'js/imagesloaded.pkgd.min.js' %}></script>
+        <script src={% static 'js/scrollIt.js' %}></script>
+        <script src={% static 'js/jquery.scrollUp.min.js' %}></script>
+        <script src={% static 'js/wow.min.js' %}""></script>
+        <script src={% static 'js/nice-select.min.js' %}></script>
+        <script src={% static 'js/jquery.slicknav.min.js' %}></script>
+        <script src={% static 'js/jquery.magnific-popup.min.js' %}""></script>
+        <script src={% static 'js/plugins.js' %}></script>
+        <script src={% static 'js/gijgo.min.js' %}></script>
+        <script src={% static 'js/slick.min.js' %}></script>
+    
+    
+    
+        <!--contact js-->
+    
+        <script src={% static 'js/contact.js' %}></script>
+        <script src={% static 'js/jquery.ajaxchimp.min.js' %}></script>
+        <script src={% static 'js/jquery.form.js' %}></script>
+        <script src={% static 'js/jquery.validate.min.js' %}></script>
+        <script src={% static 'js/mail-script.js' %}></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+        
+        <script src={% static 'js/main.js' %}></script>
+        <script>
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbz6piC1rsjlqvQ6A7XBN34lVwDydPXZnDUGXwGQM0lgFyAq5WcezI7MnQ/exec'
+            const form = document.forms['google-sheet']
+          
+            form.addEventListener('submit', e => {
+              e.preventDefault()
+              fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => console.log("Thanks for Contacting us..! We Will Contact You Soon..."))
+                .catch(error => console.error('Error!', error.message))
+            })
+          </script>
+        <script>
+            $(document).ready(function() {
+               $("#multi-item-example").swiperight(function() {
+                  $(this).carousel('prev');
+                });
+               $("#multi-item-example").swipeleft(function() {
+                  $(this).carousel('next');
+               });
+            });
+            </script>
+            <script>
+                var days1=`{{post.textdays1}}`;var days5=`{{post.textdays5}}`;
+                var days2=`{{post.textdays2}}`;var days6=`{{post.textdays6}}`;
+                var days3=`{{post.textdays3}}`;var days7=`{{post.textdays7}}`;
+                var days4=`{{post.textdays4}}`;var days8=`{{post.textdays8}}`;
+                var days9=`{{post.textdays9}}`;var days10=`{{post.textdays10}}`;
+                var days11=`{{post.textdays11}}`;var days12=`{{post.textdays12}}`;
+                var inclusion=`{{post.other_inclusion}}`; var price=`{{post.payment}}`;
+                var price2=`{{post.payment2}}`; var hotel1=`{{post.hotel_location1}}`;
+                var hotel2=`{{post.hotel_location2}}`;var hotel3=`{{post.hotel_location3}}`;
+                var hotel4=`{{post.hotel_location4}}`;
+                if(days1=='None'){
+                    $('#days1').css("display","none")
+                }
+                if(days2=='None'){
+                    $('#days2').css("display","none")
+                }
+                if(days3=='None'){
+                    $('#days3').css("display","none")
+                }
+                if(days4=='None'){
+                    $('#days4').css("display","none")
+                }
+                if(days5=='None'){
+                    $('#days5').css("display","none")
+                }
+                if(days6=='None'){
+                    $('#days6').css("display","none")
+                }
+                if(days7=='None'){
+                    $('#days7').css("display","none")
+                }
+                if(days8=='None'){
+                    console.log('hello')
+                    $('#days8').css("display","none")
+                }
+                if(days9=='None'){
+                    $('#days9').css("display","none")
+                }
+                if(days10=='None'){
+                    $('#days10').css("display","none")
+                }
+                if(days11=='None'){
+                    $('#days11').css("display","none")
+                }
+                if(days12=='None'){
+                    $('#days12').css("display","none")
+                } 
+                if(hotel1=='None'){
+                    $('#hotel1').css("display","none")
+                }
+                if(hotel2=='None'){
+                    $('#hotel2').css("display","none")
+                }
+                if(hotel3=='None'){
+                    $('#hotel3').css("display","none")
+                }
+                if(hotel4=='None'){
+                    $('#hotel4').css("display","none")
+                }
+                if(price=='None'){
+                    console.log('why')
+                    $('#pricenav').css("visibility","hidden")
+                    $('#price').css("display","none")
+                }
+                if(price2=='None'){
+                    $('#price2').css("display","none")
+                }
+                if(price2!='None'){
+                   $('#pricenav').css("visibility","hidden")
+                   $('#price').css("display","none")
+                }
+                if(inclusion=='None'){
+                    $('#inclusion').css("display","none")
+                }
+            
+            </script>
+        <script>
+            $('#datepicker').datepicker({
+                iconsLibrary: 'fontawesome',
+                icons: {
+                    rightIcon: '<span class="fa fa-caret-down"></span>'
+                }
+            });
+        </script>
+        <script>
+            $(function () {
+                $(window).scroll(function () {
+                    var mainbottom = $("header").offset().top + $("header").height();
+                    if ($(this).scrollTop() < mainbottom) {
+    
+                        $('nav').removeClass('first');
+    
+                    } else {
+    
+                        $('nav').addClass('first');
+    
+                    }
+                })
+            })
+        </script>
+    <script>
+        function openForm() {
+          document.getElementById("myForm").style.display = "block";
+        }
+        
+        function closeForm() {
+          document.getElementById("myForm").style.display = "none";
+        }
+        function Sub() {
+                document.getElementById("formg").style.display = "none";
+                document.getElementById("fr2").style.display = "block";
+            }
+        </script>
+        <script>
+            setTimeout(function () {
+                $('.loader_bg').fadeToggle();
+            }, 2000);
+        </script>
+        <script>
+            const instagramRegExp = new RegExp(/<script type="text\/javascript">window\._sharedData = (.*);<\/script>/)
+    
+            const fetchInstagramPhotos = async (accountUrl) => {
+                const response = await axios.get(accountUrl)
+                const json = JSON.parse(response.data.match(instagramRegExp)[1])
+                const edges = json.entry_data.ProfilePage[0].graphql.user.edge_owner_to_timeline_media.edges.splice(
+                    0, 9)
+                const photos = edges.map(({
+                    node
+                }) => {
+                    return {
+                        url: `https://www.instagram.com/p/${node.shortcode}/`,
+                        thumbnailUrl: node.thumbnail_src,
+                        displayUrl: node.display_url,
+                        caption: node.edge_media_to_caption.edges.length > 0 ? node.edge_media_to_caption.edges[0].node.text : ""
+                    }
+                })
+                return photos
+            }
+    
+            (async () => {
+                try {
+                    const photos = await fetchInstagramPhotos('https://www.instagram.com/universaladventuresindia/')
+                    const container = document.getElementById("ing")
+                    console.log(photos);
+                    photos.forEach(el => {
+                        const a = document.createElement('a')
+                        const img = document.createElement('img')
+                        const div = document.createElement('div')
+                        a.setAttribute('href', el.url)
+                        a.setAttribute('target', '_blank')
+                        a.setAttribute('rel', 'noopener noreferrer')
+                        a.classList.add('instagram-photo')
+    
+                        img.setAttribute('src', el.thumbnailUrl)
+                        img.setAttribute('alt', el.caption)
+    
+                        a.appendChild(img)
+                        div.classList.add('single_insta')
+                        div.appendChild(a)
+                        container.appendChild(div)
+                    })
+                } catch (e) {
+                    console.error('Fetching Instagram photos failed', e)
+                }
+            })()
+        </script>
+    
+    </body>
+    
+    </html>
+    {% endblock %}

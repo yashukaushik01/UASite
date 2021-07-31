@@ -1,0 +1,200 @@
+﻿{% load static %}
+{% block content %}
+{% load socialaccount %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Universal Adventures</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KH59H8J');</script>
+
+<!-- End Google Tag Manager -->
+
+
+
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="icon" href={% static './img/uni.png' %} sizes="16x16" type="image/png">
+    <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/owl.carousel.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/magnific-popup.css' %}>
+    <link rel="stylesheet" href={% static 'css/font-awesome.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/themify-icons.css' %}>
+    <link rel="stylesheet" href={% static 'css/nice-select.css' %}>
+    <link rel="stylesheet" href={% static 'css/flaticon.css' %}>
+    <link rel="stylesheet" href={% static 'css/gijgo.css' %}>
+    <link rel="stylesheet" href={% static 'css/animate.css' %}>
+    <link rel="stylesheet" href={% static 'css/slick.css' %}>
+    <link rel="stylesheet" href={% static 'css/slicknav.css' %}>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href={% static 'css/style.css' %}>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <nav class="navbar  navbar-expand-lg  fixed-top navbar-light" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/"><img
+                    src={% static 'img//Universal Adventures Logo.png' %} width="200px">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/">Home</a></li>
+                      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/blog">Our Blog</a></li>     
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/profile">Hello {{user}}</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/accounts/logout">logout</a></li>
+                    {% else %}<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#" id="modal"
+                            data-toggle="modal" data-target="#log">Login</a></li>
+
+                    {% endif %}
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+<div class="container" style=" text-align: justify;text-justify: inter-word;">
+<h1>
+   <b>Privacy Policy</b>
+</h1><br><br><br>
+<h1>Privacy Policy</h1>
+<h4>Effective From 30 September 2020</h4>
+We take your privacy seriously and are committed to ensuring that we respect your privacy when you visit our website or use our services. Please review this Statement carefully to learn about our privacy policies.
+We provide service in the field of tour, travel & adventure sports within the country India as well outside countries. Also we inform user about the “travel related information” via. Cellular call, Messages, Email, or any other available way communicate if user opt for sharing the information with them. We also keep the track of the “travel plans” which has opted by the user either in the past or in the future.  These all are collectively referred to as our services.
+Our Services are owned and operated by Universal Adventures. By visiting our websites, whether on a computer, phone, tablet or similar device (these are all referred to as a “Device”), you are accepting the practices described below.
+Information Collection and Use.You may browse our website with or without providing us with their personal data.When you access or use our Services, we collect information from and about you to provide a more personalised and relevant experience. When you use our Services by “clicking-through” from a third-party site or when you visit third-party sites via our Services, those third-party sites may share information with us about your use of their service.
+We have no access to any additional information which may be used to link that data to you or any natural persons unless you choose to supply that information to us directly.
+If the user opted for displaying their travel reviews, blogs or any other user created content, then the user need to submit that directly to our website or he/she can mail us at support@universaladventures.in. 
+If you contact us with questions or to request information, we will collect any additional personal data that you voluntarily transmit with your communications to us.
+We also collect your browser type and IP address when you use the Site.<br>
+We use your personal data for our legitimate interests and to perform a contract with you to:<br>
+•         Inform you regarding the latest travel trends<br>
+•         Provide you with different discounts and offers<br>
+•         Provide you with support<br>
+•         Improve the Site<br>
+•         Detect fraud, illegal activities or security breaches<br>
+•         Verify your authority to use our Site<br>
+•         Collect statistical aggregated data regarding use of the Site<br>
+
+<h3>Information Security</h3>
+We have implemented appropriate administrative, technical and physical security procedures to help protect your information.
+<h3>Information Retention</h3>
+We will retain copies of your information for as long as you maintain your account or as necessary in connection with the purposes set out in this Statement, unless applicable law requires a longer retention period. In addition, we may retain your information for the duration of any period necessary to establish, exercise or defend any legal rights.
+<h3>Cookies and Tracking</h3>
+We may use small text files called cookies to improve overall experience in the Site. A cookie is a piece of data stored on the user’s hard drive containing information about the user. We may use persistent cookies to remember your login to the Site and your preferences and we may use session cookies to make your purchases easier. You can read more about cookies at www.allaboutcookies.org.
+Third-party vendors, including, without limitation, Google, may show ads for our Site on search engine results pages and other websites across the Internet. These third-party vendors, including Google, use cookies to serve ads based on a user’s prior visit to our Site. Our Site uses analytics data to also inform and optimize such ad campaigns based on a user’s prior visits to our Site. You can learn about Google’s practices by going to www.google.com/policies/privacy/partners/, and opt out of them by downloading the Google Analytics opt-out browser add-on, available at https://tools.google.com/dlpage/gaoptout. In addition, users may also opt out of a third party vendor’s use of cookies by visiting the Network Advertising Initiative opt out page at http://www.networkadvertising.org/choices/. We may report users’ aggregate interactions with our ads across the Google Display Network in conjunction with activity on the Site.
+<h3>Do Not Track Signals</h3>
+Our website is not designed to currently respond to “Do Not Track” (“DNT”) signal requests from browsers. This is due to the lack of global standardised interpretation that defines “Do Not Track” signals. Once the industry has settled on standards related to this issue, we may re-evaluate this approach.
+Statement Changes and Notification
+We may update this Statement in the future. If we believe any changes are material, we will let you know by doing one or more of the following: sending you a communication about the changes, placing a notice on the website and/or posting an updated Statement on the website. We will note at the top of this Statement when it was most recently updated. We encourage you to check back from time to time to review the most current version and to periodically review this Statement for the latest information on our privacy practices.
+
+<h3>Children’s Privacy</h3>
+Universal Adventures recognizes the privacy interests of children and we encourage parents and guardians to take an active role in their children’s online activities and interests. The Site are not directed to children under the age of 10. Universal Adventures does not target its Site to children under 10. Universal Adventures does not knowingly collect personal data from children under the age of 10. If we learn that a child under the age of 10 provided us with personal data, we will delete that information. If your child has provided personal data, please contact us. If you are under the age of 14, please do not provide us with any personal data.
+Contact
+If you have a data privacy request, such as a request to delete or access your data, please send us mail to: info@universaladventures.com.  For general data privacy inquiries or questions concerning our Privacy and Cookies Statement, please contact our privacy team by mail at info@universaladventures.com
+</div>
+<br><br>
+<footer class="footer">
+    <div class="footer_top">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-4 col-md-6 col-lg-4 ">
+                    <div class="footer_widget">
+                        <div class="footer_logo">
+                            <a href="#">
+                                 <img src={% static 'img/footer.png' %}  width="200px" alt="">
+                            </a>
+                        </div>
+                        <a href="#">+91 8882654593</a> <br>
+                        <a href="mailto:contact@universaladventures.in">contact@universaladventures.in</a>
+                        </p>
+                        <div class="socail_links">
+                            <ul>
+                                <li>
+                                    <a href="https://www.facebook.com/universaladventuresindia/">
+                                        <i class="ti-facebook"></i>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="https://www.instagram.com/universaladventuresindia/">
+                                        <i class="fa fa-instagram"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://g.co/kgs/FEs31r">
+                                        <i class="fa fa-google-plus"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xl-2 col-md-6 col-lg-2">
+                    <div class="footer_widget">
+                        <h3 class="footer_title">
+                            Company
+                        </h3>
+                         <ul class="links">
+                                <ul class="links">
+                                <li><a href="/about/">About</a></li>
+                                <li><a href="/contact/"> Contact</a></li>
+                                <li><a href="/privacy-policy/">Privacy-Policy</a></li>
+                                <li><a href="/partial-payment/">Partial Payment</a></li>
+                                <li><a href="/refund-policy">Payments & Refund Policy</a></li>
+                            </ul>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-lg-3">
+                    <div class="footer_widget">
+                        <h3 class="footer_title">
+                            Popular destination
+                        </h3>
+                        <ul class="links double_links">
+                               <li><a href="/destination/Goa/">Goa</a></li>
+                                <li><a href="/destination/Karnataka/">Karnataka</a></li>
+                                <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
+                                <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
+                                <li><a href="/destination/Rajasthan/">Rajasthan</a></li>
+                                <li><a href="/destination/Maharashtra/">Maharashtra</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-lg-3">
+                    <div class="footer_widget">
+                        <h3 class="footer_title">
+                            Instagram
+                        </h3>
+                        <div class="instagram_feed" id="ing">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+    
+
+</html>
+{% endblock %}

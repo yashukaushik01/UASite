@@ -1,0 +1,73 @@
+<div class="row">
+    <!-- Carousel Wrapper -->
+    <div id="multi-item-example2" class="col carousel slide" data-ride="carousel" data-interval="false">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li class="active" data-target="#multi-item-example2" data-slide-to="0"></li>
+        {% for i in recommended|slice:3 %}
+        <li class="" data-target="#multi-item-example2" data-slide-to="{{i}}"></li>
+        {% endfor %}
+      </ol>
+      <div class="container carousel-inner">
+        <!-- First slide -->
+        
+        <div class="carousel-item active"> 
+            <div class="row">
+            {% for prod in recommended|slice:12  %} 
+            <div class="col-lg-4 col-md-6" style="cursor: pointer; box-shadow: 2px;">
+                <div class="single_place" style="height:25rem">
+                    <div class="thumb">
+
+
+                        {% with prod.images_set.all|first as image %}
+
+                        <img src="{{image.image.url}}" height="250px" class="hero"
+                             />
+                        {% endwith %}
+
+                        <a href="/recommended/{{prod.slug}}" class="prise">Rs{{prod.sale}}</a>
+                        <div class="days" style="margin-top: -25px; margin-left:15px; color: white;z-index:10;;font-weight:200;">
+                            <i class="fa fa-clock-o"></i>
+                            <a href="#" style="color: white;">{{prod.days}} days</a>
+                            <i class="fa fa-map-marker ml-2"></i>
+                            <a href="#" style="color: white;">{{prod.state}}</a>
+                        </div>
+                    </div>
+                    <div class="place_info">
+                        <a href="/recommended/{{prod.slug}}">
+                            <h3>{{prod.name}}</h3>
+                        </a>
+                        <p>{{prod.location}}</p>
+                        <div class="rating_days d-flex justify-content-between">
+                            <span class="d-flex justify-content-center align-items-center">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <a href="#">{{prod.rating}} Reviews</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           {% if forloop.counter|divisibleby:3 and not forloop.last%}
+         </div></div><div class="carousel-item">
+             <div class="row">
+             {% endif %}
+             {% endfor %} 
+      </div>
+    </div>
+</div>
+ 
+</div>  
+    <!-- Slides -->
+    <a class="carousel-control-prev mt-5" data-slide="prev" href="#multi-item-example2" style=" border-radius:20%; " role="button" data-slide="prev">
+        <b><i class="fa fa-angle-left  fa-lg " style="color: black;"></i></b>
+      </a>
+    
+      <a class="carousel-control-next mt-5" data-slide="next" href="#multi-item-example2"  style="" role="button" data-slide="next">
+        <b><i class="fa fa-angle-right fa-lg " style="color: black;"></i></b>
+        </a>   
+
+</div>

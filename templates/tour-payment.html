@@ -1,0 +1,535 @@
+﻿{% load static %}
+{% block content %}
+{% load socialaccount %}
+{% load crispy_forms_tags %}
+
+
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Universal Adventures</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KH59H8J');</script>
+
+<!-- End Google Tag Manager -->
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="icon" href={% static './img/Uni.png' %} sizes="16x16" type="image/png">
+    <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/owl.carousel.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/magnific-popup.css' %}>
+    <link rel="stylesheet" href={% static 'css/font-awesome.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/themify-icons.css' %}>
+    <link rel="stylesheet" href={% static 'css/nice-select.css' %}>
+    <link rel="stylesheet" href={% static 'css/flaticon.css' %}>
+    <link rel="stylesheet" href={% static 'css/gijgo.css' %}>
+    <link rel="stylesheet" href={% static 'css/animate.css' %}>
+    <link rel="stylesheet" href={% static 'css/slick.css' %}>
+    <link rel="stylesheet" href={% static 'css/slicknav.css' %}>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href={% static 'css/style.css' %}>
+    <style>
+html,body {
+            overflow-x: hidden;
+            scroll-behavior: smooth !important;
+            transition: all 0.25s ease;
+        }
+        .datepicker td, .datepicker th {
+            width: 2.5rem;
+            height: 2.5rem;
+            font-size: 0.85rem;
+        }
+
+        .datepicker {
+            margin-bottom: 3rem;
+        }
+  
+    .carousel-control-prev,
+    .carousel-control-next {
+        top: auto;
+        bottom: auto;
+        padding: 20px;
+    }
+    
+
+.carousel .carousel-indicators {
+	bottom: -50px;
+}
+.carousel-indicators li, .carousel-indicators li.active {
+	width: 10px;
+	height: 10px;
+	margin: 4px;
+    border-radius: 50%;
+    cursor: pointer;
+	border-color: transparent;
+}
+.carousel-indicators li {	
+	background: rgba(0, 0, 0, 0.2);
+}
+.carousel-indicators li.active {	
+	background: rgba(0, 0, 0, 0.6);
+}
+           .open-button {
+  color: white;
+  padding: 16px 10px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 4px;
+  right: 4px;
+  background: transparent;
+  text-decoration: none;
+  z-index: 8;
+}
+
+/* The popup chat - hidden by default */
+.chat-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border-radius: 10px;
+  z-index: 9;
+}
+#fr2{
+    display: none;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+</style>
+</head>
+
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <div class="loader_bg">
+        <div class="loader">
+        </div>
+    </div>
+
+    <nav class="navbar  navbar-expand-lg  fixed-top navbar-light" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/"><img
+                    src={% static 'img//Universal Adventures Logo.png' %} width="200px">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/">Home</a></li>
+                      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/blog">Our Blog</a></li>
+                 
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/profile">Hello {{user}}</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/accounts/logout">logout</a></li>
+                    {% else %}<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#" id="modal"
+                            data-toggle="modal" data-target="#log">Login</a></li>
+
+                    {% endif %}
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="modal fade" id="log" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <a href="{% provider_login_url "facebook" method="js_sdk" %}"
+                        class="btn btn-block btn-social btn-facebook"
+                        style="background-color:#3b5998;text-align:center;color:white">
+                        <span class="fa fa-facebook"></span>
+                        Sign in with Facebook
+                    </a>
+                    <a href="{% provider_login_url "google"  %}" process="connect"
+                        class="btn btn-block btn-social btn-google"
+                        style="background-color:red;text-align:center;color:white">
+                        <span class="fa fa-google-plus"></span>
+                        Sign in with Google
+                    </a>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <header class="masthead" style="height:220px;width:100% ;background-image:url('/static/img/{{post.location}}.jpg');background-size:cover;background-position: center;">
+        <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+            <source src="./images/video.webm" type="video/mp4">
+        </video>
+        <div class="container s">
+  
+                <h1 style="color: white; text-align: center;">Tour Payment</h1>
+           
+        </div>
+    </header>
+    <div class="container my-5">
+        <form action="/checkout3/" method="post">
+            {%csrf_token%}
+            <div class="form-row">
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-6">
+                    <label for="inputname">Name*</label>
+                    <input type="name" class="form-control" id="name" name="name" value="{{post.name}}" required>
+                </div>
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-6">
+        
+                    <label for="inputEmail4">Email*</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+            </div>
+            <input type="hidden" name="orderid" id="orderid" value="{{post.id}}">
+            <div class="form-row">
+            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-6 ">
+                <label for="phone">Phone*</label>
+                <input type="tel" class="form-control" id="phone" name="phone" value="{{post.phone}}">
+            </div>
+             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-6">
+                <label for="price"> Price </label>
+                   <input type="text" id="price" class="form-control" value=&#8377;5000 disabled>
+              </div> 
+            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
+                <label for="services"> Service </label>
+                <input type="text" class="form-control" id="services" name="services" disabled>
+              </div> 
+               <input type="hidden" class="form-control" name="amount" id="amount" value="5000">
+            
+        </div>
+            
+            <button id="heman" type="submit" class="btn btn-primary my-4">Pay Partially</button>
+        </form>
+    </div>
+    <div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h3 class="modal-title" id="lineModalLabel">Get A Call</h3>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span
+                            class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- content goes here -->
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail2">Name</label>
+                            <input type="text" class="form-control" id="exampleInputEmail2"
+                                placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPhone1">Phone Number</label>
+                            <input type="password" class="form-control" id="exampleInputPhone1"
+                                placeholder="+91-XXXXXXXXXX" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea class="form-control textarea" rows="3" name="Message" id="Message"
+                                        placeholder="Ask Anything related to your dream  Adventure or Destination"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+<button class="open-button" onclick="openForm()">
+        <img src={% static 'img/calling.png' %}  height="80px"  /></button>
+    
+    <div class="chat-popup" id="myForm">
+        <div class="form-container" id="fr2" style="text-align: center;">
+            <img src={% static 'img/Universal Adventures Logo.png' %} width="70px" style="margin-bottom: 1rem;">
+            <h3 style="margin-bottom: 1rem;">Thank You!</h3>
+            <h3 style="margin-bottom: 1rem;">Our Expert Will Call You In A Moment</h3>
+            <button class="btn btn-info" onclick="closeForm()">Close</button>
+        </div>
+        <form action="/" class="form-container" id='formg'>
+            <i onclick="closeForm()" class="fa fa-times" style="float: right; cursor: pointer;"></i>
+            <h3>Fill Details To Start Chat</h3>
+            <div class="form-group row">
+                <div class="col-md-12">
+                  <input type="text" class="form-control" id="inputname" placeholder="Name">
+                </div>
+              </div>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <input type="tel" class="form-control" id="inputPhone" placeholder="Phone">
+                  </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                    <select class="form-control" id="services" name="services">
+                      <option selected>Select Query</option>
+                      <option>Adventure Sport</option>
+                      <option>Tour</option>
+                      <option>Other</option>
+                    </select>
+                </div>
+                  </div> 
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <button type="submit" onclick="Sub()" class="btn btn-primary">Start Chat</button>&nbsp;OR &nbsp;
+                    <button onclick="location.href='tel:8882654593'"class="btn btn-danger"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;8882654593</button>
+                  </div>     
+                 </div>
+              </form>
+      </div>
+
+    <footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-lg-4 ">
+                        <div class="footer_widget">
+                            <div class="footer_logo">
+                                <a href="#">
+                                    <img src={% static 'img/footer.png' %}  width="200px" alt="">
+                                </a>
+                            </div>
+                             <a href="mailto:contact@universaladventures.in">contact@universaladventures.in</a><br>
+                      <a>E-447, Sector Beta 1, Greater Noida, Gautam Buddha Nagar, U.P.</a><br><a>
++91 8882654593
++91 9528812938</a> 
+                            </p>
+                            <div class="socail_links">
+                                <ul>
+                                    <li>
+                                        <a href="https://www.facebook.com/universaladventuresindia/">
+                                            <i class="ti-facebook"></i>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="https://www.instagram.com/universaladventuresindia/">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://g.co/kgs/FEs31r">
+                                            <i class="fa fa-google-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Company
+                            </h3>
+                            <ul class="links">
+                                <ul class="links">
+                                <li><a href="/about/">About</a></li>
+                                <li><a href="/contact/"> Contact</a></li>
+                                <li><a href="/privacy-policy/">Privacy-Policy</a></li>
+                                <li><a href="/partial-payment/">Partial Payment</a></li>
+                                <li><a href="/refund-policy">Payments & Refund Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Popular destination
+                            </h3>
+                            <ul class="links double_links">
+                                <li><a href="/destination/Goa/">Goa</a></li>
+                                <li><a href="/destination/Karnataka/">Karnataka</a></li>
+                                <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
+                                <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
+                                <li><a href="/destination/Rajasthan/">Rajasthan</a></li>
+                                <li><a href="/destination/Maharashtra/">Maharashtra</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Instagram
+                            </h3>
+                            <div class="instagram_feed" id="ing">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- JS here -->
+    <script src={% static 'js/vendor/modernizr-3.5.0.min.js' %}></script>
+    <script src={% static 'js/vendor/jquery-1.12.4.min.js' %}></script>
+    <script src={% static 'js/popper.min.js' %}></script>
+    <script src={% static 'js/bootstrap.min.js' %}></script>
+    <script src={% static 'js/owl.carousel.min.js' %}></script>
+    <script src={% static 'js/isotope.pkgd.min.js' %}></script>
+    <script src={% static 'js/ajax-form.js' %}></script>
+    <script src={% static 'js/waypoints.min.js' %}></script>
+    <script src={% static 'js/jquery.counterup.min.js' %}></script>
+    <script src={% static 'js/imagesloaded.pkgd.min.js' %}></script>
+    <script src={% static 'js/scrollIt.js' %}></script>
+    <script src={% static 'js/jquery.scrollUp.min.js' %}></script>
+    <script src={% static 'js/wow.min.js' %}""></script>
+    <script src={% static 'js/nice-select.min.js' %}></script>
+    <script src={% static 'js/jquery.slicknav.min.js' %}></script>
+    <script src={% static 'js/jquery.magnific-popup.min.js' %}""></script>
+    <script src={% static 'js/plugins.js' %}></script>
+    <script src={% static 'js/gijgo.min.js' %}></script>
+    <script src={% static 'js/slick.min.js' %}></script>
+
+
+
+    <!--contact js-->
+
+    <script src={% static 'js/contact.js' %}></script>
+    <script src={% static 'js/jquery.ajaxchimp.min.js' %}></script>
+    <script src={% static 'js/jquery.form.js' %}></script>
+    <script src={% static 'js/jquery.validate.min.js' %}></script>
+    <script src={% static 'js/mail-script.js' %}></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    
+    <script src={% static 'js/main.js' %}></script>
+    <script>
+        $('#datepicker').datepicker({
+            iconsLibrary: 'fontawesome',
+            icons: {
+                rightIcon: '<span class="fa fa-caret-down"></span>'
+            }
+        });
+    </script>
+<script>
+var t= `{{post.location}}`+`-`+`{{post.days}}`
+var g= "&#8377;"+`5000`
+$('#services').val(t);
+$('#price').val();
+</script>
+    <script>
+        $(function () {
+            $(window).scroll(function () {
+                var mainbottom = $("header").offset().top + $("header").height();
+                if ($(this).scrollTop() < mainbottom) {
+
+                    $('nav').removeClass('first');
+
+                } else {
+
+                    $('nav').addClass('first');
+
+                }
+            })
+        })
+    </script>
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+function Sub() {
+        document.getElementById("formg").style.display = "none";
+        document.getElementById("fr2").style.display = "block";
+    }
+</script>
+    <script>
+        setTimeout(function () {
+            $('.loader_bg').fadeToggle();
+        }, 2000);
+    </script>
+    <script>
+        const instagramRegExp = new RegExp(/<script type="text\/javascript">window\._sharedData = (.*);<\/script>/)
+
+        const fetchInstagramPhotos = async (accountUrl) => {
+            const response = await axios.get(accountUrl)
+            const json = JSON.parse(response.data.match(instagramRegExp)[1])
+            const edges = json.entry_data.ProfilePage[0].graphql.user.edge_owner_to_timeline_media.edges.splice(
+                0, 9)
+            const photos = edges.map(({
+                node
+            }) => {
+                return {
+                    url: `https://www.instagram.com/p/${node.shortcode}/`,
+                    thumbnailUrl: node.thumbnail_src,
+                    displayUrl: node.display_url,
+                    caption: node.edge_media_to_caption.edges.length > 0 ? node.edge_media_to_caption.edges[0].node.text : ""
+                }
+            })
+            return photos
+        }
+
+        (async () => {
+            try {
+                const photos = await fetchInstagramPhotos('https://www.instagram.com/universaladventuresindia/')
+                const container = document.getElementById("ing")
+                console.log(photos);
+                photos.forEach(el => {
+                    const a = document.createElement('a')
+                    const img = document.createElement('img')
+                    const div = document.createElement('div')
+                    a.setAttribute('href', el.url)
+                    a.setAttribute('target', '_blank')
+                    a.setAttribute('rel', 'noopener noreferrer')
+                    a.classList.add('instagram-photo')
+
+                    img.setAttribute('src', el.thumbnailUrl)
+                    img.setAttribute('alt', el.caption)
+
+                    a.appendChild(img)
+                    div.classList.add('single_insta')
+                    div.appendChild(a)
+                    container.appendChild(div)
+                })
+            } catch (e) {
+                console.error('Fetching Instagram photos failed', e)
+            }
+        })()
+    </script>
+
+</body>
+
+</html>
+{% endblock %}

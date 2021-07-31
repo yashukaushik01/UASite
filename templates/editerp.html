@@ -1,0 +1,1400 @@
+﻿{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Universal Adventures</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KH59H8J');</script>
+
+<!-- End Google Tag Manager -->
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="icon" href={% static './img/uni.png' %} sizes="16x16" type="image/png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/owl.carousel.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/magnific-popup.css' %}>
+    <link rel="stylesheet" href={% static 'css/font-awesome.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/themify-icons.css' %}>
+    <link rel="stylesheet" href={% static 'css/nice-select.css' %}>
+    <link rel="stylesheet" href={% static 'css/flaticon.css' %}>
+    <link rel="stylesheet" href={% static 'css/gijgo.css' %}"">
+    <link rel="stylesheet" href={% static ' css/animate.css' %}>
+    <link rel="stylesheet" href={% static 'css/slick.css' %}>
+    <link rel="stylesheet" href={% static 'css/slicknav.css' %}>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+
+    <link rel="stylesheet" href={% static 'css/style.css' %}>
+    <link rel="stylesheet" href={% static 'css/tagsinput.css' %}>
+    <style>
+        .form-control:focus {
+            box-shadow: none;
+        }
+
+        .form-control-underlined {
+            border-width: 0;
+            border-bottom-width: 1px;
+            border-radius: 0;
+            padding-left: 0;
+        }
+        .form-control::placeholder {
+            font-size: 0.95rem;
+            color: #aaa;
+            font-style: italic;
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+</head>
+<script>
+    function Balance(){
+        var sum=0
+         var arr_1=new Array()
+           var hell= document.getElementsByClassName('payment')
+          arr_1=Object.values(hell);
+          for(var i=0;i<=hell.length-1;i++){
+              if($(arr_1[i]).val()!='None')
+              {
+           sum=sum+Number($(arr_1[i]).val())
+              }
+        }
+        var total=$('#total_cost').val()
+         $('#net').val(sum)
+         $('#due').val(total-sum)
+    }
+    function BalanceHotel1(){
+        var sum=0
+         var arr_1=new Array()
+           var hell= document.getElementsByClassName('paymenth1')
+          arr_1=Object.values(hell);
+          for(var i=0;i<=hell.length-1;i++){
+              if($(arr_1[i]).val()!='None')
+              {
+           sum=sum+Number($(arr_1[i]).val())
+              }
+        }
+        var total=$('#net').val()
+         $('#net').val(total-sum)
+         var total2=Number($('#hotel_cost1').val())
+         $('#dueh1').val(total2-sum)
+    }
+    function Balancehotel2(){
+        var sum=0
+         var arr_1=new Array()
+           var hell= document.getElementsByClassName('paymenth2')
+          arr_1=Object.values(hell);
+          for(var i=0;i<=hell.length-1;i++){
+              if($(arr_1[i]).val()!='None')
+              {
+           sum=sum+Number($(arr_1[i]).val())
+              }
+        }
+        var total=$('#net').val()
+         $('#net').val(total-sum)
+         var total2=Number($('#hotel_cost2').val())
+         $('#dueh2').val(total2-sum)
+    }
+    function Balancehotel3(){
+        var sum=0
+         var arr_1=new Array()
+           var hell= document.getElementsByClassName('paymenth3')
+          arr_1=Object.values(hell);
+          for(var i=0;i<=hell.length-1;i++){
+              if($(arr_1[i]).val()!='None')
+              {
+           sum=sum+Number($(arr_1[i]).val())
+              }
+        }
+        var total=$('#net').val()
+         $('#net').val(total-sum)
+         var total2=Number($('#hotel_cost3').val())
+         $('#dueh3').val(total2-sum)
+    }
+    function Balancetransport1(){
+        var sum=0
+         var arr_1=new Array()
+           var hell= document.getElementsByClassName('paymentt1')
+          arr_1=Object.values(hell);
+          for(var i=0;i<=hell.length-1;i++){
+              if($(arr_1[i]).val()!='None')
+              {
+           sum=sum+Number($(arr_1[i]).val())
+              }
+        }
+        var total=$('#net').val()
+         $('#net').val(total-sum)
+         var total2=Number($('#transport_cost1').val())
+         $('#duet1').val(total2-sum)
+    }
+    function Balancetransport2(){
+        var sum=0
+         var arr_1=new Array()
+           var hell= document.getElementsByClassName('paymentt2')
+          arr_1=Object.values(hell);
+          for(var i=0;i<=hell.length-1;i++){
+              if($(arr_1[i]).val()!='None')
+              {
+           sum=sum+Number($(arr_1[i]).val())
+              }
+        }
+        var total=$('#net').val()
+         $('#net').val(total-sum)
+         var total2=Number($('#transport_cost2').val())
+         $('#duet2').val(total2-sum)
+    }
+    function Balancetransport3(){
+        var sum=0
+         var arr_1=new Array()
+           var hell= document.getElementsByClassName('paymentt3')
+          arr_1=Object.values(hell);
+          for(var i=0;i<=hell.length-1;i++){
+              if($(arr_1[i]).val()!='None')
+              {
+           sum=sum+Number($(arr_1[i]).val())
+              }
+        }
+        var total=$('#net').val()
+         $('#net').val(total-sum)
+         var total2=Number($('#transport_cost3').val())
+         $('#duet3').val(total2-sum)
+    }
+</script>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <nav class="navbar  navbar-expand-lg  fixed-top navbar-light" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/"><img
+                    src={% static 'img//Universal Adventures Logo.png' %} width="70px">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#adv">Welcome Admin!</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="popular_destination_area">
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Booking Id</label>
+                <h3><span class="badge badge-primary">{{post.booking_id}}</span></h3>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Net Balance</label>
+                <h3><input class="form-control" id="net"  value="{{post.net}}"  name="net"></input></h3>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Due Balance</label>
+                <h3><input class="form-control" id="due"  value="{{post.due}}"  name="due"></input></h3>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-lg-6">
+                    <!-- <div class="section_title  mb_70"></div> -->
+                  
+                </div>
+        </div>
+          
+            <h1 class="mt-3">Client Info</h1>
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Phone*</label>
+                    <input type="text" class="form-control" value="{{post.phone}}" name="phone">
+                </div>
+                 <div class="form-group col-md-3 mb-0">
+                    <label>Name*</label>
+                    <input type="text" class="form-control" value="{{post.name}}" name="name">
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    <label>Email*</label>
+                    <input type="email" class="form-control" value="{{post.email}}" name="email" required>
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    <label>Package Name*</label>
+                    <input type="text" class="form-control"value="{{post.package}}" name="package" required>
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    <label>Start Date*</label>
+                    <input type="date" class="form-control" value="{{post.start_date}}"name="start_date" required>
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    <label>Total Cost*</label>
+                    <input type="number" class="form-control" value="{{post.total_cost}}"name="total_cost" id="total_cost" required>
+                </div>
+                <div class="form-group col-md-5 mb-0">
+                    <label>Client payments</label>
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                       Client payments Details
+                      </button>
+                </div>
+               
+                <div class="collapse" id="collapseExample">
+                  <div class="card card-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-2 mb-0">
+                            <label>payment</label>
+                            <input type="text" class="form-control payment" value="{{post.payment_client1}}" name="payment_client1">
+                        </div>
+                         <div class="form-group col-md-3 mb-0">
+                            <label>payment Date</label>
+                            <input type="date" class="form-control" value="{{post.payment_date1}}" name="payment_date1">
+                        </div>
+                        <div class="form-group col-md-3 mb-0">
+                            <label>Mode of payment*</label>
+                            <input type="text" class="form-control" value="{{post.mop1}}" name="mop1">
+                        </div>
+                        <div class="form-group col-md-3 mb-0">
+                            <label>comment</label>
+                            <input type="text" class="form-control"value="{{post.comment1}}" name="comment1">
+                        </div>
+                        <div class="form-group col-md-1 mb-0">
+                            <label>Save</label>
+                            <p class="btn btn-success" onclick="Balance()"> Save</p>
+                        </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-2 mb-0">
+                                <label>payment</label>
+                                <input type="text" class="form-control payment" value="{{post.payment_client2}}" name="payment_client2">
+                            </div>
+                             <div class="form-group col-md-3 mb-0">
+                                <label>payment Date</label>
+                                <input type="date" class="form-control" value="{{post.payment_date2}}" name="payment_date2">
+                            </div>
+                            <div class="form-group col-md-3 mb-0">
+                                <label>Mode of payment*</label>
+                                <input type="text" class="form-control" value="{{post.mop2}}" name="mop2">
+                            </div>
+                            <div class="form-group col-md-3 mb-0">
+                                <label>comment</label>
+                                <input type="text" class="form-control"value="{{post.comment2}}" name="comment2">
+                            </div>
+                            <div class="form-group col-md-1 mb-0">
+                                <label>Save</label>
+                                <p class="btn btn-success" onclick="Balance()"> Save</p>
+                            </div>
+    
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-2 mb-0">
+                                    <label>payment</label>
+                                    <input type="text" class="form-control payment" value="{{post.payment_client3}}" name="payment_client3">
+                                </div>
+                                 <div class="form-group col-md-3 mb-0">
+                                    <label>payment Date</label>
+                                    <input type="date" class="form-control" value="{{post.payment_date3}}" name="payment_date3">
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    <label>Mode of payment*</label>
+                                    <input type="text" class="form-control" value="{{post.mop3}}" name="mop3">
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                    <label>comment</label>
+                                    <input type="text" class="form-control"value="{{post.comment3}}" name="comment3">
+                                </div>
+                                <div class="form-group col-md-1 mb-0">
+                                    <label>Save</label>
+                                    <p class="btn btn-success" onclick="Balance()"> Save</p>
+                                </div>
+        
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-2 mb-0">
+                                        <label>payment</label>
+                                        <input type="text" class="form-control payment" value="{{post.payment_client4}}" name="payment_client4">
+                                    </div>
+                                     <div class="form-group col-md-3 mb-0">
+                                        <label>payment Date</label>
+                                        <input type="date" class="form-control" value="{{post.payment_date4}}" name="payment_date4">
+                                    </div>
+                                    <div class="form-group col-md-3 mb-0">
+                                        <label>Mode of payment*</label>
+                                        <input type="text" class="form-control" value="{{post.mop4}}" name="mop4">
+                                    </div>
+                                    <div class="form-group col-md-3 mb-0">
+                                        <label>comment</label>
+                                        <input type="text" class="form-control"value="{{post.comment4}}" name="comment4">
+                                    </div>
+                                    <div class="form-group col-md-1 mb-0">
+                                        <label>Save</label>
+                                        <p class="btn btn-success" onclick="Balance()"> Save</p>
+                                    </div>
+            
+                                    </div>
+                  </div>
+                </div>
+            </div>
+            
+            
+         
+            <h1 class="mt-5">Hotel Details</h1>
+            <div class="accordion" id="accordionExample2">
+                <div class="card">
+                  <div class="card-header" id="headingOne2">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2">
+                        Add Hotel Details
+                      </button>
+                    </h2>
+                  </div>
+                  <div id="collapseOne2" class="collapse" aria-labelledby="headingOne2" data-parent="#accordionExample2">
+                    <div class="card-body">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                              <div class="card-header" id="headingOne">
+                                <h2 class="mb-0">
+                                  <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                   Hotel 1<h5> Due amount:<input class="form-control" id="dueh1"  value="{{post.dueh1}}"  name="dueh1"></input></h5>
+                                  </button>
+                                </h2>
+                              </div>
+                          
+                              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Hotel Name</label>
+                                            <input type="text" class="form-control" value="{{post.hotel_name1}}" name="hotel_name1">
+                                        </div>
+                                         <div class="form-group col-md-3 mb-0">
+                                            <label>Contact Person</label>
+                                            <input type="text" class="form-control" value="{{post.hotel_contact1}}" name="hotel_contact1">
+                                        </div>
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Phone</label>
+                                            <input type="tel" class="form-control" value="{{post.hotel_phone1}}" name="hotel_phone1">
+                                        </div>
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Total Cost</label>
+                                            <input type="number" class="form-control" value="{{post.hotel_cost1}}" id="hotel_cost1" name="hotel_cost1">
+                                        </div>
+                                        <div class="form-group col-md-3 mb-0">
+                                            <label>comment</label>
+                                            <input type="text" class="form-control"value="{{post.hotel_comment1}}" name="hotel_comment1">
+                                        </div>
+                                        <div class="form-group col-md-5 mb-0">
+                                            <label>Hotel 1 payments</label>
+                                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+                                                Hotel 1 payments
+                                              </button>
+                                        </div>
+                                        </div>
+                                        <div class="collapse" id="collapseExample2">
+                                            <div class="card card-body">
+                                              <div class="form-row">
+                                                  <div class="form-group col-md-2 mb-0">
+                                                      <label>payment</label>
+                                                      <input type="text" class="form-control paymenth1" value="{{post.payment1_hotel1}}" name="payment1_hotel1">
+                                                  </div>
+                                                   <div class="form-group col-md-3 mb-0">
+                                                      <label>payment Date</label>
+                                                      <input type="date" class="form-control" value="{{post.paymet1_date_hotel1}}" name="paymet1_date_hotel1">
+                                                  </div>
+                                                  <div class="form-group col-md-3 mb-0">
+                                                      <label>Mode of payment*</label>
+                                                      <input type="text" class="form-control" value="{{post.mop1_hotel1}}" name="mop1_hotel1">
+                                                  </div>
+                                                  <div class="form-group col-md-3 mb-0">
+                                                      <label>comment</label>
+                                                      <input type="text" class="form-control"value="{{post.comment1_hotel1}}" name="comment1_hotel1">
+                                                  </div>
+                                                  <div class="form-group col-md-1 mb-0">
+                                                      <label>Save</label>
+                                                      <p class="btn btn-success" onclick="BalanceHotel1()"> Save</p>
+                                                  </div>
+                          
+                                                  </div>
+                                                  <div class="form-row">
+                                                    <div class="form-group col-md-2 mb-0">
+                                                        <label>payment</label>
+                                                        <input type="text" class="form-control paymenth1" value="{{post.payment2_hotel1}}" name="payment2_hotel1">
+                                                    </div>
+                                                     <div class="form-group col-md-3 mb-0">
+                                                        <label>payment Date</label>
+                                                        <input type="date" class="form-control" value="{{post.paymet2_date_hotel1}}" name="paymet2_date_hotel1">
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        <label>Mode of payment*</label>
+                                                        <input type="text" class="form-control" value="{{post.mop2_hotel1}}" name="mop2_hotel1">
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        <label>comment</label>
+                                                        <input type="text" class="form-control"value="{{post.comment2_hotel1}}" name="comment2_hotel1">
+                                                    </div>
+                                                    <div class="form-group col-md-1 mb-0">
+                                                        <label>Save</label>
+                                                        <p class="btn btn-success" onclick="BalanceHotel1()"> Save</p>
+                                                    </div>
+                            
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-2 mb-0">
+                                                            <label>payment</label>
+                                                            <input type="text" class="form-control paymenth1" value="{{post.payment3_hotel1}}" name="payment3_hotel1">
+                                                        </div>
+                                                         <div class="form-group col-md-3 mb-0">
+                                                            <label>payment Date</label>
+                                                            <input type="date" class="form-control" value="{{post.paymet3_date_hotel1}}" name="paymet3_date_hotel1">
+                                                        </div>
+                                                        <div class="form-group col-md-3 mb-0">
+                                                            <label>Mode of payment*</label>
+                                                            <input type="text" class="form-control" value="{{post.mop3_hotel1}}" name="mop3_hotel1">
+                                                        </div>
+                                                        <div class="form-group col-md-3 mb-0">
+                                                            <label>comment</label>
+                                                            <input type="text" class="form-control"value="{{post.comment3_hotel1}}" name="comment3_hotel1">
+                                                        </div>
+                                                        <div class="form-group col-md-1 mb-0">
+                                                            <label>Save</label>
+                                                            <p class="btn btn-success" onclick="BalanceHotel1()"> Save</p>
+                                                        </div>
+                                
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-2 mb-0">
+                                                                <label>payment</label>
+                                                                <input type="text" class="form-control paymenth1" value="{{post.payment4_hotel1}}" name="payment4_hotel1">
+                                                            </div>
+                                                             <div class="form-group col-md-3 mb-0">
+                                                                <label>payment Date</label>
+                                                                <input type="date" class="form-control" value="{{post.paymet4_date_hotel1}}" name="paymet4_date_hotel1">
+                                                            </div>
+                                                            <div class="form-group col-md-3 mb-0">
+                                                                <label>Mode of payment*</label>
+                                                                <input type="text" class="form-control" value="{{post.mop4_hotel1}}" name="mop4_hotel1">
+                                                            </div>
+                                                            <div class="form-group col-md-3 mb-0">
+                                                                <label>comment</label>
+                                                                <input type="text" class="form-control"value="{{post.comment4_hotel1}}" name="comment4_hotel1">
+                                                            </div>
+                                                            <div class="form-group col-md-1 mb-0">
+                                                                <label>Save</label>
+                                                                <p class="btn btn-success" onclick="BalanceHotel1()"> Save</p>
+                                                            </div>
+                                    
+                                                            </div>
+                                            </div>
+                                          </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="card">
+                              <div class="card-header" id="headingTwo">
+                                <h2 class="mb-0">
+                                  <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Hotel 2<h5> Due amount:<input class="form-control" id="dueh2"  value="{{post.dueh2}}"  name="dueh2"></input></h5>
+                                  </button>
+                                </h2>
+                              </div>
+                              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Hotel Name</label>
+                                            <input type="text" class="form-control" value="{{post.hotel_name2}}" name="hotel_name2">
+                                        </div>
+                                         <div class="form-group col-md-3 mb-0">
+                                            <label>Contact Person</label>
+                                            <input type="text" class="form-control" value="{{post.hotel_contact2}}" name="hotel_contact2">
+                                        </div>
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Phone</label>
+                                            <input type="tel" class="form-control" value="{{post.hotel_phone2}}" name="hotel_phone2">
+                                        </div>
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Total Cost</label>
+                                            <input type="number" class="form-control" value="{{post.hotel_cost2}}" id="hotel_cost2" name="hotel_cost2">
+                                        </div>
+                                        <div class="form-group col-md-3 mb-0">
+                                            <label>comment</label>
+                                            <input type="text" class="form-control"value="{{post.hotel_comment2}}" name="hotel_comment2">
+                                        </div>
+                                        <div class="form-group col-md-5 mb-0">
+                                            <label>Hotel 2 payments</label>
+                                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample4">
+                                                Hotel 2 payments
+                                              </button>
+                                        </div>
+                                        </div>
+                                        <div class="collapse" id="collapseExample4">
+                                            <div class="card card-body">
+                                              <div class="form-row">
+                                                  <div class="form-group col-md-2 mb-0">
+                                                      <label>payment</label>
+                                                      <input type="text" class="form-control paymenth2" value="{{post.payment1_hotel2}}" name="payment1_hotel2">
+                                                  </div>
+                                                   <div class="form-group col-md-3 mb-0">
+                                                      <label>payment Date</label>
+                                                      <input type="date" class="form-control" value="{{post.paymet1_date_hotel2}}" name="paymet1_date_hotel2">
+                                                  </div>
+                                                  <div class="form-group col-md-3 mb-0">
+                                                      <label>Mode of payment*</label>
+                                                      <input type="text" class="form-control" value="{{post.mop1_hotel2}}" name="mop1_hotel2">
+                                                  </div>
+                                                  <div class="form-group col-md-3 mb-0">
+                                                      <label>comment</label>
+                                                      <input type="text" class="form-control"value="{{post.comment1_hotel2}}" name="comment1_hotel2">
+                                                  </div>
+                                                  <div class="form-group col-md-1 mb-0">
+                                                      <label>Save</label>
+                                                      <p class="btn btn-success" onclick="BalanceHotel2()"> Save</p>
+                                                  </div>
+                          
+                                                  </div>
+                                                  <div class="form-row">
+                                                    <div class="form-group col-md-2 mb-0">
+                                                        <label>payment</label>
+                                                        <input type="text" class="form-control paymenth2" value="{{post.payment2_hotel2}}" name="payment2_hotel2">
+                                                    </div>
+                                                     <div class="form-group col-md-3 mb-0">
+                                                        <label>payment Date</label>
+                                                        <input type="date" class="form-control" value="{{post.paymet2_date_hotel2}}" name="paymet2_date_hotel2">
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        <label>Mode of payment*</label>
+                                                        <input type="text" class="form-control" value="{{post.mop2_hotel2}}" name="mop2_hotel2">
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        <label>comment</label>
+                                                        <input type="text" class="form-control"value="{{post.comment2_hotel2}}" name="comment2_hotel2">
+                                                    </div>
+                                                    <div class="form-group col-md-1 mb-0">
+                                                        <label>Save</label>
+                                                        <p class="btn btn-success" onclick="BalanceHotel2()"> Save</p>
+                                                    </div>
+                            
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-2 mb-0">
+                                                            <label>payment</label>
+                                                            <input type="text" class="form-control paymenth2" value="{{post.payment3_hotel2}}" name="payment3_hotel2">
+                                                        </div>
+                                                         <div class="form-group col-md-3 mb-0">
+                                                            <label>payment Date</label>
+                                                            <input type="date" class="form-control" value="{{post.paymet3_date_hotel2}}" name="paymet3_date_hotel2">
+                                                        </div>
+                                                        <div class="form-group col-md-3 mb-0">
+                                                            <label>Mode of payment*</label>
+                                                            <input type="text" class="form-control" value="{{post.mop3_hotel2}}" name="mop3_hotel2">
+                                                        </div>
+                                                        <div class="form-group col-md-3 mb-0">
+                                                            <label>comment</label>
+                                                            <input type="text" class="form-control"value="{{post.comment3_hotel2}}" name="comment3_hotel2">
+                                                        </div>
+                                                        <div class="form-group col-md-1 mb-0">
+                                                            <label>Save</label>
+                                                            <p class="btn btn-success" onclick="BalanceHotel2()"> Save</p>
+                                                        </div>
+                                
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-2 mb-0">
+                                                                <label>payment</label>
+                                                                <input type="text" class="form-control paymenth2" value="{{post.payment4_hotel2}}" name="payment4_hotel2">
+                                                            </div>
+                                                             <div class="form-group col-md-3 mb-0">
+                                                                <label>payment Date</label>
+                                                                <input type="date" class="form-control" value="{{post.paymet4_date_hotel2}}" name="paymet4_hotel2">
+                                                            </div>
+                                                            <div class="form-group col-md-3 mb-0">
+                                                                <label>Mode of payment*</label>
+                                                                <input type="text" class="form-control" value="{{post.mop4_hotel2}}" name="mop4_hotel2">
+                                                            </div>
+                                                            <div class="form-group col-md-3 mb-0">
+                                                                <label>comment</label>
+                                                                <input type="text" class="form-control"value="{{post.comment4_hotel2}}" name="comment4_hotel2">
+                                                            </div>
+                                                            <div class="form-group col-md-1 mb-0">
+                                                                <label>Save</label>
+                                                                <p class="btn btn-success" onclick="BalanceHotel2()"> Save</p>
+                                                            </div>
+                                    
+                                                            </div>
+                                </div>
+                                        </div>
+                                       
+                              </div>
+                            </div>
+                            <div class="card">
+                              <div class="card-header" id="headingThree">
+                                <h2 class="mb-0">
+                                  <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Hotel 3<h5> Due amount:<input class="form-control" id="dueh3"  value="{{post.dueh3}}"  name="dueh3"></input></h5>
+                                  </button>
+                                </h2>
+                              </div>
+                              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Hotel Name</label>
+                                            <input type="text" class="form-control" value="{{post.hotel_name3}}" name="hotel_name3">
+                                        </div>
+                                         <div class="form-group col-md-3 mb-0">
+                                            <label>Contact Person</label>
+                                            <input type="text" class="form-control" value="{{post.hotel_contact3}}" name="hotel_contact3">
+                                        </div>
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Phone</label>
+                                            <input type="tel" class="form-control" value="{{post.hotel_phone3}}" name="hotel_phone3">
+                                        </div>
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Total Cost</label>
+                                            <input type="number" class="form-control" value="{{post.hotel_cost3}}" id="hotel_cost3" name="hotel_cost3">
+                                        </div>
+                                        <div class="form-group col-md-3 mb-0">
+                                            <label>comment</label>
+                                            <input type="text" class="form-control"value="{{post.hotel_comment3}}" name="hotel_comment3">
+                                        </div>
+                
+                                        <div class="form-group col-md-5 mb-0">
+                                            <label>Hotel 4 payments</label>
+                                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3">
+                                                Hotel 3 payments
+                                              </button>
+                                        </div>
+                                        </div>
+                                        <div class="collapse" id="collapseExample3">
+                                            <div class="card card-body">
+                                              <div class="form-row">
+                                                  <div class="form-group col-md-2 mb-0">
+                                                      <label>payment</label>
+                                                      <input type="text" class="form-control paymenth3" value="{{post.payment1_hotel3}}" name="payment1_hotel3">
+                                                  </div>
+                                                   <div class="form-group col-md-3 mb-0">
+                                                      <label>payment Date</label>
+                                                      <input type="date" class="form-control" value="{{post.paymet1_date_hotel3}}" name="paymet1_date_hotel3">
+                                                  </div>
+                                                  <div class="form-group col-md-3 mb-0">
+                                                      <label>Mode of payment*</label>
+                                                      <input type="text" class="form-control" value="{{post.mop1_hotel3}}" name="mop1_hotel3">
+                                                  </div>
+                                                  <div class="form-group col-md-3 mb-0">
+                                                      <label>comment</label>
+                                                      <input type="text" class="form-control"value="{{post.comment1_hotel3}}" name="comment1_hotel3">
+                                                  </div>
+                                                  <div class="form-group col-md-1 mb-0">
+                                                      <label>Save</label>
+                                                      <p class="btn btn-success" onclick="Balancehotel3()"> Save</p>
+                                                  </div>
+                          
+                                                  </div>
+                                                  <div class="form-row">
+                                                    <div class="form-group col-md-2 mb-0">
+                                                        <label>payment</label>
+                                                        <input type="text" class="form-control paymenth3" value="{{post.payment2_hotel3}}" name="payment2_hotel3">
+                                                    </div>
+                                                     <div class="form-group col-md-3 mb-0">
+                                                        <label>payment Date</label>
+                                                        <input type="date" class="form-control" value="{{post.paymet2_date_hotel3}}" name="paymet2_date_hotel3">
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        <label>Mode of payment*</label>
+                                                        <input type="text" class="form-control" value="{{post.mop2_hotel3}}" name="mop2_hotel3">
+                                                    </div>
+                                                    <div class="form-group col-md-3 mb-0">
+                                                        <label>comment</label>
+                                                        <input type="text" class="form-control"value="{{post.comment2_hotel3}}" name="comment2_hotel3">
+                                                    </div>
+                                                    <div class="form-group col-md-1 mb-0">
+                                                        <label>Save</label>
+                                                        <p class="btn btn-success" onclick="Balancehotel3()"> Save</p>
+                                                    </div>
+                            
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-2 mb-0">
+                                                            <label>payment</label>
+                                                            <input type="text" class="form-control paymenth3" value="{{post.payment3_hotel3}}" name="payment3_hotel3">
+                                                        </div>
+                                                         <div class="form-group col-md-3 mb-0">
+                                                            <label>payment Date</label>
+                                                            <input type="date" class="form-control" value="{{post.paymet3_date_hotel3}}" name="paymet3_date_hotel3">
+                                                        </div>
+                                                        <div class="form-group col-md-3 mb-0">
+                                                            <label>Mode of payment*</label>
+                                                            <input type="text" class="form-control" value="{{post.mop3_hotel3}}" name="mop3_hotel3">
+                                                        </div>
+                                                        <div class="form-group col-md-3 mb-0">
+                                                            <label>comment</label>
+                                                            <input type="text" class="form-control"value="{{post.comment3_hotel3}}" name="comment3_hotel3">
+                                                        </div>
+                                                        <div class="form-group col-md-1 mb-0">
+                                                            <label>Save</label>
+                                                            <p class="btn btn-success" onclick="Balancehotel3()"> Save</p>
+                                                        </div>
+                                
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-2 mb-0">
+                                                                <label>payment</label>
+                                                                <input type="text" class="form-control paymenth3" value="{{post.payment4_hotel3}}" name="payment4_hotel3">
+                                                            </div>
+                                                             <div class="form-group col-md-3 mb-0">
+                                                                <label>payment Date</label>
+                                                                <input type="date" class="form-control" value="{{post.paymet4_date_hotel3}}" name="paymet4_hotel3">
+                                                            </div>
+                                                            <div class="form-group col-md-3 mb-0">
+                                                                <label>Mode of payment*</label>
+                                                                <input type="text" class="form-control" value="{{post.mop4_hotel3}}" name="mop4_hotel3">
+                                                            </div>
+                                                            <div class="form-group col-md-3 mb-0">
+                                                                <label>comment</label>
+                                                                <input type="text" class="form-control"value="{{post.comment4_hotel3}}" name="comment4_hotel3">
+                                                            </div>
+                                                            <div class="form-group col-md-1 mb-0">
+                                                                <label>Save</label>
+                                                                <p class="btn btn-success" onclick="Balancehotel3()"> Save</p>
+                                                            </div>
+                                    
+                                                            </div>
+                                </div>
+                              </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                  </div>
+                </div>
+            </div>
+            </div>
+</div>
+<h1 class="mt-5">Transport Details</h1>
+<div class="accordion" id="accordionExample32">
+    <div class="card">
+      <div class="card-header" id="headingOne32">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne32" aria-expanded="true" aria-controls="collapseOne32">
+            Add transport Details
+          </button>
+        </h2>
+      </div>
+      <div id="collapseOne32" class="collapse" aria-labelledby="headingOne32" data-parent="#accordionExample32">
+        <div class="card-body">
+            <div class="accordion" id="accordionExample36">
+                <div class="card">
+                  <div class="card-header" id="headingOne36">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne36" aria-expanded="true" aria-controls="collapseOne36">
+                       transport 1<h5> Due amount:<input class="form-control" id="duet1"  value="{{post.duet1}}"  name="duet1"></input></h5>
+                      </button>
+                    </h2>
+                  </div>
+              
+                  <div id="collapseOne36" class="collapse" aria-labelledby="headingOne36" data-parent="#accordionExample36">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-2 mb-0">
+                                <label>transport Name</label>
+                                <input type="text" class="form-control" value="{{post.transport_name1}}" name="transport_name1">
+                            </div>
+                             <div class="form-group col-md-3 mb-0">
+                                <label>Contact Person</label>
+                                <input type="text" class="form-control" value="{{post.transport_contact1}}" name="transport_contact1">
+                            </div>
+                            <div class="form-group col-md-2 mb-0">
+                                <label>Phone</label>
+                                <input type="tel" class="form-control" value="{{post.transport_phone1}}" name="transport_phone1">
+                            </div>
+                            <div class="form-group col-md-2 mb-0">
+                                <label>Total Cost</label>
+                                <input type="number" class="form-control" value="{{post.transport_cost1}}" id="transport_cost1" name="transport_cost1">
+                            </div>
+                            <div class="form-group col-md-3 mb-0">
+                                <label>comment</label>
+                                <input type="text" class="form-control"value="{{post.transport_comment1}}" name="transport_comment1">
+                            </div>
+                            <div class="form-group col-md-5 mb-0">
+                                <label>transport 1 payments</label>
+                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample25" aria-expanded="false" aria-controls="collapseExample25">
+                                    transport 1 payments
+                                  </button>
+                            </div>
+                            </div>
+                            <div class="collapse" id="collapseExample25">
+                                <div class="card card-body">
+                                  <div class="form-row">
+                                      <div class="form-group col-md-2 mb-0">
+                                          <label>payment</label>
+                                          <input type="text" class="form-control paymentt1" value="{{post.payment1_transport1}}" name="payment1_transport1">
+                                      </div>
+                                       <div class="form-group col-md-3 mb-0">
+                                          <label>payment Date</label>
+                                          <input type="date" class="form-control" value="{{post.paymet1_date_transport1}}" name="paymet1_date_transport1">
+                                      </div>
+                                      <div class="form-group col-md-3 mb-0">
+                                          <label>Mode of payment*</label>
+                                          <input type="text" class="form-control" value="{{post.mop1_transport1}}" name="mop1_transport1">
+                                      </div>
+                                      <div class="form-group col-md-3 mb-0">
+                                          <label>comment</label>
+                                          <input type="text" class="form-control"value="{{post.comment1_transport1}}" name="comment1_transport1">
+                                      </div>
+                                      <div class="form-group col-md-1 mb-0">
+                                          <label>Save</label>
+                                          <p class="btn btn-success" onclick="Balancetransport1()"> Save</p>
+                                      </div>
+              
+                                      </div>
+                                      <div class="form-row">
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>payment</label>
+                                            <input type="text" class="form-control paymentt1" value="{{post.payment2_transport1}}" name="payment2_transport1">
+                                        </div>
+                                         <div class="form-group col-md-3 mb-0">
+                                            <label>payment Date</label>
+                                            <input type="date" class="form-control" value="{{post.paymet2_date_transport1}}" name="paymet2_date_transport1">
+                                        </div>
+                                        <div class="form-group col-md-3 mb-0">
+                                            <label>Mode of payment*</label>
+                                            <input type="text" class="form-control" value="{{post.mop2_transport1}}" name="mop2_transport1">
+                                        </div>
+                                        <div class="form-group col-md-3 mb-0">
+                                            <label>comment</label>
+                                            <input type="text" class="form-control"value="{{post.comment2_transport1}}" name="comment2_transport1">
+                                        </div>
+                                        <div class="form-group col-md-1 mb-0">
+                                            <label>Save</label>
+                                            <p class="btn btn-success" onclick="Balancetransport1()"> Save</p>
+                                        </div>
+                
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-2 mb-0">
+                                                <label>payment</label>
+                                                <input type="text" class="form-control paymentt1" value="{{post.payment3_transport1}}" name="payment3_transport1">
+                                            </div>
+                                             <div class="form-group col-md-3 mb-0">
+                                                <label>payment Date</label>
+                                                <input type="date" class="form-control" value="{{post.paymet3_date_transport1}}" name="paymet3_date_transport1">
+                                            </div>
+                                            <div class="form-group col-md-3 mb-0">
+                                                <label>Mode of payment*</label>
+                                                <input type="text" class="form-control" value="{{post.mop3_transport1}}" name="mop3_transport1">
+                                            </div>
+                                            <div class="form-group col-md-3 mb-0">
+                                                <label>comment</label>
+                                                <input type="text" class="form-control"value="{{post.comment3_transport1}}" name="comment3_transport1">
+                                            </div>
+                                            <div class="form-group col-md-1 mb-0">
+                                                <label>Save</label>
+                                                <p class="btn btn-success" onclick="Balancetransport1()"> Save</p>
+                                            </div>
+                    
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-2 mb-0">
+                                                    <label>payment</label>
+                                                    <input type="text" class="form-control paymentt1" value="{{post.payment4_transport1}}" name="payment4_transport1">
+                                                </div>
+                                                 <div class="form-group col-md-3 mb-0">
+                                                    <label>payment Date</label>
+                                                    <input type="date" class="form-control" value="{{post.paymet4_date_transport1}}" name="paymet4_date_transport1">
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    <label>Mode of payment*</label>
+                                                    <input type="text" class="form-control" value="{{post.mop4_transport1}}" name="mop4_transport1">
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    <label>comment</label>
+                                                    <input type="text" class="form-control"value="{{post.comment4_transport1}}" name="comment4_transport1">
+                                                </div>
+                                                <div class="form-group col-md-1 mb-0">
+                                                    <label>Save</label>
+                                                    <p class="btn btn-success" onclick="Balancetransport1()"> Save</p>
+                                                </div>
+                        
+                                                </div>
+                                </div>
+                              </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header" id="headingTwo36">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo36" aria-expanded="false" aria-controls="collapseTwo36">
+                        transport 2<h5> Due amount:<input class="form-control" id="duet2"  value="{{post.duet2}}"  name="duet2"></input></h5>
+                      </button>
+                    </h2>
+                  </div>
+                  <div id="collapseTwo36" class="collapse" aria-labelledby="headingTwo36" data-parent="#accordionExample36">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-2 mb-0">
+                                <label>transport Name</label>
+                                <input type="text" class="form-control" value="{{post.transport_name2}}" name="transport_name2">
+                            </div>
+                             <div class="form-group col-md-3 mb-0">
+                                <label>Contact Person</label>
+                                <input type="text" class="form-control" value="{{post.transport_contact2}}" name="transport_contact2">
+                            </div>
+                            <div class="form-group col-md-2 mb-0">
+                                <label>Phone</label>
+                                <input type="tel" class="form-control" value="{{post.transport_phone2}}" name="transport_phone2">
+                            </div>
+                            <div class="form-group col-md-2 mb-0">
+                                <label>Total Cost</label>
+                                <input type="number" class="form-control" value="{{post.transport_cost2}}" id="transport_cost2" name="transport_cost2">
+                            </div>
+                            <div class="form-group col-md-3 mb-0">
+                                <label>comment</label>
+                                <input type="text" class="form-control"value="{{post.transport_comment2}}" name="transport_comment2">
+                            </div>
+                            <div class="form-group col-md-5 mb-0">
+                                <label>transport 2 payments</label>
+                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample26" aria-expanded="false" aria-controls="collapseExample26">
+                                    transport 2 payments
+                                  </button>
+                            </div>
+                            </div>
+                            <div class="collapse" id="collapseExample26">
+                                <div class="card card-body">
+                                  <div class="form-row">
+                                      <div class="form-group col-md-2 mb-0">
+                                          <label>payment</label>
+                                          <input type="text" class="form-control paymentt2" value="{{post.payment1_transport2}}" name="payment1_transport2">
+                                      </div>
+                                       <div class="form-group col-md-3 mb-0">
+                                          <label>payment Date</label>
+                                          <input type="date" class="form-control" value="{{post.paymet1_date_transport2}}" name="paymet1_date_transport2">
+                                      </div>
+                                      <div class="form-group col-md-3 mb-0">
+                                          <label>Mode of payment*</label>
+                                          <input type="text" class="form-control" value="{{post.mop1_transport2}}" name="mop1_transport2">
+                                      </div>
+                                      <div class="form-group col-md-3 mb-0">
+                                          <label>comment</label>
+                                          <input type="text" class="form-control"value="{{post.comment1_transport2}}" name="comment1_transport2">
+                                      </div>
+                                      <div class="form-group col-md-1 mb-0">
+                                          <label>Save</label>
+                                          <p class="btn btn-success" onclick="Balancetransport2()"> Save</p>
+                                      </div>
+              
+                                      </div>
+                                      <div class="form-row">
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>payment</label>
+                                            <input type="text" class="form-control paymentt2" value="{{post.payment2_transport2}}" name="payment2_transport2">
+                                        </div>
+                                         <div class="form-group col-md-3 mb-0">
+                                            <label>payment Date</label>
+                                            <input type="date" class="form-control" value="{{post.paymet2_date_transport2}}" name="paymet2_date_transport2">
+                                        </div>
+                                        <div class="form-group col-md-3 mb-0">
+                                            <label>Mode of payment*</label>
+                                            <input type="text" class="form-control" value="{{post.mop2_transport2}}" name="mop2_transport2">
+                                        </div>
+                                        <div class="form-group col-md-3 mb-0">
+                                            <label>comment</label>
+                                            <input type="text" class="form-control"value="{{post.comment2_transport2}}" name="comment2_transport2">
+                                        </div>
+                                        <div class="form-group col-md-1 mb-0">
+                                            <label>Save</label>
+                                            <p class="btn btn-success" onclick="Balancetransport2()"> Save</p>
+                                        </div>
+                
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-2 mb-0">
+                                                <label>payment</label>
+                                                <input type="text" class="form-control paymentt2" value="{{post.payment3_transport2}}" name="payment3_transport2">
+                                            </div>
+                                             <div class="form-group col-md-3 mb-0">
+                                                <label>payment Date</label>
+                                                <input type="date" class="form-control" value="{{post.paymet3_date_transport2}}" name="paymet3_date_transport2">
+                                            </div>
+                                            <div class="form-group col-md-3 mb-0">
+                                                <label>Mode of payment*</label>
+                                                <input type="text" class="form-control" value="{{post.mop3_transport2}}" name="mop3_transport2">
+                                            </div>
+                                            <div class="form-group col-md-3 mb-0">
+                                                <label>comment</label>
+                                                <input type="text" class="form-control"value="{{post.comment3_transport2}}" name="comment3_transport2">
+                                            </div>
+                                            <div class="form-group col-md-1 mb-0">
+                                                <label>Save</label>
+                                                <p class="btn btn-success" onclick="Balancetransport2()"> Save</p>
+                                            </div>
+                    
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-2 mb-0">
+                                                    <label>payment</label>
+                                                    <input type="text" class="form-control paymentt2" value="{{post.payment4_transport2}}" name="payment4_transport2">
+                                                </div>
+                                                 <div class="form-group col-md-3 mb-0">
+                                                    <label>payment Date</label>
+                                                    <input type="date" class="form-control" value="{{post.paymet4_date_transport2}}" name="paymet4_transport2">
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    <label>Mode of payment*</label>
+                                                    <input type="text" class="form-control" value="{{post.mop4_transport2}}" name="mop4_transport2">
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    <label>comment</label>
+                                                    <input type="text" class="form-control"value="{{post.comment4_transport2}}" name="comment4_transport2">
+                                                </div>
+                                                <div class="form-group col-md-1 mb-0">
+                                                    <label>Save</label>
+                                                    <p class="btn btn-success" onclick="Balancetransport2()"> Save</p>
+                                                </div>
+                        
+                                                </div>
+                    </div>
+                            </div>
+                           
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header" id="headingThree36">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree36" aria-expanded="false" aria-controls="collapseThree36">
+                        transport 3<h5> Due amount:<input class="form-control" id="duet3"  value="{{post.duet3}}"  name="duet3"></input></h5>
+                      </button>
+                    </h2>
+                  </div>
+                  <div id="collapseThree36" class="collapse" aria-labelledby="headingThree36" data-parent="#accordionExample36">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-2 mb-0">
+                                <label>transport Name</label>
+                                <input type="text" class="form-control" value="{{post.transport_name3}}" name="transport_name3">
+                            </div>
+                             <div class="form-group col-md-3 mb-0">
+                                <label>Contact Person</label>
+                                <input type="text" class="form-control" value="{{post.transport_contact3}}" name="transport_contact3">
+                            </div>
+                            <div class="form-group col-md-2 mb-0">
+                                <label>Phone</label>
+                                <input type="tel" class="form-control" value="{{post.transport_phone3}}" name="transport_phone3">
+                            </div>
+                            <div class="form-group col-md-2 mb-0">
+                                <label>Total Cost</label>
+                                <input type="number" class="form-control" value="{{post.transport_cost3}}" id="transport_cost3" name="transport_cost3">
+                            </div>
+                            <div class="form-group col-md-3 mb-0">
+                                <label>comment</label>
+                                <input type="text" class="form-control"value="{{post.transport_comment3}}" name="transport_comment3">
+                            </div>
+    
+                            <div class="form-group col-md-5 mb-0">
+                                <label>transport 4 payments</label>
+                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample27" aria-expanded="false" aria-controls="collapseExample27">
+                                    transport 3 payments
+                                  </button>
+                            </div>
+                            </div>
+                            <div class="collapse" id="collapseExample27">
+                                <div class="card card-body">
+                                  <div class="form-row">
+                                      <div class="form-group col-md-2 mb-0">
+                                          <label>payment</label>
+                                          <input type="text" class="form-control paymentt3" value="{{post.payment1_transport3}}" name="payment1_transport3">
+                                      </div>
+                                       <div class="form-group col-md-3 mb-0">
+                                          <label>payment Date</label>
+                                          <input type="date" class="form-control" value="{{post.paymet1_date_transport3}}" name="paymet1_date_transport3">
+                                      </div>
+                                      <div class="form-group col-md-3 mb-0">
+                                          <label>Mode of payment*</label>
+                                          <input type="text" class="form-control" value="{{post.mop1_transport3}}" name="mop1_transport3">
+                                      </div>
+                                      <div class="form-group col-md-3 mb-0">
+                                          <label>comment</label>
+                                          <input type="text" class="form-control"value="{{post.comment1_transport3}}" name="comment1_transport3">
+                                      </div>
+                                      <div class="form-group col-md-1 mb-0">
+                                          <label>Save</label>
+                                          <p class="btn btn-success" onclick="Balancetransport3()"> Save</p>
+                                      </div>
+              
+                                      </div>
+                                      <div class="form-row">
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>payment</label>
+                                            <input type="text" class="form-control paymentt3" value="{{post.payment2_transport3}}" name="payment2_transport3">
+                                        </div>
+                                         <div class="form-group col-md-3 mb-0">
+                                            <label>payment Date</label>
+                                            <input type="date" class="form-control" value="{{post.paymet2_date_transport3}}" name="paymet2_date_transport3">
+                                        </div>
+                                        <div class="form-group col-md-3 mb-0">
+                                            <label>Mode of payment*</label>
+                                            <input type="text" class="form-control" value="{{post.mop2_transport3}}" name="mop2_transport3">
+                                        </div>
+                                        <div class="form-group col-md-3 mb-0">
+                                            <label>comment</label>
+                                            <input type="text" class="form-control"value="{{post.comment2_transport3}}" name="comment2_transport3">
+                                        </div>
+                                        <div class="form-group col-md-1 mb-0">
+                                            <label>Save</label>
+                                            <p class="btn btn-success" onclick="Balancetransport3()"> Save</p>
+                                        </div>
+                
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-2 mb-0">
+                                                <label>payment</label>
+                                                <input type="text" class="form-control paymentt3" value="{{post.payment3_transport3}}" name="payment3_transport3">
+                                            </div>
+                                             <div class="form-group col-md-3 mb-0">
+                                                <label>payment Date</label>
+                                                <input type="date" class="form-control" value="{{post.paymet3_date_transport3}}" name="paymet3_date_transport3">
+                                            </div>
+                                            <div class="form-group col-md-3 mb-0">
+                                                <label>Mode of payment*</label>
+                                                <input type="text" class="form-control" value="{{post.mop3_transport3}}" name="mop3_transport3">
+                                            </div>
+                                            <div class="form-group col-md-3 mb-0">
+                                                <label>comment</label>
+                                                <input type="text" class="form-control"value="{{post.comment3_transport3}}" name="comment3_transport3">
+                                            </div>
+                                            <div class="form-group col-md-1 mb-0">
+                                                <label>Save</label>
+                                                <p class="btn btn-success" onclick="Balancetransport3()"> Save</p>
+                                            </div>
+                    
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-2 mb-0">
+                                                    <label>payment</label>
+                                                    <input type="text" class="form-control paymentt3" value="{{post.payment4_transport3}}" name="payment4_transport3">
+                                                </div>
+                                                 <div class="form-group col-md-3 mb-0">
+                                                    <label>payment Date</label>
+                                                    <input type="date" class="form-control" value="{{post.paymet4_date_transport3}}" name="paymet4_transport3">
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    <label>Mode of payment*</label>
+                                                    <input type="text" class="form-control" value="{{post.mop4_transport3}}" name="mop4_transport3">
+                                                </div>
+                                                <div class="form-group col-md-3 mb-0">
+                                                    <label>comment</label>
+                                                    <input type="text" class="form-control"value="{{post.comment4_transport3}}" name="comment4_transport3">
+                                                </div>
+                                                <div class="form-group col-md-1 mb-0">
+                                                    <label>Save</label>
+                                                    <p class="btn btn-success" onclick="Balancetransport3()"> Save</p>
+                                                </div>
+                        
+                                                </div>
+                    </div>
+                  </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+      </div>
+    </div>
+</div>
+</div>
+</div>
+            <input type="submit" value="Create" class="btn-danger mt-5">
+        </form>
+    </div>
+    </div>
+
+
+    <footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-lg-4 ">
+                        <div class="footer_widget">
+                            <div class="footer_logo">
+                                <a href="#">
+                                     <img src={% static 'img/footer.png' %} height="120px" width="300px" alt="">
+                                </a>
+                            </div>
+                            <a href="#">+91 8882654593</a> <br>
+                            <a href="mailto:contact@universaladventures.in">contact@universaladventures.in</a>
+                            </p>
+                            <div class="socail_links">
+                                <ul>
+                                    <li>
+                                        <a href="https://www.facebook.com/universaladventuresindia/">
+                                            <i class="ti-facebook"></i>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="https://www.instagram.com/universaladventuresindia/">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://g.co/kgs/FEs31r">
+                                            <i class="fa fa-google-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Company
+                            </h3>
+                            <ul class="links">
+                                <ul class="links">
+                                <li><a href="/about/">About</a></li>
+                                <li><a href="/contact/"> Contact</a></li>
+                                <li><a href="/privacy-policy/">Privacy-Policy</a></li>
+                                <li><a href="/partial-payment/">Partial Payment</a></li>
+                                <li><a href="/refund-policy">Payments & Refund Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Popular destination
+                            </h3>
+                            <ul class="links double_links">
+                                <li><a href="/destination/Goa/">Goa</a></li>
+                                <li><a href="/destination/Karnataka/">Karnataka</a></li>
+                                <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
+                                <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
+                                <li><a href="/destination/Rajasthan/">Rajasthan</a></li>
+                                <li><a href="/destination/Maharashtra/">Maharashtra</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Instagram
+                            </h3>
+                            <div class="instagram_feed">
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/1.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/2.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/3.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/4.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/5.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/6.png' %} alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- JS here -->
+    <script src={% static 'js/vendor/modernizr-3.5.0.min.js' %}></script>
+    <script src={% static 'js/vendor/jquery-1.12.4.min.js' %}></script>
+    <script src={% static 'js/popper.min.js' %}></script>
+    <script src={% static 'js/bootstrap.min.js' %}></script>
+    <script src={% static 'js/owl.carousel.min.js' %}></script>
+    <script src={% static 'js/isotope.pkgd.min.js' %}></script>
+    <script src={% static 'js/ajax-form.js' %}></script>
+    <script src={% static 'js/waypoints.min.js' %}></script>
+    <script src={% static 'js/jquery.counterup.min.js' %}></script>
+    <script src={% static 'js/imagesloaded.pkgd.min.js' %}></script>
+    <script src={% static 'js/scrollIt.js' %}></script>
+    <script src={% static 'js/jquery.scrollUp.min.js' %}></script>
+    <script src={% static 'js/wow.min.js' %}""></script>
+    <script src={% static 'js/nice-select.min.js' %}></script>
+    <script src={% static 'js/jquery.slicknav.min.js' %}></script>
+    <script src={% static 'js/jquery.magnific-popup.min.js' %}""></script>
+    <script src={% static 'js/plugins.js' %}></script>
+    <script src={% static 'js/gijgo.min.js' %}></script>
+    <script src={% static 'js/slick.min.js' %}></script>
+    <script src={% static 'js/tagsinput.js' %}></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <!--contact js-->
+
+    <script src={% static 'js/contact.js' %}></script>
+    <script src={% static 'js/jquery.ajaxchimp.min.js' %}></script>
+    <script src={% static 'js/jquery.form.js' %}></script>
+    <script src={% static 'js/jquery.validate.min.js' %}></script>
+    <script src={% static 'js/mail-script.js' %}></script>
+
+
+    <script src={% static 'js/main.js' %}></script>
+    <script>
+        $("#post-form").submit(function(e){
+            e.preventDefault();
+        });
+    </script>
+    </body>
+    <script>
+        $('#datepicker').datepicker({
+            iconsLibrary: 'fontawesome',
+            icons: {
+                rightIcon: '<span class="fa fa-caret-down"></span>'
+            }
+        });
+    </script>
+    <script>
+        $(function () {
+            $(window).scroll(function () {
+                var mainbottom = $("header").offset().top + $("header").height();
+                if ($(this).scrollTop() < mainbottom) {
+
+                    $('nav').removeClass('first');
+
+                } else {
+
+                    $('nav').addClass('first');
+
+                }
+            })
+        })
+    </script>
+
+</body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,2948 @@
+﻿{% load static %}
+{% block content %}
+{% load socialaccount %}
+{% load crispy_forms_tags %}
+
+
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Universal Adventures</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KH59H8J');</script>
+
+<!-- End Google Tag Manager -->
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="icon" href={% static './img/Uni.png' %} sizes="16x16" type="image/png">
+    <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/owl.carousel.min.css' %}>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href={% static 'css/magnific-popup.css' %}>
+    <link rel="stylesheet" href={% static 'css/font-awesome.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/themify-icons.css' %}>
+    <link rel="stylesheet" href={% static 'css/nice-select.css' %}>
+    <link rel="stylesheet" href={% static 'css/flaticon.css' %}>
+    <link rel="stylesheet" href={% static 'css/gijgo.css' %}>
+    <link rel="stylesheet" href={% static 'css/animate.css' %}>
+    <link rel="stylesheet" href={% static 'css/slick.css' %}>
+    <link rel="stylesheet" href={% static 'css/slicknav.css' %}>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href={% static 'css/style.css' %}>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+        <style>
+  .owl-prev, .owl-next {
+        width: 15px;
+        height: 100px;
+        position: absolute;
+        top: 32%;
+        transform: translateY(-50%);
+        display: block !important;
+        border:0px solid black;
+    }
+    .owl-prev { left: -20px; }
+    .owl-next { right: -20px; }
+    .owl-prev i, .owl-next i {transform : scale(2,2); color: #ccc;}
+html,body {
+            overflow-x: hidden;
+            scroll-behavior: smooth !important;
+            transition: all 0.25s ease;
+        }
+        .datepicker td, .datepicker th {
+            width: 2.5rem;
+            height: 2.5rem;
+            font-size: 0.85rem;
+        }
+
+        .datepicker {
+            margin-bottom: 3rem;
+        }
+        .chat-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  z-index: 9;
+}
+  
+    .carousel-control-prev,
+    .carousel-control-next {
+        top: auto;
+        bottom: auto;
+        padding: 20px;
+    }
+   .ui-autocomplete {
+    max-height: 200px;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+    overflow-y: auto;
+    
+   
+  }
+  /* IE 6 doesn't support max-height
+   * we use height instead, but this forces the menu to always be this tall
+   */
+  * html .ui-autocomplete {
+    height: 250px;
+  }
+    
+
+.carousel .carousel-indicators {
+	bottom: -50px;
+}
+.carousel-indicators li, .carousel-indicators li.active {
+	width: 10px;
+	height: 10px;
+	margin: 4px;
+    border-radius: 50%;
+    cursor: pointer;
+	border-color: transparent;
+}
+.carousel-indicators li {	
+	background: rgba(0, 0, 0, 0.2);
+}
+.carousel-indicators li.active {	
+	background: rgba(0, 0, 0, 0.6);
+}
+           .open-button {
+  color: white;
+  padding: 16px 10px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 4px;
+  right: 4px;
+  background: transparent;
+  text-decoration: none;
+  z-index: 8;
+}
+#ui-id-1{
+  z-index: 2000;
+}
+/* The popup chat - hidden by default */
+
+
+ 
+.navbar {
+  padding: .3rem 1rem;
+  box-shadow: 0px 1px 3px 1px #88888863;
+}
+
+.dropdown-item {
+  width: auto;
+}
+
+.navbar-toggler-icon {
+    display: none;
+}
+.navbar-light .navbar-toggler{
+    border-color:rgba(0,0,0,0);
+}
+#fr2{
+    display: none;
+}
+#exploreview2{
+    display:none;
+}
+#mobilemodal{
+    display:none;
+}
+#exampleModal{
+    margin-top:7%;
+}
+.mobile-searchbox{
+      display:none;
+  }
+.laptop-searchbox{
+    display:block;
+}
+
+.popular-tags-div{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.popular-tags{
+  margin: 4px;
+  padding: 4px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 25px;
+  border: 2px solid rgb(119, 119, 252);
+}
+.popular-tags p{
+  color: #343472;
+  font-weight: 500;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+  #navbarResponsive{
+      display:none;
+  }
+  #exploreview2{
+      display:block;
+  }
+  #mobilemodal{
+      display:block;
+  }
+  #exampleModal{
+    margin-top:30%;
+    margin-right:0%;
+}
+  .mobile-searchbox{
+      display:block;
+  }
+  .laptop-searchbox{
+      display:none;
+  }
+}
+
+
+@media (max-width: 991px) {
+  .tourhelpcard {
+  max-height: 90px!important;
+  padding-left: 10px;
+}
+  .adventure-category {
+  max-height: 100px!important;
+
+  }
+}
+
+
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+@media (min-width: 992px) {
+    .carousel-content {
+    height: 100vh;
+    min-height: 40rem;
+    padding-top: 4.5rem;
+    padding-bottom: 0;
+  }
+  .carousel-content p {
+    font-size: 1.15rem;
+  }
+  .carousel-content h3 {
+    font-size: 2.5rem;
+  }
+
+}
+@media (min-width: 1200px) {
+    .carousel-content h3 {
+    font-size: 3.0rem;
+  }
+}
+
+.carousel-content {
+  position: absolute;
+  bottom: 8%;
+  left: 5%;
+  z-index: 50;
+  color: white;
+}
+.custom-select{
+padding:0 1.75rem .375rem .75rem;
+}
+
+
+<!--Icon Animation-->
+.blank-ico {
+  opacity: 1;
+}
+
+.explore22-ico {
+  animation: explore-key 10s ease infinite;
+}
+.search-ico {
+  animation: search-key 10s ease infinite;
+}
+
+@keyframes search-key {
+  0% { opacity: 0; }
+  5% { opacity: 0; }
+  45% { opacity: 0; }
+  50% { opacity: 0; }
+  55% { opacity: 1; }
+  95% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes explore-key {
+  0% { opacity: 0; }
+  5% { opacity: 1; }
+  45% { opacity: 1; }
+  50% { opacity: 0; }
+  55% { opacity: 0; }
+  95% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+
+.destination-div-main{
+  display: flex;
+  flex-direction: row;
+  padding:25px;
+  padding-left: 0;
+}
+.destination-div{
+  display: flex;
+  flex-direction: row;
+  overflow-x: hidden;
+  width: 100%;
+  justify-content: space-between;
+}
+.destination-card{
+  width: 140px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.card-body{
+  padding: 10px;
+}
+
+.nav-button-index{
+  display: flex;
+  width: 100vw;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: -80px; 
+  position: absolute;
+}
+.nav-button{
+  border: 2px solid white;
+  border-radius: 100px;
+  color: white;
+  font-weight: 500;
+  background-color: #00000087;
+  font-size: 1.3rem;
+}
+.image-mo{
+  display: none;
+}
+.image-dt{
+  display: block;
+}
+.side-destination-heading{
+  width: 20%;
+  margin-left: 0;
+}
+.top-rated-main{
+  display: none;
+}
+.top-rated-image img{
+  height: 270px;
+  width: 200px;
+  border-radius: 10px;
+}
+
+.top-exp-dt{
+  display: block;
+}
+
+
+@media (max-width: 700px) {
+.destination-div-main{
+  padding:0;
+}
+.destination-div{
+  overflow-x: scroll;
+}
+.item{
+  margin: 15px;
+}
+.image-mo{
+  display: block;
+}
+.image-dt{
+  display: none;
+}
+.nav-button{
+  border: 2px solid white;
+  border-radius: 100px;
+  color: white;
+  font-weight: 300;
+  background-color: #00000087;
+  font-size: 0.8rem;
+}
+.top-rated-main{
+  display: block;
+  overflow-x: scroll;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.top-exp-dt{
+  display: none;
+}
+.nav-button-index{
+  margin-top: -130px; 
+}
+}
+
+</style>
+</head>
+
+<body>
+   <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <nav class="navbar navbar-expand-lg navbar-light mainnav" style="background-color: transparent;
+    border: none;
+    color: white;
+    transition: background-color 0.5s ease 0s;
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    background-image: linear-gradient(
+0deg
+, rgb(0 0 0 / 0%) 1%, rgba(0,0,0,0.6699054621848739) 100%);" id="mainNav">
+        <div class="container">
+          <a class="navbar-brand js-scroll-trigger" href="/"><img
+            src={% static 'img//Nav Menu Icons//UA Logo white.svg' %} height="40px">
+        </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+              <div class="navbar-collapse collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+
+<!-- 
+                       <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/">Home</a></li>
+                      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/blog">Our Blog</a></li>
+                   -->
+                  
+                      <li class="nav-item"> <a class="nav-link js-scroll-trigger" id="exploreview" style ="font-weight: 600;font-family: Open sans;color: #fffffffc !important;padding-right: 50px;font-size: 19px !important;cursor: pointer;"><img src={% static 'img//Nav Menu Icons//Explore white.svg' %} height="28px"> Explore</a></li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                    
+                        <div class="dropdown">
+  <button class="btn btn-secondary" style="background-color:transparent;font-family: Open sans;border:none;padding: 0px;font-weight: 600;color: #fffffffc !important;font-size: 19px !important;" type="button" id="dropdownMenuButton"
+   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <img src={% static 'img//Nav Menu Icons//User white.svg' %} height="28px">
+    Hello {{user}}
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="options" style="display: none;text-transform: none;box-shadow: 0px 3px 8px 0px #252525a6;margin-top: 19px;">
+    {% for wallet in amount %}
+    <a class="dropdown-item"  href="#"><img class="col-md-2 p-0" src={% static 'img//Nav Menu Icons//wallet.svg' %} height="25px" ><span class="col-md-10 pl-2">UA Cash: &#8377;{{wallet.amount}}</span></a>
+    {% endfor %}
+    <a class="dropdown-item"  href="/profile/" id="profileview"><img class="col-md-2 p-0" src={% static 'img//Nav Menu Icons//user profile.svg' %} height="25px"><span class="col-md-10 pl-2">Profile</span></a>
+    <a class="dropdown-item" href="/profile/#booking"><img class="col-md-2 p-0"src={% static 'img//Nav Menu Icons//bookings.svg' %} height="25px" ><span class="col-md-10 pl-2">Bookings</span></a>
+    <hr> 
+    <a class="dropdown-item"  href="/accounts/logout"><button type="button" class="btn btn-warning" style="display: block;margin-left: auto;margin-right: auto;margin-top: 6px;border-radius: 25px;width: 150px;">Logout</button></a>
+     
+  </div>
+
+</div>
+
+                    </li>
+                    
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" style ="font-weight: 600;color: #fffffffc !important;padding-right: 50px;font-size: 19px !important;cursor: pointer;" href="#" id="modal"
+                            data-toggle="modal" data-target="#log"><img src={% static 'img//Nav Menu Icons//User white.svg' %}> Login</a></li>
+
+                    {% endif %}
+                </ul>
+            </div>
+            <div>
+              <i id="exploreview2" >
+                
+                <img class="explore22-ico" src={% static 'img//Nav Menu Icons//Explore white.svg' %} style="height:32px;position: absolute;">
+                <img class="search-ico" src={% static 'img//Nav Menu Icons//Explore white.svg' %} style="height:32px;position: absolute;">
+                
+              </i>
+
+             <i id="mobilemodal" style="padding-left: 50px;" ><img src={% static 'img//Nav Menu Icons//User white.svg' %} height="32px"></i>
+            </div>
+
+        </div>
+    </nav>
+    <div class="modal fade" id="log" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" style="z-index: 2500;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    
+                    <a href="{% provider_login_url "google"  %}" process="connect"
+                        class="btn btn-block btn-social btn-google"
+                        style="background-color:red;text-align:center;color:white">
+                        <span class="fa fa-google-plus"></span>
+                        Sign in with Google
+                    </a>
+
+                    <a href="{% provider_login_url "facebook"  %}" process="connect"
+                        class="btn btn-block btn-social btn-facebook"
+                        style="background-color:#339AF7;text-align:center;color:white">
+                        <span class="fa fa-facebook"></span>
+                        Sign in with facebook
+                    </a>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+<div class="modal fade" style="margin: 25% 0% 0% 0%;padding: 0% 15%;width: 100%;" id="exampleModalmobile" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-body font-weight-bold">
+        {% if user.is_authenticated %}
+        <h3 style="color:rgb(73, 73, 73);">Hi {{user}}</h3>
+        <ul>
+          {% for wallet in amount %}
+        <li><h4 class="pb-1 pl-2"><img src={% static 'img//Nav Menu Icons//wallet.svg' %} height="30px" style="margin-left:-10px;margin-right:5px" class="pr-2"> UA Wallet:&#8377;{{wallet.amount}}</h4></li>
+        {% endfor %}
+        <li><a href="/profile/" class="pb-1 pl-2"><img src={% static 'img//Nav Menu Icons//user profile.svg' %} height="30px" style="margin-left:-10px;margin-right:5px" class="pr-2"><span style="margin-left:8px">Profile</span></a></li>
+        <li class="mt-2"> <a href="/profile/#booking" class="pb-1 pl-2"><img src={% static 'img//Nav Menu Icons//bookings.svg' %} height="30px" style="margin-left:-10px;margin-right:5px" class="pr-2"><span style="margin-left:8px">Bookings</span></a></li>
+
+        </ul>
+        <div class="mt-2 pt-2" style="border-top:1px solid black">
+        <center>
+        <a href="/accounts/logout"><button class="btn btn-warning px-4 font-weight-bold" style="border-radius:1.4rem">Logout</button></a>
+        </center>
+        </div>
+        {% else %}<li class="nav-item"><a class="nav-link js-scroll-trigger" style ="font-weight: 600;" href="#" id="modal"
+          data-toggle="modal" data-target="#log">Login</a></li>
+
+  {% endif %}
+      </div>
+      </div>
+      <div>
+      <center>
+      <i class="fa fa-close" style="font-size:48px;color:red"></i>
+      </center>
+      </div>
+  </div>
+</div>
+<!-- expert modal -->
+<div class="modal fade" id="expertModal" tabindex="-1" aria-labelledby="expertModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="expert ModalLabel"><img src={% static 'img/Universal Adventures Logo.png' %} width="150px" style="margin-bottom: 1rem;"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="f56">
+        <h3 style="color: black;">Please provide the information for customize package</h3>
+    <div class="form-row">
+        <div class="form-group col-md-12 mb-0">
+                <ul>
+                    <li><button class="btn btn-warning  btn-block mt-2" style="border-radius: 20px;" onclick="f56(this)" value="Family Trip" id="${value1}" name="adventure56">&nbsp;&nbsp;Family Trip</input></button>
+                    <li><button class="btn btn-warning  btn-block mt-2" style="border-radius: 20px;" onclick="f56(this)" value="Romantic Trip" id="${value1}" name="adventure56">&nbsp;&nbsp;Romantic Trip</input></button>
+                    <li><button class="btn btn-warning  btn-block mt-2" style="border-radius: 20px;" onclick="f56(this)" value="Friends Trip" id="${value1}" name="adventure56">&nbsp;&nbsp;Friends Trip</input></button>
+                    <li><button class="btn btn-warning  btn-block mt-2" style="border-radius: 20px;" onclick="f56(this)" value="Corporate Trip" id="${value1}" name="adventure56">&nbsp;&nbsp;Corporate Trip</input></button>
+                    <li><button class="btn btn-warning  btn-block mt-2" style="border-radius: 20px;" onclick="f56(this)" value="Adventurous Trip" id="${value1}" name="adventure56">&nbsp;&nbsp;Adventurous Trip</input></button>
+                    <li><button class="btn btn-warning  btn-block mt-2" style="border-radius: 20px;" onclick="f56(this)" value="Other"  id="${value1}" name="adventure56">&nbsp;&nbsp;Other</input></button>    
+                </ul>
+        </div>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
+<!-- slider -->
+    <div id="carouselExampleSlidesOnly" class="carousel slide mt-5 image-dt" data-ride="carousel" data-interval="5000" style="margin-top: 0 !important;">
+        <div class="carousel-inner">
+          <div class="carousel-item active" >
+            <img src={% static 'img/slide-1.jpg' %}  class="w-100 slid"  style="height:100vh;width: 100vw;" alt="..."> 
+            <div class="carousel-content">
+              <h3 style="text-decoration:none; color: white; margin-top:45vh ;" >Put the wings on your thrill with <br>- Paragliding <br>- Sky Diving</h3>
+          </div>
+          </div>
+          <div class="carousel-item">
+            <img src={% static 'img/slide-2.jpg' %} class="w-100 slid"  style="height:100vh;width: 100vw;" alt="...">
+            <div class="carousel-content">
+              <h3 href=""  style="text-decoration:none; color: white;margin-top:45vh ;">Beat the tides of the river with <br> - River Rafting  
+            </h3>
+              </div>
+          </div>
+          <div class="carousel-item">
+            <img src={% static 'img/slide-3.jpg' %} class="w-100 slid"  style="height:100vh;width: 100vw;" alt="...">
+            <div class="carousel-content">
+              <h3 style="text-decoration:none; color: white;margin-top:45vh ;">Kick the fear out of your with <br> - Bungee Jumping</h3>
+              </div>
+          </div>
+          <div class="carousel-item">
+            <img src={% static 'img/slide-4.jpg' %}  class="w-100 slid "  style="height:100vh;width: 100vw;" alt="...">
+            <div class="carousel-content">
+              <h3 href=""  style="text-decoration:none; color: white;margin-top:45vh ;">Ride on the tides with <br>- Surfing
+              </h3>
+              </div>
+          </div>
+          <div class="carousel-item">
+            <img src={% static 'img/slide-5.jpg' %} class="w-100 slid"  style="height:100vh;width: 100vw;" alt="...">
+            <div class="carousel-content">
+              <h3 href=""  style="text-decoration:none; color: white;margin-top:45vh ;" >Explore the kingdome of sea with <br>- Scuba Diving</h3>
+              </div>
+          </div>
+          <div class="carousel-item">
+            <img src={% static 'img/slide-6.jpg' %} class="w-100 slid"  style="height:100vh;width: 100vw;" alt="...">
+            <div class="carousel-content">
+              <h3 href=""  style="text-decoration:none; color: white;margin-top:45vh ;" >Plan Your Perfect<br>- Family Trip<br>- Romantic Trip
+              </h3>
+              </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div id="carouselExampleSlidesOnly" class="carousel slide mt-5 image-mo" data-ride="carousel" data-interval="5000" style="margin-top: 0 !important;">
+        <div class="carousel-inner">
+          <div class="carousel-item active" >
+            <img src={% static 'img/m-slide-1.jpg' %}  class="w-100 slid"  style="height:100vh;width: 100vw;" alt="..."> 
+            <div class="carousel-content">
+              <h3 style="text-decoration:none; color: white; margin-top:30px" >Put the wings on your thrill with <br>- Paragliding <br>- Sky Diving</h3>
+          </div>
+          </div>
+          <div class="carousel-item">
+            <img src={% static 'img/m-slide-2.jpg' %} class="w-100 slid"  style="height:100vh;width: 100vw;" alt="...">
+            <div class="carousel-content">
+              <h3 href=""  style="text-decoration:none; color: white;margin-top:30px ;">Beat the tides of the river with <br> - River Rafting  
+            </h3>
+              </div>
+          </div>
+          <div class="carousel-item">
+            <img src={% static 'img/m-slide-3.jpg' %} class="w-100 slid"  style="height:100vh;width: 100vw;" alt="...">
+            <div class="carousel-content">
+              <h3 style="text-decoration:none; color: white;margin-top:30px ;">Kick the fear out of your with <br> - Bungee Jumping</h3>
+              </div>
+          </div>
+          <div class="carousel-item">
+            <img src={% static 'img/m-slide-4.jpg' %} class="w-100 slid image-mo"  style="height:100vh;width: 100vw;" alt="...">
+            <div class="carousel-content">
+              <h3 href=""  style="text-decoration:none; color: white;margin-top:30px ;">Ride on the tides with <br>- Surfing
+              </h3>
+              </div>
+          </div>
+          <div class="carousel-item">
+            <img src={% static 'img/m-slide-5.jpg' %} class="w-100 slid"  style="height:100vh;width: 100vw;" alt="...">
+            <div class="carousel-content">
+              <h3 href=""  style="text-decoration:none; color: white;margin-top:30px ;" >Explore the kingdome of sea with <br>- Scuba Diving</h3>
+              </div>
+          </div>
+          <div class="carousel-item">
+            <img src={% static 'img/m-slide-6.jpg' %} class="w-100 slid"  style="height:100vh;width: 100vw;" alt="...">
+            <div class="carousel-content">
+              <h3 href=""  style="text-decoration:none; color: white;margin-top:30px;" >Plan Your Perfect<br>- Family Trip<br>- Romantic Trip
+              </h3>
+              </div>
+          </div>
+
+        </div>
+      </div>
+<!-- explore modal -->
+
+    <div class="modal fade align-content-center pr-0" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="padding: 0!important;">
+        <div class="modal-dialog" style="padding-left: 3%;padding-right: 3%;max-width: 450px;">
+          <div class="modal-content">
+            <div class="modal-body"  id="f1">
+              <center>
+                {% if user.is_authenticated %}
+               <h3 style="color:rgb(73, 73, 73);">Hi {{user}}</h3>
+               {% else %}
+               <h3 style="color:rgb(129, 127, 127);">Hi Explorer</h3>
+               {% endif %}
+               <h4 style="color:rgb(73, 73, 73);">What are you looking for? </h4>
+              </center> 
+
+              <div class="container px-0 mobile-searchbox">
+                <div class="text-center">
+                   <form class="form-group" method='get' action='/search'  style=" display: block;margin-left: auto; margin-right: auto;">
+                       <div class="input-group">
+                        <input class="form-control" style="border: 1px solid #656c8a;" type="search" name="search" id="search" placeholder="Search Adventure, Tours, Destinations" aria-label="Search">
+                        <div class="input-group-prepend mt-2">
+                            <button id="button-addon2" type="submit" class="btn" style="background-color: rgb(224, 223, 223); border-radius: 0px 5px 5px 0 ;margin-top: 5px;">
+                              <i class="fa fa-search"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                </div>
+            </div>
+
+
+               <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;cursor: pointer;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f52()" >
+                <div class="row" style="position: relative;top: 50%;transform: translateY(-50%);">
+                  <div class="col-4">
+                     <img src={% static 'img//Modal icons//Adventure modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+                  </div>
+                
+                  <div class="col-8">
+                              <h3 style="float:right;margin-top: 14px;" class="pr-3">Adventures</h3>
+                         </div>  
+                 </div>        
+                                      </span>
+               <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f; cursor: pointer; filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f50()">
+                <div class="row" style="position: relative;top: 50%;transform: translateY(-50%);">
+                  <div class="col-4">
+                     <img src={% static 'img//Modal icons//Tour modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+                  </div>
+                  <div class="col-8">
+                              <h3 style="float:right;margin-top: 14px;" class="pr-3">Tour Packages</h3>
+                         </div>  
+                 </div>
+                 </span>
+               <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+               <a href="/blog">
+                     <div class="row" style="position: relative;top: 50%;transform: translateY(-50%);">
+                  <div class="col-4">
+                     <img src={% static 'img//Modal icons//Blog modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+                  </div>
+                
+                  <div class="col-8">
+                              <h3 style="float:right;margin-top: 14px;" class="pr-3">Travel Blogs</h3>
+                         </div>  
+                 </div>
+                                   </a></span>
+
+               </div>
+                      
+                       <!-- <div class="modal-body" id="adventurelocationnear"  style="display:none">
+                             <div>
+                             <center>
+                             <h5 style="color:red">Please allow your location</h5>
+                             <h5 style="color:red">sharing to find Adventures</h5>
+                             <h5 style="color:red">around you</h5>
+                             <h5 style="color:red" class="mt-4 mb-4">Or select state below!</h5>
+                             </center>
+                             </div>
+                            <div style="margin-left:6%">
+                             <select class="custom-select custom-select-md mb-3 w-100" id="selectstate2">
+                             <option selected>Select State</option>
+                              {% for i in statelist %}
+                                  <option value="{{i.name}}">{{i.name}}</option>
+                                {% endfor %}
+                         
+                             </select>
+                             </div>
+
+                   </div>  -->
+                  
+            </div>
+          </div>
+           <div id="closemodalmain">
+          <center><i class="fa fa-close" style="font-size:48px;color:red"></i></center>
+               </div>
+        </div>
+       
+      </div>
+
+
+
+
+<div class="nav-button-index">
+<a href="#adventures">
+  <span class="btn mt-2 px-4 mr-2 nav-button">Adventures</span>
+</a> 
+
+<a href="#destination-new">
+  <span class="btn mt-2 px-4 mr-2 nav-button">Destinations</span>
+</a> 
+
+<a href="#tour-package">
+  <span class="btn mt-2 px-4 mr-2 nav-button">Tours</span>
+</a> 
+
+<a href="#">
+  <span class="btn mt-2 px-4 mr-2 nav-button">Rent Adventure Gears</span>
+</a> 
+
+</div>
+
+
+
+
+
+    
+    <!--Popular Adventures-->
+     <div class="container" style="margin-top: 10px;">
+
+      <div class="row destination-div-main" id="destination-new">
+        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 mt-3">
+          <div style="border-left:4px solid blue">
+          <h3 class="pl-2">Popular Destinations</h3>
+          </div>
+          <div class="mt-2 pl-3">
+          <p style="line-height:1.2rem;">Explore popular destinations across the country</p>
+          </div>
+          </div>
+      <div class="destination-div col-xl-10 col-lg-10 col-md-12 col-sm-12 mt-3">
+
+        <div class="destination-card" >
+          <a href="/state/Goa"><img class="card-img-top rounded-circle mx-auto" style="width:100px;height:100px;;" src={% static 'img//hompage images//Goa-Icon2.png' %} alt="Card image cap"></a>
+          <div class="card-body" style="padding-top: 3px;">
+            <p class="card-text text-center">Goa</p>
+          </div>
+        </div>
+
+        <div class="destination-card" >
+          <a href="/state/Himachal"><img class="card-img-top rounded-circle mx-auto" style="width:100px;height:100px;;" src={% static 'img//hompage images//Himachal-Icon.png' %} alt="Card image cap"></a>
+          <div class="card-body" style="padding-top: 3px;">
+            <p class="card-text text-center">Himachal</p>
+          </div>
+        </div>
+
+        <div class="destination-card" >
+          <a href="/city/Kedarnath"><img class="card-img-top rounded-circle mx-auto" style="width:100px;height:100px;;" src={% static 'img//hompage images//Kedarnath-Icon.png' %} alt="Card image cap"></a>
+          <div class="card-body" style="padding-top: 3px;">
+            <p class="card-text text-center">Kedarnath</p>
+          </div>
+        </div>
+
+        <div class="destination-card" >
+          <a href="/state/Ladakh"><img class="card-img-top rounded-circle mx-auto" style="width:100px;height:100px;;" src={% static 'img//hompage images//Ladakh-Icon.png' %} alt="Card image cap"></a>
+          <div class="card-body" style="padding-top: 3px;">
+            <p class="card-text text-center">Ladakh</p>
+          </div>
+        </div>
+
+        <div class="destination-card" >
+          <a href="/state/Kashmir"><img class="card-img-top rounded-circle mx-auto" style="width:100px;height:100px;;" src={% static 'img//hompage images//Kashmir-Icon.png' %} alt="Card image cap"></a>
+          <div class="card-body" style="padding-top: 3px;">
+            <p class="card-text text-center">Kashmir</p>
+          </div>
+        </div>
+         
+        <div class="destination-card"> 
+            <a href="/destination"><img class="card-img-top rounded-circle mx-auto" style="width:100px;height:100px;;" src={% static 'img//hompage images//all-destination.png' %} alt="Card image cap"></a>
+            <div class="card-body" style="padding-top: 3px;">
+              <p class="card-text text-center">See All</p>
+            </div>
+          </div>
+      </div>
+      </div>
+
+      <!-- <div class="row" id="destination">
+        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 mt-5">
+        <div style="border-left:4px solid blue">
+        <h3 class="pl-2">Popular Destinations</h3>
+        </div>
+        <div class="mt-2 pl-3">
+        <p style="line-height:1.2rem;">Explore the top rated Products of Popular Destinations</p>
+        </div>
+        </div>
+        <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 mt-5">
+        <div class="row mx-1">
+      
+   
+          {% for destination in destinations|slice:4   %} 
+   
+   <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 mx-0 pl-2 pr-0 mb-2">
+       <div style="position:relative;background-color: black;height: 220px;border-radius: 10px;cursor: pointer;overflow: hidden;"><a href="/state/{{destination.name}}"><img src="{{destination.image.url}}" style="position: absolute;height: 100%;object-fit: cover;width: 100%;"></a>
+       <h5 style="color: white;font-weight:500;text-align: center;position: absolute;bottom: 5px;width: 100%;">{{destination.name}}</h5>
+   </div>
+     
+   </div>
+       
+   {% endfor %}
+   <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 mx-0 pl-2 pr-0 mb-2">
+    <div style="position:relative;background-color: black;height: 220px;border-radius: 10px;cursor: pointer;overflow: hidden;"><a href="/city/Manali"><img src={% static 'img//hompage images//Manali.jpg' %} style="position: absolute;height: 100%;object-fit: cover;width: 100%;"></a>
+    <h5 style="color: white;font-weight:500;text-align: center;position: absolute;bottom:5px;width: 100%;">Manali</h5>
+</div>
+  
+</div>
+   <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 mx-0 pl-2 pr-0 mb-2">
+    <div style="position:relative;background-color: black;height: 220px;border-radius: 10px;cursor: pointer;overflow: hidden;"><a href="/destination"><div style="background-color: rgb(39, 35, 59);border: 1px solid rgb(63, 63, 63);height: 250px;border-radius: 8px;"></div></a>
+    <h5 style="color: white;font-weight:500;text-align: center;position: absolute;bottom: 85px;width: 100%;">See All</h5>
+</div>
+  
+</div> 
+       
+   </div>
+        </div>
+        </div> -->
+
+      <div class="row" >
+        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 mt-3">
+        <div style="border-left:4px solid blue">
+        <h3 class="pl-2">Popular Adventures</h3>
+        </div>
+        <div class="mt-2 pl-3">
+        <p style="line-height:1.2rem;">Explore the top rated Adventures on Universal Adventures</p>
+        </div>
+        </div>
+        <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 mt-3">
+        <div class="row mx-1">
+      
+   
+    
+   
+   <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 mx-0 pl-2 pr-0 mb-2">
+       <div style="position:relative;background-color: black;height: 220px;border-radius: 10px;cursor: pointer;overflow: hidden;"><a href="/adventure/Paragliding"><img src={% static 'img//hompage images//Paragliding.jpg' %} style="position: absolute;height: 100%;object-fit: cover;width: 100%;"></a>
+       <h5 style="color: white;font-weight:500;text-align: center;position: absolute;bottom: 5px;width: 100%;">Paragliding</h5>
+   </div>
+     
+   </div>
+       
+        
+   
+   <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 mx-0 pl-2 pr-0 mb-2">
+    <div style="position:relative;background-color: black;height: 220px;border-radius: 10px;cursor: pointer;overflow: hidden;"><a href="/adventure/Bungee-Jumping"><img src={% static 'img//hompage images//Bungee-Jumping.jpg' %} style="position: absolute;height: 100%;object-fit: cover;width: 100%;"></a>
+       <h5 style="color: white;font-weight:500;text-align: center;position: absolute;bottom: 5px;width: 100%;">Bungee Jumping</h5>
+   </div>
+     
+   </div>
+       
+        
+   
+   <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 mx-0 pl-2 pr-0 mb-2">
+    <div style="position:relative;background-color: black;height: 220px;border-radius: 10px;cursor: pointer;overflow: hidden;"><a href="/adventure/Camping"><img src={% static 'img//hompage images//Camping.jpg' %} style="position: absolute;height: 100%;object-fit: cover;width: 100%;"></a>
+       <h5 style="color: white;font-weight:500;text-align: center;position: absolute;bottom: 5px;width: 100%;">Camping</h5>
+   </div>
+     
+   </div>
+       
+        
+   
+   <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 mx-0 pl-2 pr-0 mb-2">
+    <div style="position:relative;background-color: black;height: 220px;border-radius: 10px;cursor: pointer;overflow: hidden;"><a href="/adventure/River-Rafting"><img src={% static 'img//hompage images//rafting.jpg' %} style="position: absolute;height: 100%;object-fit: cover;width: 100%;"></a>
+       <h5 style="color: white;font-weight:500;text-align: center;position: absolute;bottom: 5px;width: 100%;">River Rafting</h5>
+   </div>
+     
+   </div>
+       
+        
+   
+   <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 mx-0 pl-2 pr-0 mb-2">
+    <div style="position:relative;background-color: black;height: 220px;border-radius: 10px;cursor: pointer;overflow: hidden;"><a href="/adventure/Scuba-Diving"><img src={% static 'img//hompage images//scuba-diving.jpg' %} style="position: absolute;height: 100%;object-fit: cover;width: 100%;"></a>
+       <h5 style="color: white;font-weight:500;text-align: center;position: absolute;bottom: 5px;width: 100%;">Scuba Diving</h5>
+   </div>
+     
+   </div>
+       
+        
+   
+   <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 mx-0 pl-2 pr-0 mb-2" id="adventures">
+    <div style="position:relative;background-color: black;height: 220px;border-radius: 10px;cursor: pointer;overflow: hidden;"><a href="/adventure/Trekkings"><img src={% static 'img//hompage images//trekking.jpg' %} style="position: absolute;height: 100%;object-fit: cover;width: 100%;"></a>
+       <h5 style="color: white;font-weight:500;text-align: center;position: absolute;bottom: 5px;width: 100%;">Trekking</h5>
+   </div>
+     
+   </div>
+       
+       
+   
+   
+   </div>
+   
+   
+   
+        </div>
+        </div>
+
+
+        <div class="row mt-10" >
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 mt-3">
+          <div style="border-left:4px solid blue">
+          <h3 class="pl-2">Adventures by Category</h3>
+          </div>
+          <div class="mt-2 pl-3">
+          <p style="line-height:1.2rem;">Choose your thrill among four major category of Adventures</p>
+          </div>
+          </div>
+          <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 mt-3">
+          <div class="row mx-1">
+        
+     
+      
+     
+     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 mx-0 pl-2 pr-0 mb-2">
+      <div class="adventure-category" style="position:relative;height: 150px;border-radius: 10px;cursor: pointer;overflow: hidden;box-shadow: inset 0px -35px 20px -10px #49494991;"><a href="/adventure/High-Fly"><img src={% static 'img//hompage images//Highfly.jpg' %} style="position: absolute;height: 100%;object-fit: cover;width: 100%;"></a>
+         <h4 style="color: white;font-weight:500;text-align: center;position: absolute;bottom: 5px;width: 100%;margin-bottom: 0px;">High Fly</h4>
+     </div>
+       
+     </div>
+         
+          
+     
+     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 mx-0 pl-2 pr-0 mb-2">
+      <div class="adventure-category" style="position:relative;height: 150px;border-radius: 10px;cursor: pointer;overflow: hidden;box-shadow: inset 0px -35px 20px -10px #49494991;"><a href="/adventure/High-Thrills"><img src={% static 'img//hompage images//highthrill.jpg' %} style="position: absolute;height: 100%;object-fit: cover;width: 100%;"></a>
+         <h4 style="color: white;font-weight:500;text-align: center;position: absolute;bottom: 5px;width: 100%;margin-bottom: 0px;">High Thrill</h4>
+     </div>
+       
+     </div>
+      
+     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 mx-0 pl-2 pr-0 mb-2">
+      <div class="adventure-category" style="position:relative;height: 150px;border-radius: 10px;cursor: pointer;overflow: hidden;box-shadow: inset 0px -35px 20px -10px #49494991;"><a href="/adventure/Aqua-Experiences"><img src={% static 'img//hompage images//Aqua-experience.jpg' %} style="position: absolute;height: 100%;object-fit: cover;width: 100%;"></a>
+      <h4 style="color: white;font-weight:500;text-align: center;position: absolute;bottom: 5px;width: 100%;margin-bottom: 0px;">Aqua Experience</h4>
+  </div>
+    
+  </div>
+      
+  
+  <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 mx-0 pl-2 pr-0 mb-2">
+    <div class="adventure-category" style="position:relative;height: 150px;border-radius: 10px;cursor: pointer;overflow: hidden;box-shadow: inset 0px -35px 20px -10px #49494991;"><a href="/adventure/Land-Adventure"><img src={% static 'img//hompage images//Land-Adventure.jpg' %} style="position: absolute;height: 100%;object-fit: cover;width: 100%;"></a>
+      <h4 style="color: white;font-weight:500;text-align: center;position: absolute;bottom: 5px;width: 100%;margin-bottom: 0px;">Land Adventure</h4>
+  </div>
+  </div>
+     </div>
+    </div>
+          </div>
+
+          <div class="row mt-10" id="tour-package">
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 mt-3">
+            <div style="border-left:4px solid blue">
+            <h3 class="pl-2">Tour Packages</h3>
+            </div>
+            <div class="mt-2 pl-3">
+            <p style="line-height:1.2rem;">Go to an amazing trip with Family, Friends or your Partner</p>
+            </div>
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 mt-3">
+            <div class="row mx-1">
+          
+       
+        
+       
+       <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 mx-0 pl-2 pr-0 mb-2">
+           <div style="position:relative;background-color: black;height: 310px;border-radius: 10px;cursor: pointer;overflow: hidden;"><a href="/tour/Family-Trip"><img src={% static 'img//hompage images//family-trip.jpg' %} style="position: absolute;height: 100%;object-fit: cover;width: 100%;"></a>
+           <h4 style="color: white;font-weight:500;text-align: center;position: absolute;bottom: 5px;width: 100%;">Family Trip</h4>
+       </div>
+         
+       </div>
+           
+            
+       
+       <div class="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-6 mx-0 pl-2 pr-0 mb-2">
+           <div style="position:relative;background-color: black;height: 150px;border-radius: 10px;cursor: pointer;overflow: hidden;"><a href="/tour/Romantic-Trip"><img src={% static 'img//hompage images//romantic-trip.jpg' %} style="position: absolute;height: 100%;object-fit: cover;width: 100%;"></a>
+           <h4 style="color: white;font-weight:500;text-align: center;position: absolute;bottom: 5px;width: 100%;">Romantic Trip</h4>
+       </div>
+         
+       <div style="position:relative;bottom: 0px;background-color: black;height: 150px;border-radius: 10px;margin-top: 10px;cursor: pointer;overflow: hidden;"><a href="/tour/Trip-with-Friends"><img src={% static 'img//hompage images//trip-with-friends.jpg' %} style="position: absolute;height: 100%;object-fit: cover;width: 100%;"></a>
+        <h4 style="color: white;font-weight:500;text-align: center;position: absolute;bottom: 5px;width: 100%;">Trip with Friends</h4>
+    </div></div>
+        
+       
+       <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mx-0 pl-2 pr-0 mb-2">
+           <div class="tourhelpcard" id="expertpackage" style="position:relative;background-color: #0000000d;height: 310px;cursor:pointer;border-radius: 10px;display: flex;align-items: center;border: 1px solid #a6a6af;">
+           
+            <div class="row mx-0">
+            <div class="col-xl-12 col-lg-12 col-md-4 col-sm-4 col-4" style="padding:0px"> 
+           <img src={% static 'img//hompage images//expert-help.svg' %} style="object-fit: cover;width: 100%;">
+          </div>
+            <div class="col-xl-12 col-lg-12 col-md-8 col-sm-8 col-8">
+           <h4  style="color: 2b2b2b;font-weight:500;text-align: center;cursor:pointer;width: 100%;" class="px-2 mb-0">I need a customized package
+      <br>
+      Give me an Expert</h4>
+      </div>
+       </div>
+         
+       </div></div></div>
+       
+       
+       
+      </div>
+     </div>
+
+        
+<h2 style="margin-top:70px">Top Rated Experiences</h2>
+<!-- Advenutres By category-->
+<div class="container" style="margin-top:30px; margin-bottom: 7%">
+  <div class="top-exp-dt">
+  <div class="owl-carousel gi owl-theme">
+
+  <div class="item" style="width: 200px;"> 
+      <a href="products/scuba-diving-in-gokarna/">
+      <div class="top-rated-image">
+      <img src={% static 'img//hompage images//Scuba-Diving-in-Gokarna.jpg' %} />
+     </div>
+     </a>
+  </div>
+
+  <div class="item" style="width: 200px;"> 
+    <a href="products/parasailing-in-gokarna/">
+    <div class="top-rated-image">
+    <img src={% static 'img//hompage images//Parasailing-in-gokarna.jpg' %} />
+   </div>
+   </a>
+  </div>
+
+  <div class="item" style="width: 200px;"> 
+    <a href="products/bungee-jumping-in-goa/">
+    <div class="top-rated-image">
+    <img src={% static 'img//hompage images//Bungee-Jumping-Goa.jpg' %} />
+   </div>
+   </a>
+  </div>
+
+  <div class="item" style="width: 200px;"> 
+    <a href="products/manali-to-leh-ladakh-bike-trip-from-delhi/">
+    <div class="top-rated-image">
+    <img src={% static 'img//hompage images//Leh-Ladakh-Bike-Trip.jpg' %} />
+   </div>
+   </a>
+  </div>
+
+<div class="item" style="width: 200px;"> 
+  <a href="products/parasailing-in-gokarna/">
+  <div class="top-rated-image">
+  <img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+ </div>
+ </a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+  <a href="products/parasailing-in-gokarna/">
+  <div class="top-rated-image">
+  <img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+ </div>
+ </a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+  <a href="products/parasailing-in-gokarna/">
+  <div class="top-rated-image">
+  <img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+ </div>
+ </a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+  <a href="products/parasailing-in-gokarna/">
+  <div class="top-rated-image">
+  <img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+ </div>
+ </a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+  <a href="products/parasailing-in-gokarna/">
+  <div class="top-rated-image">
+  <img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+ </div>
+ </a>
+</div>
+
+</div>
+</div>
+<div class="top-rated-main">
+  
+<div class="item" style="width: 200px;"> 
+  <a href="products/scuba-diving-in-gokarna/">
+  <div class="top-rated-image">
+  <img src={% static 'img//hompage images//Scuba-Diving-in-Gokarna.jpg' %} />
+ </div>
+ </a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+  <a href="products/parasailing-in-gokarna/">
+  <div class="top-rated-image">
+  <img src={% static 'img//hompage images//Parasailing-in-gokarna.jpg' %} />
+ </div>
+ </a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+  <a href="products/bungee-jumping-in-goa/">
+  <div class="top-rated-image">
+  <img src={% static 'img//hompage images//Bungee-Jumping-Goa.jpg' %} />
+ </div>
+ </a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+  <a href="products/manali-to-leh-ladakh-bike-trip-from-delhi/">
+  <div class="top-rated-image">
+  <img src={% static 'img//hompage images//Leh-Ladakh-Bike-Trip.jpg' %} />
+ </div>
+ </a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+  <a href="products/parasailing-in-gokarna/">
+  <div class="top-rated-image">
+  <img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+ </div>
+ </a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+  <a href="products/parasailing-in-gokarna/">
+  <div class="top-rated-image">
+  <img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+ </div>
+ </a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+  <a href="products/parasailing-in-gokarna/">
+  <div class="top-rated-image">
+  <img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+ </div>
+ </a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+<div class="item" style="width: 200px;"> 
+<a href="products/parasailing-in-gokarna/">
+<div class="top-rated-image">
+<img src='https://www.universaladventures.in/abcd/uploads/products/photo-1604481842191-d363daa2e2d7.jfif' />
+</div>
+</a>
+</div>
+
+
+
+</div>
+</div>
+<!--  break  -->
+<h2 style="margin-top:70px">Popular Tags</h2>
+<div class="container popular-tags-div" style="margin-top:30px; margin-bottom: 5%">
+  {% for tags in populartags %}
+  <a href="{{tags.link}}">
+    <div class="popular-tags"><p>{{tags.name}}</p></div>
+  </a>
+  {% endfor %}
+</div>
+
+<!--  break  -->
+
+
+     <div class="container-fluid">
+   <div class="row">
+       <div class="col-md-4">
+        <div class="section_title text-center mb_70 mt-5">
+           <br><br> <h3>What People  <br>says about<br> Universal Adventure!</h3>
+
+        </div>
+    
+       </div>
+       <div class="col-md-8">
+           <!--Carousel Wrapper-->
+<div id="video-carousel-example2" class="carousel slide carousel-fade" data-ride="carousel" data-interval="false">
+    <!--Indicators-->
+    <ol class="carousel-indicators">
+      <li data-target="#video-carousel-example2" data-slide-to="0" class="active"></li>
+      <li data-target="#video-carousel-example2" data-slide-to="1"></li>
+      <li data-target="#video-carousel-example2" data-slide-to="2"></li>
+      <li data-target="#video-carousel-example2" data-slide-to="3"></li>
+    </ol>
+    <!--/.Indicators-->
+    <!--Slides-->
+    <div class="carousel-inner" role="listbox" style="border-radius: 25px;">
+ 
+      <div class="carousel-item active">
+        <iframe width="100%" height="350" src="https://www.youtube.com/embed/LBIV0wtT5HI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+      </div>
+      <div class="carousel-item">
+        <iframe width="100%" height="350" src="https://www.youtube.com/embed/4kzzPnmQh5I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+      </div>
+      <div class="carousel-item">
+        <iframe width="100%" height="350" src="https://www.youtube.com/embed/d0uVBjByLZ4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+      </div>
+      <div class="carousel-item">
+        <iframe width="100%" height="350" src="https://www.youtube.com/embed/y5kj2TX60sA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+      </div>
+    </div>
+    <!--/.Slides-->
+    <!--Controls-->
+    <a class="carousel-control-prev" href="#video-carousel-example2" role="button" data-slide="prev" style="margin-top: -200px;">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#video-carousel-example2" role="button" data-slide="next" style="margin-top: -200px;">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+    <!--/.Controls-->
+  </div>
+  </div>
+   </div>
+   <div class="row mt-5">
+    <div class="col-lg-12">
+        <div class="more_place_btn text-center">
+            <a class="boxed-btn4" href="https://www.youtube.com/channel/UCHc94ag6VdHNZ85PeL-brog">More Videos</a>
+        </div>
+    </div>
+</div>
+</div>
+       <!-- <div class="testimonial_area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section_title text-center mb_70">
+                        <h3>Our Partners</h3>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-xs-12 col-md-3"><img src="{% static 'img/natgeo.png' %}"></div>
+
+            </div>
+
+
+        </div>
+    </div> -->
+    <!-- testimonial_area  -->
+  </div>
+    <div class="testimonial_area mt-3">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section_title text-center mb_70">
+                        <h3>Testimonials</h3>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="testmonial_active owl-carousel">
+                        <div class="single_carousel">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="single_testmonial text-center">
+                                        <div class="author_thumb">
+                                            <img src="{% static 'img/testmonial/traveller.jpg' %}" alt="">
+                                        </div>
+                                        <p>What an amazing Service they provide you ..
+                                            They quality service at a very reasonable rates
+                                            The representative who was handling my bookings Mr. Aditya was very decent
+                                            and helpful
+                                            Even if you'll call them in midnight th'll answer your call and find the
+                                            solution for your personal Experience
+                                            All over had a very good experience with them</p>
+                                        <div class="testmonial_author">
+                                            <h3>- Rahul Gupta</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single_carousel">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="single_testmonial text-center">
+                                        <div class="author_thumb">
+                                            <img src="{% static 'img/testmonial/traveller.jpg' %}" alt="">
+                                        </div>
+                                        <p>Had the best experience in Goa. Thank you so much for such smooth
+                                            co-ordination and your scuba coordinators were so helpful. You guys made our
+                                            trip worthwhile.
+                                            Cheers!!</p>
+                                        <div class="testmonial_author">
+                                            <h3>- Kartik Singh</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single_carousel">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="single_testmonial text-center">
+                                        <div class="author_thumb">
+                                            <img src="{% static 'img/testmonial/traveller.jpg' %}" alt="">
+                                        </div>
+                                        <p>Out of the world experience. Thrilled after diving at 13000 feet from a
+                                            freaking plane. Helpful and experienced staff, was able to manage everything
+                                            with ease and no issues.</p>
+                                        <div class="testmonial_author">
+                                            <h3>- Anurag Shukla</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single_carousel">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="single_testmonial text-center">
+                                        <div class="author_thumb">
+                                            <img src="{% static 'img/testmonial/traveller.jpg' %}" alt="">
+                                        </div>
+                                        <p>The one and only Company in India who provide all types of Adventures sports
+                                            nd self driving vehicles with 24×7 Customer service. Our experience with
+                                            Universal Adventure for Goa trip is just awesome. Thanks to Universal
+                                            adventures Team.</p>
+                                        <div class="testmonial_author">
+                                            <h3>- Rishabh Sharma</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single_carousel">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="single_testmonial text-center">
+                                        <div class="author_thumb">
+                                            <img src="{% static 'img/testmonial/traveller.jpg' %}" alt="">
+                                        </div>
+                                        <p>Awesome activities and sports they provide.. and most important they helped
+                                            me in the middle of the night when my friend got sick.. best experience of
+                                            paragliding in gurgaon and scuba diving in goa i had with universal
+                                            adventures.. great guys , you made my trip</p>
+                                        <div class="testmonial_author">
+                                            <h3>- Karan Paliwal</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="open-button" onclick="openForm()">
+      <img src={% static 'img/calling.svg' %} style="filter: drop-shadow(0.15rem 0.15rem 0.3rem rgba(0, 0, 0, 0.5));width: 55px;"  /></button>
+
+ <div class="chat-popup" id="myForm">
+  <div style="background-color: #000000ab;width: 100vw;height: 1000vw;backdrop-filter: blur(1px);">
+    <div style="max-width: 320px;position: fixed;bottom: 0px;right: 15px;">
+
+<div class="form-container" id="fr2" style="text-align: center;">
+      <img src={% static 'img/Universal Adventures Logo.png' %} width="70px" style="margin-bottom: 1rem;">
+      <h3 style="margin-bottom: 1rem;">Thank You!</h3>
+      <h3 style="margin-bottom: 1rem;">Our Expert Will Call You In A Moment</h3>
+      <button class="btn btn-info" onclick="closeForm()">Close</button>
+  </div>
+  <form action="/" class="form-container mb-3 p-3" id='formg' name="google-sheet" style="max-width: 380px;border-radius: 10px 0px 10px 10px;">
+     
+   <!-- <i onclick="closeForm()" class="fa fa-times" style="float: right; cursor: pointer;"></i> -->
+      
+      <div class="mt-n3" onclick="closeForm()" style="position: absolute;cursor: pointer;background-color: #d82343;color: white;font-weight: 600;right: 0px;padding: 5px 15px;margin-top: -3.1rem;border-radius: 5px 5px 0px 0px;">Close</div>
+      <h3>How can we help you?</h3>
+      <p>Please send your query or Call Us</p>
+      <div class="form-group row mb-0">
+          <div class="col-md-12">
+            <input type="text" class="form-control" id="inputname" placeholder="Name" name="Name">
+          </div>
+        </div>
+          
+          <div class="form-group row mb-0">
+            <div class="col-md-12">
+              <input type="tel" class="form-control" id="inputPhone" placeholder="Phone" name="Phone">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-12">
+              <textarea class="form-control" id="inputEmail3" placeholder="Message (optional)" name="Email" style="height: 100px;"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-12">
+              <button type="submit" onclick="Sub()" class="btn btn-primary">Send Enquiry</button>&nbsp;or &nbsp; <button type="button" class="btn bg-white text-danger float-right" onclick="location.href='tel:8882654593'" style="border: 1px solid #ee4347;"><i class="fas fa-headset mr-2" aria-hidden="true"></i>Call Expert</button>
+             
+          </div>     
+           </div>
+        </form>
+      </div>
+      </div>
+</div>
+    <footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-lg-4 ">
+                        <div class="footer_widget">
+                            <div class="footer_logo">
+                                <a href="#">
+                                    <img src={% static 'img/footer.png' %}  width="200px" alt="">
+                                </a>
+                            </div>
+                            
+                            <a href="mailto:contact@universaladventures.in">contact@universaladventures.in</a><br>
+                      <a>E-447, Sector Beta 1, Greater Noida, Gautam Buddha Nagar, U.P.</a><br><a>
++91 8882654593
++91 9528812938</a> 
+                            </p>
+                            <div class="socail_links">
+                                <ul>
+                                    <li>
+                                        <a href="https://www.facebook.com/universaladventuresindia/">
+                                            <i class="ti-facebook"></i>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="https://www.instagram.com/universaladventuresindia/">
+                                          <i class="ti-instagram" aria-hidden="true" style="color: white;"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Company
+                            </h3>
+                            <ul class="links">
+                                <ul class="links">
+                                <li><a href="/about/">About</a></li>
+                                <li><a href="/contact/"> Contact</a></li>
+                                <li><a href="/privacy-policy/">Privacy-Policy</a></li>
+                                <li><a href="/partial-payment/">Partial Payment</a></li>
+                                <li><a href="/refund-policy">Payments & Refund Policy</a></li>
+                                <li><a href="/affiliate">Affiliator Program</a></li>
+                                <li><a href="#">Partner With Us</a></li>
+                                <li><a href="#">Carrer</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Popular destination
+                            </h3>
+                            <ul class="links double_links">
+                                <li><a href="/destination/Goa/">Goa</a></li>
+                                <li><a href="/destination/Karnataka/">Karnataka</a></li>
+                                <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
+                                <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
+                                <li><a href="/destination/Rajasthan/">Rajasthan</a></li>
+                                <li><a href="/destination/Maharashtra/">Maharashtra</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+   <!-- JS here -->
+    <script src={% static 'js/vendor/modernizr-3.5.0.min.js' %}></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src={% static 'js/popper.min.js' %}></script>
+    <script src={% static 'js/bootstrap.min.js' %}></script>
+    <script src={% static 'js/owl.carousel.min.js' %}></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    
+    <script src={% static 'js/isotope.pkgd.min.js' %}></script>
+    <script src={% static 'js/ajax-form.js' %}></script>
+    <script src={% static 'js/waypoints.min.js' %}></script>
+    <script src={% static 'js/jquery.counterup.min.js' %}></script>
+    <script src={% static 'js/imagesloaded.pkgd.min.js' %}></script>
+    <script src={% static 'js/scrollIt.js' %}></script>
+    <script src={% static 'js/jquery.scrollUp.min.js' %}></script>
+    <script src={% static 'js/wow.min.js' %}""></script>
+    <script src={% static 'js/nice-select.min.js' %}></script>
+    <script src={% static 'js/jquery.slicknav.min.js' %}></script>
+    <script src={% static 'js/jquery.magnific-popup.min.js' %}""></script>
+    <script src={% static 'js/plugins.js' %}></script>
+    <script src={% static 'js/gijgo.min.js' %}></script>
+    <script src={% static 'js/slick.min.js' %}></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+    <!--contact js-->
+
+    <script src={% static 'js/contact.js' %}></script>
+    <script src={% static 'js/jquery.ajaxchimp.min.js' %}></script>
+    <script src={% static 'js/jquery.form.js' %}></script>
+    <script src={% static 'js/jquery.validate.min.js' %}></script>
+    <script src={% static 'js/mail-script.js' %}></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+
+    
+    <script src={% static 'js/main.js' %}></script>
+    <script>
+        $('#datepicker').datepicker({
+            iconsLibrary: 'fontawesome',
+            icons: {
+                rightIcon: '<span class="fa fa-caret-down"></span>'
+            }
+        });
+    </script>
+<script>
+  $('.owl-carousel').owlCarousel({
+    stagePadding: 0,
+    loop:true,
+    margin:35,
+    autoWidth:true,
+    nav:true,
+    navText: [
+        "<i class='fa fa-caret-left'></i>",
+        "<i class='fa fa-caret-right'></i>"
+    ],
+    dots:true
+})
+window.onload=function(){
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+console.log(calcCrow(59.3293371,13.4877472,59.3225525,13.4619422).toFixed(1));
+
+
+
+    //This function takes in latitude and longitude of two location and returns the distance between them as the crow flies (in km)
+    function calcCrow(lat1, lon1, lat2, lon2) 
+    {
+      var R = 6371; // km
+      var dLat = toRad(lat2-lat1);
+      var dLon = toRad(lon2-lon1);
+      var lat1 = toRad(lat1);
+      var lat2 = toRad(lat2);
+
+      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+      var d = R * c;
+      return d;
+    }
+
+    // Converts numeric degrees to radians
+    function toRad(Value) 
+    {
+        return Value * Math.PI / 180;
+    }
+
+}
+
+function showPosition(position) {
+  console.log(`Latitude: ${position.coords.latitude}
+  Longitude:  ${position.coords.longitude}`);
+}
+    $( function() {
+    $.widget( "custom.catcomplete", $.ui.autocomplete, {
+      _create: function() {
+        this._super();
+        this.widget().menu( "option", "items", "> :not(.ui-autocomplete-category)" );
+      },
+      _renderMenu: function( ul, items ) {
+        var that = this,
+          currentCategory = "";
+        $.each( items, function( index, item ) {
+          var li;
+          if ( item.category != currentCategory ) {
+            ul.append( "<li class='ui-autocomplete-category'><h4>" + item.category + "</h4></li>" );
+            currentCategory = item.category;
+          }
+          li = that._renderItemData( ul, item );
+          if ( item.category ) {
+            li.attr( "aria-label", item.category + " : " + item.label );
+          }
+        });
+      }
+    });
+
+   
+    $( "#search" ).catcomplete({
+      source: "{% url 'autosuggest' %}",
+    });
+  } );
+
+$("#closemodal").click(function(){
+$("#exampleModal").css("display","none");
+});
+$("#selectstate").change(function(){
+  var o=$("#selectstate").val();
+  document.location=`/location/${o}`;
+});
+$("#selectstate2").change(function(){
+  var o2=$("#selectstate2").val();
+  document.location=`/location/${o2}`;
+});
+
+$("#closemodal2").click(function(){
+$("#exampleModal").css("display","none");
+});
+      function f50(){
+        $('#f1').empty();
+        card50=`<div class="modal-body"   style="margin-top:-50px">
+                               <br></br>
+                               <center>
+                                 <h4  style="color:rgb(73, 73, 73);">What Type of Tour?</h4>
+                                </center>
+                                
+                                <a onclick="f1(this)" value="Family Trip">
+                                  <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+                                  
+                                    <div class="row">
+                                 <div class="col-4">
+                                  <img src={% static 'img//Modal icons//Family Trip.png' %} style="float:left;margin-left:2vw;height: 5em;">
+                                 </div>
+                                 <div class="col-8">
+                                    <p class="mr-3" style="font-size: 21px;float:right; margin-top: 16px;color: #38495a;font-weight: 500;">Family Trip</p>
+                                  </div>
+                                  </div>
+                                  </span>
+                                   </a>
+                                    <a onclick="f1(this)" value="Romantic Trip">
+                                      <span class="badge badge-light mt-1 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+                                        <div class="row">
+                                 <div class="col-4">
+                                  <img src={% static 'img//Modal icons//Romantic Trip.png' %} style="float:left;margin-left:2vw;height: 5em;">
+                                 </div>
+                                 <div class="col-8">
+                                    <p class="mr-3" style="font-size: 21px;float:right; margin-top: 16px;color: #38495a;font-weight: 500;">Romantic Trip</p>
+                                  </div>
+                                  </div>
+                                 
+                                  </span></a>
+                                         
+                                <a onclick="f1(this)" value="Trip with Friends">
+                                  <span class="badge badge-light mt-1 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+                                  
+                                  <div class="row">
+                                 <div class="col-4">
+                                  <img src={% static 'img//Modal icons//Trip with friends.png' %} style="float:left;margin-left:2vw;height: 5em;">
+                                 </div>
+                                 <div class="col-8">
+                                    <p class="mr-3" style="font-size: 21px;float:right; margin-top: 16px;color: #38495a;font-weight: 500;">Trip with Friends</p>
+                                  </div>
+                                  </div>
+                                </span>
+                                </a>
+
+                                <a onclick="f1(this)" value="Adventurous Trip">
+                                  <span class="badge badge-light mt-1 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+                                     
+                                  <div class="row">
+                                 <div class="col-4">
+                                  <img src={% static 'img//Modal icons//Adventurous Trip Modal Icon.png' %} style="float:left;margin-left:2vw;height: 5em;">
+                                 </div>
+                                 <div class="col-8">
+                                    <p class="mr-3" style="font-size: 21px;float:right; margin-top: 16px;color: #38495a;font-weight: 500;">Adventurous Trip</p>
+                                  </div>
+                                  </div>
+                            
+                                  </span>
+                                  </a>
+                                
+                                 </div>`
+        $("#f1").html(card50);
+      };
+    function f52(){
+        $("#f1").empty();
+          card52=`<div class="modal-body"   style=" height:350px">       
+                              
+          <span class="badge badge-light mb-2 w-100 mt-5" onclick="f54()" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;"  name="adventure" >
+          <div class="row">
+          <div class="col-4">
+          <img src={% static 'img//Modal icons//Adventure by Location Modal Icon.png' %} style="float:left;margin-left:2vw;height: 5em;">
+          </div>
+          <div class="col-8">
+          <p class="mr-3" style="font-size: 21px;float:right; margin-top: 3px;color: #38495a;font-weight: 500;text-align: right;">Adventure By<br>Destinations</p>
+          </div>
+          </div>
+          
+          </span>
+            <span class="badge badge-light mb-2 w-100" onclick="f53()" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;"  name="adventure" >
+          <div class="row">
+          <div class="col-4">
+          <img src={% static 'img//Modal icons//Popular Adventures Modal Icon.png' %} style="float:left;margin-left:2vw;height: 5em;">
+
+          </div>
+          <div class="col-8">
+          <p class="mr-3" style="font-size: 21px;float:right; margin-top: 3px;color: #38495a;font-weight: 500;text-align: right;">Popular<br>Adventures</p>
+          </div>
+          </div>
+          
+          </span>
+          <span class="badge badge-light mb-2 w-100" onclick="f51()" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f1(this)" value="Romantic Trip" name="adventure" >
+          <div class="row">
+          <div class="col-4">
+          <img src={% static 'img//Modal icons//Adventure category modal Icon.png' %} style="float:left;margin-left:2vw;height: 5em;">
+
+          </div>
+          <div class="col-8">
+          <p class="mr-3" style="font-size: 21px;float:right; margin-top: 3px;color: #38495a;font-weight: 500;text-align: right;">Adventure By<br>Categories</p>
+          </div>
+          </div>
+          
+          </span>
+        
+          </div>`
+       $("#f1").html(card52);
+      };
+      function f51(){
+        $("#f1").empty();
+          card51=`<div class="modal-body"   style="margin-top:-50px">
+                               <br><br/>
+                               <a href="/adventures/High-Fly">
+                                 <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" >
+                                 <div class="row">
+                                 <div class="col-4">
+                                   <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                                 </div>
+                                 <div class="col-8">
+                                    <h5 class="mt-1">High Fly</h5>
+                                  </div>
+                                  </div>
+                                  </span>
+                                  </a>
+
+                                  <a href="/adventure/High-Thrills">
+                                  <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))"  >
+                                  <div class="row">
+                                 <div class="col-4">
+                                   <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                                 </div>
+                                 <div class="col-8">
+                                    <h5 class="mt-1">High Thrills</h5>
+                                  </div>
+                                  </div>
+                                 
+                                  </span>
+                                  </a>
+                                   
+                                   <a href="/adventure/Aqua-Experiences">
+                                  <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))"  >
+                                  <div class="row">
+                                 <div class="col-4">
+                                   <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                                 </div>
+                                 <div class="col-8">
+                                    <h5 class="mt-1">Aqua Experience</h5>
+                                  </div>
+                                  </div>
+                                 
+                                  </span>
+                                  </a>
+
+                                  <a href="/adventure/Land-Adventure">
+                                  <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))"  >
+                                  <div class="row">
+                                 <div class="col-4">
+                                   <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                                 </div>
+                                 <div class="col-8">
+                                    <h5 class="mt-1">Land Adventure</h5>
+                                  </div>
+                                  </div>
+                                 
+                                  </span>
+                                   </a>
+                             </div>`
+      $("#f1").html(card51);
+      };
+   function f53(){
+      $("#f1").empty();
+         card53=`<div class="modal-body"  style="margin-top:-50px">
+                               <br><br/>
+                                <a href="/adventure/Paragliding"> 
+                                <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" >
+                                 <div class="row">
+                                 <div class="col-4">
+                                   <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                                 </div>
+                                 <div class="col-8">
+                                    <h5 class="mt-1">Paragliding</h5>
+                                  </div>
+                                  </div>
+                                  </span>
+                                  </a>
+                                  
+                                  <a href="/adventure/Bungee-Jumping">
+                                  <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" >
+                                  <div class="row">
+                                 <div class="col-4">
+                                   <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                                 </div>
+                                 <div class="col-8">
+                                    <h5 class="mt-1">Bungee Jumping</h5>
+                                  </div>
+                                  </div>
+                                 
+                                  </span>
+                                  </a>
+                                  <a href="/adventure/Camping">
+                                  <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" >
+                                  <div class="row">
+                                 <div class="col-4">
+                                   <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                                 </div>
+                                 <div class="col-8">
+                                    <h5 class="mt-1">Camping</h5>
+                                  </div>
+                                  </div>
+                                 
+                                  </span>
+                                  </a>
+                                  
+                                  <a href="/adventure/Trekking">
+                                  <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))"  >
+                                  <div class="row">
+                                 <div class="col-4">
+                                   <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                                 </div>
+                                 <div class="col-8">
+                                    <h5 class="mt-1">Trekking</h5>
+                                  </div>
+                                  </div>
+                                 
+                                  </span>
+                                  </a>
+
+                                  <a href="/adventure/River-Rafting">
+                                  <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" >
+                                  <div class="row">
+                                 <div class="col-4">
+                                   <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                                 </div>
+                                 <div class="col-8">
+                                    <h5 class="mt-1">River Rafting</h5>
+                                  </div>
+                                  </div>
+                                 
+                                  </span>
+                                     </a>
+                                  
+
+                                  <a href="/adventures/Scuba-Diving">
+                                  <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))"  >
+                                  <div class="row">
+                                 <div class="col-4">
+                                   <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                                 </div>
+                                 <div class="col-8">
+                                    <h5 class="mt-1">Scuba Diving</h5>
+                                  </div>
+                                  </div>
+                                 
+                                  </span>
+                                  </a>
+                     
+                             </div>`
+     $("#f1").html(card53);
+     };
+
+</script>
+  <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwYSC2ULRCT0W7swcxJN8ag7fwol5M9PfEdOZzhBNEal2DpphI/exec'
+        const form = document.forms['google-sheet2']
+      
+        form.addEventListener('submit', e => {
+          e.preventDefault()
+          fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => console.log("Thanks for Contacting us..! We Will Contact You Soon..."))
+            .catch(error => console.error('Error!', error.message))
+        })
+      </script>
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz3b-aJKpurIAiNBZr1nwMAO2IFCvHCp6fgjfzR80Zk3Kt2Rdw-/exec'
+        const form = document.forms['google-sheet']
+      
+        form.addEventListener('submit', e => {
+          e.preventDefault()
+          fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => console.log("Thanks for Contacting us..! We Will Contact You Soon..."))
+            .catch(error => console.error('Error!', error.message))
+        })
+      </script>
+    
+    <script>
+        setTimeout(function() {
+            $('#exampleModal').modal('show')
+        }, 7000);
+        $("#exploreview").click(function(){
+          $('#f1').empty();
+          card61=`     <div class="modal-body"  id="f1">
+              <center>
+                {% if user.is_authenticated %}
+               <h3 style="color:rgb(73, 73, 73);">Hi {{user}}</h3>
+               {% else %}
+               <h3 style="color:rgb(129, 127, 127);">Hi Explorer</h3>
+               {% endif %}
+               <h4 style="color:rgb(73, 73, 73);">What are you looking for? </h4>
+              </center> 
+
+              <div class="container px-0 mobile-searchbox">
+                <div class="text-center">
+                   <form class="form-group" method='get' action='/search'  style=" display: block;margin-left: auto; margin-right: auto;">
+                       <div class="input-group">
+                        <input class="form-control" style="border: 1px solid #656c8a;" type="search" name="search" id="search" placeholder="Search Adventure, Tours, Destinations" aria-label="Search">
+                        <div class="input-group-prepend mt-2">
+                            <button id="button-addon2" type="submit" class="btn" style="background-color: rgb(224, 223, 223); border-radius: 0px 5px 5px 0 ;margin-top: 5px;">
+                              <i class="fa fa-search"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                </div>
+            </div>
+
+
+               <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;cursor: pointer;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f52()" >
+                <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+                  <div class="col-4">
+                     <img src={% static 'img//Modal icons//Adventure modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+                  </div>
+                
+                  <div class="col-8">
+                              <h3 style="float:right;margin-top: 14px;" class="pr-3">Adventures</h3>
+                         </div>  
+                 </div>        
+                                      </span>
+               <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f; cursor: pointer; filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f50()">
+                <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+                  <div class="col-4">
+                     <img src={% static 'img//Modal icons//Tour modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+                  </div>
+                  <div class="col-8">
+                              <h3 style="float:right;margin-top: 14px;" class="pr-3">Tour Packages</h3>
+                         </div>  
+                 </div>
+                 </span>
+               <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+               <a href="/blog">
+                     <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+                  <div class="col-4">
+                     <img src={% static 'img//Modal icons//Blog modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+                  </div>
+                
+                  <div class="col-8">
+                              <h3 style="float:right;margin-top: 14px;" class="pr-3">Travel Blogs</h3>
+                         </div>  
+                 </div>
+                                   </a></span>
+
+               </div>`
+               $('#f1').html(card61);
+            $('#exampleModal').modal('show');
+        });
+        $("#exploreview2").click(function(){
+          $('#f1').empty();
+          card61=`     <div class="modal-body"  id="f1">
+              <center>
+                {% if user.is_authenticated %}
+               <h3 style="color:rgb(73, 73, 73);">Hi {{user}}</h3>
+               {% else %}
+               <h3 style="color:rgb(129, 127, 127);">Hi Explorer</h3>
+               {% endif %}
+               <h4 style="color:rgb(73, 73, 73);">What are you looking for? </h4>
+              </center> 
+
+              <div class="container px-0 mobile-searchbox">
+                <div class="text-center">
+                   <form class="form-group" method='get' action='/search'  style=" display: block;margin-left: auto; margin-right: auto;">
+                       <div class="input-group">
+                        <input class="form-control" style="border: 1px solid #656c8a;" type="search" name="search" id="search" placeholder="Search Adventure, Tours, Destinations" aria-label="Search">
+                        <div class="input-group-prepend mt-2">
+                            <button id="button-addon2" type="submit" class="btn" style="background-color: rgb(224, 223, 223); border-radius: 0px 5px 5px 0 ;margin-top: 5px;">
+                              <i class="fa fa-search"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                </div>
+            </div>
+
+
+               <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;cursor: pointer;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f52()" >
+                <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+                  <div class="col-4">
+                     <img src={% static 'img//Modal icons//Adventure modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+                  </div>
+                
+                  <div class="col-8">
+                              <h3 style="float:right;margin-top: 14px;" class="pr-3">Adventures</h3>
+                         </div>  
+                 </div>        
+                                      </span>
+               <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f; cursor: pointer; filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f50()">
+                <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+                  <div class="col-4">
+                     <img src={% static 'img//Modal icons//Tour modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+                  </div>
+                  <div class="col-8">
+                              <h3 style="float:right;margin-top: 14px;" class="pr-3">Tour Packages</h3>
+                         </div>  
+                 </div>
+                 </span>
+               <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+               <a href="/blog">
+                     <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+                  <div class="col-4">
+                     <img src={% static 'img//Modal icons//Blog modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+                  </div>
+                
+                  <div class="col-8">
+                              <h3 style="float:right;margin-top: 14px;" class="pr-3">Travel Blogs</h3>
+                         </div>  
+                 </div>
+                                   </a></span>
+
+               </div>`
+               $('#f1').html(card61);
+            $('#exampleModal').modal('show');
+        });
+        $("#dropdownMenuButton").click(function(){
+            $("#options").toggle();
+        });
+        $("#mobilemodal").click(function(){
+            $("#exampleModalmobile").modal('show');
+        });
+        $("#closemodalmain").click(function(){
+        $("#exampleModal").modal('hide');    
+        });
+        $("#adventurenear").click(function(){
+          $("#adventurelist").css("display","none");
+          $("#adventurelocationnear").css("display","block");
+        });
+        function myfunction(){
+          var e = document.getElementById("selectmodelstate");
+          var value = e.value;
+          window.location.href = `/state/${value}`;
+        }
+        function myfunction2(){
+          var e = document.getElementById("selectmodelcity");
+          var value = e.value;
+          window.location.href = `/city/${value}`;
+        }
+        function f73(){
+          $('#f1').empty();
+          card72=`<div class="modal-body"   style=" height:350px">       
+            <div class="row">
+            <div class="col-12">
+              <select class="custom-select w-75 mt-5" id="selectmodelcity" onchange="myfunction2()">
+              <option selected>Select City</option>
+              <option value="Banglore">Banglore</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Bir Billing">Bir Billing</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Chopta">Chopta</option>
+                <option value="Coorg">Coorg</option>
+                <option value="Dandeli">Dandeli</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Goa">Goa</option>
+                <option value="Gokarna">Gokarna</option>
+                <option value="Jaipur">Jaipur</option>
+                <option value="Jaisalmer">Jaisalmer</option>
+                <option value="Kamshet">Kamshet</option>
+                <option value="Kochi">Kochi</option>
+                <option value="Jammu-Kashmir">Jammu-Kashmir</option>
+                <option value="Kolad">Kolad</option>
+                <option value="Leh">Leh</option>
+                <option value="Lonavala">Lonavala</option>
+                <option value="Malvan">Malvan</option>
+                <option value="Manali">Manali</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Munnar">Munnar</option>
+                <option value="Mysore">Mysore</option>
+                <option value="Nagaon">Nagaon</option>
+                <option value="Nandi Hills">Nandi Hills</option>
+                <option value="Ooty">Ooty</option>
+                <option value="Pondicherry">Pondicherry</option>
+                <option value="Pune">Pune</option>
+                <option value="Rishikesh">Rishikesh</option>
+                <option value="Srinagar">Srinagar</option>
+                <option value="Udaipur">Udaipur</option>
+                <option value="Wayanad">Wayanad</option>
+              </select>
+            </div>
+            </div>
+            </div>`
+          $('#f1').html(card72);
+        }
+        function f72(){
+          $('#f1').empty();
+          card72=`<div class="modal-body"   style=" height:350px">       
+            <div class="row">
+            <div class="col-12">
+              <select class="custom-select w-75 mt-5" id="selectmodelstate" onchange="myfunction()">
+              <option selected>Select State</option>
+              <option value="Andaman & Nicobar">Andaman & Nicobar</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Dadra & Nagar Haveli">Dadra & Nagar Haveli</option>
+                <option value="Daman & Diu">Daman & Diu</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal-Pradesh">Himachal-Pradesh</option>
+                <option value="Jammu-Kashmir">Jammu-Kashmir</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Lakshadweep">Lakshadweep</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Orissa">Orissa</option>
+                <option value="Pondicherry">Pondicherry</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Tripura">Tripura</option>
+                <option value="Uttar-Pradesh">Uttar-Pradesh</option>
+                <option value="Uttaranchal">Uttaranchal</option>
+                <option value="West Bengal">West Bengal</option>
+              </select>
+            </div>
+            </div>
+            </div>`
+          $('#f1').html(card72);
+        }
+       function f54(){
+          $('#f1').empty();
+          card72=`<div class="modal-body"   style=" height:350px">       
+            <span class="badge badge-light mb-2 w-100 mt-5" onclick="f72()" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;"  name="adventure" >
+            <div class="row">
+            <div class="col-12">
+            <p class="mr-3" style="font-size: 21px; margin-top: 20px;color: #38495a;font-weight: 500;text-align: center;">Adventure By State</p>
+            </div>
+            </div>
+            </span>
+
+            <span class="badge badge-light mb-2 w-100" onclick="f73()" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;"  name="adventure" >
+            <div class="row">
+            <div class="col-12">
+            <p class="mr-3" style="font-size: 21px;margin-top: 20px;color: #38495a;font-weight: 500;text-align: center;">Adventures by City</p>
+            </div>
+            </div>
+            </span>
+          
+            </div>`
+          $('#f1').html(card72);
+        };
+      
+      function f1(e){
+        value1= $(e).attr('value')
+          $('#f1').empty();
+          $('#f1').css("margin-top","0px");
+           let card1=` <div class="modal-body">
+                <h5 style="color:red;">When are you planning to go?</h5>
+                <span class="badge badge-light mb-2 w-100" onclick="f2(this)" value="In 1-2 week" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" id="${value1}" name="adventure2">
+                <center>
+                <h5 class="mt-2">1-2 Weeks</h5> 
+                </center>
+                </span>
+                <span class="badge badge-light mb-2 w-100" onclick="f2(this)" value="In 1-2 month" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" id="${value1}" name="adventure2">
+                <center>
+                <h5 class="mt-2">1-2 Months</h5> 
+                </center>
+                </span>
+                <span class="badge badge-light mb-2 w-100" onclick="f2(this)" value="In 3-4 month" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" id="${value1}" name="adventure2">
+                <center>
+                <h5 class="mt-2">1-2 Months</h5> 
+                </center>
+                </span>
+                <span class="badge badge-light mb-2 w-100" onclick="f2(this)" value="After 5 months" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" id="${value1}" name="adventure2">
+                <center>
+                <h5 class="mt-2">After 5 months</h5> 
+                </center>
+                </span>
+                </div>`;
+           $('#f1').html(card1)
+        }
+        function f2(e){
+            value1= $(e).attr('value')
+            value2= $(e).attr('id')
+            $('#f1').empty()
+          let card2= `<div class="modal-body">
+                <h3  style="color: black;">Searching best tour destinations of the season! 
+                    Please wait.</h3>
+                    
+        <img src="https://i.ibb.co/Jcq8M33/giphy.gif" alt="giphy" border="0" width="200px" height="200px"style=" display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;">
+    
+            </div>`
+            $('#f1').html(card2)
+            setTimeout(function() {
+                $('#f1').empty()
+                 n =  new Date();
+                 y = n.getFullYear();
+                 m = n.getMonth()+1;
+                 h = n.getHours();
+                 mm= n.getMinutes()
+                 d = n.getDate();
+                let date = d + "/" + m + "/" + y +"("+h+":"+mm+")";                 
+                let num=Math.floor(Math.random() * (400 - 100 + 1)) + 100;
+            let card3= `<div class="modal-body">
+                <h3  style="color: black;">Found ${num} results for you...</h3><br>
+                Please provide your contact number, our <b> ${value2} </b> expert will discuss tour package with you over phone call.
+                <form action="\" name="popup">
+                    <input type="hidden" value="${date}"   name="Timestamp" ></input>
+                    <input type="hidden" value="${value2}" name="Type"></input>
+                    <input type="hidden" value="${value1}" name="Time"></input>
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-0">
+                        <label>Name</label>
+                        <input type="text" class="form-control" name="Name" required>
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                        <label>Phone Number</label>
+                        <input type="tel" class="form-control" name="Phone" required>
+                    </div>
+                </div>
+        <br>
+               <button type="submit" onclick="finish()" class="btn btn-success btn-block  float-right" >Submit</button>
+        </form>
+                <br><br>
+                <div class="text-center">OR</div>
+                You can directly call our expert now:<br><button onclick="location.href='tel:8882654593'"class="btn btn-danger btn-block"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;8882654593</button>
+            </div>`
+            $('#f1').html(card3)
+        }, 3000);
+        }
+        function finish(){
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz5GdxDJ5-LmqJMEEIZKCQpOT9VRdN4wpqjwnc_4VgVLzqSW-79/exec'
+        const form = document.forms['popup']
+         form.addEventListener('submit', e => {
+           e.preventDefault()
+           fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+             .then(response => {
+               console.log("Thanks for Contacting us..! We Will Contact You Soon...");
+              })
+             .catch(error => console.error('Error!', error.message))
+         })
+         $('#exampleModal').modal('hide')
+         $('html, body').animate({ scrollTop: $('#tour-package').offset().top }, 'slow');
+        }
+ 
+
+    </script>
+    <script>
+if($('.gi').length)
+{
+var trendsSlider = $('.gi');
+trendsSlider.owlCarousel(
+{
+loop:true,
+margin:30,
+nav:true,
+dots:false,
+autoplayHoverPause:true,
+autoplay:false,
+navText : ["<i class='fa fa-chevron-left pre'></i>","<i class='fa fa-chevron-right nx'></i>"],
+responsive:
+{
+0:{items:1.5},
+575:{items:1.5},
+991:{items:3.5}
+}
+});
+
+}
+
+if($('.fi').length)
+{
+var trendsSlider = $('.fi');
+trendsSlider.owlCarousel(
+{
+loop:true,
+margin:25,
+nav:true,
+dots:false,
+autoplayHoverPause:true,
+autoplay:false,
+navText : ["<i class='fa fa-chevron-left pre'></i>","<i class='fa fa-chevron-right nx'></i>"],
+responsive:
+{
+0:{items:2.5},
+575:{items:2.5},
+991:{items:5}
+}
+});
+
+}
+        $(function () {
+            $(window).scroll(function () {
+                var mainbottom = $("header").offset().top + $("header").height();
+                if ($(this).scrollTop() < mainbottom) {
+
+                    $('nav').removeClass('first');
+
+                } else {
+
+                    $('nav').addClass('first');
+
+                }
+            })
+        })
+    </script>
+<script>
+        $(document).ready(function() {
+           $("#multi-item-example").swiperight(function() {
+              $(this).carousel('prev');
+            });
+           $("#multi-item-example").swipeleft(function() {
+              $(this).carousel('next');
+           });
+        });
+        </script>
+<script>
+    function openForm() {
+      document.getElementById("myForm").style.display = "block";
+      
+    }
+    
+    function closeForm() {
+      document.getElementById("myForm").style.display = "none";
+     
+    }
+    function Sub() {
+            document.getElementById("formg").style.display = "none";
+            document.getElementById("fr2").style.display = "block";
+        }
+    </script>
+    <script>
+        setTimeout(function () {
+            $('.loader_bg').fadeToggle();
+        }, 2000);
+    </script>
+    <script>
+       var width= $(window).width();
+            (function() {
+  window.onresize = displayWindowSize;
+  window.onload = displayWindowSize;
+
+  function displayWindowSize() {
+    let myWidth = window.innerWidth;
+    if (myWidth<='576'){
+      $('.slid').attr("align", "right");
+      $('.slid').removeClass('w-100');
+      $('.carousel-content').attr("align", "center");
+    }
+    else{
+      $('.slid').removeAttr('align')
+      $('.slid').addClass('w-100');
+    }
+  }
+  })();
+    </script>
+    <script>
+        const instagramRegExp = new RegExp(/<script type="text\/javascript">window\._sharedData = (.*);<\/script>/)
+
+        const fetchInstagramPhotos = async (accountUrl) => {
+            const response = await axios.get(accountUrl)
+            const json = JSON.parse(response.data.match(instagramRegExp)[1])
+            const edges = json.entry_data.ProfilePage[0].graphql.user.edge_owner_to_timeline_media.edges.splice(
+                0, 9)
+            const photos = edges.map(({
+                node
+            }) => {
+                return {
+                    url: `https://www.instagram.com/p/${node.shortcode}/`,
+                    thumbnailUrl: node.thumbnail_src,
+                    displayUrl: node.display_url,
+                    caption: node.edge_media_to_caption.edges.length > 0 ? node.edge_media_to_caption.edges[0].node.text : ""
+                }
+            })
+            return photos
+        }
+
+        (async () => {
+            try {
+                const photos = await fetchInstagramPhotos('https://www.instagram.com/universaladventuresindia/')
+                const container = document.getElementById("ing")
+                console.log(photos);
+                photos.forEach(el => {
+                    const a = document.createElement('a')
+                    const img = document.createElement('img')
+                    const div = document.createElement('div')
+                    a.setAttribute('href', el.url)
+                    a.setAttribute('target', '_blank')
+                    a.setAttribute('rel', 'noopener noreferrer')
+                    a.classList.add('instagram-photo')
+
+                    img.setAttribute('src', el.thumbnailUrl)
+                    img.setAttribute('alt', el.caption)
+
+                    a.appendChild(img)
+                    div.classList.add('single_insta')
+                    div.appendChild(a)
+                    container.appendChild(div)
+                })
+            } catch (e) {
+                console.error('Fetching Instagram photos failed', e)
+            }
+        })()
+    </script>
+    <script>
+      var TxtType = function(el, toRotate, period) {
+    this.toRotate = toRotate;
+    this.el = el;
+    this.loopNum = 0;
+    this.period = parseInt(period, 10) || 2000;
+    this.txt = '';
+    this.tick();
+    this.isDeleting = false;
+};
+
+TxtType.prototype.tick = function() {
+    var i = this.loopNum % this.toRotate.length;
+    var fullTxt = this.toRotate[i];
+
+    if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+    } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+    }
+
+    this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
+
+    var that = this;
+    var delta = 200 - Math.random() * 100;
+
+    if (this.isDeleting) { delta /= 2; }
+
+    if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = false;
+    } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+    }
+
+    setTimeout(function() {
+        that.tick();
+    }, delta);
+};
+
+window.onload = function() {
+    var elements = document.getElementsByClassName('typewrite');
+    for (var i = 0; i < elements.length; i++) {
+        var toRotate = elements[i].getAttribute('data-type');
+        var period = elements[i].getAttribute('data-period');
+        if (toRotate) {
+            new TxtType(elements[i], JSON.parse(toRotate), period);
+        }
+    }
+    // INJECT CSS
+    var css = document.createElement("style");
+    css.type = "text/css";
+    css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+    document.body.appendChild(css);
+};
+
+
+function complete() {
+    clearInterval(timer);
+    timer = null;
+}
+    </script>
+
+<script>
+  $("#expertpackage").click(function(){
+    $('#expertModal').modal('show');
+        });
+        function f56(e){
+        value1= $(e).attr('value')
+          $('#f56').empty()
+          let card56=`    <div class="modal-body">
+                <h3 style="color: black;">Have you decided the destination?</h3>
+            <div class="form-row">
+                <div class="form-group col-md-12 mb-0">
+                        <ul>
+                            <li><button class="btn btn-warning  btn-block mt-2" style="border-radius: 20px;" onclick="f57(this)" value="Yes, I have decided my destination" id="${value1}"name="adventure2">&nbsp;&nbsp;Yes, I have decided
+my destination</input></button>
+                            <li><button class="btn btn-warning  btn-block mt-2" style="border-radius: 20px;" onclick="f57(this)" value="No, I haven’t decided my destination" id="${value1}"name="adventure2">&nbsp;&nbsp;No, I haven’t decided
+my destination</input></button>
+                            <li><button class="btn btn-warning  btn-block mt-2" style="border-radius: 20px;" onclick="f57(this)" value="I have decided my destination but I want more suggestions" id="${value1}"name="adventure2">&nbsp;&nbsp;I have decided  but I want
+more suggestions</input></button>
+                            
+                        </ul>
+                </div>
+                </div>
+            </div>`
+          $('#f56').html(card56)
+        }
+        function f57(e){
+        value1= $(e).attr('value')
+        if (value1 =="Yes, I have decided my destination")
+        {
+          $('#f56').empty()
+          let card57= `<div class="modal-body">
+            <h3 style="color: black;">Please select the Location</h3>
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-0">
+                        <label>State</label>
+                        <select name ="state" class="form-control" required>
+                          <option selected="selected" disabled>Select State:</option>
+                            <option value="Andaman & Nicobar">Andaman & Nicobar</option>
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="Dadra & Nagar Haveli">Dadra & Nagar Haveli</option>
+                            <option value="Daman & Diu">Daman & Diu</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="Himachal-Pradesh">Himachal-Pradesh</option>
+                            <option value="Jammu-Kashmir">Jammu-Kashmir</option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Kerala">Kerala</option>
+                            <option value="Lakshadweep">Lakshadweep</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Manipur">Manipur</option>
+                            <option value="Meghalaya">Meghalaya</option>
+                            <option value="Mizoram">Mizoram</option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Orissa">Orissa</option>
+                            <option value="Pondicherry">Pondicherry</option>
+                            <option value="Punjab">Punjab</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Sikkim">Sikkim</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="Uttar-Pradesh">Uttar-Pradesh</option>
+                            <option value="Uttaranchal">Uttaranchal</option>
+                            <option value="West Bengal">West Bengal</option>
+                          </select>
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                        <label>City *(optional)</label>
+                        <input type="tel" class="form-control" name="city" required>
+                    </div>
+                </div>
+        <br>
+               <button type="submit" onclick="f58(this)" class="btn btn-success btn-block  float-right" >Next</button>
+                <br><br>`
+                $('#f56').html(card57)
+        }
+        else{
+          $('#f56').empty()
+          let card57=`    <div class="modal-body">
+                <h3 style="color: black;">When do you want to go?</h3>
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-0">
+                      <select id='gMonth2' class="form-control" onchange="f59(this)">
+                         <option value='' selected>--Select Month--</option>
+                         <option value='1'>Janaury</option>
+                         <option value='2'>February</option>
+                         <option value='3'>March</option>
+                         <option value='4'>April</option>
+                         <option value='5'>May</option>
+                         <option value='6'>June</option>
+                         <option value='7'>July</option>
+                         <option value='8'>August</option>
+                         <option value='9'>September</option>
+                         <option value='10'>October</option>
+                         <option value='11'>November</option>
+                         <option value='12'>December</option>
+                         </select>
+                    </div>
+                </div>
+            </div>`
+          $('#f56').html(card57)
+        }
+        }
+        function f58(e){
+        value1= $(e).attr('value')
+          $('#f56').empty()
+          let card58=` <div class="modal-body">
+                <h3 style="color: black;">When do you want to go?</h3>
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-0">
+                      <select id='gMonth2' class="form-control" onchange="f59(this)">
+                         <option value='' selected>--Select Month--</option>
+                         <option value='1'>Janaury</option>
+                         <option value='2'>February</option>
+                         <option value='3'>March</option>
+                         <option value='4'>April</option>
+                         <option value='5'>May</option>
+                         <option value='6'>June</option>
+                         <option value='7'>July</option>
+                         <option value='8'>August</option>
+                         <option value='9'>September</option>
+                         <option value='10'>October</option>
+                         <option value='11'>November</option>
+                         <option value='12'>December</option>
+                         </select>
+                    </div>
+                </div>
+            </div>`
+          $('#f56').html(card58)
+        }
+        function f59(e){
+        value1= $(e).attr('value')
+          $('#f56').empty()
+          let card59=` <div class="modal-body">
+                <h3 style="color: black;">How many members are you there?</h3>
+                <div class="form-row">
+                  <div class="form-group col-md-6 mb-0">
+                        <label>No of members </label>
+                        <input type="tel" class="form-control" name="mem" required>
+                    </div>
+                </div>
+                <br>
+               <button type="submit" onclick="f60(this)" class="btn btn-success btn-block  float-right" >Next</button>
+            </div>`
+          $('#f56').html(card59)
+        }
+        function f60(e){
+        value1= $(e).attr('value')
+          $('#f56').empty()
+          let card60=`<div class="modal-body">
+                <h3  style="color: black;">Thanks! We have assigned one expert specially for you </h3>
+                <p>Please Provide the contact Info, our
+expert will contact you very soon!</p>
+                <form action="\" name="popup">
+                    <input type="hidden" value="${value1}" name="Time"></input>
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-0">
+                        <label>Name</label>
+                        <input type="text" class="form-control" name="Name" required>
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                        <label>Phone Number</label>
+                        <input type="tel" class="form-control" name="Phone" required>
+                    </div>
+                    <div class="form-check mx-3 mt-2">
+      <label>
+        What time should we contact you?
+      </label>
+      <input type="time" class="form-control" name="Time" required>
+    </div>
+                </div>
+        <br>
+               <button type="submit" onclick="finish2()" class="btn btn-success btn-block  float-right" >Submit</button>
+        </form>
+            </div>`
+          $('#f56').html(card60)
+        }
+   
+</script>
+
+</body>
+
+</html>
+{% endblock %}
