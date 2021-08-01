@@ -538,6 +538,49 @@ padding:0 1.75rem .375rem .75rem;
 }
 
 </style>
+<style>
+  .owl-carousel .owl-nav {
+      overflow: hidden;
+      height: 0px;
+    }
+    
+    .owl-carousel .nav-button {
+      height: 50px;
+      width: 25px;
+      border-radius: 50%;
+      border: 1px solid black;
+      cursor: pointer;
+      position: absolute;
+      top: 30% !important;
+    }
+    .owl-carousel .owl-prev.disabled,
+    .owl-carousel .owl-next.disabled {
+      pointer-events: none;
+      opacity: 0.25;
+    }
+    .owl-carousel .owl-prev {
+      left: -50px !important;
+    }
+
+    .owl-carousel .owl-next {
+      right: -40px !important;
+    }
+
+    .owl-theme .owl-nav [class*=owl-] {
+      color: #000;
+      font-size: 39px;
+      background:transparent;
+      border-radius: 50%;
+    }
+
+    .owl-carousel .prev-carousel:hover {
+      background-position: 0px -53px;
+    }
+
+    .owl-carousel .next-carousel:hover {
+      background-position: -24px -53px;
+    }
+</style>
 
 
 </head>
@@ -796,12 +839,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
               </div>
               <div class="ml-2" style="bottom: 1px">
-                  <a href="/travel-guide/{{city}}" class="btn mt-2" style="border: 2px solid white;border-radius: 50px;color: black;background-color: #ffffff;font-size: 0.8rem;font-weight: 500;">Top Places to Visit In {{city}}</a> <br>
-                  <div class="btn mt-2" style="border: 2px solid white;border-radius: 50px;color: black;background-color: #ffffff;font-size: 0.8rem;font-weight: 500;">Things To Do In {{city}}</div> 
+                  <a href="/travel-guide/{{city}}/Top-Places-to-Visit" class="btn mt-2" style="border: 2px solid white;border-radius: 50px;color: black;background-color: #ffffff;font-size: 0.8rem;font-weight: 500;">Top Places to Visit In {{city}}</a> <br>
+                  <a href="/travel-guide/{{city}}/Things-To-Do" class="btn mt-2" style="border: 2px solid white;border-radius: 50px;color: black;background-color: #ffffff;font-size: 0.8rem;font-weight: 500;">Things To Do In {{city}}</a> <br>
               </div>
               <div class="ml-2" style="bottom: 1px">
                 <a href="#" class="btn mt-2" style="border: 2px solid white;border-radius: 50px;color: black;background-color: #ffffff;font-size: 0.8rem;font-weight: 500;">{{city}}’s FAQs</a>
-                <div class="btn mt-2" style="border: 2px solid white;border-radius: 50px;color: black;background-color: #ffffff;font-size: 0.8rem;font-weight: 500;">{{city}}’s Travel Guide</div> 
+                <a href="/travel-guide/{{city}}/General-Travel-Guide" class="btn mt-2" style="border: 2px solid white;border-radius: 50px;color: black;background-color: #ffffff;font-size: 0.8rem;font-weight: 500;">{{city}}’s Travel Guide</a>
             </div>
 
               </div>
@@ -905,13 +948,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="row mt-4" style="margin-top:50px">
             <h2 class="col-lg-4 col-md-4 col-sm-4 col-4 ">Explore By Cities</h2>
             <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-              <div class="owl-carousel gi owl-theme">
-                 {% for destination in destination %}
-                 <div>
-                  {{destination.location}}
-                 </div>
-              {% endfor %}
-              </div>
+               <div class="owl-carousel owl-theme">  
+                {% for location in destination_loc%}
+                   <div class="item my-2" id="city_item" >
+                     <a class="mx-2 my-2 py-2 px-4" href="/city/{{location}}" style="border:1.5px solid black;border-radius:30px;">{{location}}</a>
+                   </div>
+              {% endfor %} 
+               </div> 
             </div>
           </div>
 
@@ -1268,17 +1311,46 @@ $(function(){
   $("#example").bsMultiSelect();
 
 });
-$('.owl-carousel').owlCarousel({
-    stagePadding: 0,
-    loop:true,
-    margin:35,
-    autoWidth:true,
-    nav:true,
-    navText: [
-        "<i class='fa fa-caret-left'></i>",
-        "<i class='fa fa-caret-right'></i>"
-    ],
-})
+
+
+if($('#city_item.item').length > 4)
+{
+  $('.owl-carousel').owlCarousel({
+        stagePadding: 0,
+        loop:true,
+        items :3,
+        margin:30,
+        autoWidth:true,
+        nav:true,
+        singleItem: false,
+        navText: [
+        "<div class='nav-button owl-prev'>‹</div>",
+         "<div class='nav-button owl-next'>›</div>",
+        ],
+    })
+
+}
+else
+{
+  $('.owl-carousel').owlCarousel({
+        stagePadding: 0,
+        loop:false,
+        items :3,
+        margin:30,
+        autoWidth:true,
+        nav:true,
+        singleItem: false,
+        navText: [
+        "<div class='nav-button owl-prev'>‹</div>",
+         "<div class='nav-button owl-next'>›</div>",
+        ],
+    })
+
+}
+
+
+
+
 $(document).ready(function() {
         // Transition effect for navbar 
         $(window).scroll(function() {

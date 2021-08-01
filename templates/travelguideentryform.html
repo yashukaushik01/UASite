@@ -1,0 +1,535 @@
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Universal Adventures</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ <!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KH59H8J');
+</script>
+
+
+<!-- End Google Tag Manager -->
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="icon" href={% static './img/uni.png' %} sizes="16x16" type="image/png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/magnific-popup.css' %}>
+    <link rel="stylesheet" href={% static 'css/font-awesome.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/themify-icons.css' %}>
+    <link rel="stylesheet" href={% static 'css/nice-select.css' %}>
+    <link rel="stylesheet" href={% static 'css/flaticon.css' %}>
+    <link rel="stylesheet" href={% static 'css/gijgo.css' %}"">
+    <link rel="stylesheet" href={% static ' css/animate.css' %}>
+    <link rel="stylesheet" href={% static 'css/slick.css' %}>
+    <link rel="stylesheet" href={% static 'css/slicknav.css' %}>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+
+    <link rel="stylesheet" href={% static 'css/style.css' %}>
+    <link rel="stylesheet" href={% static 'css/tagsinput.css' %}>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <nav class="navbar  navbar-expand-lg  fixed-top navbar-light" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/"><img
+                    src={% static 'img//Universal Adventures Logo.png' %} width="70px">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#adv">Welcome Admin!</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="popular_destination_area">
+    <div class="container">
+        <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section_title text-center mb_70">
+                        <h3>Travel Guide Entry Form</h3>
+                    </div>
+                </div>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Enter Name:</label>
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    <input type="text" class="form-control" name="name" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Enter Type:</label>
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    <select name="type"  class="form-control">
+                        <option selected="selected" disabled>Select Type:</option>
+                        <option value="state">State</option>
+                        <option value="city">City</option>
+                        <option value="locality">Locality</option>
+                    </select>
+                </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3 mb-0">
+                        <label>Enter Slug:</label>
+                    </div>
+                    <div class="form-group col-md-3 mb-0">
+                        <input type="text" class="form-control" name="manual_slug" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3 mb-0">
+                        <label>Enter Tag:</label>
+                    </div>
+                    <div class="form-group col-md-3 mb-0">
+                        <select name="tag"  class="form-control">
+                            <option selected="selected" disabled>Select Tag:</option>
+                            <option value="Top places to visit">Top places to visit</option>
+                            <option value="Things to Do">Things to Do</option>
+                            <option value="General Travel Guide">General Travel Guide</option>
+                        </select>
+                    </div>
+                    </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3 mb-0">
+                        <label>Cover image:</label>
+                    </div>
+                    <div class="form-group col-md-3 mb-0">
+                        {{ form.image }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3 mb-0">
+                        <label>Heading:</label>
+                    </div>
+                    <div class="form-group col-md-3 mb-0">
+                        <input type="text" class="form-control" name="heading" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Blog Summary:</label>
+                </div>
+                <div class="form-group col-md-10 mb-0">
+                    <textarea id="summernote" class="form-control" name="summary"></textarea>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3 mb-0">
+                <label>Box 1:</label>
+            </div>
+            <div class="form-group col-md-10 mb-0">
+                <textarea id="blog1" class="form-control" name="blog1"></textarea>
+        </div>
+         </div>
+         <div id='days_schedule-1' style="display:none;">
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Box 2:</label>
+                </div>
+                <div class="form-group col-md-10 mb-0">
+                    <textarea id="blog2" class="form-control" name="blog2"></textarea>
+            </div>
+            </div>
+        </div>
+        <div id='days_schedule-2' style="display:none;">
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Box 3:</label>
+                </div>
+                <div class="form-group col-md-10 mb-0">
+                    <textarea id="blog3" class="form-control" name="blog3"></textarea>
+            </div>
+            </div>
+        </div>
+        <div id='days_schedule-3' style="display:none;">
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Box 4:</label>
+                </div>
+                <div class="form-group col-md-10 mb-0">
+                    <textarea id="blog4" class="form-control" name="blog4"></textarea>
+            </div>
+            </div>
+        </div>
+        <div id='days_schedule-4' style="display:none;">
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Box 5:</label>
+                </div>
+                <div class="form-group col-md-10 mb-0">
+                    <textarea id="blog5" class="form-control" name="blog5"></textarea>
+            </div>
+            </div>
+        </div>
+        <div id='days_schedule-5' style="display:none;">
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Box 6:</label>
+                </div>
+                <div class="form-group col-md-10 mb-0">
+                    <textarea id="blog6" class="form-control" name="blog6"></textarea>
+            </div>
+            </div>
+        </div>
+        <div id='days_schedule-6' style="display:none;">
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Box 7:</label>
+                </div>
+                <div class="form-group col-md-10 mb-0">
+                    <textarea id="blog7" class="form-control" name="blog7"></textarea>
+            </div>
+            </div>
+        </div>
+        <div id='days_schedule-7' style="display:none;">
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Box 8:</label>
+                </div>
+                <div class="form-group col-md-10 mb-0">
+                    <textarea id="blog8" class="form-control" name="blog8"></textarea>
+            </div>
+            </div>
+        </div>
+        <div id='days_schedule-8' style="display:none;">
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Box 9:</label>
+                </div>
+                <div class="form-group col-md-10 mb-0">
+                    <textarea id="blog9" class="form-control" name="blog9"></textarea>
+            </div>
+            </div>
+        </div>
+        <div id='days_schedule-9' style="display:none;">
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Box 10:</label>
+                </div>
+                <div class="form-group col-md-10 mb-0">
+                    <textarea id="blog10" class="form-control" name="blog10"></textarea>
+            </div>
+            </div>
+        </div>
+        <div id='days_schedule-10' style="display:none;">
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Box 11:</label>
+                </div>
+                <div class="form-group col-md-10 mb-0">
+                    <textarea id="blog11" class="form-control" name="blog11"></textarea>
+            </div>
+            </div>
+        </div>
+        <div id='days_schedule-11' style="display:none;">
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Box 12:</label>
+                </div>
+                <div class="form-group col-md-10 mb-0">
+                    <textarea id="blog12" class="form-control" name="blog12"></textarea>
+            </div>
+            </div>
+        </div>
+        <div id='days_schedule-12' style="display:none;">
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Box 13:</label>
+                </div>
+                <div class="form-group col-md-10 mb-0">
+                    <textarea id="blog13" class="form-control" name="blog13"></textarea>
+            </div>
+            </div>
+        </div>
+        <div id='days_schedule-13' style="display:none;">
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Box 14:</label>
+                </div>
+                <div class="form-group col-md-10 mb-0">
+                    <textarea id="blog14" class="form-control" name="blog14"></textarea>
+            </div>
+            </div>
+        </div>
+        <div id='days_schedule-14' style="display:none;">
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    <label>Box 15:</label>
+                </div>
+                <div class="form-group col-md-10 mb-0">
+                    <textarea id="blog15" class="form-control" name="blog15"></textarea>
+            </div>
+            </div>
+        </div>    
+        <div class="row">
+            <div class="col-md-3 mb-0">
+            <br />
+            <button type="button" class="btn btn-outline-info" onclick="dayScheduleDisplay()">
+                Add Another days schedule
+            </button>
+            </div>
+        </div>
+        <div class="form-group col-md-3 mb-0" style="margin: 20px;">
+            <input type="submit" value="Submit" class="btn-danger mt-5">
+         </div>
+        </form>
+    </div>
+    </div>
+</div>
+
+    <footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-lg-4 ">
+                        <div class="footer_widget">
+                            <div class="footer_logo">
+                                <a href="#">
+                                     <img src={% static 'img/footer.png' %} height="120px" width="300px" alt="">
+                                </a>
+                            </div>
+                            <a href="#">+91 8882654593</a> <br>
+                            <a href="mailto:contact@universaladventures.in">contact@universaladventures.in</a>
+                            </p>
+                            <div class="socail_links">
+                                <ul>
+                                    <li>
+                                        <a href="https://www.facebook.com/universaladventuresindia/">
+                                            <i class="ti-facebook"></i>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="https://www.instagram.com/universaladventuresindia/">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://g.co/kgs/FEs31r">
+                                            <i class="fa fa-google-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Company
+                            </h3>
+                            <ul class="links">
+                                <ul class="links">
+                                <li><a href="/about/">About</a></li>
+                                <li><a href="/contact/"> Contact</a></li>
+                                <li><a href="/privacy-policy/">Privacy-Policy</a></li>
+                                <li><a href="/partial-payment/">Partial Payment</a></li>
+                                <li><a href="/refund-policy">Payments & Refund Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Popular destination
+                            </h3>
+                            <ul class="links double_links">
+                                <li><a href="/destination/Goa/">Goa</a></li>
+                                <li><a href="/destination/Karnataka/">Karnataka</a></li>
+                                <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
+                                <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
+                                <li><a href="/destination/Rajasthan/">Rajasthan</a></li>
+                                <li><a href="/destination/Maharashtra/">Maharashtra</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Instagram
+                            </h3>
+                            <div class="instagram_feed">
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/1.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/2.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/3.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/4.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/5.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/6.png' %} alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- JS here -->
+    <script src={% static 'js/vendor/modernizr-3.5.0.min.js' %}></script>
+    <script src={% static 'js/vendor/jquery-1.12.4.min.js' %}></script>
+    <script src={% static 'js/popper.min.js' %}></script>
+    <script src={% static 'js/bootstrap.min.js' %}></script>
+    <script src={% static 'js/owl.carousel.min.js' %}></script>
+    <script src={% static 'js/isotope.pkgd.min.js' %}></script>
+    <script src={% static 'js/ajax-form.js' %}></script>
+    <script src={% static 'js/waypoints.min.js' %}></script>
+    <script src={% static 'js/jquery.counterup.min.js' %}></script>
+    <script src={% static 'js/imagesloaded.pkgd.min.js' %}></script>
+    <script src={% static 'js/scrollIt.js' %}></script>
+    <script src={% static 'js/jquery.scrollUp.min.js' %}></script>
+    <script src={% static 'js/wow.min.js' %}""></script>
+    <script src={% static 'js\nice-select.min.js' %}></script>
+    <script src={% static 'js/jquery.slicknav.min.js' %}></script>
+    <script src={% static 'js/jquery.magnific-popup.min.js' %}""></script>
+    <script src={% static 'js/plugins.js' %}></script>
+    <script src={% static 'js/gijgo.min.js' %}></script>
+    <script src={% static 'js/slick.min.js' %}></script>
+    <script src={% static 'js/tagsinput.js' %}></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <!--contact js-->
+
+    <script src={% static 'js/contact.js' %}></script>
+    <script src={% static 'js/jquery.ajaxchimp.min.js' %}></script>
+    <script src={% static 'js/jquery.form.js' %}></script>
+    <script src={% static 'js/jquery.validate.min.js' %}></script>
+    <script src={% static 'js/mail-script.js' %}></script>
+
+
+    <script src={% static 'js/main.js' %}></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script>
+         $('#summernote').summernote({
+        tabsize: 2,
+        height: 250
+        });
+        $('#blog1').summernote({
+         tabsize: 2,
+        height: 250
+        });
+        $('#blog2').summernote({
+        tabsize: 2,
+        height: 350
+        });
+        $('#blog3').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#blog4').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#blog5').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#blog6').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#blog7').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#blog8').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#blog9').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#blog10').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#blog11').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#blog12').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#blog13').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#blog14').summernote({
+            tabsize: 2,
+        height: 350
+        });
+        $('#blog15').summernote({
+            tabsize: 2,
+        height: 350
+        });
+    </script>
+     <script>
+        var count = 1;
+        var countMax = 14;
+        function dayScheduleDisplay(){
+            if(count > countMax)
+                return;
+            document.getElementById('days_schedule-' + count + '').style.display = 'block';
+            count++;
+        }
+    </script>
+
+</body>
+
+</html>
+{% endblock %}

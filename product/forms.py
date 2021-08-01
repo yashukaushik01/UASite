@@ -1,6 +1,6 @@
 from django import forms
 from django.db.models import fields
-from .models import Product, phone, Purchase, Blogpost, Itinerary, Erp, Placetovisit, Populartags
+from .models import Product, phone, Purchase, Blogpost, Itinerary, Erp, TravelGuide, Populartags
 
 
 class ProductForm(forms.ModelForm):
@@ -58,7 +58,7 @@ class ItineraryForm(forms.ModelForm):
 
 class PlaceToVisitForm(forms.ModelForm):
     class Meta:
-        model = Placetovisit
+        model = TravelGuide
         fields = ('name', 'type', 'manual_slug', 'tag', 'heading', 'summary', 'image', 'blog1', 'blog2', 'blog3', 'blog4', 'blog5', 'blog6', 'blog7', 'blog8', 'blog9',
                   'blog10', 'blog11', 'blog12', 'blog13', 'blog14', 'blog15',)
 

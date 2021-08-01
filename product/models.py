@@ -742,7 +742,7 @@ class Purchase(models.Model):
         return self.orderId
 
 
-class Placetovisit(models.Model):
+class TravelGuide(models.Model):
     name = models.CharField(max_length=100)
     type = models.CharField(
         max_length=200, choices=Type_CHOICES, default='', null=True, blank=True)

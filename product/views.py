@@ -10,7 +10,7 @@ from django.http.response import JsonResponse
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
-from .models import Affiliate, Erp, Populartags, Product, Destination, Images, duration, phone, Purchase, states, des, promo, AdventureTourTypes, Placetovisit
+from .models import Affiliate, Erp, Populartags, Product, Destination, Images, duration, phone, Purchase, states, des, promo, AdventureTourTypes, TravelGuide
 from .models import Blogpost, wallet
 from .models import Itinerary
 from .forms import ItineraryForm, ProductForm, Addphone, purchaseform, UpdateForm, BlogForm, UpdateItineraryForm, ErpForm, UpdateErpForm, PlaceToVisitForm, PopularTagForm
@@ -446,7 +446,6 @@ def Adventure(request, slug):
 
 @csrf_exempt
 def City(request, slug):
-
     context = {
         'city': slug,
         'destination': Destination.objects.filter(type='city', name=slug),
@@ -462,19 +461,25 @@ def City(request, slug):
 
 @csrf_exempt
 def State(request, slug):
+    destination = Destination.objects.get(type='state', name=slug)
+    if destination.location:
+        locations = destination.location.split(',')
+    else:
+        locations = []
     context = {
         'city': slug,
         'destination': Destination.objects.filter(type='state', name=slug),
+        'destination_loc':locations,
         'adventure': Product.objects.filter(category='Adventure', state=slug),
         'tour': Product.objects.filter(category='Tour', state=slug),
         'popular': Product.objects.filter(state=slug, order=1),
         'populartags': Populartags.objects.filter(tag=slug),
-        'travelguide': Placetovisit.objects.filter(name=slug, tag='General Travel Guide'),
+        'travelguide': TravelGuide.objects.filter(name=slug, tag='General Travel Guide'),
         'len': len(Product.objects.filter(state=slug))
 
     }
 
-    return render(request, 'state.html', context)
+    return render(request,'state.html', context)
 
 
 @csrf_exempt
@@ -1061,10 +1066,15 @@ def Locality(request, slug):
 
 
 @csrf_exempt
-def TravelGuide(request, slug):
+def travelGuide(request,slug,slug1):
+    tag = slug1.split('-')
+    slug2 = ''
+    for a in tag:
+        slug2 += a+" "
+
     context = {
         'city': slug,
-        'bestplace': Placetovisit.objects.filter(name=slug)[0],
+        # 'bestplace': Placetovisit.objects.filter(name=slug)[0],
     }
 
     return render(request, 'travelguide.html', context)
@@ -1084,7 +1094,7 @@ def AddPlaceToVisit(request):
     context = {
         'form': form,
     }
-    return render(request, 'placetovisitentryform.html', context)
+    return render(request, 'travelguideentryform.html', context)
 
 
 @staff_member_required
