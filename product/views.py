@@ -13,7 +13,7 @@ from django.http import HttpResponse
 from .models import Affiliate, Erp, Populartags, Product, Destination, Images, duration, phone, Purchase, states, des, promo, AdventureTourTypes, TravelGuide
 from .models import Blogpost, wallet
 from .models import Itinerary
-from .forms import ItineraryForm, ProductForm, Addphone, purchaseform, UpdateForm, BlogForm, UpdateItineraryForm, ErpForm, UpdateErpForm, PlaceToVisitForm, PopularTagForm
+from .forms import ItineraryForm, ProductForm, Addphone, purchaseform, UpdateForm, BlogForm, UpdateItineraryForm, ErpForm, UpdateErpForm, TravelGuideEntryForm, PopularTagForm
 from django.views.decorators.csrf import csrf_exempt
 from django.forms import modelformset_factory
 from django.contrib import messages
@@ -462,6 +462,8 @@ def City(request, slug):
 @csrf_exempt
 def State(request, slug):
     destination = Destination.objects.get(type='state', name=slug)
+    t1 = TravelGuide.objects.filter(name=slug, tag='General travel guide')
+
     if destination.location:
         locations = destination.location.split(',')
     else:
@@ -474,7 +476,7 @@ def State(request, slug):
         'tour': Product.objects.filter(category='Tour', state=slug),
         'popular': Product.objects.filter(state=slug, order=1),
         'populartags': Populartags.objects.filter(tag=slug),
-        'travelguide': TravelGuide.objects.filter(name=slug, tag='General Travel Guide'),
+        'travelguide': TravelGuide.objects.filter(name=slug, tag='General travel guide'),
         'len': len(Product.objects.filter(state=slug))
 
     }
@@ -1067,24 +1069,33 @@ def Locality(request, slug):
 
 @csrf_exempt
 def travelGuide(request,slug,slug1):
-    tag = slug1.split('-')
-    slug2 = ''
-    for a in tag:
-        slug2 += a+" "
+    if slug1 == "Top-places-to-visit" or slug1 == "Things-to-do":
+        slug1 = slug1.split('-')
+        slug2 = ''
+        for i in range(len(slug1)):
+            if i+1 >= len(slug1):
+                slug2 += slug1[i] 
+            else:
+                slug2 += slug1[i] + " "
+        bestplace = TravelGuide.objects.get(name = slug, tag=slug2)
+    else:
+        bestplace = TravelGuide.objects.get(name = slug,manual_slug = slug1)
 
+    trandings = TravelGuide.objects.filter(name = slug, tag='General travel guide')
     context = {
         'city': slug,
-        # 'bestplace': Placetovisit.objects.filter(name=slug)[0],
+        'bestplace': bestplace,
+        'trandings':trandings,
     }
 
     return render(request, 'travelguide.html', context)
 
 
 @staff_member_required
-def AddPlaceToVisit(request):
-    form = PlaceToVisitForm()
+def travelGuideEntryForm(request):
+    form = TravelGuideEntryForm()
     if request.method == 'POST':
-        form = PlaceToVisitForm(request.POST)
+        form = TravelGuideEntryForm(request.POST)
         print(form.errors)
         prod = form.save(commit=False)
         prod.save()

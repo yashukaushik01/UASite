@@ -784,6 +784,8 @@ class TravelGuide(models.Model):
         max_length=5000, null=True, blank=True)
     image = models.ImageField(
         upload_to='uploads/products/', null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now=False, auto_now_add=False)
+
 
     def __str__(self):
         return self.name

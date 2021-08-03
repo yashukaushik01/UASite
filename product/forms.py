@@ -56,11 +56,11 @@ class ItineraryForm(forms.ModelForm):
                   'hotel_name3', 'hotel_name4', 'payment', 'payment_type', 'payment2', 'agent', 'agent_phone',)
 
 
-class PlaceToVisitForm(forms.ModelForm):
+class TravelGuideEntryForm(forms.ModelForm):
     class Meta:
         model = TravelGuide
-        fields = ('name', 'type', 'manual_slug', 'tag', 'heading', 'summary', 'image', 'blog1', 'blog2', 'blog3', 'blog4', 'blog5', 'blog6', 'blog7', 'blog8', 'blog9',
-                  'blog10', 'blog11', 'blog12', 'blog13', 'blog14', 'blog15',)
+        fields = ('name', 'type', 'manual_slug', 'tag', 'heading','timestamp', 'summary', 'image', 'blog1', 'blog2', 'blog3', 'blog4', 'blog5', 'blog6', 'blog7', 'blog8', 'blog9',
+                  'blog10', 'blog11', 'blog12', 'blog13', 'blog14', 'blog15')
 
 
 class UpdateItineraryForm(forms.ModelForm):

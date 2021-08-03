@@ -839,12 +839,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
               </div>
               <div class="ml-2" style="bottom: 1px">
-                  <a href="/travel-guide/{{city}}/Top-Places-to-Visit" class="btn mt-2" style="border: 2px solid white;border-radius: 50px;color: black;background-color: #ffffff;font-size: 0.8rem;font-weight: 500;">Top Places to Visit In {{city}}</a> <br>
-                  <a href="/travel-guide/{{city}}/Things-To-Do" class="btn mt-2" style="border: 2px solid white;border-radius: 50px;color: black;background-color: #ffffff;font-size: 0.8rem;font-weight: 500;">Things To Do In {{city}}</a> <br>
+                  <a href="/travel-guide/{{city}}/Top-places-to-visit" class="btn mt-2" style="border: 2px solid white;border-radius: 50px;color: black;background-color: #ffffff;font-size: 0.8rem;font-weight: 500;">Top Places to Visit In {{city}}</a> <br>
+                  <a href="/travel-guide/{{city}}/Things-to-do" class="btn mt-2" style="border: 2px solid white;border-radius: 50px;color: black;background-color: #ffffff;font-size: 0.8rem;font-weight: 500;">Things To Do In {{city}}</a> <br>
               </div>
               <div class="ml-2" style="bottom: 1px">
                 <a href="#" class="btn mt-2" style="border: 2px solid white;border-radius: 50px;color: black;background-color: #ffffff;font-size: 0.8rem;font-weight: 500;">{{city}}’s FAQs</a>
-                <a href="/travel-guide/{{city}}/General-Travel-Guide" class="btn mt-2" style="border: 2px solid white;border-radius: 50px;color: black;background-color: #ffffff;font-size: 0.8rem;font-weight: 500;">{{city}}’s Travel Guide</a>
+                <a href="#travel-guide" class="btn mt-2" style="border: 2px solid white;border-radius: 50px;color: black;background-color: #ffffff;font-size: 0.8rem;font-weight: 500;">{{city}}’s Travel Guide</a>
             </div>
 
               </div>
@@ -1118,7 +1118,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
 
 
-          <h2 style="margin-top:70px">{{city}}’s Travel Guide</h2>
+          <h2 style="margin-top:70px" id="travel-guide">{{city}}’s Travel Guide</h2>
           <div class="container travel-guide-main" style="margin-top:30px; margin-bottom: 5%">
             {% for guide in travelguide %}
             <div class="travel-guide-card">
@@ -1313,15 +1313,16 @@ $(function(){
 });
 
 
-if($('#city_item.item').length > 4)
+if($('#city_item.item').length > 5)
 {
   $('.owl-carousel').owlCarousel({
         stagePadding: 0,
-        loop:true,
+        loop:false,
         items :3,
-        margin:30,
+        margin:25,
         autoWidth:true,
         nav:true,
+        rewind: false,
         singleItem: false,
         navText: [
         "<div class='nav-button owl-prev'>‹</div>",
