@@ -524,11 +524,14 @@ def Tour(request, slug):
                 category='Tour', tag_category=slug), 15)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
+        
 
         context = {
             'products': page_obj,
+            'len': len(page_obj),
             'slug':slug,
-            'len': len(page_obj)
+            'len': len(page_obj),
+            'adven': AdventureTourTypes.objects.filter(name=slug)
         }
 
     return render(request,'tour.html', context)
@@ -547,17 +550,13 @@ def FilterData(request):
     search = request.POST.get('search')
     loc = request.POST.getlist('loc[]')
 
-
     a = slug.split('-')
-
     allproducts = Product.objects.filter(
         category='Adventure', adventuretype=slug)
-
     if len(a) > 1:
         slug1 = a[0]+' '+a[1]
         allproducts = Product.objects.filter(
-                category=category, tag_category=slug).distinct()
-    
+            category='Adventure', tag_category=slug1).distinct()
     if len(typee) > 0:
         allproducts = Product.objects.filter(
             category='Adventure',  adventuretype__in=typee, sale__gte=min_price, sale__lte=max_price).distinct()
@@ -603,8 +602,13 @@ def FilterData(request):
         slug1 = a[0]+' '+a[1]
         allproducts = Product.objects.filter(
             category='Adventure', tag_category=slug1, sale__gte=min_price, sale__lte=max_price).order_by('sale').distinct()
+
+
     if category == 'Tour':
         allproducts = Product.objects.filter(category = category , tag_category=slug)
+        if len(typee) > 0:
+            allproducts = Product.objects.filter(
+            category=category,  adventuretype__in=typee, sale__gte=min_price, sale__lte=max_price).distinct()
         if len(citye) > 0:
             allproducts = Product.objects.filter(category = category ,tag_category=slug, 
             city__in= citye,sale__gte=min_price, sale__lte=max_price)
@@ -629,7 +633,7 @@ def FilterData(request):
 
     t = render_to_string('prodlist.html', {'products': allproducts})
 
-    return JsonResponse({'data': t, 'len': len(t)})
+    return JsonResponse({'data': t, 'len': len(t),'product_len':len(allproducts)})
 
 
 def Privacy(request):
