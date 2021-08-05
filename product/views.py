@@ -462,7 +462,8 @@ def City(request, slug):
 @csrf_exempt
 def State(request, slug):
     destination = Destination.objects.get(type='state', name=slug)
-    t1 = TravelGuide.objects.filter(name=slug, tag='General travel guide')
+    t1 = Product.objects.filter(category='Tour',state=slug)
+    print(t1)
 
     if destination.location:
         locations = destination.location.split(',')
@@ -482,6 +483,8 @@ def State(request, slug):
     }
 
     return render(request,'state.html', context)
+
+
 
 
 @csrf_exempt
