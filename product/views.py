@@ -265,6 +265,7 @@ def affiliate(request):
 
 
 def product(request, slug):
+    print(slug)
     product = get_object_or_404(Product, manual_slug=slug)
     city = product.city
     recommended = Product.objects.filter(city=city)
@@ -272,9 +273,12 @@ def product(request, slug):
     catprods = Product.objects.filter(city=city).values("adventuretype", "id")
     cats = {item["adventuretype"] for item in catprods}
     cat2 = []
+    
     for i in cats:
-        j = re.sub("\s+", "-", i.strip())
-        cat2.append(j)
+        if i:
+            j = re.sub("\s+", "-", i.strip())
+            cat2.append(j)
+    print(cat2)
     if request.method == 'POST':
         current_user = request.user
         phones = phone(user=current_user, phone=request.POST.get('phone'))
