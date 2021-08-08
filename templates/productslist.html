@@ -97,12 +97,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        
             
            
-                <tr><td>{{i.name}}</td><td>{{i.regular}}</td><td>{{i.days}}</td><td>{{i.state}}</td><td>{{i.location}}</td><td>&#8377;{{i.category}}</td><td>{{i.rating}}</td><td><button class="btn btn-warning" onclick="window.open('https://www.universaladventures.in/products/{{i.manual_slug}}')">Link</button></td>
+                <tr><td>{{i.name}}</td><td>&#8377;{{i.regular}}</td><td>{{i.days}}</td><td>{{i.state}}</td><td>{{i.location}}</td><td>{{i.category}}</td><td>{{i.rating}}</td><td><button class="btn btn-warning" onclick="window.open('https://www.universaladventures.in/products/{{i.manual_slug}}')">Link</button></td>
                     <td><form action="{% url 'delete_view3' i.id %}" method="post">
                     {% csrf_token %}
                     <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this itinerary?');" type="submit"><i class="fa fa-trash"></i></button>
                 </form></td>
-                <td><button class="btn btn-info" onclick="window.open('https://www.universaladventures.in/update/{{i.slug}}')"><i class="fa fa-edit"></i></button></td></tr>
+                <td><button class="btn btn-info" onclick="window.open('/update/{{i.slug}}')"><i class="fa fa-edit"></i></button></td></tr>
            
 {% endfor %}
  </tbody>

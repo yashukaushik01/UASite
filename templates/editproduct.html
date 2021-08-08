@@ -270,8 +270,17 @@
             <div class="form-row" style="background-color:#e8f7f6" >
                 <div class="form-group col-md-6 mb-0">
                     <label>Inclusion</label>
-                    <select  name="inclusion" class="form-control" onchange="inc()">
-                        <option selected="selected"  value='{{product.inclusion}}'>{{product.inclusion}}</option>
+                    <select id="example" name="inclusion" multiple="multiple" class="form-control" onchange="inc()">
+                        {% if inclusions %}
+                            {% for inclusion in inclusions %}
+                                {% ifequal inclusion 'Cashback' %}
+                                    <option selected="selected" value='{{inclusion}}</div>'>Aditya</div></option> 
+                                {% endifequal %}
+                                {% if inclusion %}
+                                    <option selected="selected" value='{{inclusion}}</div>'>{{inclusion|safe}}</div></option> 
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
                         <option value='Meals Included'>Meals Included  </option>
                         <option value='Guide'> Guide </option>
                         <option value='Transport Included '>Transport Included  </option>
@@ -280,12 +289,19 @@
                         <option value='Cashback'>Cashback</option>  
                     </select>
                 </div>
+                <input type="hidden" name="inclusion" id="inclusion"> 
+
+
                 <div class="form-group col-md-6 mb-0">
                     <label>Additional Inclusion</label><br>
                     {{product.a_inclusion|safe}}
-                    <input type="text" name="a_inclusion"  data-role="tagsinput" class="form-control" id="jingle" onchange="ainc()">
+                    <input type="text" name="a_inclusion"
+                      data-role="tagsinput" class="form-control" id="jingle" onchange="ainc()">
                 </div>
                 <input type="hidden" name="a_inclusion" id="a_inclusion">
+
+
+
                 <div class="form-group col-md-3 mb-0">
                     <label>Select Adventure Level</label>
                     <select name="adventurelevel"  class="form-control">
@@ -431,6 +447,7 @@
             <div class="form-row"style="display:none">
                 <h3>Enter Product key descriptions</h3>
                 {{ formset2.management_form }}
+
                 {% for form in formset2 %}
                     <div class='table'>
                         <table class='no_error'>
@@ -488,6 +505,15 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <script src= "https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.0.0/dist/js/BsMultiSelect.bs4.min.js"></script>
     <script>
+        $(window).ready(() =>
+        {
+            let complete = ``;
+            {% for a_inclusion in a_inclusions %}
+                console.log('{{a_inclusion|safe}}');
+            {% endfor %}
+        });
+    </script>
+    <script>
 $(function(){
 
   $("#example").bsMultiSelect();
@@ -506,15 +532,21 @@ function inc(){
     console.log(complete)
 }
 function ainc(){
-    var arr2= $('#jingle').val().split(',')
+    var arr2= $('#jingle').val().split(',');  
             var complete2 =``;
-            arr2.forEach(element => {
+            {% for a_inclusion in a_inclusions %}
+                complete2 += `{{a_inclusion|safe}} &nbsp;&nbsp; `;
+            {% endfor %}
+            arr2.forEach(element => 
+            {
+                console.log(element)
                 complete2 =complete2 + `<span class="add-inc badge badge-light">${element}</span>`+ ` &nbsp;&nbsp;  `
             }); 
-    $('#a_inclusion').val(complete2)
     console.log(complete2)
+    $('#a_inclusion').val(complete2)
 }
     </script>
+
     <script>
         $('#summernote').summernote({
          tabsize: 2,

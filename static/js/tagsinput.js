@@ -39,7 +39,8 @@
     /**
      * Constructor function
      */
-    function TagsInput(element, options) {
+    function TagsInput(element, options) 
+    {
       this.isInit = true;
       this.itemsArray = [];
   

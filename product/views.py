@@ -278,7 +278,6 @@ def product(request, slug):
         if i:
             j = re.sub("\s+", "-", i.strip())
             cat2.append(j)
-    print(cat2)
     if request.method == 'POST':
         current_user = request.user
         phones = phone(user=current_user, phone=request.POST.get('phone'))
@@ -1164,7 +1163,7 @@ def download(request, slug):
 def ProductUpdate(request, slug):
     form = UpdateForm()
     ImageFormSet = modelformset_factory(Images,
-                                        fields=('image',), extra=4)
+                                        fields=('image',), extra=5)
     DescriptionFormSet = modelformset_factory(
         des, fields=('description',), extra=3)
     product = get_object_or_404(Product, slug=slug)
@@ -1206,12 +1205,20 @@ def ProductUpdate(request, slug):
         formset = ImageFormSet(queryset=Images.objects.none())
         formset2 = DescriptionFormSet(queryset=des.objects.none())
 
+    a_inclusion = product.a_inclusion.split(' &nbsp;&nbsp; ')
+    print(a_inclusion)
+    inclusion = product.inclusion.split('</div>')
+    print(inclusion)
+
     context = {
         'product': product,
+        'inclusions':inclusion,
+        'a_inclusions':a_inclusion,
         'form': form,
         'formset': formset,
         'formset2': formset2,
     }
+
     return render(request, 'editproduct.html', context)
 
 
