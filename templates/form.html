@@ -280,12 +280,9 @@
 
                 <div class="form-group col-md-6 mb-0">
                     <label>Additional Inclusion</label>
-                    <input type="text"  data-role="tagsinput"
-                    {% for a_inclusion in a_inclusions %}
-                     value="{{a_inclusion|safe}},"
-                     {% endfor %} class="form-control" id="jingle" onchange="ainc()">
+                    <input type="text"  data-role="tagsinput" class="form-control" id="jingle" onchange="ainc()">
                 </div>
-                <input type="hidden" name="a_inclusion" value="{{a_inclusions[0]}}" id="a_inclusion">
+                <input type="hidden" name="a_inclusion" id="a_inclusion">
                 <div class="form-group col-md-3 mb-0">
                     <label>Select Adventure Level</label>
                     <select name="adventurelevel"  class="form-control">

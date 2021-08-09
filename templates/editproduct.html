@@ -270,36 +270,35 @@
             <div class="form-row" style="background-color:#e8f7f6" >
                 <div class="form-group col-md-6 mb-0">
                     <label>Inclusion</label>
-                    <select id="example" name="inclusion" multiple="multiple" class="form-control" onchange="inc()">
+                        <select  id="example" class="form-control"  multiple="multiple" style="display: none;" onchange="inc()">
                         {% if inclusions %}
                             {% for inclusion in inclusions %}
-                                {% ifequal inclusion 'Cashback' %}
-                                    <option selected="selected" value='{{inclusion}}</div>'>Aditya</div></option> 
-                                {% endifequal %}
                                 {% if inclusion %}
                                     <option selected="selected" value='{{inclusion}}</div>'>{{inclusion|safe}}</div></option> 
                                 {% endif %}
                             {% endfor %}
-                        {% endif %}
-                        <option value='Meals Included'>Meals Included  </option>
-                        <option value='Guide'> Guide </option>
-                        <option value='Transport Included '>Transport Included  </option>
-                        <option value='Videos/Photos'>Videos/Photos</option>
-                        <option value='Travel Map'>Travel Map</option>  
-                        <option value='Cashback'>Cashback</option>  
+                        {% endif %}  
+                        <option value='<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center mt-2"><img class="incimg" src="/static/img/svg_icon/Inclusion/Meal.svg" ><br><span class="inctext">Meals Included</span></div>'>Meals Included  </option>
+                        <option value='<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center mt-2"><img class="incimg" src="/static/img/svg_icon/Inclusion/Guide.svg" ><br><span class="inctext">Guide</span></div>'> Guide </option>
+                        <option value='<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center mt-2"><img class="incimg" src="/static/img/svg_icon/Inclusion/transport.svg" ><br><span class="inctext">Transport Included</span></div>'>Transport Included  </option>
+                        <option value='<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center mt-2"><img class="incimg" src="/static/img/svg_icon/Inclusion/photos.svg" ><br><span class="inctext">Videos/ Photos</span></div>'>Videos/Photos</option>
+                        <option value='<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center mt-2"><img class="incimg" src="/static/img/svg_icon/Inclusion/Map.svg" ><br><span class="inctext">Travel Map</span></div>'>Travel Map</option>  
+                        <option value='<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center mt-2"><img class="incimg" src="/static/img/svg_icon/Inclusion/Cashback.svg" ><br><span class="inctext">Cashback</span></div>'>Cashback</option>  
                     </select>
                 </div>
                 <input type="hidden" name="inclusion" id="inclusion"> 
 
 
-                <div class="form-group col-md-6 mb-0">
-                    <label>Additional Inclusion</label><br>
-                    {{product.a_inclusion|safe}}
-                    <input type="text" name="a_inclusion"
-                      data-role="tagsinput" class="form-control" id="jingle" onchange="ainc()">
-                </div>
-                <input type="hidden" name="a_inclusion" id="a_inclusion">
+                <!-- =================== a_inclusion box ========================== -->
 
+                <div class="form-group col-md-6 mb-0">
+                    <label>Additional Inclusion</label><br/>
+                    {{product.a_inclusion|safe}}
+                    <input type="text"  data-role="tagsinput" class="form-control" id="jingle" onchange="ainc()">
+                </div>
+                <input type="hidden" name="a_inclusion" value="{{product.a_inclusion}}" id="a_inclusion">
+                
+                {% comment %} <!-- =================== a_inclusion box value="{{a_inclusions[0]}}" ========================== --> {% endcomment %}
 
 
                 <div class="form-group col-md-3 mb-0">
@@ -443,6 +442,20 @@
                     <input type="text" class="form-control" value="{{product.ans5}}" name="ans5">
                 </div>
             </div><br>
+            <!-- ================== products images ============================ -->
+            <h3>Delete Images</h3>
+            <div class="form-row">
+                {% for image in product.images_set.all %}
+                <div class="col-2 col-md-2 mx-1 my-1">
+                    <img class="d-block w-100" src="{{image.image.url}}" alt="Second slide"
+                    style="max-height: 200px;">
+                    <input type="checkbox" name="product__img__checkbox" id="product__img__checkbox" value="{{image.id}}">
+                </div>
+                {% endfor %}
+                <input type="hidden" value="1" id="all_images_ids" name="delete">
+            <!-- ================== products images ============================ -->
+
+            </div><br>
             <h3>Products Images</h3>
             <div class="form-row"style="display:none">
                 <h3>Enter Product key descriptions</h3>
@@ -456,6 +469,7 @@
                     </div>
                 {% endfor %}
             </div>
+
             <div class="form-row">
                 <p>(*First Image For Card And Other Four For Carousel)</p>
                 {{ formset.management_form }}
@@ -467,8 +481,7 @@
                     </div>
                 {% endfor %}
             </div>
-
-            <input type="submit" value="Save" class="btn-danger">
+            <input type="submit" value="Save" style="cursor: pointer;" class="btn-danger my-3 px-3"> 
         </form>
     </div>
     </div>
@@ -504,47 +517,66 @@
     <script src={% static 'js/mail-script.js' %}></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <script src= "https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.0.0/dist/js/BsMultiSelect.bs4.min.js"></script>
+    
+    <!-- ====================== delete js ==================  -->
+
     <script>
         $(window).ready(() =>
         {
-            let complete = ``;
-            {% for a_inclusion in a_inclusions %}
-                console.log('{{a_inclusion|safe}}');
-            {% endfor %}
-        });
-    </script>
-    <script>
-$(function(){
+            let checkbox__input = '';
+            let all__ckeck__box = document.querySelectorAll('#product__img__checkbox');
 
-  $("#example").bsMultiSelect();
-
-});
-
-function inc(){
-    console.log($('#example').val())
-    var arr= $('#example').val()
-            var complete =``;
-            arr.forEach(element => {
-                complete =complete + element
-            }); 
-
-    $('#inclusion').val(complete)
-    console.log(complete)
-}
-function ainc(){
-    var arr2= $('#jingle').val().split(',');  
-            var complete2 =``;
-            {% for a_inclusion in a_inclusions %}
-                complete2 += `{{a_inclusion|safe}} &nbsp;&nbsp; `;
-            {% endfor %}
-            arr2.forEach(element => 
+            $('.btn-danger').click(() =>
             {
-                console.log(element)
-                complete2 =complete2 + `<span class="add-inc badge badge-light">${element}</span>`+ ` &nbsp;&nbsp;  `
-            }); 
-    console.log(complete2)
-    $('#a_inclusion').val(complete2)
-}
+                all__ckeck__box.forEach((a) =>
+                    {
+                        if(a.checked)
+                        {
+                            checkbox__input += a.value+"-" ;
+                        }
+                    });
+
+                $('#all_images_ids').val(checkbox__input);
+            })
+
+        })
+    </script>
+
+    <!-- ====================== delete img js ==================  -->
+
+    <script>
+        $(function(){
+
+        $("#example").bsMultiSelect();
+
+        });
+
+        function inc(){
+            console.log($('#example').val())
+            var arr= $('#example').val()
+                 var complete = ``
+
+                    arr.forEach(element => {
+                        complete =complete + element
+                    }); 
+
+            $('#inclusion').val(complete)
+            console.log(complete)
+        }
+        inc();
+
+    function ainc(){
+        var arr2= $('#jingle').val().split(',');  
+                var complete2 =``;
+                arr2.forEach(element => 
+                {
+                    console.log(element)
+                    complete2 =complete2 + `<span class="add-inc badge badge-light">${element}</span>`+ ` &nbsp;&nbsp;  `
+                }); 
+        console.log(complete2)
+
+        $('#a_inclusion').val(complete2)
+    }
     </script>
 
     <script>

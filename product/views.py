@@ -20,7 +20,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 import datetime
-from math import ceil
+from math import ceil, prod
 from taggit.models import Tag
 import re
 import json
@@ -465,8 +465,8 @@ def City(request, slug):
 @csrf_exempt
 def State(request, slug):
     destination = Destination.objects.get(type='state', name=slug)
-    t1 = Product.objects.filter(category='Tour',state=slug)
-    print(t1)
+    top_places_to_visit = TravelGuide.objects.get(name=slug, tag='Top places to visit')
+    things_to_do = TravelGuide.objects.get(name=slug, tag='Things to do')
 
     if destination.location:
         locations = destination.location.split(',')
@@ -481,6 +481,8 @@ def State(request, slug):
         'popular': Product.objects.filter(state=slug, order=1),
         'populartags': Populartags.objects.filter(tag=slug),
         'travelguide': TravelGuide.objects.filter(name=slug, tag='General travel guide'),
+        'top_places_to_visit':top_places_to_visit,
+        'things_to_do':things_to_do,
         'len': len(Product.objects.filter(state=slug))
 
     }
@@ -1166,11 +1168,28 @@ def ProductUpdate(request, slug):
                                         fields=('image',), extra=5)
     DescriptionFormSet = modelformset_factory(
         des, fields=('description',), extra=3)
+
     product = get_object_or_404(Product, slug=slug)
     description = product.description
     # itenary=product.itenary
+
     if request.method == 'POST':
+        # =================== deleting ing ======================== #
+        img= request.POST.get('delete')
+        del__img = img.split('-')
+
+        for m1 in del__img:
+            if len(m1) != 0:
+                each_img = Images.objects.get(product = product ,id = m1)
+                each_img.delete()
+
         form = UpdateForm(request.POST or None, instance=product)
+
+        # if form.data['a_inclusion']:
+        #     print("we gate the a_inclusion Data : ",form.data['a_inclusion'])
+        # else:
+        #     print("is not empty========================\n\n\n\n")
+
         form.save()
         formset = ImageFormSet(request.POST or None, request.FILES or None)
         formset2 = DescriptionFormSet(request.POST or None)
@@ -1204,22 +1223,23 @@ def ProductUpdate(request, slug):
         form = UpdateForm()
         formset = ImageFormSet(queryset=Images.objects.none())
         formset2 = DescriptionFormSet(queryset=des.objects.none())
+    
 
-    a_inclusion = product.a_inclusion.split(' &nbsp;&nbsp; ')
-    print(a_inclusion)
-    inclusion = product.inclusion.split('</div>')
-    print(inclusion)
+    if product.inclusion:
+        inclusion = product.inclusion.split('</div>')
+    else:
+        inclusion = []
 
     context = {
         'product': product,
         'inclusions':inclusion,
-        'a_inclusions':a_inclusion,
         'form': form,
         'formset': formset,
         'formset2': formset2,
     }
 
     return render(request, 'editproduct.html', context)
+
 
 
 @staff_member_required
