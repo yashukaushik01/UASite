@@ -148,6 +148,7 @@ class Product(models.Model):
     ans5 = models.CharField(
         max_length=10000, default="", null=True, blank=True)
     tags = TaggableManager()
+    promo_code = models.CharField(max_length=100,default='AU')
 
     def __str__(self):
         return self.name

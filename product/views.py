@@ -773,37 +773,42 @@ def walletpromo(request):
 def promocode(request):
     if request.method == "POST":
         amount = int(request.POST.get('amount', ''))
+        product = request.POST.get('product')
+        get_product = Product.objects.get(name = product)
+
         try:
             coupon = get_object_or_404(
                 promo, coupon=request.POST.get('promo_code', ''))
-            if coupon.status == 'active':
-                if coupon.type == 'price':
-                    price = coupon.price
-                    final_amount = amount-price
-                    margin_earned = (int(request.POST.get(
-                        'amount', ''))*coupon.margin)//100
-                    coupon_id = uuid.uuid4()
-                    purchase = Affiliate(coupon=coupon.coupon, email=coupon.email, product=request.POST.get('product', ''), date=datetime.date.today(
-                    ).strftime('%d/%m/%Y'), total_price=request.POST.get('amount', ''), margin_earned=margin_earned, coupon_uid=coupon_id)
-                    purchase.save()
-                    response = json.dumps({"status": "success", "used_amount": price,
-                                          "final_amount": final_amount, "coupon_id": coupon_id}, default=str)
+            print(coupon.coupon)
+            if (coupon.coupon[0] == "A" and coupon.coupon[1] == "U" ) or (coupon.coupon == get_product.promo_code):
+                if coupon.status == 'active':
+                    if coupon.type == 'price':
+                        price = coupon.price
+                        final_amount = amount-price
+                        margin_earned = (int(request.POST.get(
+                            'amount', ''))*coupon.margin)//100
+                        coupon_id = uuid.uuid4()
+                        purchase = Affiliate(coupon=coupon.coupon, email=coupon.email, product=request.POST.get('product', ''), date=datetime.date.today(
+                        ).strftime('%d/%m/%Y'), total_price=request.POST.get('amount', ''), margin_earned=margin_earned, coupon_uid=coupon_id)
+                        purchase.save()
+                        response = json.dumps({"status": "success", "used_amount": price,
+                                            "final_amount": final_amount, "coupon_id": coupon_id}, default=str)
+                        return HttpResponse(response)
+                    if coupon.type == 'percentage':
+                        price = (coupon.price*amount)//100
+                        final_amount = amount-price
+                        margin_earned = (int(request.POST.get(
+                            'amount', ''))*coupon.margin)//100
+                        coupon_id = uuid.uuid4()
+                        purchase = Affiliate(coupon=coupon.coupon, email=coupon.email, product=request.POST.get('product', ''), date=datetime.date.today(
+                        ).strftime('%d/%m/%Y'), total_price=request.POST.get('amount', ''), margin_earned=margin_earned, coupon_uid=coupon_id)
+                        purchase.save()
+                        response = json.dumps({"status": "success", "used_amount": price,
+                                            "final_amount": final_amount, "coupon_id": coupon_id}, default=str)
+                        return HttpResponse(response)
+                else:
+                    response = json.dumps({"status": "Expired"}, default=str)
                     return HttpResponse(response)
-                if coupon.type == 'percentage':
-                    price = (coupon.price*amount)//100
-                    final_amount = amount-price
-                    margin_earned = (int(request.POST.get(
-                        'amount', ''))*coupon.margin)//100
-                    coupon_id = uuid.uuid4()
-                    purchase = Affiliate(coupon=coupon.coupon, email=coupon.email, product=request.POST.get('product', ''), date=datetime.date.today(
-                    ).strftime('%d/%m/%Y'), total_price=request.POST.get('amount', ''), margin_earned=margin_earned, coupon_uid=coupon_id)
-                    purchase.save()
-                    response = json.dumps({"status": "success", "used_amount": price,
-                                          "final_amount": final_amount, "coupon_id": coupon_id}, default=str)
-                    return HttpResponse(response)
-            else:
-                response = json.dumps({"status": "Expired"}, default=str)
-                return HttpResponse(response)
 
         except Exception as e:
             response = json.dumps({"status": f"{e}"}, default=str)
