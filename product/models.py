@@ -1,3 +1,4 @@
+from django.core.checks import messages
 from django.db import models
 from django.urls import reverse
 from django.db.models.deletion import CASCADE
@@ -799,7 +800,92 @@ class Populartags(models.Model):
     def __str__(self):
         return self.name
 
+class TopPicksEntryForm(models.Model):
+    heading = models.CharField(max_length=200,null=True,blank=True)
+    cover_img = models.ImageField(upload_to='uploads/TopPicks/', null=True, blank=True)
+    manual_slug = models.SlugField(max_length=100, null=True, blank=True)
+    box1_text = models.CharField(max_length=200,null=True,blank=True)
+    box1_background = models.ImageField(upload_to='uploads/TopPicks/',null=True,blank = True)
+    box1_url = models.URLField(max_length=200,null=True,blank=True)
+    box2_text = models.CharField(max_length=200,null=True,blank=True)
+    box2_background = models.ImageField(upload_to='uploads/TopPicks/',null=True,blank = True)
+    box2_url = models.URLField(max_length=200,null=True,blank=True)
+    box3_text = models.CharField(max_length=200,null=True,blank=True)
+    box3_background = models.ImageField(upload_to='uploads/TopPicks/',null=True,blank = True)
+    box3_url = models.URLField(max_length=200,null=True,blank=True)
+    text5 = models.CharField(max_length=200,null=True,blank=True)
+    text5_image = models.ImageField(upload_to='uploads/TopPicks/',null=True,blank = True)
+    text_1 = models.CharField(max_length=300,null=True,blank=True)
+    slug_1 = models.CharField(max_length=300,null=True,blank=True)
+    text_2 = models.CharField(max_length=300,null=True,blank=True)
+    slug_2 = models.CharField(max_length=300,null=True,blank=True)
+    text_3 = models.CharField(max_length=300,null=True,blank=True)
+    slug_3 = models.CharField(max_length=300,null=True,blank=True)
+    text_4 = models.CharField(max_length=300,null=True,blank=True)
+    slug_4 = models.CharField(max_length=300,null=True,blank=True)
+    text_5 = models.CharField(max_length=300,null=True,blank=True)
+    slug_5 = models.CharField(max_length=300,null=True,blank=True)
+    text_6 = models.CharField(max_length=300,null=True,blank=True)
+    slug_6 = models.CharField(max_length=300,null=True,blank=True)
+    text_7 = models.CharField(max_length=300,null=True,blank=True)
+    slug_7 = models.CharField(max_length=300,null=True,blank=True)
+    text_8 = models.CharField(max_length=300,null=True,blank=True)
+    slug_8 = models.CharField(max_length=300,null=True,blank=True)
+    text_9 = models.CharField(max_length=300,null=True,blank=True)
+    slug_9 = models.CharField(max_length=300,null=True,blank=True)
+    text_10 = models.CharField(max_length=300,null=True,blank=True)
+    slug_10 = models.CharField(max_length=300,null=True,blank=True)
+    text_11 = models.CharField(max_length=300,null=True,blank=True)
+    slug_11 = models.CharField(max_length=300,null=True,blank=True)
+    text_12 = models.CharField(max_length=300,null=True,blank=True)
+    slug_12 = models.CharField(max_length=300,null=True,blank=True)
+    text_13 = models.CharField(max_length=300,null=True,blank=True)
+    slug_13 = models.CharField(max_length=300,null=True,blank=True)
+    text_14 = models.CharField(max_length=300,null=True,blank=True)
+    slug_14 = models.CharField(max_length=300,null=True,blank=True)
+    text_15 = models.CharField(max_length=300,null=True,blank=True)
+    slug_15 = models.CharField(max_length=300,null=True,blank=True)
+    text_16 = models.CharField(max_length=300,null=True,blank=True)
+    slug_16 = models.CharField(max_length=300,null=True,blank=True)
+    text_17 = models.CharField(max_length=300,null=True,blank=True)
+    slug_17 = models.CharField(max_length=300,null=True,blank=True)
+    text_18 = models.CharField(max_length=300,null=True,blank=True)
+    slug_18 = models.CharField(max_length=300,null=True,blank=True)
+    text_19 = models.CharField(max_length=300,null=True,blank=True)
+    slug_19 = models.CharField(max_length=300,null=True,blank=True)
+    text_20 = models.CharField(max_length=300,null=True,blank=True)
+    slug_20 = models.CharField(max_length=300,null=True,blank=True)
 
+    def __str__(self):
+        return self.heading
+
+class BestPackage(models.Model):
+    top_picks = models.CharField(max_length=50,null=True,blank=True)
+    name = models.CharField(max_length=50,null=True,blank=True)
+    number = models.CharField(max_length=12,null=True,blank=True)
+    email = models.EmailField(max_length=254,null=True,blank=True)
+    date_of_travel = models.DateField(auto_now=False, auto_now_add=False,null=True,blank=True)
+    number_of_people = models.IntegerField(null=True,blank=True)
+    message = models.TextField(null=True,blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+class ProductEnquiry(models.Model):
+    product_slug = models.CharField(max_length=300,null=True,blank=True)
+    name = models.CharField(max_length=300,null=True,blank=True)
+    number = models.CharField(max_length=12,null=True,blank=True)
+    email = models.EmailField(max_length=254,null=True,blank=True)
+    date_of_travel = models.DateField(auto_now=False, auto_now_add=False,null=True,blank=True)
+    number_of_people = models.IntegerField(null=True,blank=True)
+    message = models.TextField(null=True,blank=True)
+
+    def __str__(self):
+        return self.name
+
+    
+    
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         profile, created = wallet.objects.get_or_create(user=instance)
@@ -837,3 +923,7 @@ def pre_save_post_reciever3(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(pre_save_post_reciever3, sender=Itinerary)
+
+
+
+    

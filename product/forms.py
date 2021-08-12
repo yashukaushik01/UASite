@@ -1,6 +1,6 @@
 from django import forms
 from django.db.models import fields
-from .models import Product, phone, Purchase, Blogpost, Itinerary, Erp, TravelGuide, Populartags
+from .models import Product, phone, Purchase, Blogpost, Itinerary, Erp, TravelGuide, Populartags,TopPicksEntryForm,BestPackage,ProductEnquiry
 
 
 class ProductForm(forms.ModelForm):
@@ -91,3 +91,24 @@ class purchaseform(forms.ModelForm):
     class Meta:
         model = Purchase
         fields = ('date',)
+
+class Top_picks_entryForm(forms.ModelForm):
+    class Meta:
+        model =  TopPicksEntryForm
+        fields = ('heading','cover_img','manual_slug','box1_text','box1_background','box1_url','box2_text','box2_background','box2_url','box3_text','box3_background','box3_url',
+        'text5','text5_image','text_1','slug_1','text_2','slug_2','text_3','slug_3','text_4','slug_4','text_5','slug_5','text_6','slug_6','text_7','slug_7','text_8','slug_8',
+        'text_9','slug_9','text_10','slug_10','text_11','slug_11','text_12','slug_12','text_13','slug_13','text_14','slug_14','text_15','slug_15','text_16','slug_16','text_7','slug_7',
+        'text_18','slug_18','text_19','slug_19','text_20','slug_20',)
+
+class BestPackageForm(forms.ModelForm):
+    class Meta:
+        model = BestPackage
+        fields = ('top_picks','name','number','email','date_of_travel','number_of_people','message')
+
+
+class ProductEnquiryForm(forms.ModelForm):
+    class Meta:
+        model = ProductEnquiry
+        fields = ('product_slug','name','number','email','date_of_travel','number_of_people','message')
+
+

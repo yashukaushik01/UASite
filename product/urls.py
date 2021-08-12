@@ -60,4 +60,7 @@ urlpatterns = [
     path('editerp/<slug:slug>', views.EditErp, name='edit_erp'),
     path('itinerary_response/<slug:slug>',
          views.Response_Itinerary, name='Itinerary_response'),
+    path('toppicksentryform/',views.topPicksEntryForm,name="toppicksentryform"),
+    path('toppicks/<slug:slug>',views.topPicks,name="toppicks"),
+    path('productEnquiry/',views.productEnqueryForm,name="product_enquiry"),
 ]

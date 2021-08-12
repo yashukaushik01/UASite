@@ -10,10 +10,10 @@ from django.http.response import JsonResponse
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
-from .models import Affiliate, Erp, Populartags, Product, Destination, Images, duration, phone, Purchase, states, des, promo, AdventureTourTypes, TravelGuide
+from .models import Affiliate, Erp, Populartags, Product, Destination, Images, TopPicksEntryForm, duration, phone, Purchase, states, des, promo, AdventureTourTypes, TravelGuide,BestPackage,ProductEnquiry
 from .models import Blogpost, wallet
 from .models import Itinerary
-from .forms import ItineraryForm, ProductForm, Addphone, purchaseform, UpdateForm, BlogForm, UpdateItineraryForm, ErpForm, UpdateErpForm, TravelGuideEntryForm, PopularTagForm
+from .forms import ItineraryForm, ProductEnquiryForm, ProductForm, Addphone, purchaseform, UpdateForm, BlogForm, UpdateItineraryForm, ErpForm, UpdateErpForm, TravelGuideEntryForm, PopularTagForm,Top_picks_entryForm,BestPackageForm
 from django.views.decorators.csrf import csrf_exempt
 from django.forms import modelformset_factory
 from django.contrib import messages
@@ -465,8 +465,16 @@ def City(request, slug):
 @csrf_exempt
 def State(request, slug):
     destination = Destination.objects.get(type='state', name=slug)
-    top_places_to_visit = TravelGuide.objects.get(name=slug, tag='Top places to visit')
-    things_to_do = TravelGuide.objects.get(name=slug, tag='Things to do')
+    if TravelGuide.objects.filter(name=slug, tag='Top places to visit').exists():
+        top_places_to_visit = TravelGuide.objects.get(name=slug, tag='Top places to visit')
+    else:
+        top_places_to_visit = ''
+    
+    if TravelGuide.objects.filter(name=slug, tag='Things to do').exists():
+        things_to_do = TravelGuide.objects.get(name=slug, tag='Things to do')
+    else:
+        things_to_do = ''
+
 
     if destination.location:
         locations = destination.location.split(',')
@@ -1248,3 +1256,133 @@ def DeleteImg(request, slug):
     image.delete()
 
     return redirect('index')
+
+
+# =========================== top picks ====================================== #
+
+@staff_member_required
+def topPicksEntryForm(request):
+    form = Top_picks_entryForm()
+    if request.method == 'POST':
+        form = Top_picks_entryForm(request.POST,request.FILES)
+        print(form.errors)
+        prod = form.save(commit = False)
+        prod.save()
+        form.save_m2m()
+        messages.success(request,'Added !')
+        return redirect('/')
+    context = {
+        'form':form,
+    }
+
+    return render(request,'toppicksentryform.html',context)
+
+def topPicks(request,slug):
+    form  = BestPackageForm()
+    all_products = []
+    if TopPicksEntryForm.objects.filter(manual_slug = slug).exists():
+        top_picks = TopPicksEntryForm.objects.get(manual_slug = slug)
+
+        if top_picks.text_1 and top_picks.slug_1:
+            product = Product.objects.get(manual_slug = top_picks.slug_1)
+            all_products.append(product)
+        if top_picks.text_2 and top_picks.slug_2:
+            product = Product.objects.get(manual_slug = top_picks.slug_2)
+            all_products.append(product)
+        if top_picks.text_3 and top_picks.slug_3:
+            product = Product.objects.get(manual_slug = top_picks.slug_3)
+            all_products.append(product)
+        if top_picks.text_4 and top_picks.slug_4:
+            product = Product.objects.get(manual_slug = top_picks.slug_4)
+            all_products.append(product)
+        if top_picks.text_5 and top_picks.slug_5:
+            product = Product.objects.get(manual_slug = top_picks.slug_5)
+            all_products.append(product)
+        if top_picks.text_6 and top_picks.slug_6:
+            product = Product.objects.get(manual_slug = top_picks.slug_6)
+            all_products.append(product)
+        if top_picks.text_7 and top_picks.slug_7:
+            product = Product.objects.get(manual_slug = top_picks.slug_7)
+            all_products.append(product)
+        if top_picks.text_8 and top_picks.slug_8:
+            product = Product.objects.get(manual_slug = top_picks.slug_8)
+            all_products.append(product)
+        if top_picks.text_9 and top_picks.slug_9:
+            product = Product.objects.get(manual_slug = top_picks.slug_9)
+            all_products.append(product)
+        if top_picks.text_10 and top_picks.slug_10:
+            product = Product.objects.get(manual_slug = top_picks.slug_10)
+            all_products.append(product)
+        if top_picks.text_11 and top_picks.slug_11:
+            product = Product.objects.get(manual_slug = top_picks.slug_11)
+            all_products.append(product)
+        if top_picks.text_12 and top_picks.slug_12:
+            product = Product.objects.get(manual_slug = top_picks.slug_12)
+            all_products.append(product)
+        if top_picks.text_13 and top_picks.slug_13:
+            product = Product.objects.get(manual_slug = top_picks.slug_13)
+            all_products.append(product)
+        if top_picks.text_14 and top_picks.slug_14:
+            product = Product.objects.get(manual_slug = top_picks.slug_14)
+            all_products.append(product)
+        if top_picks.text_15 and top_picks.slug_15:
+            product = Product.objects.get(manual_slug = top_picks.slug_15)
+            all_products.append(product)
+        if top_picks.text_6 and top_picks.slug_16:
+            product = Product.objects.get(manual_slug = top_picks.slug_16)
+            all_products.append(product)
+        if top_picks.text_17 and top_picks.slug_17:
+            product = Product.objects.get(manual_slug = top_picks.slug_17)
+            all_products.append(product)
+        if top_picks.text_18 and top_picks.slug_18:
+            product = Product.objects.get(manual_slug = top_picks.slug_18)
+            all_products.append(product)
+        if top_picks.text_19 and top_picks.slug_19:
+            product = Product.objects.get(manual_slug = top_picks.slug_19)
+            all_products.append(product)
+        if top_picks.text_20 and top_picks.slug_20:
+            product = Product.objects.get(manual_slug = top_picks.slug_20)
+            all_products.append(product)
+    else:
+        top_picks = ''
+
+    if request.method == "POST":
+        form = BestPackageForm(request.POST)
+        if form.data['top_picks']:
+             manual_slug = form.data['top_picks']
+        print(form.errors)
+        prod = form.save(commit = False)
+        prod.save()
+        form.save_m2m()
+        messages.success(request,'Added !')
+        return redirect('/toppicks/'+ str(manual_slug))
+
+    
+
+    context = {
+        'top_picks':top_picks,
+        'all_products':all_products,
+        'form':form,
+    }
+
+    return render(request,'toppicks.html',context)
+
+
+@csrf_exempt
+def productEnqueryForm(request):
+    product_slug = request.POST.get('product_slug')
+    name = request.POST.get('name')
+    number = request.POST.get('number')
+    email = request.POST.get('email')
+    date_of_travel = request.POST.get('date_of_travel')
+    number_of_people = request.POST.get('number_of_people')
+    message = request.POST.get('message')
+
+
+    product_enquiry = ProductEnquiry(product_slug = product_slug,
+    name = name,number = number , email = email , date_of_travel = date_of_travel,
+    number_of_people = number_of_people,message = message)
+
+    product_enquiry.save()
+
+    return JsonResponse({'data': name + " your Enquiry successfully added in enquiry Box !"})
