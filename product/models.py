@@ -22,6 +22,7 @@ Type_CHOICES_Ad = (
 )
 
 
+
 class Destination(models.Model):
     name = models.CharField(max_length=50)
     type = models.CharField(
@@ -924,6 +925,58 @@ def pre_save_post_reciever3(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(pre_save_post_reciever3, sender=Itinerary)
+
+
+
+# ========================================= course Model =======================================
+
+Type_dur = (
+    ('hour','Hour'),
+    ('day','Day'),
+)
+
+class Course(models.Model):
+    state = models.CharField(max_length=200,null=True,blank=True)
+    city = models.CharField(max_length=200,null=True,blank=True)
+    locality = models.CharField(max_length=200,null=True,blank=True)
+    course_name = models.CharField(max_length=250,null=True,blank=True)
+    course_category = models.CharField(max_length=200,null=True,blank=True)
+    course_duration = models.IntegerField(null=True,blank=True)
+    course_dur_type = models.CharField(max_length=200,choices=Type_dur ,default="" ,null=True,blank=True)
+    course_level = models.CharField(max_length=200,null=True,blank=True)
+    popularity = models.IntegerField(null=True,blank=True)
+
+    course_display_name = models.CharField(max_length=300,null=True,blank=True)
+    certification = models.CharField(max_length=300,null=True,blank=True)
+    trainer_detail = models.CharField(max_length=300,null=True,blank=True)
+    manual_slug = models.SlugField(max_length=300,null=True,blank=True)
+
+    summary = models.CharField(max_length=100000,null=True,blank=True)
+    achivement = models.CharField(max_length=100000,null=True,blank=True)
+    course_details = models.CharField(max_length=100000,null=True,blank=True)
+    inclusion = models.CharField(max_length=100000,null=True,blank=True)
+    after_course_next_step = models.CharField(max_length=100000,null=True,blank=True)
+    regular_price = models.IntegerField(default=0,null=True,blank=True)
+    sale_price = models.IntegerField(default=0,null=True,blank=True)
+    cover_image = models.ImageField(upload_to='uploads/course',null=True,blank=True)
+    image2 = models.ImageField(upload_to='uploads/course',null=True,blank=True)
+    image3 = models.ImageField(upload_to='uploads/course',null=True,blank=True)
+    image4 = models.ImageField(upload_to='uploads/course',null=True,blank=True)
+
+    def __str__(self):
+        return self.course_display_name
+
+    def delete(self,using=None,keep_parents = False):
+        self.cover_image.storage.delete(self.cover_image.name)
+        self.image2.storage.delete(self.image2.name)
+        self.image3.storage.delete(self.image3.name)
+        self.image4.storage.delete(self.image4.name)
+        super().delete()
+    
+
+
+
+
 
 
 

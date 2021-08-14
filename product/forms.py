@@ -1,6 +1,6 @@
 from django import forms
 from django.db.models import fields
-from .models import Product, phone, Purchase, Blogpost, Itinerary, Erp, TravelGuide, Populartags,TopPicksEntryForm,BestPackage,ProductEnquiry
+from .models import Product, phone, Purchase, Blogpost, Itinerary, Erp, TravelGuide, Populartags,TopPicksEntryForm,BestPackage,ProductEnquiry,Course
 
 
 class ProductForm(forms.ModelForm):
@@ -110,5 +110,13 @@ class ProductEnquiryForm(forms.ModelForm):
     class Meta:
         model = ProductEnquiry
         fields = ('product_slug','name','number','email','date_of_travel','number_of_people','message')
+
+
+class CourseEntryForm(forms.ModelForm):
+    class Meta:
+        model = Course
+        fields = ('state','city','locality','course_name','course_category','course_duration','course_dur_type','course_level','popularity',
+        'course_display_name','certification','trainer_detail','manual_slug','summary','achivement','course_details','inclusion',
+        'after_course_next_step','regular_price','sale_price','cover_image','image2','image3','image4')
 
 

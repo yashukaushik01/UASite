@@ -13,7 +13,7 @@ from django.http import HttpResponse
 from .models import Affiliate, Erp, Populartags, Product, Destination, Images, TopPicksEntryForm, duration, phone, Purchase, states, des, promo, AdventureTourTypes, TravelGuide,BestPackage,ProductEnquiry
 from .models import Blogpost, wallet
 from .models import Itinerary
-from .forms import ItineraryForm, ProductEnquiryForm, ProductForm, Addphone, purchaseform, UpdateForm, BlogForm, UpdateItineraryForm, ErpForm, UpdateErpForm, TravelGuideEntryForm, PopularTagForm,Top_picks_entryForm,BestPackageForm
+from .forms import ItineraryForm, ProductEnquiryForm, ProductForm, Addphone, purchaseform, UpdateForm, BlogForm, UpdateItineraryForm, ErpForm, UpdateErpForm, TravelGuideEntryForm, PopularTagForm,Top_picks_entryForm,BestPackageForm,CourseEntryForm
 from django.views.decorators.csrf import csrf_exempt
 from django.forms import modelformset_factory
 from django.contrib import messages
@@ -1280,7 +1280,7 @@ def topPicksEntryForm(request):
         'form':form,
     }
 
-    return render(request,'toppicksentryform.html',context)
+    return render(request,'top-picks-entry-form.html',context)
 
 def topPicks(request,slug):
     form  = BestPackageForm()
@@ -1288,64 +1288,64 @@ def topPicks(request,slug):
     if TopPicksEntryForm.objects.filter(manual_slug = slug).exists():
         top_picks = TopPicksEntryForm.objects.get(manual_slug = slug)
 
-        if top_picks.text_1 and top_picks.slug_1:
+        if top_picks.slug_1:
             product = Product.objects.get(manual_slug = top_picks.slug_1)
             all_products.append(product)
-        if top_picks.text_2 and top_picks.slug_2:
+        if top_picks.slug_2:
             product = Product.objects.get(manual_slug = top_picks.slug_2)
             all_products.append(product)
-        if top_picks.text_3 and top_picks.slug_3:
+        if top_picks.slug_3:
             product = Product.objects.get(manual_slug = top_picks.slug_3)
             all_products.append(product)
-        if top_picks.text_4 and top_picks.slug_4:
+        if top_picks.slug_4:
             product = Product.objects.get(manual_slug = top_picks.slug_4)
             all_products.append(product)
-        if top_picks.text_5 and top_picks.slug_5:
+        if top_picks.slug_5:
             product = Product.objects.get(manual_slug = top_picks.slug_5)
             all_products.append(product)
-        if top_picks.text_6 and top_picks.slug_6:
+        if top_picks.slug_6:
             product = Product.objects.get(manual_slug = top_picks.slug_6)
             all_products.append(product)
-        if top_picks.text_7 and top_picks.slug_7:
+        if top_picks.slug_7:
             product = Product.objects.get(manual_slug = top_picks.slug_7)
             all_products.append(product)
-        if top_picks.text_8 and top_picks.slug_8:
+        if top_picks.slug_8:
             product = Product.objects.get(manual_slug = top_picks.slug_8)
             all_products.append(product)
-        if top_picks.text_9 and top_picks.slug_9:
+        if top_picks.slug_9:
             product = Product.objects.get(manual_slug = top_picks.slug_9)
             all_products.append(product)
-        if top_picks.text_10 and top_picks.slug_10:
+        if  top_picks.slug_10:
             product = Product.objects.get(manual_slug = top_picks.slug_10)
             all_products.append(product)
-        if top_picks.text_11 and top_picks.slug_11:
+        if  top_picks.slug_11:
             product = Product.objects.get(manual_slug = top_picks.slug_11)
             all_products.append(product)
-        if top_picks.text_12 and top_picks.slug_12:
+        if  top_picks.slug_12:
             product = Product.objects.get(manual_slug = top_picks.slug_12)
             all_products.append(product)
-        if top_picks.text_13 and top_picks.slug_13:
+        if top_picks.slug_13:
             product = Product.objects.get(manual_slug = top_picks.slug_13)
             all_products.append(product)
-        if top_picks.text_14 and top_picks.slug_14:
+        if top_picks.slug_14:
             product = Product.objects.get(manual_slug = top_picks.slug_14)
             all_products.append(product)
-        if top_picks.text_15 and top_picks.slug_15:
+        if top_picks.slug_15:
             product = Product.objects.get(manual_slug = top_picks.slug_15)
             all_products.append(product)
-        if top_picks.text_6 and top_picks.slug_16:
+        if top_picks.slug_16:
             product = Product.objects.get(manual_slug = top_picks.slug_16)
             all_products.append(product)
-        if top_picks.text_17 and top_picks.slug_17:
+        if top_picks.slug_17:
             product = Product.objects.get(manual_slug = top_picks.slug_17)
             all_products.append(product)
-        if top_picks.text_18 and top_picks.slug_18:
+        if top_picks.slug_18:
             product = Product.objects.get(manual_slug = top_picks.slug_18)
             all_products.append(product)
-        if top_picks.text_19 and top_picks.slug_19:
+        if top_picks.slug_19:
             product = Product.objects.get(manual_slug = top_picks.slug_19)
             all_products.append(product)
-        if top_picks.text_20 and top_picks.slug_20:
+        if top_picks.slug_20:
             product = Product.objects.get(manual_slug = top_picks.slug_20)
             all_products.append(product)
     else:
@@ -1370,7 +1370,7 @@ def topPicks(request,slug):
         'form':form,
     }
 
-    return render(request,'toppicks.html',context)
+    return render(request,'top-picks.html',context)
 
 
 @csrf_exempt
@@ -1391,3 +1391,28 @@ def productEnqueryForm(request):
     product_enquiry.save()
 
     return JsonResponse({'data': name + " your Enquiry successfully added in enquiry Box !"})
+
+
+
+
+    #  ======================================== cource Entry form =====================================
+@staff_member_required
+def courseEntryForm(request):
+    form = CourseEntryForm()
+    if request.method == 'POST':
+        form = CourseEntryForm(request.POST,request.FILES)
+        print(form.errors)
+        prod = form.save(commit = False)
+        prod.save()
+        form.save_m2m()
+        messages.success(request,'Added !')
+        return redirect('/')
+
+    context = {
+        'form':form,
+    }
+    return render(request,'courseentryform.html',context)
+
+
+def course(request):
+    return render(request,'course.html')
