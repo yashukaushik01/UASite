@@ -1189,7 +1189,7 @@
 
       <div class="container">
         <div class="row">
-          <div class="col-lg-3 col-md-3 col-sm-3 col-2 mt-4 filter-div" id="van"
+          <div class="col-lg-3 col-md-3 col-sm-3 col-2 mt-4 filter-div " id="van"
           style="background-color: #fff;
           margin-left: -10px;
           padding-top: 10px;padding-bottom: 10px;
@@ -1339,113 +1339,212 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-9 col-md-9 col-sm-9 col-8" id="dan" 
-          style="margin-left:10px ;">
-            <div id="products">
-              {% for product in products %}
-              <div class="row my-box-shadow"
-                style="margin-top: 1.6rem;background-color: rgb(255, 255, 255);cursor: pointer;box-shadow: 1px 3px 8px 0px #72748452;transition: transform .3s;"
-                name="{{product.adventuretype}}">
-                <div class="col-md-3 px-0 py-0">
+          <div class="col-lg-9 col-md-9 col-sm-9 col-10" id="dan">
+
+            <!-- Start Desktop View -->
+            <div id="products" class="content-desktop ml-3">
+                {% for product in products %}
+                <div class="row my-box-shadow"
+                  style="margin-top: 1.6rem;background-color: rgb(255, 255, 255);cursor: pointer;box-shadow: 1px 3px 8px 0px #72748452;transition: transform .3s;"
+                  name="{{product.adventuretype}}">
+                  <div class="col-md-3 px-0 py-0">
 
 
-                  {% with product.images_set.all|first as image %}
+                    {% with product.images_set.all|first as image %}
 
-                  <a href="/products/{{product.manual_slug}}"><img src="{{image.image.url}}" class="img-responsive"
-                      width="200px" height="250px" style="height: 100%;    object-fit: cover;    width: 100%;" /></a>
-                  {% endwith %}
+                    <a href="/products/{{product.manual_slug}}"><img src="{{image.image.url}}" class="img-responsive"
+                        width="200px" height="250px" style="height: 100%;    object-fit: cover;    width: 100%;" /></a>
+                    {% endwith %}
 
-                </div>
-                
-                <div class="col-md-6 pt-3">
-                  <a href="/products/{{product.manual_slug}}">
-                    <h3 class="mt-0">{{product.name}}</h3>
-                    <div class="row">
-                      <div class="col">
-                        <span class="icon" style="padding: 0px 3px 0px 6px;    position: relative;
-                                        vertical-align: middle;
-                                        font-size: 16px;
-                                        color: rgba(59,68,78,0.7);"><i class="far fa-clock"></i></span>
-                        <span style="padding-right: 5px;
-                                            border-right: 1px solid rgba(59,68,78,0.3);    position: relative;
-                        vertical-align: middle;
-                        font-size: 16px;
-                        color: rgba(59,68,78,0.7);">{{product.duration}}</span>
-                        <span class="icon" style="padding: 0px 3px 0px 6px;    position: relative;
-                         vertical-align: middle;
-                         font-size: 16px;
-                         color: rgba(59,68,78,0.7);"><i class="fas fa-map-marker-alt"></i></span>
-                        <span style="padding-right: 5px;
-                            position: relative;
-                       vertical-align: middle;
-                       font-size: 16px;
-                       color: rgba(59,68,78,0.7);">{{product.loca_city}}
-                          {% if product.loca_city %}
-                          <span>,</span>
-                          {% endif %}
-                          {{product.city}}</span>
-                      </div>
-                    </div>
-                    <hr class="mt-1 mb-0" style="opacity:0.4;">
-                    {% autoescape off %}
-                    <div class="row mt-0 text-center" id="inn">{{product.inclusion}} </div>
-                    <hr class="mt-2 mb-2" style="opacity:0.4;">
-                    {{product.a_inclusion}}
-                    <div class="row" style="font-size: 1rem;">
-
-                      <!-- <div class="col-12 mt-3">
-                                          <b>Adventure Level : </b> {{product.adventurelevel}}
-                                        </div>   
-                                         -->
-
-                    </div>
-                  </a>
-                </div>
-                {% endautoescape %}
-                <a href="/products/{{product.manual_slug}}">
-                  <div class="  col-md-3 pt-3 pb-3"
-                    style="border-left: 1px solid #0000000f;display: flex;justify-content: center;align-items: center;">
-                    <div>
-                      <div class="custom_12">
-                        <div class="row">
-                          <div class="col-10 text-center" style="font-size: 0.6rem;">
-                            <span class="" style="color: #fecb19;">
-                              <script>
-                                for (var i = 1; i <= {{ product.rating }}; i++) {
-                                  document.write('<i class="fa fa-star" style="font-size: 1rem;"></i>');
-                                }
-                              </script>
-                            </span>
-                            <span class="btn "
-                              style="font-size: 14px;top: 2px;padding: 1px 7px;background: #4caf50;color: white;border-radius: 4px;padding-top: 3px;">
-                              {{product.rating}}</span>
-
-                          </div>
-                          <div class="col-12 text-center">
-
-                            <p style="font-size: 0.8rem;">{{product.reviews}} reviews
-                            <p>
-                          </div>
-                        </div>
-
-                        <div class="text-center" style="min-width: 150px;">
-                          <hr class="mt-0 mb-1" style="width: 70%;opacity: 0.5;">
-                          <p class="custom-price" style="margin-left:-10px;">Starting from<span class="custom-price"
-                              style="text-decoration: line-through;">&#8377;{{product.regular}}</span></p>
-                          <p class="custom-price-main" style="margin-left:-10px;color:black; display: inline; font-size: 24px;">&#8377; <strong>{{product.sale}}</strong> 
-                          </p>
-                          <p style="font-size: 0.6rem; display: inline;text-align: center;">Per Person</p>
-                        </div>
-                      </div>
-
-
-                      <p class="mt-2"><a class="btn btn-danger" style=" width: 100%; bottom: 10px; left: 0px;"
-                          type="button" href="/products/{{product.slug}}">Book Now</a></p>
-
-                    </div>
                   </div>
+                  
+                  <div class="col-md-6 pt-3">
+                    <a href="/products/{{product.manual_slug}}">
+                      <h3 class="mt-0">{{product.name}}</h3>
+                      <div class="row">
+                        <div class="col">
+                          <span class="icon" style="padding: 0px 3px 0px 6px;    position: relative;
+                                          vertical-align: middle;
+                                          font-size: 16px;
+                                          color: rgba(59,68,78,0.7);"><i class="far fa-clock"></i></span>
+                          <span style="padding-right: 5px;
+                                              border-right: 1px solid rgba(59,68,78,0.3);    position: relative;
+                          vertical-align: middle;
+                          font-size: 16px;
+                          color: rgba(59,68,78,0.7);">{{product.duration}}</span>
+                          <span class="icon" style="padding: 0px 3px 0px 6px;    position: relative;
+                          vertical-align: middle;
+                          font-size: 16px;
+                          color: rgba(59,68,78,0.7);"><i class="fas fa-map-marker-alt"></i></span>
+                          <span style="padding-right: 5px;
+                              position: relative;
+                              vertical-align: middle;
+                              font-size: 16px;
+                              color: rgba(59,68,78,0.7);">{{product.loca_city}}
+                            {% if product.loca_city %}
+                            <span>,</span>
+                            {% endif %}
+                            {{product.city}}</span>
+                        </div>
+                      </div>
+                      <hr class="mt-1 mb-0" style="opacity:0.4;">
+                      {% autoescape off %}
+                      <div class="row mt-0 text-center" id="inn">{{product.inclusion}} </div>
+                      <hr class="mt-2 mb-2" style="opacity:0.4;">
+                      <div class="row" style="font-size: 1rem;">
+                        {{product.a_inclusion}}
+                      </div>
+                    </a>
+                  </div>
+                  {% endautoescape %}
+                  <div class=" col-md-3 pt-3 pb-3"
+                  style="border-left: 1px solid #0000000f;display: flex;justify-content: center;align-items: center;">
+                  <a href="/products/{{product.manual_slug}}">
+                      <div>
+                        <div class="custom_12">
+                          <div class="row">
+                            <div class="col-10 text-center" style="font-size: 0.6rem;">
+                              <span class="" style="color: #fecb19;">
+                                <script>
+                                  for (var i = 1; i <= {{ product.rating }}; i++) {
+                                    document.write('<i class="fa fa-star" style="font-size: 1rem;"></i>');
+                                  }
+                                </script>
+                              </span>
+                              <span class="btn "
+                                style="font-size: 14px;top: 2px;padding: 1px 7px;background: #4caf50;color: white;border-radius: 4px;padding-top: 3px;">
+                                {{product.rating}}</span>
+
+                            </div>
+                            <div class="col-12 text-center">
+
+                              <p style="font-size: 0.8rem;">{{product.reviews}} reviews
+                              <p>
+                            </div>
+                          </div>
+
+                          <div class="text-center" style="min-width: 150px;">
+                            <hr class="mt-0 mb-1" style="width: 70%;opacity: 0.5;">
+                            <p class="custom-price" style="margin-left:-10px;">Starting from<span class="custom-price"
+                                style="text-decoration: line-through;">&#8377;{{product.regular}}</span></p>
+                            <p class="custom-price-main" style="margin-left:-10px;color:black; display: inline; font-size: 24px;">&#8377; <strong>{{product.sale}}</strong> 
+                            </p>
+                            <p style="font-size: 0.6rem; display: inline;text-align: center;">Per Person</p>
+                          </div>
+                        </div>
+
+
+                        <p class="mt-2"><a class="btn btn-danger" style=" width: 100%; bottom: 10px; left: 0px;"
+                            type="button" href="/products/{{product.slug}}">Book Now</a></p>
+
+                      </div>
+                      </a>
+                    </div>
+                </div>
+                {% endfor %} 
+              </div>
+              <!-- Desktop View End -->
+
+             <!-- Start Mobile View -->
+              <div id="products" class="content-mobile" >
+              {% for product in products %}
+              <div class="my-box-shadow" style="margin-top: 1.6rem;background-color: rgb(255, 255, 255);cursor: pointer;box-shadow: 1px 3px 8px 0px #72748452;transition: transform .3s;"  name="{{product.adventuretype}}">
+                <div class="row p-0 m-0" 
+                  style="box-shadow: 1px 3px 8px 0px #72748452;"
+                 >
+                  <div class="col-8 px-0 py-0">
+
+
+                    {% with product.images_set.all|first as image %}
+
+                    <a href="/products/{{product.manual_slug}}">
+                      
+                      <img src="{{image.image.url}}" class="image-responsive"
+                      style="position: relative; width: 100%;object-fit: cover; height: 100%; " />
+                      
+                      <span class="icon" style="padding: 10px 0 5px 5px;
+                      position: absolute;
+                      bottom: 0px;
+                      left: 0px;
+                      font-size: 15px;
+                      width: 100%;
+                      background-color: rgba(0,0,0,0.5);
+                      color: #ffffff;"><i class="far fa-clock"></i> {{product.duration}}  | 
+                        <span style="text-align: right; ">
+                        <i class="fas fa-map-marker-alt"></i> {{product.loca_city}}
+                              {% if product.loca_city %}
+                              <span>,</span>
+                              {% endif %}
+                              {{product.city}}
+                          </span>
+                      </span>
+                        
+                    </a>
+                    {% endwith %}
+                  </div>
+                  
+                  
+
+                  <div class="col-4 px-0" >
+                    <a href="/products/{{product.manual_slug}}">
+                      <div class="pt-2">
+                          <div class="row m-0">
+                            <div class="col-12 text-center" style="font-size: 0.6rem;">
+                              <span class="" style="color: #fecb19;">
+                                <script>
+                                  for (var i = 1; i <= {{ product.rating }}; i++) {
+                                    document.write('<i class="fa fa-star" style="font-size: 0.9rem;"></i>');
+                                  }
+                                </script>
+                              </span>
+                              <span class="btn"
+                                style="font-size: 14px;padding:1px 2px;background: #4caf50;color: white;border-radius: 4px;">
+                                {{product.rating}}</span>
+
+                            </div>
+                            <div class="col-12 text-center">
+
+                              <p style="font-size: 0.8rem;">{{product.reviews}} reviews
+                              <p>
+                            </div>
+                          </div>
+                          
+                          <div class="text-center " style="">
+                            <hr class=" my-0" style="width: 70%;opacity: 0.5;">
+                            <p class="custom-price">Starting from</p>
+                              <p class="custom-price"
+                                style="text-decoration: line-through;">&#8377;{{product.regular}}</p>
+                            <p class="custom-price-main" style="color:black; display: inline; font-size: 22px;">&#8377; <strong>{{product.sale}}</strong> 
+                            </p>
+                            <!-- <p style="font-size: 0.6rem; display: inline-block;text-align: center;">Per Person</p> -->
+                          </div>
+                      </div>
+                      <p class="mt-2 mb-0" style="position: absolute;bottom: 0; width: 100%;"><a class="btn btn-danger" style="width: 100%; border-radius: 0;"
+                            type="button" href="/products/{{product.slug}}">Book Now</a></p>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Content Column -->
+                <div class="row">
+                  <div class="col-12 pt-3 m-0 ">
+                    <a href="/products/{{product.manual_slug}}">
+                      <h3 class="mt-0 ml-2">{{product.name}}</h3>
+                      <hr class="mt-1 mb-0" style="opacity:0.4;">
+                      {% autoescape off %}
+                      <div class="row mt-0 ml-1 text-center" id="inn">{{product.inclusion}} </div>
+                      <hr class="mt-2 mb-2 " style="opacity:0.4;">
+                      <div class="row ml-1" style="font-size: 1rem;">
+                        {{product.a_inclusion}}
+                      </div>
+                    </a>
+                  </div>
+                  {% endautoescape %}
+                </div>
               </div>
               {% endfor %}
+              <!-- End Mobile View  -->
+
               <div class="pagination my-3 mx-1 px-2 py-2 page__navigations" style="width: fit-content;
                background-color: #fff;
               box-shadow: 1px 1px 5px rgba(221, 220, 220, 0.747);">
