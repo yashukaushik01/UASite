@@ -7821,21 +7821,3 @@ label {
 .breadcrumb-arrow li.active:before {
   border-left-color: #2494be;
 }
-
-/* adventure section desktop mobile display */
-.content-desktop {
-  display: block;
-}
-
-.content-mobile {
-  display: none;
-}
-
-@media only screen and (max-width: 576px) {
-  .content-desktop {
-    display: none;
-  }
-  .content-mobile {
-    display: block;
-  }
-}
