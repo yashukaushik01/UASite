@@ -42,6 +42,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
 
     <link rel="stylesheet" href={% static 'css/style.css' %}>
+
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
 <style>
 html,body {
@@ -417,7 +418,7 @@ padding:0 1.75rem .375rem .75rem;
 }
 
 
-<!--Icon Animation-->
+/* <!--Icon Animation--> */
 .blank-ico {
   opacity: 1;
 }
@@ -475,243 +476,124 @@ padding:0 1.75rem .375rem .75rem;
 </style>
 
 <style>
-    .travel-bg-heading{
-        margin: -100px;
-        margin-left: 10%;
-        position: absolute;
-    }
-    .travel-bg-heading h1{
-       color: white;
-    }
-    .travel-bg-city{
-        position: absolute;
-        margin-left: 70%;
-        margin-top: 7%;
-        /* width: fit-content; */
-        border-radius: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    
-    }
-    .travel-bg-city h2 
-    {
-      width: fit-content;
-      margin: 15px;
-      font-weight: 600;
-    }
-    .travel-bg-city h2 a
-    {
-      background-color: rgba(0, 0, 0, 0.19);
-      padding: 10px 4rem;
-       color: #fff;
-       font-weight: 600;
-       font-size: 25px;
-       font-weight: 300;
-       border-radius: 30px;
-       border: 2px solid #fff;
-       transition: 0.5s ease;
-    }
-    .travel-bg-city h2 a:hover
-    {
-      color: rgb(99, 99, 247);
-      border-color:rgb(99, 99, 247) ;
+  .travel-bg-heading h1 {
+  color: white;
+  padding: 20px;
+}
+.travel-bg-city {
+  padding-top: 70px;
+  margin-right: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.travel-bg-city h2 {
+  margin: 15px 0;
+  font-weight: 600;
+}
+.travel-bg-city h2 a {
+  background-color: rgba(0, 0, 0, 0.19);
+  padding: 10px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 20px;
+  font-weight: 300;
+  border-radius: 30px;
+  border: 2px solid #fff;
+  transition: 0.5s ease;
+}
+.travel-bg-city h2 a:hover {
+  color: rgb(99, 99, 247);
+  background: #ffffffce;
+  border-color: rgb(99, 99, 247);
+}
 
-    }
-    .travel-blog-main{
-        display: flex;
-        flex-direction: row;
-    }
-    .travel-blog-left{
-        width: 70%;
-        display: flex;
-        flex-direction: column;
-    }
-    .travel-blog-right{
-        width: 40%;
-        display: flex;
-        flex-direction: column;
-    }
-    .travel-blog-right h3
-    {
-        margin: 10px;
-        margin-left: 30px;
-    }
-    .travel-blog-content
-    {
-        margin: 10px;
-        padding: 15px;
-        margin-bottom: 20px;
-        line-height: 2rem;
-    }
+.travel-blog-left .timestamp {
+  background-color: rgba(0, 0, 0, 0.19);
+  padding: 5px 10px;
+  width: fit-content;
+  font-size: 14px;
+  color: #000;
+  font-weight: 400;
+  border-radius: 25px;
+}
 
-    </style>
-    <style>
-      .travel-blogs
-      {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-      }
-      .travel-blog
-      {
-        width: 80%;
-        margin: 10px auto;
-        border-radius: 5px;
-        display: flex;
-        box-shadow: 2px 2px 10px rgba(209, 209, 209, 0.726),
-                    -1px -1px 5px rgba(209, 209, 209, 0.726);
-        overflow: hidden;
-        
-      }
-      .travel-blog .travel-img
-      {
-        width: 100px;
-        height: 100px;
-        overflow: hidden;
-      }
-      .travel-blog .travel-img img
-      {
-        width: 100%;
-        height: 100%;
-      }
-      .travel-blog-title
-      {
-        margin: 10px;
-        font-size: 20px;
-        line-height: 2rem;
-      }
-      
-      @media (max-width: 1244px)
-      {
-        .travel-bg-city {
-          margin-left: 60%;
-        }
-      }
-      @media (max-width: 954px)
-      {
-        .travel-bg-city {
-          margin-top: 10%;
-          margin-left: 50%;
-        }
-        .travel-blog
-        {
-          width: 100%;
-        }
-      }
-      @media (max-width: 768px)
-      {
-        .container {
-          max-width: 906px;
-        }
-        .travel-bg-city {
-          margin-top: 10%;
-          margin-left: 40%;
-        }
-      }
-      @media (max-width: 634px)
-      {
-        .travel-bg-city {
-          margin-top: 14%;
-          margin-left: 20%;
-        }
-        .travel-bg-city h2 
-        {
-          margin: 10px;
-        }
-        .travel-bg-city h2 a
-        {
-          padding: 5px 3rem;
-        }
-      }
-      @media (max-width: 576px)
-      {
-          .container 
-          {
-              max-width: 721px;
-          }
-          .travel-bg-city 
-          {
-          margin-top: 18%;
-          margin-left: 20%;
-        }
-        .travel-bg-city h2 
-        {
-          margin: 5px;
-        }
-        .travel-bg-city h2 a
-        {
-          padding: 5px 2rem;
-        }
-      }
-      @media (max-width:645px)
-      {
-        .travel-blog-main
-        {
-          flex-direction: column;
-        }
-        .travel-blog-left
-        {
-          width: 100%;
-        }
-        .travel-blog-right
-        {
-          width: 100%;
+.travel-blog-content span {
+  width: 100% !important;
+}
 
-        }
-        .travel-blog
-        {
-          width: 80%;
-        }
-        
-      }
-      @media (max-width:416px)
-      {
-        .travel-bg-heading h1
-        {
-          margin-left: 5%;
-        }
-        .travel-bg-city 
-          {
-          margin-top: 25%;
-          margin-left: 15%;
-        }
-        .travel-bg-city h2 
-        {
-          margin: 5px;
-        }
-        .travel-bg-city h2 a
-        {
-          padding: 2px .5rem;
-        }
-      }
-      @media (max-width:320px)
-      {
-        .travel-bg-heading h1
-        {
-          margin-left: 2%;
-         font-size: 2rem;
-        }
-        .travel-bg-city
-        {
-          margin-left: 15%;
-          margin-top: 30%;
-        }
-        .travel-bg-city h2
-        {
-          margin: 10px;
-        }
+.travel-blog-content span > img {
+  padding: 0;
+  width: 100% !important;
+  object-fit: cover;
+  display: block;
+  height: 400px;
+}
+.travel-blog-content {
+  margin: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  line-height: 2rem;
+  box-shadow: 0 0 18px 0px #cccccc75;
+  border-radius: 10px;
+}
 
-        .travel-bg-city h2 a
-        {
-          padding: 5px 2rem;
-          font-size: 15px;
-          
-        }
-      }
+.travel-blog-title {
+  margin: 10px;
+  font-size: 20px;
+  line-height: 2rem;
+}
 
-    </style>
+.travel-blog-left ul {
+  margin-left: 10px;
+}
+.travel-blog-left ul > li {
+  list-style-type: square !important;
+}
+
+.travel-blog-right h3 {
+  margin: 10px;
+  margin-left: 30px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 906px;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    max-width: 721px;
+  }
+  .travel-blog .container {
+    padding: 0;
+  }
+
+  .travel-bg-heading {
+    position: absolute;
+    bottom: 0;
+  }
+  .travel-bg-heading .container {
+    padding: 10px;
+    font-size: 30px;
+  }
+
+  .travel-blog-content {
+    margin: 20px 0;
+    border-radius: 0;
+  }
+
+  /* .travel-blog-content span > img {
+    height: 300px;
+  } */
+  .travel-bg-city {
+    display: none;
+  }
+}
+
+</style>
 
 </head>
 
@@ -739,35 +621,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     {% if user.is_authenticated %}
                     <li class="nav-item">  
                         <div class="dropdown">
-  <button class="btn btn-secondary" style="background-color:transparent;border:none;padding: 0px;font-weight: 600;color: white !important;font-size: 19px !important;" type="button" id="dropdownMenuButton"
-   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <img src={% static 'img//Nav Menu Icons//User white.svg' %}>
-    Hello {{user}}
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="options" style="display: none;text-transform: none;box-shadow: 0px 3px 8px 0px #252525a6;margin-top: 19px;">
-    {% for wallet in amount %}
-    <a class="dropdown-item"  href="#"><img class="col-md-2 p-0" src={% static 'img//Nav Menu Icons//wallet.svg' %} height="25px" ><span class="col-md-10 pl-2">UA Cash: &#8377;{{wallet.amount}}</span></a>
-    {% endfor %}
-    <a class="dropdown-item"  href="/profile/" id="profileview"><img class="col-md-2 p-0" src={% static 'img//Nav Menu Icons//user profile.svg' %} height="25px"><span class="col-md-10 pl-2">Profile</span></a>
-    <a class="dropdown-item" href="/profile/#booking"><img class="col-md-2 p-0"src={% static 'img//Nav Menu Icons//bookings.svg' %} height="25px" ><span class="col-md-10 pl-2">Bookings</span></a>
-    <hr> 
-    <a class="dropdown-item"  href="/accounts/logout"><button type="button" class="btn btn-warning" style="display: block;margin-left: auto;margin-right: auto;margin-top: 6px;border-radius: 25px;width: 150px;">Logout</button></a>
-     
-  </div>
+                          <button class="btn btn-secondary" style="background-color:transparent;border:none;padding: 0px;font-weight: 600;color: white !important;font-size: 19px !important;" type="button" id="dropdownMenuButton"
+                          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <img src={% static 'img//Nav Menu Icons//User white.svg' %}>
+                            Hello {{user}}
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="options" style="display: none;text-transform: none;box-shadow: 0px 3px 8px 0px #252525a6;margin-top: 19px;">
+                            {% for wallet in amount %}
+                            <a class="dropdown-item"  href="#"><img class="col-md-2 p-0" src={% static 'img//Nav Menu Icons//wallet.svg' %} height="25px" ><span class="col-md-10 pl-2">UA Cash: &#8377;{{wallet.amount}}</span></a>
+                            {% endfor %}
+                            <a class="dropdown-item"  href="/profile/" id="profileview"><img class="col-md-2 p-0" src={% static 'img//Nav Menu Icons//user profile.svg' %} height="25px"><span class="col-md-10 pl-2">Profile</span></a>
+                            <a class="dropdown-item" href="/profile/#booking"><img class="col-md-2 p-0"src={% static 'img//Nav Menu Icons//bookings.svg' %} height="25px" ><span class="col-md-10 pl-2">Bookings</span></a>
+                            <hr> 
+                            <a class="dropdown-item"  href="/accounts/logout"><button type="button" class="btn btn-warning" style="display: block;margin-left: auto;margin-right: auto;margin-top: 6px;border-radius: 25px;width: 150px;">Logout</button></a>
+                            
+                          </div>
 
-</div>
+                        </div>
  
                     </li>
                     
                     {% else %}
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" style ="font-weight: 600;color: white !important;padding-right: 50px;font-size: 19px !important;cursor: pointer;" href="#" id="modal"
-                            data-toggle="modal" data-target="#log"><img src={% static 'img//Nav Menu Icons//User white.svg' %}> Login</a></li>
-
+                            data-toggle="modal" data-target="#log"><img src={% static 'img//Nav Menu Icons//User white.svg' %}> Login</a>
+                  </li>
                     {% endif %}
                 </ul>
             </div>
             <div>
-             
-                
                 <i id="exploreview2" ><img class="explore-ico" style="position: absolute;" src={% static 'img//Nav Menu Icons//Explore white.svg' %}></i>
                 <i id="mobilemodal" style="padding-left: 45px; color:white; height:32px;" ><img src={% static 'img//Nav Menu Icons//User white.svg' %}></i>
             </div>
@@ -947,126 +827,130 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <center><i class="fa fa-close" style="font-size:48px;color:red"></i></center>
            </div>
     </div>
-   
   </div>
 
     
     <!-- popular_destination_area_start  -->
 
-    <div>
-        <div style=" width: 100vw; height: 50vh;box-shadow: 0px 1px 2px 0px #72748461;background-image: linear-gradient(rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.2)), url('{% if bestplace.image %}{{bestplace.image.url}}{% endif %} ');background-position: center;background-size: cover;">
+    <div class="travel-blog">
+   
+        <div style="width: 100vw; height: 50vh;box-shadow: 0px 1px 2px 0px #72748461;background-image: linear-gradient(rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.2)), url('{% if bestplace.image %}{{bestplace.image.url}}{% endif %} ');background-position: center;background-size: cover; position: relative; ">
                 <!-- <img src={{place.image.url}} alt='bg-img' style="width: 100vw; height: 50vh;"> -->
                 <div class="travel-bg-city">
                     <h2><a href="/adventure/all/?state={{city}}">Adventures in {{city}}</a></h2>
                     <h2><a href="/tour/all/?state={{city}}">Tours in {{city}}</a> </h2>
                 </div>
+
+                 <div class="travel-bg-heading">
+                    <h1 class="container">{{bestplace.heading|title}}</h1>
+                </div>
         </div>
               
-              <div class="travel-bg-heading">
-                  <h1>{{bestplace.heading|title}}</h1>
-              </div>
-        <div class="container" style="min-height: 100vh;">
-            <div class="travel-blog-main"> 
+       
 
-                <div class="travel-blog-left">
-                  <p class="mt-2">{{bestplace.timestamp}}</p>
+        <div class="container" style="min-height: 100vh;">
+            <div class="travel-blog-main row"> 
+
+                <div class="travel-blog-left col-lg-8">
+                  <p class="mt-3 ml-2 timestamp">
+                  {{bestplace.timestamp}}</p>
 
                 {% if bestplace.summary %}
-                    <div class="travel-blog-content">
+                    <div class="travel-blog-content card mt-3">
                         {{bestplace.summary|safe}}
                     </div>
                 {% endif %}
                 {% if bestplace.blog1  %}
-                    <div class="travel-blog-content">
+                    <div class="travel-blog-content card">
                         {{bestplace.blog1|safe}}
                     </div>
 
                 {% endif %}
                 {% if bestplace.blog2  %}
-                    <div class="travel-blog-content">
+                    <div class="travel-blog-content card">
                         {{bestplace.blog2|safe}}
                     </div>
                 {% endif %}
                 {% if bestplace.blog3  %}
-                      <div class="travel-blog-content">
+                      <div class="travel-blog-content card">
                         {{bestplace.blog3|safe}}
                     </div>
                 {% endif %}
                 {% if bestplace.blog4  %}
-                    <div class="travel-blog-content">
+                    <div class="travel-blog-content card">
                         {{bestplace.blog4|safe}}
                     </div>
                 {% endif %}
 
                 {% if bestplace.blog5  %}
-                    <div class="travel-blog-content">
+                    <div class="travel-blog-content card">
                         {{bestplace.blog5|safe}}
                     </div>
                 {% endif %}
 
                 {% if bestplace.blog6  %}
-                     <div class="travel-blog-content">
+                     <div class="travel-blog-content card">
                         {{bestplace.blog6|safe}}
                     </div>
                 {% endif %}
 
                 {% if bestplace.blog7  %}
-                     <div class="travel-blog-content">
+                     <div class="travel-blog-content card">
                         {{bestplace.blog7|safe}}
                     </div>
                 {% endif %}
 
                 {% if bestplace.blog8  %}
-                    <div class="travel-blog-content">
+                    <div class="travel-blog-content card">
                         {{bestplace.blog8|safe}}
                     </div>
                 {% endif %}
 
                 {% if bestplace.blog9  %}
-                    <div class="travel-blog-content">
+                    <div class="travel-blog-content card">
                         {{bestplace.blog9|safe}}
                     </div>
                 {% endif %}
 
                 {% if bestplace.blog10  %}
-                    <div class="travel-blog-content">
+                    <div class="travel-blog-content card">
                         {{bestplace.blog10|safe}}
                     </div>
                 {% endif %}
 
                 {% if bestplace.blog11  %}
-                    <div class="travel-blog-content">
+                    <div class="travel-blog-content card">
                         {{bestplace.blog11|safe}}
                     </div>
                 {% endif %}
 
                 {% if bestplace.blog12  %}
-                    <div class="travel-blog-content">
+                    <div class="travel-blog-content card">
                         {{bestplace.blog12|safe}}
                     </div>
                 {% endif %}
 
                 {% if bestplace.blog13  %}
-                    <div class="travel-blog-content">
+                    <div class="travel-blog-content card">
                         {{bestplace.blog13|safe}}
                     </div>
                 {% endif %}
 
                 {% if bestplace.blog14 %}
-                    <div class="travel-blog-content">
+                    <div class="travel-blog-content card">
                         {{bestplace.blog14|safe}}
                     </div>
                 {% endif %}
 
                 {% if bestplace.blog15  %}
-                    <div class="travel-blog-content">
+                    <div class="travel-blog-content card">
                         {{bestplace.blog15|safe}}
                     </div>
-                {% endif %}
-
-                    
+                {% endif %}    
                 </div>
-                <div class="travel-blog-right">
+
+
+                <div class="travel-blog-right col-lg-4">
                     <h3>Trending in {{city}}</h3>
                     <div class="travel-blogs">
                     {% if trandings %}
