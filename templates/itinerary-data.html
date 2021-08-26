@@ -208,6 +208,10 @@
     {
         text-decoration: none;
     }
+    .day_highlight__data > ul
+    {
+        margin-left:30px;
+    }
 
 </style>
 
@@ -302,7 +306,7 @@
                     {% if itinerary.day_1 %}
                         <div class="day__highlight__block container" style="width: 100%; padding: 0;margin-bottom: 1rem;">
                             <h2 class="px-2 py-2">{{itinerary.day_1}} : {{itinerary.day_heading_1}} </h2>
-                            <div class="day_highlight__data px-2" style="display: none;">
+                            <div class="day_highlight__data px-2 " style="display: none;">
                               {{itinerary.day_itinerary_1}}
                             </div>
                         </div>

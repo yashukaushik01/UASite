@@ -298,8 +298,6 @@ def itineraryData(request,slug):
     return render(request,'itinerary-data.html',context)
 
 
-
-
 @staff_member_required
 def EditErp(request, slug):
     post = get_object_or_404(Erp, booking_id=slug)
