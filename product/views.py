@@ -10,10 +10,10 @@ from django.http.response import JsonResponse
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
-from .models import Affiliate, Erp, Populartags, Product, Destination, Images, TopPicksEntryForm, duration, phone, Purchase, states, des, promo, AdventureTourTypes, TravelGuide,BestPackage,ProductEnquiry
+from .models import Affiliate, CityHotelData, Erp,Populartags, Product, Destination, Images, StateItineraryData, TopPicksEntryForm, duration, phone, Purchase, states, des, promo, AdventureTourTypes, TravelGuide,BestPackage,ProductEnquiry
 from .models import Blogpost, wallet
-from .models import Itinerary
-from .forms import ItineraryForm, ProductEnquiryForm, ProductForm, Addphone, purchaseform, UpdateForm, BlogForm, UpdateItineraryForm, ErpForm, UpdateErpForm, TravelGuideEntryForm, PopularTagForm,Top_picks_entryForm,BestPackageForm,CourseEntryForm
+from .models import Itinerary,ItineraryData
+from .forms import CityHotelDataForm, ItineraryDataForm, ItineraryForm, ProductEnquiryForm, ProductForm, Addphone, StateItineraryDataForm, purchaseform, UpdateForm, BlogForm, UpdateItineraryForm, ErpForm, UpdateErpForm, TravelGuideEntryForm, PopularTagForm,Top_picks_entryForm,BestPackageForm,CourseEntryForm
 from django.views.decorators.csrf import csrf_exempt
 from django.forms import modelformset_factory
 from django.contrib import messages
@@ -200,6 +200,104 @@ def EditItinerary(request, slug):
         messages.success(request, "Changed!")
         return redirect('/itinerarylist')
     return render(request, 'edititinerary.html', {'post': post})
+
+@staff_member_required
+def stateItinerary(request):
+    form = StateItineraryDataForm()
+    if request.method == 'POST':
+        form = StateItineraryDataForm(request.POST or None)
+        print(form.errors)
+        prod = form.save(commit = False)
+        prod.save()
+        form.save_m2m()
+        messages.success(request,'Added !')
+        return redirect('/')
+
+    context = {
+        'form':form,
+    }
+    return render(request,'state-itinerary-form.html',context)
+
+
+@staff_member_required
+def cityHotel(request):
+    form = CityHotelDataForm()
+    if request.method == 'POST':
+        form = CityHotelDataForm(request.POST or None,request.FILES or None)
+        print(form.errors)
+        prod = form.save(commit = False)
+        prod.save()
+        form.save_m2m()
+        messages.success(request,'added !')
+        return redirect('/')
+    return render(request,'city-hotel-form.html',{'form':form})
+
+
+
+
+@staff_member_required
+def AddItineraryData(request):
+    form = ItineraryDataForm()
+    if request.method == 'POST':
+        form = ItineraryDataForm(request.POST or None)
+        print(form.errors)
+        prod = form.save(commit = False)
+        prod.save()
+        form.save_m2m()
+        messages.success(request,'added !')
+        return redirect('/')
+    
+    context = {
+        'form':form,
+    }
+
+    return render(request,'itinerary-data-form.html',context)
+
+@staff_member_required
+def getItineraryData(request):
+    arr_1 = []
+    arr_2 = []
+    state = request.GET.get('state')
+    state_itineraries = StateItineraryData.objects.filter(state = state).values()
+    city_hotels = CityHotelData.objects.filter(state = state).values()
+
+    for i in state_itineraries:
+        arr_1.append(i)
+    for j in city_hotels:
+        arr_2.append(j)
+    
+    return JsonResponse({'state_itineraries':arr_1,'city_hotels':arr_2})
+
+
+def itineraryData(request,slug):
+    hotel1 = ''
+    hotel2 = ''
+    hotel3 = ''
+    hotel4 = ''
+    hotel5 = ''
+    itinerary = ItineraryData.objects.get(slug = slug)
+    if itinerary.hotel_stay_name_1 :
+        hotel1 = CityHotelData.objects.get(state = itinerary.state , city = itinerary.hotel_city_name_1 , stay_name = itinerary.hotel_stay_name_1)
+    if itinerary.hotel_stay_name_2 :
+        hotel2 = CityHotelData.objects.get(state = itinerary.state , city = itinerary.hotel_city_name_2 , stay_name = itinerary.hotel_stay_name_2)
+    if itinerary.hotel_stay_name_3 :
+        hotel3 = CityHotelData.objects.get(state = itinerary.state , city = itinerary.hotel_city_name_3 , stay_name = itinerary.hotel_stay_name_3)
+    if itinerary.hotel_stay_name_4 :
+        hotel4 = CityHotelData.objects.get(state = itinerary.state , city = itinerary.hotel_city_name_4 , stay_name = itinerary.hotel_stay_name_4)
+    if itinerary.hotel_stay_name_5 :
+        hotel5 = CityHotelData.objects.get(state = itinerary.state , city = itinerary.hotel_city_name_5 , stay_name = itinerary.hotel_stay_name_5)
+
+    context = {
+        'itinerary':itinerary,
+        'hotel1':hotel1,
+        'hotel2':hotel2,
+        'hotel3':hotel3,
+        'hotel4':hotel4,
+        'hotel5':hotel5,
+    }
+    return render(request,'itinerary-data.html',context)
+
+
 
 
 @staff_member_required
@@ -697,6 +795,7 @@ def blogpost(request, slug):
 
 
 def UserItierary(request, slug):
+    print(slug)
     post = Itinerary.objects.filter(slug=slug)[0]
     dic = {'post': post}
     return render(request, 'useritinerary.html', dic)
@@ -1120,7 +1219,7 @@ def travelGuide(request,slug,slug1):
 def travelGuideEntryForm(request):
     form = TravelGuideEntryForm()
     if request.method == 'POST':
-        form = TravelGuideEntryForm(request.POST)
+        form = TravelGuideEntryForm(request.POST or None , request.FILES or None)
         print(form.errors)
         prod = form.save(commit=False)
         prod.save()

@@ -144,24 +144,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="col-md-6">
             {% if user.is_authenticated %}
             {% if length == 0 %}
-            {% else %}
+            {% else %} 
             <h3>Name : {{user.username}}</h3>
             <h3>Email : {{user.email}}</h3>
             <h3>Phone : {{phone}}</h3><br>
             {% endif %}
-            {% else %}
+            {% else %} 
             <h3>Hi Explorer</h3>
             <h3>Please Login to Earn As Affiliator..</h3>
-            {% endif %}
+             {% endif %} 
         </div>
         <div class="col-md-6">
             {% if user.is_authenticated %}
             {% if length == 0 %}
-            {% else %}
+            {% else %} 
             <h2><span class="badge badge-warning">Total Margin Earned : Rs. {{total}}</span> </h2>
             <h2><span class="badge badge-primary" style="cursor: pointer; margin-left: 135px;">Withdraw Amount</span> </h2>
             {% endif %}
-            {% else %}
+            {% else %} 
             <h2><span class="badge badge-primary" style="cursor: pointer; margin-left: 135px;"><a  href="#" id="modal"
                 data-toggle="modal" data-target="#log">Login Now</a></span> </h2>
             {% endif %}
@@ -183,7 +183,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </tr>
             </thead>
             <tbody>
-                {% for pur in coupons %}
+            {% for pur in coupons %}
                
                 <tr>
                     <td></td>
@@ -200,9 +200,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </table>
         {% if user.is_authenticated %}
 
-        {% if length == 0 %}
+        {% if length == 0 %} 
         <h2 style="margin-top: 50px;">Please Contact Our Executive(+91 8882654593) To Become An Affiliator</h2><br>
-        {% else %}
+          {% else %} 
             <h4 style="margin-top: 50px;">Here are your coupons used history</h4><br>
             <table class="table table-responsive" id="booking">
                 <thead>

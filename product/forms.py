@@ -1,6 +1,6 @@
 from django import forms
 from django.db.models import fields
-from .models import Product, phone, Purchase, Blogpost, Itinerary, Erp, TravelGuide, Populartags,TopPicksEntryForm,BestPackage,ProductEnquiry,Course
+from .models import CityHotelData, ItineraryData, Product, phone, Purchase, Blogpost, Itinerary, Erp, TravelGuide, Populartags,TopPicksEntryForm,BestPackage,ProductEnquiry,Course ,StateItineraryData
 
 
 class ProductForm(forms.ModelForm):
@@ -59,7 +59,7 @@ class ItineraryForm(forms.ModelForm):
 class TravelGuideEntryForm(forms.ModelForm):
     class Meta:
         model = TravelGuide
-        fields = ('name', 'type', 'manual_slug', 'tag', 'heading','timestamp', 'summary', 'image', 'blog1', 'blog2', 'blog3', 'blog4', 'blog5', 'blog6', 'blog7', 'blog8', 'blog9',
+        fields = ('name', 'type', 'manual_slug', 'tag', 'heading','timestamp', 'summary','image', 'blog1', 'blog2', 'blog3', 'blog4', 'blog5', 'blog6', 'blog7', 'blog8', 'blog9',
                   'blog10', 'blog11', 'blog12', 'blog13', 'blog14', 'blog15')
 
 
@@ -118,5 +118,39 @@ class CourseEntryForm(forms.ModelForm):
         fields = ('state','city','locality','course_name','course_category','course_duration','course_dur_type','course_level','popularity',
         'course_display_name','certification','trainer_detail','manual_slug','summary','achivement','course_details','inclusion',
         'after_course_next_step','regular_price','sale_price','cover_image','image2','image3','image4')
+
+
+class StateItineraryDataForm(forms.ModelForm):
+    class Meta:
+        model = StateItineraryData
+        fields = ('state','trip_name','trip_category','locations','day_schedule_heading','day_schedule_itinerary','activity_name','activity_price','other_transport_name','other_transport_price')
+
+
+
+class CityHotelDataForm(forms.ModelForm):
+    class Meta:
+        model = CityHotelData
+        fields = ('state','city','accommodation_category','stay_name','room_type','meal_type','room_sharing','honeymoon_kit_price','total_price','hotel_link',
+        'image1','image2','image3','image4','image5','image6','image7')
+
+
+class ItineraryDataForm(forms.ModelForm):
+    class Meta:
+        model = ItineraryData
+        fields = ('name','number','email','state','trip_name','package_display_name','date_of_travel','trip_category','starting_location','ending_location','no_of_days','trip_highlights','additional_inclusion',
+        'day_1','day_heading_1','day_itinerary_1','day_2','day_heading_2','day_itinerary_2','day_3','day_heading_3','day_itinerary_3','day_4','day_heading_4','day_itinerary_4',
+        'day_5','day_heading_5','day_itinerary_5','day_6','day_heading_6','day_itinerary_6','day_7','day_heading_7','day_itinerary_7','day_8','day_heading_8','day_itinerary_8',
+        'day_9','day_heading_9','day_itinerary_9','day_10','day_heading_10','day_itinerary_10','day_11','day_heading_11','day_itinerary_11','day_12','day_heading_12','day_itinerary_12',
+        'inclusion_exclusion','activity_1','no_of_person_1','activity_price_1','activity_2','no_of_person_2','activity_price_2','activity_3','no_of_person_3','activity_price_3','activity_4','no_of_person_4','activity_price_4',
+        'activity_5','no_of_person_5','activity_price_5','hotel_city_name_1','hotel_stay_name_1','meal_type_1','room_sharing_1','honeymoon_kit_price_1','number_of_room_1','hotel_nights_1','number_of_night_1','hotel_total_cost_1',
+        'hotel_city_name_2','hotel_stay_name_2','meal_type_2','room_sharing_2','honeymoon_kit_price_2','number_of_room_2','hotel_nights_2','number_of_night_2','hotel_total_cost_2',
+        'hotel_city_name_3','hotel_stay_name_3','meal_type_3','room_sharing_3','honeymoon_kit_price_3','number_of_room_3','hotel_nights_3','number_of_night_3','hotel_total_cost_3',
+        'hotel_city_name_4','hotel_stay_name_4','meal_type_4','room_sharing_4','honeymoon_kit_price_4','number_of_room_4','hotel_nights_4','number_of_night_4','hotel_total_cost_4',
+        'hotel_city_name_5','hotel_stay_name_5','meal_type_5','room_sharing_5','honeymoon_kit_price_5','number_of_room_5','hotel_nights_5','number_of_night_5','hotel_total_cost_5',
+        'vehicle_type_1','no_of_unit_1','vehicle_total_price_1','vehicle_type_2','no_of_unit_2','vehicle_total_price_2','vehicle_type_3','no_of_unit_3','vehicle_total_price_3','vehicle_type_4','no_of_unit_4','vehicle_total_price_4',
+        'vehicle_type_5','no_of_unit_5','vehicle_total_price_5','other_vehicle_type_1','other_vehicle_no_of_unit_1','other_vehicle_total_price_1','other_vehicle_type_2','other_vehicle_no_of_unit_2','other_vehicle_total_price_2',
+        'other_vehicle_type_3','other_vehicle_no_of_unit_3','other_vehicle_total_price_3','other_vehicle_type_4','other_vehicle_no_of_unit_4','other_vehicle_total_price_4','other_vehicle_type_5','other_vehicle_no_of_unit_5','other_vehicle_total_price_5',
+        'total_calculated_price','change_in_activity_price','change_in_activity_details','change_in_hotel_price','change_in_hotel_details','change_in_transport_price','change_in_transport_details','change_in_other_price','change_in_other_details','regular_price','total_trip_cost',
+        'extra_price_off','end_extra_off','payment_type','number_of_people','each_people_cost','agant_name','agant_number')
 
 

@@ -22,6 +22,13 @@ urlpatterns = [
     path('productslist/', views.ProductsList, name='productslist'),
     path('erp/', views.AddErp, name='Erp'),
     path('itinerarylist/', views.ItineraryList, name='itinerarylist'),
+
+    path('state-itinerary-form/',views.stateItinerary , name="stateItineraryForm"),
+    path('city-hotel-form/',views.cityHotel , name="cityHotel"),
+    path('add-itinerary-form/',views.AddItineraryData , name="addItineraryForm"),
+    path('getItineraryData/',views.getItineraryData , name="getItineraryData"),
+    path('itinerary-data/<slug:slug>',views.itineraryData,name="itinerary-data"),
+
     path('erplist/', views.ErpList, name='erplist'),
     path('addblog/', views.BlogCreate, name='blogcreate'),
     path('profile/', views.profile, name='profile'),
