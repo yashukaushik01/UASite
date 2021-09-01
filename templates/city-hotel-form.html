@@ -62,7 +62,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     </style>
 </head>
-<script>
+{% comment %} <script>
     var state_arr = new Array("Andaman & Nicobar", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chandigarh", "Chhattisgarh", "Dadra & Nagar Haveli", "Daman & Diu", "Delhi", "Goa", "Gujarat", "Haryana", "Himachal-Pradesh", "Jammu-Kashmir", "Jharkhand", "Karnataka", "Kerala", "Lakshadweep", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Orissa", "Pondicherry", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Tripura", "Uttar-Pradesh", "Uttaranchal", "West Bengal");
     var s_a = new Array();
     s_a[0]="";
@@ -124,7 +124,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
 
 
-</script>
+</script> {% endcomment %}
 <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J"
@@ -153,7 +153,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="section_title text-center mb_70">
-                        <h1>Add State Itinerary Data</h1>
+                        <h1>Add City Hotel Data</h1>
                     </div>
                 </div>
         </div>
@@ -166,7 +166,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <label>State*</label>
                         </div>
                         <div class="col-6">
-                            <select name="state" onchange="print_city('state', this.selectedIndex);" id="sts" class="form-control" required>
+                            <select name="state" id="sts" class="form-control" required>
+                            <option value="">Select State</option>
+                            {% if states %}
+                            {% for state in states %}
+                                <option value="{{state.state}}">{{state.state}}</option>
+                            {% endfor %}
+                            {% endif %}
                             </select>
                         </div>
                     </div>
@@ -177,12 +183,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <label>City*</label>
                         </div>
                         <div class="col-6">
-                            <select id ="state" name="city" class="form-control">
+                            <select id ="city_data" name="city" class="form-control">
                             </select>
                         </div>
                     </div>
                 </div>
-                <script language="javascript">print_state("sts");</script>
             </div>
 
             <div class="form-data">
@@ -242,7 +247,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                <option value="">Select Category</option>
                                <option value="Breakfast">Breakfast</option>
                                <option value="Breakfast and Dinner">Breakfast and Dinner</option>
-                               <option value="Breakfast Lunch Dinner">Breakfast Lunch Dinner</option>
+                               <option value="Breakfast and Lunch and Dinner">Breakfast,Lunch,Dinner</option>
                            </select>
                         </div>
                     </div>
@@ -504,7 +509,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script src={% static 'js/gijgo.min.js' %}></script>
     <script src={% static 'js/slick.min.js' %}></script>
     <script src={% static 'js/tagsinput.js' %}></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!--contact js-->
 
     <script src={% static 'js/contact.js' %}></script>
@@ -515,6 +522,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
     <script src={% static 'js/main.js' %}></script>
+
+    <script>
+        let p =`<option value="">Select City</option>`;
+        $('#sts').change((e) =>
+        {
+            {% for city in cities %}
+                    if(e.target.value === "{{city.state.state}}")
+                    {
+                        p += `<option value="{{city.city}}">{{city.city}}</option>`;
+                    }
+            {% endfor %}
+
+            document.getElementById('city_data').innerHTML = p ;
+            p = '<option value="">Select City</option>';
+
+        })
+
+    </script>
+
+        <script>
+        {% if messages %}
+            {% for message in messages %}
+                swal({
+                    title: "{{message}}",
+                    icon: "success",
+                    });
+            {% endfor %}
+        {% endif %}
+    </script>
 
     <script>
         $('#honeymoon_kit').change((e) =>

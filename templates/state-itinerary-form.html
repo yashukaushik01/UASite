@@ -64,9 +64,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     </style>
 </head>
-<script>
-    var state_arr = new Array("Himachal","kerela","Maharashtra","Goa","Darjeeling-Sikkim","Kashmir","Rajasthan");
-</script>
+{% comment %} <script> {% endcomment %}
+    {% comment %} var state_arr = new Array("Himachal","kerela","Maharashtra","Goa","Darjeeling-Sikkim","Kashmir","Rajasthan");
+</script> {% endcomment %}
 <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J"
@@ -109,6 +109,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </div>
                         <select name="state" id="state" class="form-control col-6" required>
                             <option value="">Select State</option>
+                            {% if states %}
+                            {% for state in states %}
+                                <option value="{{state.state}}">{{state.state}}</option>
+                            {% endfor %}
+                            {% endif %}
                         </select>
                     </div>
                 </div>
@@ -377,7 +382,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script src={% static 'js/gijgo.min.js' %}></script>
     <script src={% static 'js/slick.min.js' %}></script>
     <script src={% static 'js/tagsinput.js' %}></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!--contact js-->
 
     <script src={% static 'js/contact.js' %}></script>
@@ -388,7 +395,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
     <script src={% static 'js/main.js' %}></script>
-
+        <script>
+        {% if messages %}
+            {% for message in messages %}
+                swal({
+                    title: "{{message}}",
+                    icon: "success",
+                    });
+            {% endfor %}
+        {% endif %}
+    </script>
+{% comment %} 
     <script>
         const state = document.querySelector('#state');
         state_arr.forEach((state_name) =>
@@ -397,7 +414,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 state.innerHTML += p;
 
         })
-    </script>
+    </script> {% endcomment %}
 
     <script>
         $("#post-form").submit(function(e){

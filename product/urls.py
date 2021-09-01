@@ -24,7 +24,10 @@ urlpatterns = [
     path('itinerarylist/', views.ItineraryList, name='itinerarylist'),
 
     path('state-itinerary-form/',views.stateItinerary , name="stateItineraryForm"),
+    path('state-itinerary-list/',views.StateItineraryList,name="StateItineraryList"),
     path('city-hotel-form/',views.cityHotel , name="cityHotel"),
+    path('city-hotel-list/',views.CityHotelList , name="cityHotelList"),
+    path('itinerary-data-list/',views.ItineraryDataList , name="ItineraryDataList"),
     path('add-itinerary-form/',views.AddItineraryData , name="addItineraryForm"),
     path('getItineraryData/',views.getItineraryData , name="getItineraryData"),
     path('itinerary-data/<slug:slug>',views.itineraryData,name="itinerary-data"),
@@ -72,5 +75,6 @@ urlpatterns = [
     path('productEnquiry/',views.productEnqueryForm,name="product_enquiry"),
     # course 
     path('course-entry-form/',views.courseEntryForm,name="courceEntryForm"),
-    path('course/',views.course,name="course")
+    path('course/',views.course,name="course"),
+    path('state-city',views.StateCity,name="state-city"),
 ]

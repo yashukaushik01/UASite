@@ -60,7 +60,7 @@ class TravelGuideEntryForm(forms.ModelForm):
     class Meta:
         model = TravelGuide
         fields = ('name', 'type', 'manual_slug', 'tag', 'heading','timestamp', 'summary','image', 'blog1', 'blog2', 'blog3', 'blog4', 'blog5', 'blog6', 'blog7', 'blog8', 'blog9',
-                  'blog10', 'blog11', 'blog12', 'blog13', 'blog14', 'blog15')
+                  'blog10', 'blog11', 'blog12', 'blog13', 'blog14', 'blog15','blog16','blog17','blog18','blog19','blog20')
 
 
 class UpdateItineraryForm(forms.ModelForm):

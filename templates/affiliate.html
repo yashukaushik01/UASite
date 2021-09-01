@@ -40,7 +40,137 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         integrity="sha512-YdYyWQf8AS4WSB0WWdc3FbQ3Ypdm0QCWD2k4hgfqbQbRCJBEgX0iAegkl2S1Evma5ImaVXLBeUkIlP6hQ1eYKQ=="
         crossorigin="anonymous" />
     <link rel="stylesheet" href={% static 'css/style.css' %}>
+    <link rel="stylesheet" href={% static 'css/rough.css' %}>
+
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+
+    <style>
+        .user-card {
+        border-radius: 10px;
+        box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.75);
+        }
+        .user-icon {
+        display: inline-block;
+        }
+
+        .user-icon i {
+        vertical-align: bottom;
+        }
+
+        .price-block {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        flex-direction: column;
+        }
+        .price-block p,
+        .price-block a,
+        .login-block a {
+        width: 200px;
+        }
+        .login-block {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        }
+
+        /* Table styles */
+        table {
+        text-align: center;
+        position: relative;
+        border-collapse: collapse;
+        table-layout: fixed;
+        }
+
+        th {
+        background: #f5c6cb;
+        position: sticky;
+        top: 10%;
+        box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+        }
+
+        th,
+        td {
+        min-width: 10rem;
+        width: 150px;
+        height: 3rem;
+        box-sizing: border-box;
+        padding: 0.75em 1em;
+        }
+
+        th {
+        font-weight: bold;
+        color: #fff;
+        white-space: pre;
+        }
+
+        tbody tr {
+        background-color: #fff;
+        transition: all 0.125s ease-in-out;
+        }
+
+        .popular_destination_area 
+        {
+            padding-top: 10px;
+        }
+
+        @media screen and (max-width: 990px) {
+        .table-scroll {
+            overflow-x: scroll;
+        }
+        th {
+            top: 0;
+        }
+        }
+
+        @media screen and (max-width: 576px) {
+        .coupon_tags > div {
+            padding: 3px !important;
+        }
+        .coupons {
+            font-size: 10px;
+            padding: 5px !important;
+            margin: 3px !important;
+        }
+        .user-card {
+            border-radius: 0;
+            box-shadow: none;
+            border: none;
+        }
+        h3 {
+            font-size: 18px !important;
+        }
+        p,
+        a {
+            font-size: 14px !important;
+        }
+        .price-block {
+            align-items: center;
+        }
+        .login-block {
+            justify-content: center;
+        }
+
+        th,
+        td {
+            min-width: 7em;
+            width: 120px;
+            height: 2rem;
+            font-size: 12px;
+        }
+        }
+        @media screen and (max-width: 420px) {
+        .user-icon {
+            display: none;
+        }
+        .user-block {
+            text-align: center;
+        }
+        .contact_exec {
+            text-align: center;
+        }
+        }
+</style>
 </head>
 
 <body>
@@ -60,8 +190,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <div class="navbar-collapse collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
-                       <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/">Home</a></li>
-                      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/blog">Our Blog</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/blog">Our Blog</a></li>
                     {% if user.is_authenticated %}
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/accounts/logout">logout</a></li>
                     {% else %}<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#" id="modal"
@@ -94,7 +224,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+<div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -138,30 +268,68 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </div>
     </div>
-    <div class="popular_destination_area" id="des">
+
+    <!--Withdraw Amount Modal-->
+    <div class="modal fade " id="withdraw-form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Withdraw Amount Form</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <p>Available Balance : Rs. {{total}} </p>
+                        <div class="form-group">
+                            <!-- <label for="exampleInputEmail2">Name</label> -->
+                            <input type="text" class="form-control" id="exampleInputEmail2"
+                                placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <!-- <label for="exampleInputEmail1">Email address</label> -->
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <!-- <label for="exampleInputPhone1">Phone Number</label> -->
+                            <input type="password" class="form-control" id="exampleInputPhone1"
+                                placeholder="+91-XXXXXXXXXX" required>
+                        </div>
+                        <div class="form-group">
+                            <!-- <label for="withdrawAmount">Amount</label> -->
+                            <input type="Number" class="form-control" id="withdrawAmount"
+                                placeholder="Enter Amount" required>
+                        </div>                       
+                        <button type="submit" class="btn btn-success">Withdraw</button>
+                    </form>
+                </div> 
+            </div>
+        </div>
+    </div>
+
+
+
+ <div class="popular_destination_area" id="des">
         <div class="container mt-4">
             <div class="row">
         <div class="col-md-6">
             {% if user.is_authenticated %}
             {% if length == 0 %}
-            {% else %} 
+            {% else %}
             <h3>Name : {{user.username}}</h3>
             <h3>Email : {{user.email}}</h3>
             <h3>Phone : {{phone}}</h3><br>
             {% endif %}
-            {% else %} 
-            <h3>Hi Explorer</h3>
-            <h3>Please Login to Earn As Affiliator..</h3>
-             {% endif %} 
+            {% endif %}
         </div>
         <div class="col-md-6">
             {% if user.is_authenticated %}
             {% if length == 0 %}
-            {% else %} 
+            {% else %}
             <h2><span class="badge badge-warning">Total Margin Earned : Rs. {{total}}</span> </h2>
             <h2><span class="badge badge-primary" style="cursor: pointer; margin-left: 135px;">Withdraw Amount</span> </h2>
             {% endif %}
-            {% else %} 
+            {% else %}
             <h2><span class="badge badge-primary" style="cursor: pointer; margin-left: 135px;"><a  href="#" id="modal"
                 data-toggle="modal" data-target="#log">Login Now</a></span> </h2>
             {% endif %}
@@ -169,7 +337,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         {% if user.is_authenticated %}
         {% if length == 0 %}
-        <h2 style="margin-top: 50px;">Hi {{user.username}} welcome to affiliator program of Universal Adventures</h2>
         {% else %}
         <h4 class="mt-4"> Your Coupons</h4><br>
         <table class="table table-responsive" >
@@ -183,7 +350,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </tr>
             </thead>
             <tbody>
-            {% for pur in coupons %}
+                {% for pur in coupons %}
                
                 <tr>
                     <td></td>
@@ -200,9 +367,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </table>
         {% if user.is_authenticated %}
 
-        {% if length == 0 %} 
-        <h2 style="margin-top: 50px;">Please Contact Our Executive(+91 8882654593) To Become An Affiliator</h2><br>
-          {% else %} 
+        {% if length == 0 %}
+        {% else %}
             <h4 style="margin-top: 50px;">Here are your coupons used history</h4><br>
             <table class="table table-responsive" id="booking">
                 <thead>
@@ -235,7 +401,167 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </table>
 
         </div>
+    </div> 
+
+    
+    <div class="popular_destination_area" id="des">
+        <div class="container">
+            <div class="row p-2 user-card">
+                {% if user.is_authenticated %} 
+                 {% if length == 0 %} 
+                
+                <div class="col-12 user-block">
+                    <div class="user-icon">
+                        <i class="p-3 fa fa-user-circle fa-2x"></i>
+                    </div>
+                    <div class="py-4" style="display: inline-block">
+                        <h3>Hi, {{user.username}} !</h3>
+                        <p class="lead">Nice to See You</p>
+                    </div>
+                </div>
+
+                {% else %} 
+                
+                <div class="col-sm-8 col-12 user-block" >
+                    <div class="user-icon">
+                        <i class="p-3 fa fa-user-circle fa-2x"></i>
+                    </div>
+                    <div class="py-4" style="display: inline-block">
+                        <h3>Welcome Back, {{user.username}} !</h3>
+                        <p class="lead">Nice to See You Again</p>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-12 price-block">
+                    <p class="btn btn-warning my-2">Margin Earned: Rs 100 {{total}}</p>
+                     <p><a  href="#" class="btn px-4 btn-success" id="withdraw" data-toggle="modal" data-target="#withdraw-form">Withdraw Amount</a></p>
+                </div>
+
+                 {% endif %}
+                 {% else %}   
+
+                <div class="col-md-8 col-12 user-block">
+                    <div class="user-icon">
+                        <i class="p-3 fa fa-user-circle fa-2x"></i>
+                    </div>
+                    <div class="py-4" style="display: inline-block">
+                        <h3>Hi Explorer, </h3>
+                        <p class="lead">Please Login to Earn As Affiliator...</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-12 login-block">
+                    <p><a  href="#" class="btn px-4 btn-primary" id="modal" data-toggle="modal" data-target="#log">Login Now</a></p>
+                </div> 
+
+             {% endif %}  
+            </div>
+            <!-- Row end -->
+
+        
+
+         {% if user.is_authenticated %} 
+        {% if length == 0 %} 
+        
+        <div class="contact_exec">
+            <h3 style="margin-top: 30px;">To Become An Affiliator</h3>
+            <p class="lead" >Please Contact Our Executive at : <a href="tel:8882654593" style="display:inline-block;"><i class="fa fa-phone"></i> (+91 8882654593)</a></p>
+
+            <p class="lead">or Mail us at :  <a href="mailto:contact@universaladventures.in" style="display:inline-block;"><i class="fa fa-envelope"></i>  contact@universaladventures.in</a></p>
+        </div>
+        
+        {% else %}  
+        
+        
+        <div class="coupon_tags row my-5 text-center">
+        <div class="col-sm-4 col-4">
+            <span class="btn coupons mx-2 btn-outline-success">Active Coupons : {{all_active}}</span>
+        </div>
+
+        <div class="col-sm-4 col-4">
+            <span class="btn  coupons mx-2 btn-outline-danger">Total Coupons : {{total_coupons}}</span>
+        </div>
+
+        <div class="col-sm-4 col-4">
+            <span class="btn  coupons mx-2 btn-outline-primary">Coupons Used : {{used_coupons}}</span>
+        </div>
+        </div>
+
+
+        <h3 class="mt-4 mb-3 lead"># Your Coupons</h3>
+        <div class="coupons-table table-scroll">
+            <table class="table table-striped">
+                
+                <thead class="thead-row">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Coupon Code</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">Coupon Status</th>
+                        <th scope="col">Margin (Excl. Tax)</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                 {% for pur in coupons %}  
+                
+                     <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{pur.coupon}}</td>
+                        <td>{{pur.date}}</td>
+                        <td>{{pur.status}}</td>
+                        <td>{{pur.margin}} % of MRP</td>
+                    </tr> 
+
+                 {% endfor %}  
+
+  
+                </tbody>
+            </table>
+        </div>
+
+    <h4 class="lead mt-5 mb-3"># Here are Your Used Coupons History</h4>
+    
+    <div class="table-used-coupons table-scroll">
+
+            <table class="table table-striped " id="booking">
+                <thead class="thead-row">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Coupon Code</th>
+                        <th scope="col">Use Date</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Total Price</th>
+                        <th scope="col">Margin Earned</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for purchase in affiliate %}
+                    
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{purchase.coupon}}</td>
+                        <td>{{purchase.date}}</td>
+                        <td>{{purchase.product}}</td>
+                        <td>{{purchase.total_price}} </td>
+                        <td>{{purchase.margin_earned}}</td>
+                    </tr>
+                    
+                    {% endfor %} 
+                </tbody>
+            </table>
+        </div>
+    
+         {% endif %} 
+        
+         {% else %} 
+        
+         {% endif %}   
+
     </div>
+</div>
+
+
     <footer class="footer">
         <div class="footer_top">
             <div class="container">
@@ -244,7 +570,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <div class="footer_widget">
                             <div class="footer_logo">
                                 <a href="#">
-                                     <img src={% static 'img/footer.png' %}  width="200px" alt="">
+                                    <img src={% static 'img/footer.png' %}  width="200px" alt="">
                                 </a>
                             </div>
                             <a href="#">+91 8882654593</a> <br>
@@ -403,6 +729,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         };
 
         addSerialNumber();
+    </script>
+    <!-- Table Js-->
+    <script>
+    //   document
+    //     .querySelector(".table-scroll")
+    //     .addEventListener("scroll", function (e) {
+    //       this.querySelector(".thead-row").style.top = this.scrollTop + "px";
+    //     });
+
+        var myModal = document.getElementById('withdraw-form')
+        var myInput = document.getElementById('withdraw')
+
+        myModal.addEventListener('shown.bs.modal', function () {
+            myInput.focus()
+        });
     </script>
 </body>
 

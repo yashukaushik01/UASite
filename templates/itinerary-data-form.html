@@ -57,7 +57,7 @@
     </style>
 </head>
 <script>
-    var state_arr = new Array("Maharashtra","Himachal", "kerela", "GOA", "Darjeeling-Sikkim", "Kashmir", "Rajasthan");
+    // var state_arr = new Array("Maharashtra","Himachal", "kerela", "GOA", "Darjeeling-Sikkim", "Kashmir", "Rajasthan"); 
     var agent_arr = new Array("Aditya", "Naval", "Charan Reddy", "Sunny", "Shivani Kapoor", "Suraj Kumar", "Aswini");
     var days = new Array("2 Nights 3 Days", " 3 Nights 4 Days", "4 Nights 5 Days", "5 Nights 6 Days", "6 Nights 7 Days", " 7 Nights 8 Days", "8 Nights 9 Days ", "9 Nights 10 Days", "10 Nights 11 Days", "11 Nights 12 Days", "12 Nights 13 Days");
 
@@ -199,9 +199,14 @@
                             </div>
                             <div class="col-6">
                                 <select name="state" id="location" class="form-control">
+                                    <option value="">Select State </option>
+                                    {% if states %}
+                                    {% for state in states %}
+                                        <option value="{{state.state}}">{{state.state}}</option>
+                                    {% endfor %}
+                                    {% endif %}
                                 </select>
                             </div>
-                            <script language="javascript">print_state("location");</script>
                         </div>
                         <div class="form-group row col-12">
                             <div class="col-3">
@@ -1551,8 +1556,9 @@
                                     <option value="Sedan">Sedan</option>
                                     <option value="Innova">Innova</option>
                                     <option value="Ertiga">Ertiga</option>
-                                    <option value="9-seater-tempo-traveller">9 Seater Tempo Traveller</option>
-                                    <option value="16-seater-tempo-traveller">16 seater tempo traveller</option>
+                                    <option value="Flight Ticket">Flight ticket</option>
+                                    <option value="Train Ticket">Train Ticket</option>
+                                    <option value="Bus Ticket">Bus Ticket</option>
                                 </select>
                             </div>
                         </div>
@@ -2000,7 +2006,14 @@
                     <div class="form-group row col-12">
                         <div class="col-3"><label>End of Extra Off</label></div>
                         <div class="col-6">
-                            <input type="datetime-local" name="end_extra_off" class="form-control" id="" />
+                            <select name="end_extra_off" class="form-control" id="" >
+                                <option value="2 Hr">2 Hour</option>
+                                <option value="5 Hr">5 Hour</option>
+                                <option value="10 Hr">10 Hour</option>
+                                <option value="12 Hr">12 Hour</option>
+                                <option value="18 Hr">18 Hour</option>
+                                <option value="24 Hr">24 Hour</option>
+                            </select>
                         </div>
                     </div>
 
@@ -2038,7 +2051,7 @@
                             <p class="mt-3 btn btn-danger" id="eachPerson_price_btn">Get Price</p>
                         </div>
                     </div>
-                    <div class="form-row row col-12">
+                    <div class="form-group row col-12">
                         <div class="col-3">
                             <label>Regular Price</label>
                         </div>
@@ -2222,9 +2235,20 @@
     <script src={% static 'js/mail-script.js' %}></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <script src= "https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.0.0/dist/js/BsMultiSelect.bs4.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
     <script src={% static 'js/main.js' %}></script>
+    <script>
+        {% if messages %}
+            {% for message in messages %}
+                swal({
+                    title: "{{message}}",
+                    icon: "success",
+                    });
+            {% endfor %}
+        {% endif %}
+    </script>
     <script>
         $("#example").bsMultiSelect();
         

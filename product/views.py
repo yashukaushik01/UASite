@@ -10,9 +10,10 @@ from django.http.response import JsonResponse
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
-from .models import Affiliate, CityHotelData, Erp,Populartags, Product, Destination, Images, StateItineraryData, TopPicksEntryForm, duration, phone, Purchase, states, des, promo, AdventureTourTypes, TravelGuide,BestPackage,ProductEnquiry
+from .models import Affiliate, Cities, CityHotelData, Erp,Populartags, Product, Destination, Images, StateItineraryData, TopPicksEntryForm, duration, phone, Purchase, states, des, promo, AdventureTourTypes, TravelGuide,BestPackage,ProductEnquiry
 from .models import Blogpost, wallet
 from .models import Itinerary,ItineraryData
+from .models import State as States
 from .forms import CityHotelDataForm, ItineraryDataForm, ItineraryForm, ProductEnquiryForm, ProductForm, Addphone, StateItineraryDataForm, purchaseform, UpdateForm, BlogForm, UpdateItineraryForm, ErpForm, UpdateErpForm, TravelGuideEntryForm, PopularTagForm,Top_picks_entryForm,BestPackageForm,CourseEntryForm
 from django.views.decorators.csrf import csrf_exempt
 from django.forms import modelformset_factory
@@ -204,6 +205,8 @@ def EditItinerary(request, slug):
 @staff_member_required
 def stateItinerary(request):
     form = StateItineraryDataForm()
+    states = States.objects.all()
+    print(states)
     if request.method == 'POST':
         form = StateItineraryDataForm(request.POST or None)
         print(form.errors)
@@ -211,10 +214,11 @@ def stateItinerary(request):
         prod.save()
         form.save_m2m()
         messages.success(request,'Added !')
-        return redirect('/')
+        return redirect('/state-itinerary-form/')
 
     context = {
         'form':form,
+        'states':states
     }
     return render(request,'state-itinerary-form.html',context)
 
@@ -222,6 +226,8 @@ def stateItinerary(request):
 @staff_member_required
 def cityHotel(request):
     form = CityHotelDataForm()
+    states = States.objects.all()
+    cities = Cities.objects.all()
     if request.method == 'POST':
         form = CityHotelDataForm(request.POST or None,request.FILES or None)
         print(form.errors)
@@ -229,8 +235,14 @@ def cityHotel(request):
         prod.save()
         form.save_m2m()
         messages.success(request,'added !')
-        return redirect('/')
-    return render(request,'city-hotel-form.html',{'form':form})
+        return redirect('/city-hotel-form/')
+
+    context = {
+        'form':form,
+        'states':states,
+        'cities':cities
+    }
+    return render(request,'city-hotel-form.html',context)
 
 
 
@@ -238,6 +250,7 @@ def cityHotel(request):
 @staff_member_required
 def AddItineraryData(request):
     form = ItineraryDataForm()
+    states = States.objects.all()
     if request.method == 'POST':
         form = ItineraryDataForm(request.POST or None)
         print(form.errors)
@@ -245,10 +258,11 @@ def AddItineraryData(request):
         prod.save()
         form.save_m2m()
         messages.success(request,'added !')
-        return redirect('/')
+        return redirect('/add-itinerary-form/')
     
     context = {
         'form':form,
+        'states':states,
     }
 
     return render(request,'itinerary-data-form.html',context)
@@ -298,6 +312,50 @@ def itineraryData(request,slug):
     return render(request,'itinerary-data.html',context)
 
 
+
+@staff_member_required
+def StateItineraryList(request):
+    stateItineraryDatas = StateItineraryData.objects.all()
+    trip_data = []
+    activity = []
+    day_schedule = []
+    transport = []
+    for i in stateItineraryDatas:
+        if i.trip_name is not None:
+            trip_data.append(i)
+        elif i.day_schedule_heading is not None:
+            day_schedule.append(i)
+        elif i.activity_name is not None:
+            activity.append(i)
+        elif i.other_transport_name is not None:
+            transport.append(i)
+
+    context = {
+        'trip_data':trip_data,
+        'activity':activity,
+        'day_schedule':day_schedule,
+        'transport':transport,
+    }
+    return render(request,'state-itinerary-list.html',context)
+
+
+@staff_member_required
+def CityHotelList(request):
+    cityHotels = CityHotelData.objects.all()
+    context = {
+        'cityHotels':cityHotels
+    }
+    return render(request,'city-hotel-list.html',context)
+
+@staff_member_required
+def ItineraryDataList(request):
+    itineraryDatas = ItineraryData.objects.all()
+    context = {
+        'itineraryDatas':itineraryDatas
+    }
+    return render(request,'itinerary-data-list.html',context)
+
+
 @staff_member_required
 def EditErp(request, slug):
     post = get_object_or_404(Erp, booking_id=slug)
@@ -338,12 +396,25 @@ def affiliate(request):
                 phon = get_object_or_404(phone, user=request.user).phone
             else:
                 phon = 'Phone Not Registered'
+            try:
+                all_active = 0
+                promos = promo.objects.filter(email=request.user.email)
+                total_coupons = len(promos)
+                for i in promos:
+                    if i.status == 'active':
+                        all_active += 1
+
+            except:
+                pass
             context = {
                 'affiliate': Affiliate.objects.filter(email=request.user.email, coupon_uid__in=m),
                 'coupons': promo.objects.filter(email=request.user.email),
                 'phone': phon,
                 'total': total,
                 'length': 1,
+                'all_active':all_active,
+                'used_coupons':len(Affiliate.objects.filter(email=request.user.email, coupon_uid__in=m)),
+                'total_coupons': total_coupons + len(Affiliate.objects.filter(email=request.user.email, coupon_uid__in=m))
             }
             return render(request, 'affiliate.html', context)
         else:
@@ -566,8 +637,9 @@ def State(request, slug):
     else:
         top_places_to_visit = ''
     
-    if TravelGuide.objects.filter(name=slug, tag='Things to do').exists():
-        things_to_do = TravelGuide.objects.get(name=slug, tag='Things to do')
+    if TravelGuide.objects.filter(name=slug, tag='Things to Do').exists():
+
+        things_to_do = TravelGuide.objects.get(name=slug, tag='Things to Do')
     else:
         things_to_do = ''
 
@@ -1513,3 +1585,11 @@ def courseEntryForm(request):
 
 def course(request):
     return render(request,'course.html')
+
+
+
+
+# ================================ state-city ============================
+
+def StateCity(request):
+    return render(request,'state-city.html')

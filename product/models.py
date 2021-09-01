@@ -786,6 +786,16 @@ class TravelGuide(models.Model):
         max_length=50000, null=True, blank=True)
     blog15 = models.CharField(
         max_length=50000, null=True, blank=True)
+    blog16 = models.CharField(
+        max_length=50000, null=True, blank=True)
+    blog17 = models.CharField(
+        max_length=50000, null=True, blank=True)
+    blog18 = models.CharField(
+        max_length=50000, null=True, blank=True)
+    blog19 = models.CharField(
+        max_length=50000, null=True, blank=True)
+    blog20 = models.CharField(
+        max_length=50000, null=True, blank=True)
     image = models.ImageField(
         upload_to='uploads/products/', null=True, blank=True)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=False)
@@ -1176,7 +1186,7 @@ class ItineraryData(models.Model):
     total_trip_cost = models.CharField(max_length=5000,null=True , blank=True)
 
     extra_price_off = models.CharField(max_length=5000,null=True , blank=True)
-    end_extra_off = models.DateTimeField(auto_now=False, auto_now_add=False,null=True ,blank=True)
+    end_extra_off = models.CharField(max_length=300,null=True ,blank=True)
 
     payment_type = models.CharField(max_length=5000,null=True , blank=True)
     number_of_people = models.CharField(max_length=5000,null=True , blank=True)
@@ -1203,6 +1213,31 @@ def pre_save_post_reciever4(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(pre_save_post_reciever4, sender=ItineraryData)
+
+
+class State(models.Model):
+    state = models.CharField(max_length=200,blank=True,null=True)
+
+    def __str__(self):
+        return self.state
+
+class Cities(models.Model):
+    state = models.ForeignKey(State,on_delete=models.CASCADE)
+    city = models.CharField(max_length=200,null=True,blank=True)
+
+    def __str__(self):
+        return str(str(self.state) +" - "+ self.city)
+
+class Locality(models.Model):
+    city = models.ForeignKey(Cities,on_delete=models.CASCADE)
+    locality = models.CharField(max_length=200,null=True,blank=True)
+
+
+    def __str__(self):
+        return str(str(self.city) +"-"+ self.locality)
+    
+    
+    
 
 
 
