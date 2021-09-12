@@ -1,0 +1,2911 @@
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Universal Adventures</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Tag Manager -->
+    <script src="https://cdn.tiny.cloud/1/2n06ucf71roagptkroonkrn3btoomt1rrw0na61zi98zhb6w/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
+
+    <!-- End Google Tag Manager -->
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="icon" href={% static './img/uni.png' %} sizes="16x16" type="image/png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/owl.carousel.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/magnific-popup.css' %}>
+    <link rel="stylesheet" href={% static 'css/font-awesome.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/themify-icons.css' %}>
+    <link rel="stylesheet" href={% static 'css/nice-select.css' %}>
+    <link rel="stylesheet" href={% static 'css/flaticon.css' %}>
+    <link rel="stylesheet" href={% static 'css/gijgo.css' %}"">
+    <link rel="stylesheet" href={% static ' css/animate.css' %}>
+    <link rel="stylesheet" href={% static 'css/slick.css' %}>
+    <link rel="stylesheet" href={% static 'css/slicknav.css' %}>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+
+    <link rel="stylesheet" href={% static 'css/style.css' %}>
+    <link rel="stylesheet" href={% static 'css/tagsinput.css' %}>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+    <style>
+        li 
+        {
+            list-style:inherit !important;
+        }
+        .note-editable
+        {
+            padding: 30px !important;
+        }
+        ul {
+
+            padding-left: 30px !important;
+        }
+        .dropdown-menu 
+        {
+            min-width:20rem !important;
+        }
+    </style>
+</head>
+<script>
+    // var state_arr = new Array("Maharashtra","Himachal", "kerela", "GOA", "Darjeeling-Sikkim", "Kashmir", "Rajasthan"); 
+    var agent_arr = new Array("Aditya", "Naval", "Charan Reddy", "Sunny", "Shivani Kapoor", "Suraj Kumar", "Aswini");
+    var days = new Array("2 Nights 3 Days", " 3 Nights 4 Days", "4 Nights 5 Days", "5 Nights 6 Days", "6 Nights 7 Days", " 7 Nights 8 Days", "8 Nights 9 Days ", "9 Nights 10 Days", "10 Nights 11 Days", "11 Nights 12 Days", "12 Nights 13 Days");
+
+
+    function print_state(state_id) {
+        // given the id of the <select> tag as function argument, it inserts <option> tags
+        var option_str = document.getElementById(state_id);
+        option_str.length = 0;
+        option_str.options[0] = new Option('Select Location', '');
+        option_str.selectedIndex = 0;
+        for (var i = 0; i < state_arr.length; i++) {
+            option_str.options[option_str.length] = new Option(state_arr[i], state_arr[i]);
+        }
+    }
+
+    function agent_names(agent_id) {
+        // given the id of the <select> tag as function argument, it inserts <option> tags
+        var option_str = document.getElementById(agent_id);
+        option_str.length = 0;
+        option_str.options[0] = new Option('Select Agent', '');
+        option_str.selectedIndex = 0;
+        for (var i = 0; i < agent_arr.length; i++) {
+            option_str.options[option_str.length] = new Option(agent_arr[i], agent_arr[i]);
+        }
+    }
+    function print_days(state_id) {
+        // given the id of the <select> tag as function argument, it inserts <option> tags
+        var option_str = document.getElementById(state_id);
+        option_str.length = 0;
+        option_str.options[0] = new Option('Select Days', '');
+        option_str.options[0] = new Option('{{itinerary.no_of_days}}', 'selected');
+        option_str.selectedIndex = 0;
+        for (var i = 0; i < days.length; i++) {
+            option_str.options[option_str.length] = new Option(days[i], days[i]);
+        }
+    }
+
+    function Agent(city_id, city_index) 
+    {
+        var option_str = document.getElementById(city_id);
+        var id;
+        if (city_index == 1) {
+            id = 8882654593
+        }
+        if (city_index == 2) {
+            id = 8630767663
+        }
+        if (city_index == 3) {
+            id = 7288920559
+        }
+        if (city_index == 4) {
+            id = 9528812938
+        }
+        if (city_index == 5) {
+            id = 08092849233
+        }
+        if (city_index == 6) {
+            id = 9911668810
+        }
+        if (city_index == 7) {
+            id = 8847633907
+        }
+        console.log(id);
+        $(option_str).val(id);
+    }
+
+</script>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <nav class="navbar  navbar-expand-lg  fixed-top navbar-light" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/"><img src={% static 'img//Universal Adventures Logo.png'%} width="70px">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#adv">Welcome Admin!</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="popular_destination_area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section_title text-center mb_70">
+                        <h3>Add Itinerary</h3>
+                    </div>
+                </div>
+            </div>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h1 class="mt-3 px-2" style="background-color: aquamarine;">User Details</h1>
+                <div class="form-data px-2 px-3" style="border: 1px solid gray;">
+                    <div class="form-row">
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>Name</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" name="name" id="user_name" value="{{itinerary.name}}" class="form-control" placeholder="UserName" />
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>Number</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="Number" name="number" id="User_number" value="{{itinerary.number}}" class="form-control" placeholder="Number" />
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>Email</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="email" name="email" id="user_email" value="{{itinerary.email}}" class="form-control" placeholder="Email" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <h1 class="mt-3 px-2" style="background-color: aquamarine;">Trip Overview</h1>
+
+                <div class="form-data px-2 py-3" style="border: 1px solid gray;">
+                    <div class="form-row">
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>State*</label>
+                            </div>
+                            <div class="col-6">
+                                <select name="state" id="location" class="form-control">
+                                    <option value="">Select State </option>
+                                    <option value="{{itinerary.state}}" selected>{{itinerary.state}}</option>
+                                    {% if states %}
+                                    {% for state in states %}
+                                        <option value="{{state.state}}">{{state.state}}</option>
+                                    {% endfor %}
+                                    {% endif %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>Package Display Name</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" name="package_display_name" value="{{itinerary.package_display_name}}" id="package_display_name" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>Trip Name</label>
+                            </div>
+                            <div class="col-6">
+                                <select name="trip_name" id="trip__name" class="form-control">
+                                    <option value="{{itinerary.trip_name}}" selected>{{itinerary.trip_name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>Date Of Travel</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="date" value="{{itineraryData.date_of_travel}}" name="date_of_travel" class="form-control"  />
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>Trip category*</label>
+                            </div>
+                            <div class="col-6">
+                                <select name="trip_category" id="trip_category" class="form-control">
+                                    <option value="">Select Tour category:</option>
+                                    <option value="{{itinerary.trip_category}}" selected>{{itinerary.trip_category}}</option>
+                                    <option value="Honemoon Special"> Honemoon Special</option>
+                                    <option value=" Family Trip"> Family Trip</option>
+                                    <option value=" Bachelor Trip"> Bachelor Trip</option>
+                                    <option value="Romantic Trip"> Romantic Trip</option>
+                                    <option value="Budget Trip"> Budget Trip</option>
+                                    <option value="Fixed Departure"> Fixed Departure</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>Start Location*</label>
+                            </div>
+                            <div class="col-6">
+                                <select name="starting_location" id="start_loc" class="form-control" class="form-control">
+                                    <option value="{{itinerary.starting_location}}" selected>{{itinerary.starting_location}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>End Location*</label>
+                            </div>
+                            <div class="col-6">
+                                <select name="ending_location" id="end_loc" class="form-control" class="form-control">
+                                    <option value="{{itinerary.ending_location}}" selected>{{itinerary.ending_location}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>No of Days*</label>
+                            </div>
+                            <div class="col-6">
+                                <select name="no_of_days" class="form-control" onchange="iterary('iterary', this.selectedIndex)"
+                                    id="days">
+                                    <option value="{{itinerary.no_of_days}}">{{itinerary.no_of_days}}</option>
+                                </select>
+                            </div>
+                            <script language="javascript">print_days("days");</script>
+                        </div>
+                    </div>
+                </div>
+
+                <h1 class="mt-3 px-2" style="background-color: aquamarine;">Trip Highlights</h1>
+                <div class="form-data px-2">
+                    <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
+                        <div class="form-group col-12 row">
+                            <div class="col-3">
+                               <label>Trip Highlights</label>
+                            </div>
+                            <div class="col-9">
+                                <textarea name="trip_highlights" id="trip_highlight">{{itinerary.trip_highlights}}</textarea>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    
+                </div>
+
+                <h1 class="mt-3 px-2" style="background-color: aquamarine;">Inclusion</h1>
+                <div class="form-data px-2" style="border: 1px solid gray;">
+                        <div class="form-group row col-md-12">
+                            <div class="col-3">
+                                <label>Inclusion</label>
+                            </div>
+                            <div class="col-6">
+                                <select  id="example" class="form-control"  multiple="multiple" style="display: none;" onchange="inc()">
+
+                                    <option value='<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center mt-2"><img class="incimg" src="/static/img/svg_icon/Inclusion/Meal.svg" ><br><span class="inctext">Meals Included</span></div>'>Meals Included  </option>
+                                    <option value='<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center mt-2"><img class="incimg" src="/static/img/svg_icon/Inclusion/Guide.svg" ><br><span class="inctext">Guide</span></div>'> Guide </option>
+                                    <option value='<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center mt-2"><img class="incimg" src="/static/img/svg_icon/Inclusion/transport.svg" ><br><span class="inctext">Transport Included</span></div>'>Transport Included  </option>
+                                    <option value='<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center mt-2"><img class="incimg" src="/static/img/svg_icon/Inclusion/photos.svg" ><br><span class="inctext">Videos/ Photos</span></div>'>Videos/Photos</option>
+                                    <option value='<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center mt-2"><img class="incimg" src="/static/img/svg_icon/Inclusion/Map.svg" ><br><span class="inctext">Travel Map</span></div>'>Travel Map</option>  
+                                    <option value='<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center mt-2"><img class="incimg" src="/static/img/svg_icon/Inclusion/Cashback.svg" ><br><span class="inctext">Cashback</span></div>'>Cashback</option>  
+                                </select>
+                            </div>
+                        </div>
+                        <input type="hidden" name="additional_inclusion" id="inclusion">
+
+                </div>
+
+
+                <h1 class="mt-3 px-2" style="background-color: aquamarine;">Days schedule</h1>
+                <div class="form-data px-2">
+                                <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
+                                    <div class="form-group col-md-2 mb-0">
+                                        <label>Select Day</label>
+                                        <select name="day_1" id="days1" class="form-control">
+                                            <option selected="selected" disabled>Select Day</option>
+                                            <option value="Day 1">1</option>
+                                            <option value="Day 2">2</option>
+                                            <option value="Day 3">3</option>
+                                            <option value="Day 4">4</option>
+                                            <option value="Day 5">5</option>
+                                            <option value="Day 6">6</option>
+                                            <option value="Day 7">7</option>
+                                            <option value="Day 8">8</option>
+                                            <option value="Day 9">9</option>
+                                            <option value="Day 10">10</option>
+                                            <option value="Day 11">11</option>
+                                            <option value="Day 12">12</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-9 mb-0">
+                                        <label>Select Heading</label>
+                                        <select class="form-control days_schedule" name="day_heading_1" class="form-control"
+                                        onchange="DayScheduleData('textdays1', this.selectedIndex,this.value)">
+                                        </select>
+                                        <label>Day Itinerary</label>
+                                        <textarea id="textdays1" name="day_itinerary_1"></textarea>
+                                    </div>
+                                </div>
+                                <div id='days_schedule-1' style="display:none;">
+                                    <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Select Day</label>
+                                            <select name="day_2" id="days2" class="form-control">
+                                                <option selected="selected" disabled>Select Day</option>
+                                                <option value="Day 1">1</option>
+                                                <option value="Day 2">2</option>
+                                                <option value="Day 3">3</option>
+                                                <option value="Day 4">4</option>
+                                                <option value="Day 5">5</option>
+                                                <option value="Day 6">6</option>
+                                                <option value="Day 7">7</option>
+                                                <option value="Day 8">8</option>
+                                                <option value="Day 9">9</option>
+                                                <option value="Day 10">10</option>
+                                                <option value="Day 11">11</option>
+                                                <option value="Day 12">12</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-9 mb-0">
+                                            <label>Select Heading</label>
+                                            <select class="form-control days_schedule" name="day_heading_2" class="form-control"
+                                            onchange="DayScheduleData('textdays2', this.selectedIndex,this.value)">
+                                            </select>
+                                            <label>Day Itinerary</label>
+                                            <textarea id="textdays2" name="day_itinerary_2">
+                                </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id='days_schedule-2' style="display:none;">
+                                    <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Select Day</label>
+                                            <select name="day_3" id="days3" class="form-control">
+                                                <option selected="selected" disabled>Select Day</option>
+                                                <option value="Day 1">1</option>
+                                                <option value="Day 2">2</option>
+                                                <option value="Day 3">3</option>
+                                                <option value="Day 4">4</option>
+                                                <option value="Day 5">5</option>
+                                                <option value="Day 6">6</option>
+                                                <option value="Day 7">7</option>
+                                                <option value="Day 8">8</option>
+                                                <option value="Day 9">9</option>
+                                                <option value="Day 10">10</option>
+                                                <option value="Day 11">11</option>
+                                                <option value="Day 12">12</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-9 mb-0">
+                                            <label>Select Heading</label>
+                                            <select class="form-control days_schedule" name="day_heading_3" class="form-control"
+                                            onchange="DayScheduleData('textdays3', this.selectedIndex,this.value)">
+                                            </select>
+                                            <label>Day Itinerary</label>
+                                            <textarea id="textdays3" name="day_itinerary_3">
+                                </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id='days_schedule-3' style="display:none;">
+                                    <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Select Day</label>
+                                            <select name="day_4" id="days4" class="form-control">
+                                                <option selected="selected" disabled>Select Day</option>
+                                                <option value="Day 1">1</option>
+                                                <option value="Day 2">2</option>
+                                                <option value="Day 3">3</option>
+                                                <option value="Day 4">4</option>
+                                                <option value="Day 5">5</option>
+                                                <option value="Day 6">6</option>
+                                                <option value="Day 7">7</option>
+                                                <option value="Day 8">8</option>
+                                                <option value="Day 9">9</option>
+                                                <option value="Day 10">10</option>
+                                                <option value="Day 11">11</option>
+                                                <option value="Day 12">12</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-9 mb-0">
+                                            <label>Select Heading</label>
+                                            <select class="form-control days_schedule" name="day_heading_4" class="form-control"
+                                            onchange="DayScheduleData('textdays4', this.selectedIndex,this.value)">
+                                            </select>
+                                            <label>Day Itinerary</label>
+                                            <textarea id="textdays4" name="day_itinerary_4">
+                                </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id='days_schedule-4' style="display:none;">
+                                    <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Select Day</label>
+                                            <select name="day_5" id="days5" class="form-control">
+                                                <option selected="selected" disabled>Select Day</option>
+                                                <option value="Day 1">1</option>
+                                                <option value="Day 2">2</option>
+                                                <option value="Day 3">3</option>
+                                                <option value="Day 4">4</option>
+                                                <option value="Day 5">5</option>
+                                                <option value="Day 6">6</option>
+                                                <option value="Day 7">7</option>
+                                                <option value="Day 8">8</option>
+                                                <option value="Day 9">9</option>
+                                                <option value="Day 10">10</option>
+                                                <option value="Day 11">11</option>
+                                                <option value="Day 12">12</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-9 mb-0">
+                                            <label>Select Heading</label>
+                                            <select class="form-control days_schedule" name="day_heading_5" class="form-control"
+                                            onchange="DayScheduleData('textdays5', this.selectedIndex,this.value)">
+                                            </select>
+                                            <label>Day Itinerary</label>
+                                            <textarea id="textdays5" name="day_itinerary_5">
+                                    </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id='days_schedule-5' style="display:none;">
+                                    <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Select Day</label>
+                                            <select name="day_6" id="days6" class="form-control">
+                                                <option selected="selected" disabled>Select Day</option>
+                                                <option value="Day 1">1</option>
+                                                <option value="Day 2">2</option>
+                                                <option value="Day 3">3</option>
+                                                <option value="Day 4">4</option>
+                                                <option value="Day 5">5</option>
+                                                <option value="Day 6">6</option>
+                                                <option value="Day 7">7</option>
+                                                <option value="Day 8">8</option>
+                                                <option value="Day 9">9</option>
+                                                <option value="Day 10">10</option>
+                                                <option value="Day 11">11</option>
+                                                <option value="Day 12">12</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-9 mb-0">
+                                            <label>Select Heading</label>
+                                            <select class="form-control days_schedule" name="day_heading_6" class="form-control"
+                                            onchange="DayScheduleData('textdays6', this.selectedIndex,this.value)">
+                                            </select>
+                                            <label>Day Itinerary</label>
+                                            <textarea id="textdays6" name="day_itinerary_6">
+                                    </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id='days_schedule-6' style="display:none;">
+                                    <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Select Day</label>
+                                            <select name="day_7" id="days7" class="form-control">
+                                                <option selected="selected" disabled>Select Day</option>
+                                                <option value="Day 1">1</option>
+                                                <option value="Day 2">2</option>
+                                                <option value="Day 3">3</option>
+                                                <option value="Day 4">4</option>
+                                                <option value="Day 5">5</option>
+                                                <option value="Day 6">6</option>
+                                                <option value="Day 7">7</option>
+                                                <option value="Day 8">8</option>
+                                                <option value="Day 9">9</option>
+                                                <option value="Day 10">10</option>
+                                                <option value="Day 11">11</option>
+                                                <option value="Day 12">12</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-9 mb-0">
+                                            <label>Select Heading</label>
+                                            <select class="form-control days_schedule" name="day_heading_7" class="form-control"
+                                            onchange="DayScheduleData('textdays7', this.selectedIndex,this.value)">
+                                            </select>
+                                            <label>Day Itinerary</label>
+                                            <textarea id="textdays7" name="day_itinerary_7">
+                                        </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id='days_schedule-7' style="display:none;">
+                                    <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Select Day</label>
+                                            <select name="day_8" id="days8" class="form-control">
+                                                <option selected="selected" disabled>Select Day</option>
+                                                <option value="Day 1">1</option>
+                                                <option value="Day 2">2</option>
+                                                <option value="Day 3">3</option>
+                                                <option value="Day 4">4</option>
+                                                <option value="Day 5">5</option>
+                                                <option value="Day 6">6</option>
+                                                <option value="Day 7">7</option>
+                                                <option value="Day 8">8</option>
+                                                <option value="Day 9">9</option>
+                                                <option value="Day 10">10</option>
+                                                <option value="Day 11">11</option>
+                                                <option value="Day 12">12</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-9 mb-0">
+                                            <label>Select Heading</label>
+                                            <select class="form-control days_schedule" name="day_heading_8" class="form-control"
+                                            onchange="DayScheduleData('textdays8', this.selectedIndex,this.value)">
+                                            </select>
+                                            <label>Day Itinerary</label>
+                                            <textarea id="textdays8" name="day_itinerary_8">
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id='days_schedule-8' style="display:none;">
+                                    <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Select Day</label>
+                                            <select name="day_9" id="days9" class="form-control">
+                                                <option selected="selected" disabled>Select Day</option>
+                                                <option value="Day 1">1</option>
+                                                <option value="Day 2">2</option>
+                                                <option value="Day 3">3</option>
+                                                <option value="Day 4">4</option>
+                                                <option value="Day 5">5</option>
+                                                <option value="Day 6">6</option>
+                                                <option value="Day 7">7</option>
+                                                <option value="Day 8">8</option>
+                                                <option value="Day 9">9</option>
+                                                <option value="Day 10">10</option>
+                                                <option value="Day 11">11</option>
+                                                <option value="Day 12">12</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-9 mb-0">
+                                            <label>Select Heading</label>
+                                            <select class="form-control days_schedule" class="form-control" name="day_heading_9"
+                                            onchange="DayScheduleData('textdays9', this.selectedIndex,this.value)">
+                                            </select>
+                                            <label>Day Itinerary</label>
+                                            <textarea id="textdays9" name="day_itinerary_9">
+                                                </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id='days_schedule-9' style="display:none;">
+                                    <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Select Day</label>
+                                            <select name="day_10" id="days10" class="form-control">
+                                                <option selected="selected" disabled>Select Day</option>
+                                                <option value="Day 1">1</option>
+                                                <option value="Day 2">2</option>
+                                                <option value="Day 3">3</option>
+                                                <option value="Day 4">4</option>
+                                                <option value="Day 5">5</option>
+                                                <option value="Day 6">6</option>
+                                                <option value="Day 7">7</option>
+                                                <option value="Day 8">8</option>
+                                                <option value="Day 9">9</option>
+                                                <option value="Day 10">10</option>
+                                                <option value="Day 11">11</option>
+                                                <option value="Day 12">12</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-9 mb-0">
+                                            <label>Select Heading</label>
+                                            <select class="form-control days_schedule" class="form-control" name="day_heading_10"
+                                            onchange="DayScheduleData('textdays10', this.selectedIndex,this.value)">
+                                            </select>
+                                            <label>Day Itinerary</label>
+                                            <textarea id="textdays10" name="day_itinerary_10">
+                                                    </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id='days_schedule-10' style="display:none;">
+                                    <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Select Day</label>
+                                            <select name="day_11" id="days11" class="form-control">
+                                                <option selected="selected" disabled>Select Day</option>
+                                                <option value="Day 1">1</option>
+                                                <option value="Day 2">2</option>
+                                                <option value="Day 3">3</option>
+                                                <option value="Day 4">4</option>
+                                                <option value="Day 5">5</option>
+                                                <option value="Day 6">6</option>
+                                                <option value="Day 7">7</option>
+                                                <option value="Day 8">8</option>
+                                                <option value="Day 9">9</option>
+                                                <option value="Day 10">10</option>
+                                                <option value="Day 11">11</option>
+                                                <option value="Day 12">12</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-9 mb-0">
+                                            <label>Select Heading</label>
+                                            <select class="form-control days_schedule" class="form-control" name="day_heading_11"
+                                            onchange="DayScheduleData('textdays11', this.selectedIndex,this.value)">
+                                            </select>
+                                            <label>Day Itinerary</label>
+                                            <textarea id="textdays11" name="day_itinerary_11">
+                                                        </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id='days_schedule-11' style="display:none;">
+                                    <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
+                                        <div class="form-group col-md-2 mb-0">
+                                            <label>Select Day</label>
+                                            <select name="day_12" id="days12" class="form-control">
+                                                <option selected="selected" disabled>Select Day</option>
+                                                <option value="Day 1">1</option>
+                                                <option value="Day 2">2</option>
+                                                <option value="Day 3">3</option>
+                                                <option value="Day 4">4</option>
+                                                <option value="Day 5">5</option>
+                                                <option value="Day 6">6</option>
+                                                <option value="Day 7">7</option>
+                                                <option value="Day 8">8</option>
+                                                <option value="Day 9">9</option>
+                                                <option value="Day 10">10</option>
+                                                <option value="Day 11">11</option>
+                                                <option value="Day 12">12</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-9 mb-0">
+                                            <label>Select Heading</label>
+                                            <select class="form-control Days_schedule" class="form-control" name="day_heading_12"
+                                            onchange="DayScheduleData('textdays12', this.selectedIndex,this.value)">
+                                            </select>
+                                            <label>Day Itinerary</label>
+                                            <textarea id="textdays12" name="day_itinerary_12">
+                                                            </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 mb-0">
+                                        <br />
+                                        <button type="button" class="btn btn-outline-info"
+                                            onclick="dayScheduleDisplay()">
+                                            Add Another days schedule
+                                        </button>
+                                    </div>
+                                </div>
+                </div>
+
+                <h1 class="my-4 px-2" style="background-color:aquamarine;">Trip Inclusion</h1>
+                <div class="form-row px-2 py-2" style="border: 1px solid gray;">
+                    <div class="form-group row col-12">
+                        <div class="col-2">
+                            <label>Inclusion / Exclusion</label>
+                        </div>
+                        <div class="col-10">
+                            <textarea id="textinclusion1" name="inclusion_exclusion">{{itinerary.inclusion_exclusion}}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-row row col-12">
+                        <div class="form-group col-4">
+                            <div class="col-12">
+                                <label>Activities</label>
+                            </div>
+                            <div class="col-12">
+                                <select name="activity_1" id="activity-data-1" onchange="ActivityChange('ActivityPrice-1',this.value,'number_of_people-1')" class="form-control activity_data">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-4">
+                            <div class="col-12">
+                                <label>No. of person</label>
+                            </div>
+                            <div class="col-12">
+                                <input type="number" id="number_of_people-1" onchange="ChangeActivityValue(this.value,'ActivityPrice-1','activity-data-1');" name="no_of_person_1" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group col-4">
+                            <div class="col-12">
+                                <label>Total Price</label>
+                            </div>
+                            <div class="col-12">
+                                <input type="number" name="activity_price_1" id="ActivityPrice-1" placeholder="Rs. X,xxx" class="form-control activity__price" />
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="form-row row col-12" id="trip-inclusion-1" style="display: none;">
+                        <div class="form-group col-4">
+                            <div class="col-12">
+                                <label>Activities</label>
+                            </div>
+                            <div class="col-12">
+                                <select name="activity_2"  id="activity-data-2" onchange="ActivityChange('ActivityPrice-2',this.value,'number_of_people-2')" class="form-control activity_data">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-4">
+                            <div class="col-12">
+                                <label>No. of person</label>
+                            </div>
+                            <div class="col-12">
+                                <input type="number" id="number_of_people-2" onchange="ChangeActivityValue(this.value,'ActivityPrice-2','activity-data-2');" name="no_of_person_2" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group col-4">
+                            <div class="col-12">
+                                <label>Total Price</label>
+                            </div>
+                            <div class="col-12">
+                                <input type="number" name="activity_price_2" id="ActivityPrice-2" placeholder="Rs. X,xxx" class="form-control activity__price" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row row col-12" id="trip-inclusion-2" style="display: none;">
+                        <div class="form-group col-4">
+                            <div class="col-12">
+                                <label>Activities</label>
+                            </div>
+                            <div class="col-12">
+                                <select name="activity_3"  id="activity-data-3" onchange="ActivityChange('ActivityPrice-3',this.value,'number_of_people-3')" class="form-control activity_data">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-4">
+                            <div class="col-12">
+                                <label>No. of person</label>
+                            </div>
+                            <div class="col-12">
+                                <input type="number" id="number_of_people-3" onchange="ChangeActivityValue(this.value,'ActivityPrice-3','activity-data-3');" name="no_of_person_3" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group col-4">
+                            <div class="col-12">
+                                <label>Total Price</label>
+                            </div>
+                            <div class="col-12">
+                                <input type="number" name="activity_price_3" id="ActivityPrice-3" placeholder="Rs. X,xxx" class="form-control activity__price" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row row col-12" id="trip-inclusion-3" style="display: none;">
+                        <div class="form-group col-4">
+                            <div class="col-12">
+                                <label>Activities</label>
+                            </div>
+                            <div class="col-12">
+                                <select name="activity_4" id="activity-data-4" onchange="ActivityChange('ActivityPrice-4',this.value,'number_of_people-4')" class="form-control activity_data">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-4">
+                            <div class="col-12">
+                                <label>No. of person</label>
+                            </div>
+                            <div class="col-12">
+                                <input type="number" id="number_of_people-4" onchange="ChangeActivityValue(this.value,'ActivityPrice-4','activity-data-4');" name="no_of_person_4" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group col-4">
+                            <div class="col-12">
+                                <label>Total Price</label>
+                            </div>
+                            <div class="col-12">
+                                <input type="number" name="activity_price_4"  id="ActivityPrice-4" placeholder="Rs. X,xxx" class="form-control activity__price" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row row col-12" id="trip-inclusion-4" style="display: none;">
+                        <div class="form-group col-4">
+                            <div class="col-12">
+                                <label>Activities</label>
+                            </div>
+                            <div class="col-12">
+                                <select name="activity_5" id="activity-data-5" onchange="ActivityChange('ActivityPrice-5',this.value,'number_of_people-5')" class="form-control activity_data">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-4">
+                            <div class="col-12">
+                                <label>No. of person</label>
+                            </div>
+                            <div class="col-12">
+                                <input type="number" id="number_of_people-5" onchange="ChangeActivityValue(this.value,'ActivityPrice-5','activity-data-5');" name="no_of_person_5" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group col-4">
+                            <div class="col-12">
+                                <label>Total Price</label>
+                            </div>
+                            <div class="col-12">
+                                <input type="number" name="activity_price_5" id="ActivityPrice-5" placeholder="Rs. X,xxx" class="form-control activity__price" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 mb-0">
+                            <br />
+                            <button type="button" class="btn btn-outline-info"
+                                onclick="TripInclusion()">
+                                Add More Activities
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <h1 class="mt-4 mb-3 px-2" style="background-color: aquamarine;">Hotel Details</h1>
+                <div class="form-data">
+                            <div class="form-row pl-3 my-3" style="border: 2px solid gainsboro; background-color:rgba(255,255,255,0.7);">
+                                    <div class="form-group row col-12">
+                                        <div class="col-3">
+                                            <label>Select City</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <select name="hotel_city_name_1" id="hotel_location1" class="form-control hotel_city">
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                        <div class="form-group row col-12">
+                                            <div class="col-3">
+                                                <label>Accommodation Category</label>
+                                            </div>
+                                            <div class="col-6">
+                                               <select name="accommodation_category-1"  id="AccommodationCat-1" class="form-control">
+                                                   <option value="">Select Accommodation Category</option>
+                                                   <option value="Budget Hotel">Budget Hotel</option>
+                                                   <option value="2 Star Hotel">2 Star Hotel</option>
+                                                   <option value="3 Star Hotel">3 Star Hotel</option>
+                                                   <option value="4 Star Hotel">4 Star Hotel</option>
+                                                   <option value="Cottage">Cottage</option>
+                                                   <option value="Campsite">Campsite</option>
+                                               </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row col-12">
+                                            <div class="col-3">
+                                                <label>Room Type</label>
+                                            </div>
+                                            <div class="col-6">
+                                               <select name="room_type" id="room_type-1" class="form-control">
+                                                   <option value="">Select Room Type</option>
+                                                   <option value="Standard">Standard</option>
+                                                   <option value="Delux">Delux</option>
+                                                   <option value="Premium">Premium</option>
+                                                   <option value="Family Suite">Family Suite</option>
+                                                   <option value="Honeymoon">Honeymoon</option>
+                                                   <option value="Suit">Suit</option>
+                                               </select>
+                                            </div>
+                                            <div class="col-3">
+                                                <p class="btn btn-danger" style="margin-top: 13px;" onclick="HotelData('room_type-1','AccommodationCat-1','hotel_location1','stay-name-1','honeymoon-kit-price-1','hotel__images-1')">Get Hotel</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row col-12">
+                                            <div class="col-3">
+                                                <label>Stay Name:</label>
+                                            </div>
+                                            <div class="col-6">
+                                                <select name="hotel_stay_name_1" id="stay-name-1" 
+                                                onchange="StayChange(this.value,'meal_type-1','room_sharing-1','honeymoon_kit-1','honeymoon-kit-price-1','number_of_room-1','number_of_night-1','hotel-total-price-1','hotel__images-1')" class="form-control">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="form-group row col-12">
+                                            <div class="col-3">
+                                                <label>Meal Type</label>
+                                            </div>
+                                            <div class="col-6">
+                                               <select name="meal_type_1" id="meal_type-1" class="form-control">
+                                                   <option value="">Select Category</option>
+                                               </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row col-12">
+                                            <div class="col-3">
+                                                <label>Room Sharing</label>
+                                            </div>
+                                            <div class="col-6">
+                                               <select name="room_sharing_1" id="room_sharing-1" class="form-control">
+                                               </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row col-12">
+                                            <div class="col-3">
+                                                <label>Honeymoon Kit</label>
+                                            </div>
+                                            <div class="col-6">
+                                               <select name="honeymoon_kit" class="form-control" id="honeymoon_kit-1">
+                                                   <option value="">Select Honeymoon Kit</option>
+                                               </select>
+                                            </div>
+                                            <div class="col-3 honeymoon_kit_price">
+                                                <input type="number" name="honeymoon_kit_price_1" class="form-control honerymoon_kit_price" id="honeymoon-kit-price-1" placeholder="Rs." style="display: none;" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row col-12">
+                                            <div class="col-3">
+                                                <label>Number Of Room</label>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="number" name="number_of_room_1" class="form-control" id="number_of_room-1" 
+                                                onchange="RoomNumberChange(this.value,'stay-name-1','hotel-total-price-1','number_of_night-1')" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-12 row">
+                                            <div class="col-3">
+                                                <label>Nights</label>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="text" name="hotel_nights_1" id="" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row col-12">
+                                            <div class="col-3">
+                                                <label>Number Of Night</label>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="number" name="number_of_night_1" class="form-control" id="number_of_night-1"
+                                                onchange="NumberNightChange(this.value,'hotel-total-price-1','number_of_room-1','stay-name-1')" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row col-12">
+                                            <div class="col-3">
+                                                <label>Total price : </label>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="text" name="hotel_total_cost_1" class="form-control hotel_price" id="hotel-total-price-1" placeholder="Rs.x,xxx"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group hotel__images-1">
+                                            <h3 class="my-3">Hotel Images</h3>
+
+                                        </div>
+                                </div>
+                            <div id='Hotel_schedule-1' class="form-row pl-3 my-3" style="display:none;border: 2px solid gainsboro; background-color:rgba(255,255,255,0.7);">
+                                <div class="form-group row col-12">
+                                    <div class="col-3">
+                                        <label>Select City</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <select name="hotel_city_name_2" id="hotel_location2" class="form-control hotel_city">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                    <div class="form-group row col-12">
+                                        <div class="col-3">
+                                            <label>Accommodation Category</label>
+                                        </div>
+                                        <div class="col-6">
+                                           <select name="accommodation_category"  id="AccommodationCat-2" class="form-control">
+                                               <option value="">Select Accommodation Category</option>
+                                               <option value="Budget Hotel">Budget Hotel</option>
+                                               <option value="2 Star Hotel">2 Star Hotel</option>
+                                               <option value="3 Star Hotel">3 Star Hotel</option>
+                                               <option value="4 Star Hotel">4 Star Hotel</option>
+                                               <option value="Cottage">Cottage</option>
+                                               <option value="Campsite">Campsite</option>
+                                           </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row col-12">
+                                        <div class="col-3">
+                                            <label>Room Type</label>
+                                        </div>
+                                        <div class="col-6">
+                                           <select name="room_type" id="room_type-2" class="form-control">
+                                               <option value="">Select Room Type</option>
+                                               <option value="Standard">Standard</option>
+                                               <option value="Delux">Delux</option>
+                                               <option value="Premium">Premium</option>
+                                               <option value="Family Suite">Family Suite</option>
+                                               <option value="Honeymoon">Honeymoon</option>
+                                               <option value="Suit">Suit</option>
+                                           </select>
+                                        </div>
+                                        <div class="col-3">
+                                            <p class="btn btn-danger" style="margin-top: 13px;" onclick="HotelData('room_type-2','AccommodationCat-2','hotel_location2','stay-name-2','honeymoon-kit-price-2','hotel__images-2')">Get Hotel</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row col-12">
+                                        <div class="col-3">
+                                            <label>Stay Name:</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <select name="hotel_stay_name_2" id="stay-name-2" 
+                                            onchange="StayChange(this.value,'meal_type-2','room_sharing-2','honeymoon_kit-2','honeymoon-kit-price-2','number_of_room-2','number_of_night-2','hotel-total-price-2','hotel__images-2')" class="form-control">
+                                            </select>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="form-group row col-12">
+                                        <div class="col-3">
+                                            <label>Meal Type</label>
+                                        </div>
+                                        <div class="col-6">
+                                           <select name="meal_type_2" id="meal_type-2" class="form-control">
+                                               <option value="">Select Category</option>
+                                           </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row col-12">
+                                        <div class="col-3">
+                                            <label>Room Sharing</label>
+                                        </div>
+                                        <div class="col-6">
+                                           <select name="room_sharing_2" id="room_sharing-2" class="form-control">
+                                           </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row col-12">
+                                        <div class="col-3">
+                                            <label>Honeymoon Kit</label>
+                                        </div>
+                                        <div class="col-6">
+                                           <select name="honeymoon_kit" class="form-control" id="honeymoon_kit-2">
+                                               <option value="">Select Honeymoon Kit</option>
+                                           </select>
+                                        </div>
+                                        <div class="col-3 honeymoon_kit_price">
+                                            <input type="number" name="honeymoon_kit_price_2" class="form-control honerymoon_kit_price" id="honeymoon-kit-price-2" placeholder="Rs." style="display: none;" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row col-12">
+                                        <div class="col-3">
+                                            <label>Number Of Room</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number" name="number_of_room_2" class="form-control" id="number_of_room-2" 
+                                            onchange="RoomNumberChange(this.value,'stay-name-2','hotel-total-price-2','number_of_night-2')" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-12 row">
+                                        <div class="col-3">
+                                            <label>Nights</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" name="hotel_nights_2" id="" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row col-12">
+                                        <div class="col-3">
+                                            <label>Number Of Night</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number" name="number_of_night_2" class="form-control" id="number_of_night-2"
+                                            onchange="NumberNightChange(this.value,'hotel-total-price-2','number_of_room-2','stay-name-2')" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row col-12">
+                                        <div class="col-3">
+                                            <label>Total price : </label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" name="hotel_total_cost_2" class="form-control hotel_price" id="hotel-total-price-2" placeholder="Rs.x,xxx"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group hotel__images-2">
+                                        <h3 class="my-3">Hotel Images</h3>
+
+                                    </div>
+                        </div>
+                        <div id='Hotel_schedule-2' class="form-row pl-3 my-3" style="display:none;border: 2px solid gainsboro; background-color:rgba(255,255,255,0.7);">
+                            <div class="form-group row col-12">
+                                <div class="col-3">
+                                    <label>Select City</label>
+                                </div>
+                                <div class="col-6">
+                                    <select name="hotel_city_name_3" id="hotel_location3" class="form-control hotel_city">
+                                    </select>
+                                </div>
+                            </div>
+
+                                <div class="form-group row col-12">
+                                    <div class="col-3">
+                                        <label>Accommodation Category</label>
+                                    </div>
+                                    <div class="col-6">
+                                       <select name="accommodation_category"  id="AccommodationCat-3" class="form-control">
+                                           <option value="">Select Accommodation Category</option>
+                                           <option value="Budget Hotel">Budget Hotel</option>
+                                           <option value="2 Star Hotel">2 Star Hotel</option>
+                                           <option value="3 Star Hotel">3 Star Hotel</option>
+                                           <option value="4 Star Hotel">4 Star Hotel</option>
+                                           <option value="Cottage">Cottage</option>
+                                           <option value="Campsite">Campsite</option>
+                                       </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row col-12">
+                                    <div class="col-3">
+                                        <label>Room Type</label>
+                                    </div>
+                                    <div class="col-6">
+                                       <select name="room_type" id="room_type-3" class="form-control">
+                                           <option value="">Select Room Type</option>
+                                           <option value="Standard">Standard</option>
+                                           <option value="Delux">Delux</option>
+                                           <option value="Premium">Premium</option>
+                                           <option value="Family Suite">Family Suite</option>
+                                           <option value="Honeymoon">Honeymoon</option>
+                                           <option value="Suit">Suit</option>
+                                       </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <p class="btn btn-danger" style="margin-top: 13px;" onclick="HotelData('room_type-3','AccommodationCat-3','hotel_location3','stay-name-3','honeymoon-kit-price-3','hotel__images-3')">Get Hotel</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row col-12">
+                                    <div class="col-3">
+                                        <label>Stay Name:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <select name="hotel_stay_name_3" id="stay-name-3" 
+                                        onchange="StayChange(this.value,'meal_type-3','room_sharing-3','honeymoon_kit-3','honeymoon-kit-price-3','number_of_room-3','number_of_night-3','hotel-total-price-3','hotel__images-3')" class="form-control">
+                                        </select>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group row col-12">
+                                    <div class="col-3">
+                                        <label>Meal Type</label>
+                                    </div>
+                                    <div class="col-6">
+                                       <select name="meal_type_3" id="meal_type-3" class="form-control">
+                                           <option value="">Select Category</option>
+                                       </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row col-12">
+                                    <div class="col-3">
+                                        <label>Room Sharing</label>
+                                    </div>
+                                    <div class="col-6">
+                                       <select name="room_sharing_3" id="room_sharing-3" class="form-control">
+                                       </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row col-12">
+                                    <div class="col-3">
+                                        <label>Honeymoon Kit</label>
+                                    </div>
+                                    <div class="col-6">
+                                       <select name="honeymoon_kit" class="form-control" id="honeymoon_kit-3">
+                                           <option value="">Select Honeymoon Kit</option>
+                                       </select>
+                                    </div>
+                                    <div class="col-3 honeymoon_kit_price">
+                                        <input type="number" name="honeymoon_kit_price_3" class="form-control honerymoon_kit_price_3" id="honeymoon-kit-price-3" placeholder="Rs." style="display: none;" />
+                                    </div>
+                                </div>
+                                <div class="form-group row col-12">
+                                    <div class="col-3">
+                                        <label>Number Of Room</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="number" name="number_of_room_3" class="form-control" id="number_of_room-3" 
+                                        onchange="RoomNumberChange(this.value,'stay-name-3','hotel-total-price-3','number_of_night-3')" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-12 row">
+                                    <div class="col-3">
+                                        <label>Nights</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" name="hotel_nights_3" id="" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group row col-12">
+                                    <div class="col-3">
+                                        <label>Number Of Night</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="number" name="number_of_night_3" class="form-control" id="number_of_night-3"
+                                        onchange="NumberNightChange(this.value,'hotel-total-price-3','number_of_room-3','stay-name-3')" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row col-12">
+                                    <div class="col-3">
+                                        <label>Total price : </label>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" name="hotel_total_cost_3" class="form-control hotel_price" id="hotel-total-price-3" placeholder="Rs.x,xxx"/>
+                                    </div>
+                                </div>
+                                <div class="form-group hotel__images-3">
+                                    <h3 class="my-3">Hotel Images</h3>
+
+                                </div>
+                    </div>
+                    <div id='Hotel_schedule-3' class="form-row pl-3 my-3" style="display:none;border: 2px solid gainsboro; background-color:rgba(255,255,255,0.7);">
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>Select City</label>
+                            </div>
+                            <div class="col-6">
+                                <select name="hotel_city_name_4" id="hotel_location4" class="form-control hotel_city">
+                                </select>
+                            </div>
+                        </div>
+
+                            <div class="form-group row col-12">
+                                <div class="col-3">
+                                    <label>Accommodation Category</label>
+                                </div>
+                                <div class="col-6">
+                                   <select name="accommodation_category"  id="AccommodationCat-4" class="form-control">
+                                       <option value="">Select Accommodation Category</option>
+                                       <option value="Budget Hotel">Budget Hotel</option>
+                                       <option value="2 Star Hotel">2 Star Hotel</option>
+                                       <option value="3 Star Hotel">3 Star Hotel</option>
+                                       <option value="4 Star Hotel">4 Star Hotel</option>
+                                       <option value="Cottage">Cottage</option>
+                                       <option value="Campsite">Campsite</option>
+                                   </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row col-12">
+                                <div class="col-3">
+                                    <label>Room Type</label>
+                                </div>
+                                <div class="col-6">
+                                   <select name="room_type" id="room_type-4" class="form-control">
+                                       <option value="">Select Room Type</option>
+                                       <option value="Standard">Standard</option>
+                                       <option value="Delux">Delux</option>
+                                       <option value="Premium">Premium</option>
+                                       <option value="Family Suite">Family Suite</option>
+                                       <option value="Honeymoon">Honeymoon</option>
+                                       <option value="Suit">Suit</option>
+                                   </select>
+                                </div>
+                                <div class="col-3">
+                                    <p class="btn btn-danger" style="margin-top: 13px;" onclick="HotelData('room_type-4','AccommodationCat-4','hotel_location4','stay-name-4','honeymoon-kit-price-4','hotel__images-4')">Get Hotel</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group row col-12">
+                                <div class="col-3">
+                                    <label>Stay Name:</label>
+                                </div>
+                                <div class="col-6">
+                                    <select name="hotel_stay_name_4" id="stay-name-4" 
+                                    onchange="StayChange(this.value,'meal_type-4','room_sharing-4','honeymoon_kit-4','honeymoon-kit-price-4','number_of_room-4','number_of_night-4','hotel-total-price-4','hotel__images-4')" 
+                                    class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                        
+                            <div class="form-group row col-12">
+                                <div class="col-3">
+                                    <label>Meal Type</label>
+                                </div>
+                                <div class="col-6">
+                                   <select name="meal_type_4" id="meal_type-4" class="form-control">
+                                       <option value="">Select Category</option>
+                                   </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row col-12">
+                                <div class="col-3">
+                                    <label>Room Sharing</label>
+                                </div>
+                                <div class="col-6">
+                                   <select name="room_sharing_4" id="room_sharing-4" class="form-control">
+                                   </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row col-12">
+                                <div class="col-3">
+                                    <label>Honeymoon Kit</label>
+                                </div>
+                                <div class="col-6">
+                                   <select name="honeymoon_kit" class="form-control" id="honeymoon_kit-4" >
+                                       <option value="">Select Honeymoon Kit</option>
+                                   </select>
+                                </div>
+                                <div class="col-3 honeymoon_kit_price">
+                                    <input type="number" name="honeymoon_kit_price_4" class="form-control honerymoon_kit_price_4" id="honeymoon-kit-price-4" placeholder="Rs." style="display: none;" />
+                                </div>
+                            </div>
+                            <div class="form-group row col-12">
+                                <div class="col-3">
+                                    <label>Number Of Room</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="number_of_room_4" class="form-control" id="number_of_room-4" 
+                                    onchange="RoomNumberChange(this.value,'stay-name-4','hotel-total-price-4','number_of_night-4')" />
+                                </div>
+                            </div>
+                            <div class="form-group col-12 row">
+                                <div class="col-3">
+                                    <label>Nights</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" name="hotel_nights_4" id="" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group row col-12">
+                                <div class="col-3">
+                                    <label>Number Of Night</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="number_of_night_4" class="form-control" id="number_of_night-4"
+                                    onchange="NumberNightChange(this.value,'hotel-total-price-4','number_of_room-4','stay-name-4')" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row col-12">
+                                <div class="col-3">
+                                    <label>Total price : </label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" name="hotel_total_cost_4" class="form-control hotel_price" id="hotel-total-price-4" placeholder="Rs.x,xxx"/>
+                                </div>
+                            </div>
+                            <div class="form-group hotel__images-4">
+                                <h3 class="my-3">Hotel Images</h3>
+
+                            </div>
+                    </div>
+                    <div id='Hotel_schedule-4' class="form-row pl-3 my-3" style="display:none;border: 2px solid gainsboro; background-color:rgba(255,255,255,0.7);">
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>Select City</label>
+                            </div>
+                            <div class="col-6">
+                                <select name="hotel_city_name_5" id="hotel_location5" class="form-control hotel_city">
+                                </select>
+                            </div>
+                        </div>
+
+                            <div class="form-group row col-12">
+                                <div class="col-3">
+                                    <label>Accommodation Category</label>
+                                </div>
+                                <div class="col-6">
+                                   <select name="accommodation_category"  id="AccommodationCat-5" class="form-control">
+                                       <option value="">Select Accommodation Category</option>
+                                       <option value="Budget Hotel">Budget Hotel</option>
+                                       <option value="2 Star Hotel">2 Star Hotel</option>
+                                       <option value="3 Star Hotel">3 Star Hotel</option>
+                                       <option value="4 Star Hotel">4 Star Hotel</option>
+                                       <option value="Cottage">Cottage</option>
+                                       <option value="Campsite">Campsite</option>
+                                   </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row col-12">
+                                <div class="col-3">
+                                    <label>Room Type</label>
+                                </div>
+                                <div class="col-6">
+                                   <select name="room_type" id="room_type-5" class="form-control">
+                                       <option value="">Select Room Type</option>
+                                       <option value="Standard">Standard</option>
+                                       <option value="Delux">Delux</option>
+                                       <option value="Premium">Premium</option>
+                                       <option value="Family Suite">Family Suite</option>
+                                       <option value="Honeymoon">Honeymoon</option>
+                                       <option value="Suit">Suit</option>
+                                   </select>
+                                </div>
+                                <div class="col-3">
+                                    <p class="btn btn-danger" style="margin-top: 13px;" onclick="HotelData('room_type-5','AccommodationCat-5','hotel_location5','stay-name-5','honeymoon-kit-price-5','hotel__images-5')">Get Hotel</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group row col-12">
+                                <div class="col-3">
+                                    <label>Stay Name:</label>
+                                </div>
+                                <div class="col-6">
+                                    <select name="hotel_stay_name_5" id="stay-name-5" 
+                                    onchange="StayChange(this.value,'meal_type-5','room_sharing-5','honeymoon_kit-5','honeymoon-kit-price-5','number_of_room-5','number_of_night-5','hotel-total-price-5','hotel__images-5')" 
+                                    class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                        
+                            <div class="form-group row col-12">
+                                <div class="col-3">
+                                    <label>Meal Type</label>
+                                </div>
+                                <div class="col-6">
+                                   <select name="meal_type_5" id="meal_type-5" class="form-control">
+                                       <option value="">Select Category</option>
+                                   </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row col-12">
+                                <div class="col-3">
+                                    <label>Room Sharing</label>
+                                </div>
+                                <div class="col-6">
+                                   <select name="room_sharing_5" id="room_sharing-5" class="form-control">
+                                   </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row col-12">
+                                <div class="col-3">
+                                    <label>Honeymoon Kit</label>
+                                </div>
+                                <div class="col-6">
+                                   <select name="honeymoon_kit" class="form-control" id="honeymoon_kit-5">
+                                       <option value="">Select Honeymoon Kit</option>
+                                   </select>
+                                </div>
+                                <div class="col-3 honeymoon_kit_price">
+                                    <input type="number" name="honeymoon_kit_price_5" class="form-control honerymoon_kit_price_5" id="honeymoon-kit-price-5" placeholder="Rs." style="display: none;" />
+                                </div>
+                            </div>
+                            <div class="form-group row col-12">
+                                <div class="col-3">
+                                    <label>Number Of Room</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="number_of_room_5" class="form-control" id="number_of_room-5" 
+                                    onchange="RoomNumberChange(this.value,'stay-name-5','hotel-total-price-5','number_of_night-5')" />
+                                </div>
+                            </div>
+                            <div class="form-group col-12 row">
+                                <div class="col-3">
+                                    <label>Nights</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" name="hotel_nights_5" id="" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group row col-12">
+                                <div class="col-3">
+                                    <label>Number Of Night</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="number_of_night_5" class="form-control" id="number_of_night-5"
+                                    onchange="NumberNightChange(this.value,'hotel-total-price-5','number_of_room-5','stay-name-5')" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row col-12">
+                                <div class="col-3">
+                                    <label>Total price : </label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" name="hotel_total_cost_5" class="form-control hotel_price" id="hotel-total-price-5" placeholder="Rs.x,xxx"/>
+                                </div>
+                            </div>
+                            <div class="form-group hotel__images-5">
+                                <h3 class="my-3">Hotel Images</h3>
+
+                            </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-3 mb-0">
+                            <br />
+                                <button type="button" class="btn btn-outline-info"
+                                    onclick="hotelScheduleDisplay()">
+                                    Add Another Hotel
+                                </button>
+                            </div>
+                    </div>
+                </div>
+
+                <h1 class="mt-3 px-2" style="background-color: aquamarine;">Transportation</h1>
+                <div class="form-data px-2 py-3" style="border: 1px solid gray;">
+                    <div class="form-row">
+                        <div class="form-row row col-12">
+                            <div class="col-3">
+                                <label>Vehicle Type</label>
+                            </div>
+                            <div class="col-9">
+                                <select name="vehicle_type_1" class="form-control" id="">
+                                    <option value="">Select Vehicle Type</option>
+                                    <option value="{{itinerary.vehicle_type_1}}" selected>{{itinerary.vehicle_type_1}}</option>
+                                    <option value="Sedan">Sedan</option>
+                                    <option value="Innova">Innova</option>
+                                    <option value="Ertiga">Ertiga</option>
+                                    <option value="Flight Ticket">Flight ticket</option>
+                                    <option value="Train Ticket">Train Ticket</option>
+                                    <option value="Bus Ticket">Bus Ticket</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row row col-12">
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>No of Unit</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="no_of_unit_1" value='{{itinerary.no_of_unit_1}}' class="form-control" id="" />
+                                </div>
+        
+                            </div>
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>Total Price</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="vehicle_total_price_1" value="{{itinerary.vehicle_total_price_1}}" class="form-control transport__price" id="" />
+                                </div>
+        
+                            </div>
+                    </div>
+
+                    </div>
+                    <div class="form-row"
+                    {% if not itinerary.vehicle_type_2 %}
+                     id="transportation-1" style="display: none;"
+                     {% endif %}>
+                        <div class="form-row row col-12">
+                            <div class="col-3">
+                                <label>Vehicle Type</label>
+                            </div>
+                            <div class="col-9">
+                                <select name="vehicle_type_2" class="form-control" id="">
+                                    <option value="">Select Vehicle Type</option>
+                                    <option value="{{itinerary.vehicle_type_2}}" selected>{{itinerary.vehicle_type_2}}</option>
+                                    <option value="Sedan">Sedan</option>
+                                    <option value="Innova">Innova</option>
+                                    <option value="Ertiga">Ertiga</option>
+                                    <option value="9-seater-tempo-traveller">9 Seater Tempo Traveller</option>
+                                    <option value="16-seater-tempo-traveller">16 seater tempo traveller</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row row col-12">
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>No of Unit</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="no_of_unit_2" value="{{itinerary.no_of_unit_2}}" class="form-control " id="" />
+                                </div>
+        
+                            </div>
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>Total Price</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="vehicle_total_price_2" value="{{itinerary.vehicle_total_price_2}}" class="form-control transport__price" id="" />
+                                </div>
+        
+                            </div>
+                    </div>
+
+                    </div>
+                    <div class="form-row"
+                    {% if not itinerary.vehicle_type_3 %}
+                    id="transportation-2" style="display: none;"
+                    {% endif %} >
+                        <div class="form-row row col-12">
+                            <div class="col-3">
+                                <label>Vehicle Type</label>
+                            </div>
+                            <div class="col-9">
+                                <select name="vehicle_type_3" class="form-control" id="">
+                                    <option value="">Select Vehicle Type</option>
+                                    <option value="{{itinerary.vehicle_type_3}}" selected>{{itinerary.vehicle_type_3}}</option>
+                                    <option value="Sedan">Sedan</option>
+                                    <option value="Innova">Innova</option>
+                                    <option value="Ertiga">Ertiga</option>
+                                    <option value="9-seater-tempo-traveller">9 Seater Tempo Traveller</option>
+                                    <option value="16-seater-tempo-traveller">16 seater tempo traveller</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row row col-12">
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>No of Unit</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="no_of_unit_3" value="{{itinerary.no_of_unit_3}}" class="form-control" id="" />
+                                </div>
+        
+                            </div>
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>Total Price</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="vehicle_total_price_3" value="{{itinerary.vehicle_total_price_3}}" class="form-control transport__price" id="" />
+                                </div>
+        
+                            </div>
+                    </div>
+
+                    </div>
+                    <div class="form-row" 
+                    {% if not itinerary.vehicle_type_4 %}
+                        id="transportation-3" style="display: none;"
+                    {% endif %}>
+                        <div class="form-row row col-12">
+                            <div class="col-3">
+                                <label>Vehicle Type</label>
+                            </div>
+                            <div class="col-9">
+                                <select name="vehicle_type_4" class="form-control" id="">
+                                    <option value="">Select Vehicle Type</option>
+                                    <option value="{{itinerary.vehicle_type_4}}" selected>{{itinerary.vehicle_type_4}}</option>
+                                    <option value="Sedan">Sedan</option>
+                                    <option value="Innova">Innova</option>
+                                    <option value="Ertiga">Ertiga</option>
+                                    <option value="9-seater-tempo-traveller">9 Seater Tempo Traveller</option>
+                                    <option value="16-seater-tempo-traveller">16 seater tempo traveller</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row row col-12">
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>No of Unit</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="no_of_unit_4" value="{{itinerary.no_of_unit_4}}" class="form-control" id="" />
+                                </div>
+        
+                            </div>
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>Total Price</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="vehicle_total_price_4" value="{{itinerary.vehicle_total_price_4}}" class="form-control transport__price" id="" />
+                                </div>
+        
+                            </div>
+                    </div>
+
+                    </div>
+                    <div class="form-row" 
+                   {% if not itinerary.vehicle_type_5 %}id="transportation-4" style="display: none;"{% endif %} >
+                        <div class="form-row row col-12">
+                            <div class="col-3">
+                                <label>Vehicle Type</label>
+                            </div>
+                            <div class="col-9">
+                                <select name="vehicle_type_5" class="form-control" id="">
+                                    <option value="">Select Vehicle Type</option>
+                                    <option value="{{itinerary.vehicle_type_5}}" selected>{{itinerary.vehicle_type_5}}</option>
+                                    <option value="Sedan">Sedan</option>
+                                    <option value="Innova">Innova</option>
+                                    <option value="Ertiga">Ertiga</option>
+                                    <option value="9-seater-tempo-traveller">9 Seater Tempo Traveller</option>
+                                    <option value="16-seater-tempo-traveller">16 seater tempo traveller</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row row col-12">
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>No of Unit</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="no_of_unit_5" value="{{itinerary.no_of_unit_5}}" class="form-control" id="" />
+                                </div>
+        
+                            </div>
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>Total Price</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="vehicle_total_price_5" value="{{itinerary.vehicle_total_price_5}}" class="form-control transport__price" id="" />
+                                </div>
+        
+                            </div>
+                    </div>
+
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-3 mb-0">
+                            <br />
+                            <button type="button" class="btn btn-outline-info"
+                                onclick="Transportation()">
+                                Add other Transportation
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <h1 class="mt-3 px-2" style="background-color: aquamarine;">Other Transportation</h1>
+                <div class="form-data px-2 py-3" style="border: 1px solid gray;">
+                    <div class="form-row">
+                        <div class="form-row row col-12">
+                            <div class="col-3">
+                                <label>Other Transportation</label>
+                            </div>
+                            <div class="col-9">
+                                <select name="other_vehicle_type_1" id="other-transport-name-1" onchange="OtherVehicleType('OtherTransportPrice-1',this.value,'Other-tran-people-1');" class="form-control other_transport_type">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row row col-12">
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>No of Unit</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="other_vehicle_no_of_unit_1" onchange="OtherTransportValue(this.value,'other-transport-name-1','OtherTransportPrice-1')" class="form-control" id="Other-tran-people-1" />
+                                </div>
+        
+                            </div>
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>Total Price</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="other_vehicle_total_price_1" class="form-control transport__price" id="OtherTransportPrice-1" />
+                                </div>
+        
+                            </div>
+                    </div>
+
+                    </div>
+                    <div class="form-row" id="other_transport-1" style="display: none;">
+                        <div class="form-row row col-12">
+                            <div class="col-3">
+                                <label>Other Transportation</label>
+                            </div>
+                            <div class="col-9">
+                                <select name="other_vehicle_type_2" id="other-transport-name-2" onchange="OtherVehicleType('OtherTransportPrice-2',this.value,'Other-tran-people-2');" class="form-control other_transport_type" >
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row row col-12">
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>No of Unit</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="other_vehicle_no_of_unit_2" class="form-control" onchange="OtherTransportValue(this.value,'other-transport-name-2','OtherTransportPrice-2')" class="form-control" id="Other-tran-people-2"/>
+                                </div>
+        
+                            </div>
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>Total Price</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="other_vehicle_total_price_2" class="form-control transport__price" id="OtherTransportPrice-2" />
+                                </div>
+        
+                            </div>
+                    </div>
+
+                    </div>
+
+                    <div class="form-row" id="other_transport-2" style="display: none;">
+                        <div class="form-row row col-12">
+                            <div class="col-3">
+                                <label>Other Transportation</label>
+                            </div>
+                            <div class="col-9">
+                                <select name="other_vehicle_type_3" class="form-control other_transport_type" id="other-transport-name-3" onchange="OtherVehicleType('OtherTransportPrice-3',this.value,'Other-tran-people-3');">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row row col-12">
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>No of Unit</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="other_vehicle_no_of_unit_3" class="form-control" onchange="OtherTransportValue(this.value,'other-transport-name-3','OtherTransportPrice-3')" class="form-control" id="Other-tran-people-3"/>
+                                </div>
+        
+                            </div>
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>Total Price</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="other_vehicle_total_price_3" class="form-control transport__price" id="OtherTransportPrice-3" />
+                                </div>
+        
+                            </div>
+                    </div>
+
+                    </div>
+                    <div class="form-row" id="other_transport-3" style="display: none;">
+                        <div class="form-row row col-12">
+                            <div class="col-3">
+                                <label>Other Transportation</label>
+                            </div>
+                            <div class="col-9">
+                                <select name="other_vehicle_type_4" class="form-control other_transport_type" id="other-transport-name-4" onchange="OtherVehicleType('OtherTransportPrice-4',this.value,'Other-tran-people-4');">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row row col-12">
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>No of Unit</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="other_vehicle_no_of_unit_4" onchange="OtherTransportValue(this.value,'other-transport-name-4','OtherTransportPrice-4')" class="form-control" id="Other-tran-people-4" />
+                                </div>
+        
+                            </div>
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>Total Price</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="other_vehicle_total_price_4" class="form-control transport__price" id="OtherTransportPrice-4" />
+                                </div>
+        
+                            </div>
+                    </div>
+
+                    </div>
+                    <div class="form-row" id="other_transport-4" style="display: none;">
+                        <div class="form-row row col-12">
+                            <div class="col-3">
+                                <label>Other Transportation</label>
+                            </div>
+                            <div class="col-9">
+                                <select name="other_vehicle_type_5" class="form-control other_transport_type" id="other-transport-name-5" onchange="OtherVehicleType('OtherTransportPrice-5',this.value,'Other-tran-people-5');">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row row col-12">
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>No of Unit</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="other_vehicle_no_of_unit_5" onchange="OtherTransportValue(this.value,'other-transport-name-5','OtherTransportPrice-5')" class="form-control" id="Other-tran-people-5" />
+                                </div>
+        
+                            </div>
+                            <div class="form-row row col-6">
+                                <div class="col-6">
+                                    <label>Total Price</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="other_vehicle_total_price_5" class="form-control transport__price" id="OtherTransportPrice-5" />
+                                </div>
+        
+                            </div>
+                    </div>
+
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-3 mb-0">
+                            <br />
+                            <button type="button" class="btn btn-outline-info"
+                                onclick="OtherTransport()">
+                                Add other Transportation
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <h1 class="mt-3 px-2" style="background-color: aquamarine;">Price </h1>
+                <div class="form-data px-2 py-3" style="border: 1px solid gray;">
+                    <div class="form-row row col-12">
+                        <div class="col-3">
+                            <label>Total Calculated Price </label>
+                        </div>
+                        <div class="col-6">
+                            <input type="Number" id="calculated_price" name="total_calculated_price" class="form-control" />
+                        </div>
+                        <div class="col-3 mt-3">
+                            <p class="btn btn-danger" onclick="GetTotalPrice()">Get Total Price</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label> Change in activity Price</label>
+                            </div>
+                            <div class="col-3">
+                                <input type="number" name="change_in_activity_price" id="" class="form-control change__price" />
+                            </div>
+                            <div class="col-6">
+                                <input type="text" name="change_in_activity_details" id="" class="form-control" placeholder="Details" />
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label> Change in Hotel Price</label>
+                            </div>
+                            <div class="col-3">
+                                <input type="number" name="change_in_hotel_price" id="" class="form-control change__price" />
+                            </div>
+                            <div class="col-6">
+                                <input type="text" name="change_in_hotel_details" id="" class="form-control" placeholder="Details" />
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label> Change in Transport Price</label>
+                            </div>
+                            <div class="col-3">
+                                <input type="number" name="change_in_transport_price" id="" class="form-control change__price" />
+                            </div>
+                            <div class="col-6">
+                                <input type="text" name="change_in_transport_details" id="" class="form-control" placeholder="Details" />
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>change other Price </label>
+                            </div>
+                            <div class="col-3">
+                                <input type="number" name="change_in_other_price" id="" class="form-control change__price" />
+                            </div>
+                            <div class="col-6">
+                                <input type="text" name="change_in_other_details" id="" class="form-control" placeholder="Details" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row row col-12">
+                        <div class="col-3">
+                            <label>Total Package Cost</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="number" name="total_trip_cost" id="total_calc_price" class="form-control " placeholder="X,xxx" />
+                        </div>
+                        <div class="col-3 mt-3">
+                            <p class="btn btn-danger" id="get_total_cost_btn">
+                                Get Total Cost
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="mt-3 px-2" style="background-color:aquamarine ;">Extra Off </h2>
+                <div class="form-data px-2 py-3" style="border: 1px solid gray;">
+                    <div class="form-group row col-12">
+                        <div class="col-3"><label>Extra Price Off</label></div>
+                        <div class="col-6">
+                            <input type="number" name="extra_price_off" class="form-control" id="" />
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3"><label>End of Extra Off</label></div>
+                        <div class="col-6">
+                            <select name="end_extra_off" class="form-control" id="" >
+                                <option value="2 Hr">2 Hour</option>
+                                <option value="5 Hr">5 Hour</option>
+                                <option value="10 Hr">10 Hour</option>
+                                <option value="12 Hr">12 Hour</option>
+                                <option value="18 Hr">18 Hour</option>
+                                <option value="24 Hr">24 Hour</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <h2 class="mt-3 px-2" style="background-color:aquamarine ;">Price To Display</h2>
+                <div class="form-data px-2 py-3" style="border: 1px solid gray;">
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>Payment Type</label>
+                        </div>
+                        <div class="col-6">
+                            <select name="payment_type" class="form-control" id="each__person_option">
+                                <option value="per copule">Per Couple</option>
+                                <option value="per person">Per person</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group col-12 row">
+                        <div class="col-3">
+                          <label>Number of people</label>  
+                        </div>
+                        <div class="col-6">
+                            <input type="number" name="number_of_people" class="form-control" id="numberOfPerson" placeholder="number of person/couple" />
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label >Display Price</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="number" name="each_people_cost" class="form-control" id="display_Per_Price" />
+                        </div>
+                        <div class="col-3">
+                            <p class="mt-3 btn btn-danger" id="eachPerson_price_btn">Get Price</p>
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>Regular Price</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="number" name="regular_price" id="regular_price" class="form-control" />
+                        </div>
+
+                    </div>
+                </div>
+
+                <h1 class="mt-3 px-2" style="background-color: aquamarine;">Agent Name</h1>
+                <div class="form-data px-2 py-3" style="border:1px solid gray">
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>Agent </label>
+                            </div>
+                            <div class="col-6">
+                                <select name="agant_name" class="form-control" id="agent" onchange="Agent('agent_phone',this.selectedIndex);">
+                                </select>        
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>Agant Number</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="number" name="agant_number" id="agent_phone" class="form-control" placeholder="agant Phone Number"/>
+                            </div>
+                        </div>
+                        <script language="javascript">agent_names("agent");</script>
+                </div>
+
+                <div class="form-btn my-4" style="width: 100%;display: flex;justify-content: center;align-items: center;">
+                    <button type="submit" class="btn btn-danger px-4 py-2">Save Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-lg-4 ">
+                        <div class="footer_widget">
+                            <div class="footer_logo">
+                                <a href="#">
+                                    <img src={% static 'img/footer.png' %} height="120px" width="300px" alt="">
+                                </a>
+                            </div>
+                            <a href="#">+91 8882654593</a> <br>
+                            <a href="mailto:contact@universaladventures.in">contact@universaladventures.in</a>
+                            </p>
+                            <div class="socail_links">
+                                <ul>
+                                    <li>
+                                        <a href="https://www.facebook.com/universaladventuresindia/">
+                                            <i class="ti-facebook"></i>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="https://www.instagram.com/universaladventuresindia/">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://g.co/kgs/FEs31r">
+                                            <i class="fa fa-google-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Company
+                            </h3>
+                            <ul class="links">
+                                <ul class="links">
+                                    <li><a href="/about/">About</a></li>
+                                    <li><a href="/contact/"> Contact</a></li>
+                                    <li><a href="/privacy-policy/">Privacy-Policy</a></li>
+                                    <li><a href="/partial-payment/">Partial Payment</a></li>
+                                    <li><a href="/refund-policy">Payments & Refund Policy</a></li>
+                                </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Popular destination
+                            </h3>
+                            <ul class="links double_links">
+                                <li><a href="/destination/Goa/">Goa</a></li>
+                                <li><a href="/destination/Karnataka/">Karnataka</a></li>
+                                <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
+                                <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
+                                <li><a href="/destination/Rajasthan/">Rajasthan</a></li>
+                                <li><a href="/destination/Maharashtra/">Maharashtra</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Instagram
+                            </h3>
+                            <div class="instagram_feed">
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/1.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/2.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/3.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/4.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/5.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/6.png' %} alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- JS here -->
+    <script src={% static 'js/vendor/modernizr-3.5.0.min.js' %}></script>
+    <script src={% static 'js/vendor/jquery-1.12.4.min.js' %}></script>
+    <script src={% static 'js/popper.min.js' %}></script>
+    <script src={% static 'js/bootstrap.min.js' %}></script>
+    <script src={% static 'js/owl.carousel.min.js' %}></script>
+    <script src={% static 'js/isotope.pkgd.min.js' %}></script>
+    <script src={% static 'js/ajax-form.js' %}></script>
+    <script src={% static 'js/waypoints.min.js' %}></script>
+    <script src={% static 'js/jquery.counterup.min.js' %}></script>
+    <script src={% static 'js/imagesloaded.pkgd.min.js' %}></script>
+    <script src={% static 'js/scrollIt.js' %}></script>
+    <script src={% static 'js/jquery.scrollUp.min.js' %}></script>
+    <script src={% static 'js/wow.min.js' %}""></script>
+    <script src={% static 'js/nice-select.min.js' %}></script>
+    <script src={% static 'js/jquery.slicknav.min.js' %}></script>
+    <script src={% static 'js/jquery.magnific-popup.min.js' %}""></script>
+    <script src={% static 'js/plugins.js' %}></script>
+    <script src={% static 'js/gijgo.min.js' %}></script>
+    <script src={% static 'js/slick.min.js' %}></script>
+    <script src={% static 'js/tagsinput.js' %}></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <!--contact js-->
+
+    <script src={% static 'js/contact.js' %}></script>
+    <script src={% static 'js/jquery.ajaxchimp.min.js' %}></script>
+    <script src={% static 'js/jquery.form.js' %}></script>
+    <script src={% static 'js/jquery.validate.min.js' %}></script>
+    <script src={% static 'js/mail-script.js' %}></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script src= "https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.0.0/dist/js/BsMultiSelect.bs4.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+    <script src={% static 'js/main.js' %}></script>
+    <script>
+        {% if messages %}
+            {% for message in messages %}
+                swal({
+                    title: "{{message}}",
+                    icon: "success",
+                    });
+            {% endfor %}
+        {% endif %}
+    </script>
+    <script>
+        $("#example").bsMultiSelect();
+        
+        function inc(){
+            console.log($('#example').val())
+            var arr= $('#example').val()
+                    var complete =``;
+                    arr.forEach(element => {
+                        complete =complete + element
+                    }); 
+
+            $('#inclusion').val(complete)
+            console.log(complete)
+        }
+    </script>
+    <script>
+        $('#honeymoon_kit').change((e) =>
+        {
+            if(e.target.value === 'yes')
+            {
+                $('.honeymoon_kit_price').show(500);
+            }
+            else if(e.target.value == 'no')
+            {
+                $('.honeymoon_kit_price').hide(500);
+            }
+        }
+        )
+        $("#post-form").submit(function (e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+<script>
+    $('#datepicker').datepicker({
+        iconsLibrary: 'fontawesome',
+        icons: {
+            rightIcon: '<span class="fa fa-caret-down"></span>'
+        }
+    });
+</script>
+<script>
+    $(function () {
+        $(window).scroll(function () {
+            var mainbottom = $("header").offset().top + $("header").height();
+            if ($(this).scrollTop() < mainbottom) {
+
+                $('nav').removeClass('first');
+
+            } else {
+
+                $('nav').addClass('first');
+
+            }
+        })
+    })
+</script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script>
+    $('#summernote').summernote({
+        tabsize: 2,
+        height: 250
+    });
+    $('#summernote2').summernote({
+        tabsize: 2,
+        height: 250
+    });
+    $('#textdays1').summernote({
+        tabsize: 2,
+        height: 350
+    });
+    $('#textdays2').summernote({
+        tabsize: 2,
+        height: 350
+    });
+    $('#textdays3').summernote({
+        tabsize: 2,
+        height: 350
+    });
+    $('#textdays4').summernote({
+        tabsize: 2,
+        height: 350
+    });
+    $('#textdays5').summernote({
+        tabsize: 2,
+        height: 350
+    });
+    $('#textdays6').summernote({
+        tabsize: 2,
+        height: 350
+    });
+    $('#textdays7').summernote({
+        tabsize: 2,
+        height: 350
+    });
+    $('#textdays8').summernote({
+        tabsize: 2,
+        height: 350
+    });
+    $('#textdays9').summernote({
+        tabsize: 2,
+        height: 350
+    });
+    $('#textdays10').summernote({
+        tabsize: 2,
+        height: 350
+    });
+    $('#textdays11').summernote({
+        tabsize: 2,
+        height: 350
+    });
+    $('#textdays12').summernote({
+        tabsize: 2,
+        height: 350
+    });
+    $('#textinclusion1').summernote({
+        tabsize: 2,
+        height: 250
+    });
+    $('#trip_highlight').summernote({
+        tabsize: 2,
+        height: 250
+    });
+</script>
+<script>
+    var count = 1;
+    var countMax = 11;
+    var hotelLength = 1;
+    var hotelLengthMax = 4;
+    function dayScheduleDisplay() 
+    {
+        if (count > countMax)
+            return;
+        $('#days_schedule-' + count + '').show(500);
+        count++;
+    }
+    function hotelScheduleDisplay() {
+        if (hotelLength > hotelLengthMax)
+            return;
+        $('#Hotel_schedule-' + hotelLength + '').show(500);
+        hotelLength++;
+    }
+</script>
+<script>
+    let inclusionLength = 1;
+    var countMax = 6;
+    let transportLength = 1;
+    const max_transportLength = 5;
+    function TripInclusion() 
+    {
+        if (inclusionLength > countMax)
+            return;
+
+        $(`#trip-inclusion-${inclusionLength}`).show(500);
+        inclusionLength++;
+    }
+    const Transportation = () =>
+    {
+        if (transportLength > max_transportLength) 
+        {
+            return; 
+        }
+        $(`#transportation-${transportLength}`).show(500);
+        transportLength++;
+    }
+
+    let otherTransport_len = 1;
+    const otherTransport_max = 5;
+
+    const OtherTransport = () =>
+    {
+        if(otherTransport_len > otherTransport_max)
+            return;
+        $(`#other_transport-${otherTransport_len}`).show(500);
+        otherTransport_len++;
+
+    }
+</script>
+<script>
+    let state_itineraries = [];
+    let city_hotels =[];
+    let day_schedule = [];
+    let activity_array = [];
+    let other_transport_array = [];
+    let hotel_data = [];
+    let trip_data = [];
+    $('#location').change((e) =>
+    {
+        $.ajax({
+            url:'/getItineraryData/',
+            method:'GET',
+            data:{
+                'state':e.target.value
+            },
+            success: (response) =>
+            {
+                state_itineraries = response.state_itineraries;
+                city_hotels = response.city_hotels;
+
+                console.log(city_hotels);
+
+                state_itineraries.forEach((state_itinerary) =>
+                {
+                    if(state_itinerary.trip_name !== null)
+                    {
+                        trip_data.push({'trip_name':state_itinerary.trip_name,'category':state_itinerary.trip_category , 
+                    'locations':state_itinerary.locations});
+                    }
+                    if(state_itinerary.day_schedule_heading !== null)
+                    {
+                        day_schedule.push({'heading':state_itinerary.day_schedule_heading,
+                    'data':state_itinerary.day_schedule_itinerary});
+                    }
+                    else if(state_itinerary.activity_name !== null)
+                    {
+                        activity_array.push({'name':state_itinerary.activity_name,
+                        'price':state_itinerary.activity_price})
+                    }
+                    else if(state_itinerary.other_transport_name !== null)
+                    {
+                        other_transport_array.push({'name':state_itinerary.other_transport_name,
+                    'price':state_itinerary.other_transport_price})
+
+
+                    }
+                })
+
+                console.log(trip_data);
+
+                // =============================== hotel functionallity ===============================
+
+                let c_h =  `<option value="">Select hotel City</option>` ;
+
+                city_hotels.forEach((hotel) =>
+                {
+                    c_h +=  `<option value="${hotel.city}">${hotel.city}</option>`;
+
+                })
+                $('.hotel_city').html(c_h);
+                
+
+                // =============================== hotel functionallity ===============================
+                let t_n= `<option value="">Select Trip</option>`;
+
+                trip_data.forEach((t_d) =>
+                {
+                    t_n += `<option value="${t_d.trip_name}">${t_d.trip_name}</option>`;
+                })
+
+                $('#trip__name').html(t_n);
+
+
+                let d_s = `<option value="">Select Day schedule</option>`;
+
+                day_schedule.forEach((ds,index) =>
+                {
+                    d_s += `<option value="${ds.heading}" data-id="${index+1}">${ds.heading}</option>`;
+                })
+                $('.Days_schedule').html(d_s);
+
+                let a1 = `<option value="">Select Activity</option>`;
+                
+                activity_array.forEach((a,index) =>
+                {
+                    a1 += `<option value="${a.name}" data-id="${index}">${a.name}</option>`;
+                    
+                })
+                $('.activity_data').html(a1);
+
+                let o_t = `<option value="">Select other Transport</option>`;
+                other_transport_array.forEach((o1,index) =>
+                {
+                    o_t += `<option value="${o1.name}" data-id="${index}">${o1.name}</option>`;
+
+                })
+                $('.other_transport_type').html(o_t);   
+
+            }
+        })
+        
+    });
+
+
+        // ================================ onchange events others ==================================
+
+        $('#trip__name').change((e) =>
+        {
+            let locations = [];
+            console.log(e.target.value);
+            trip_data.forEach((t_d) =>
+            {
+                if(t_d.trip_name === e.target.value)
+                {
+                    locations = t_d.locations.split(',');
+                    document.getElementById('trip_category').innerHTML +=  `<option value="${t_d.category}" selected>${t_d.category}</option>`;
+                }
+            })
+
+            let t_l = `<option value="">select location</option>`;
+            locations.forEach((loc) =>
+            {
+                t_l += `<option value="${loc}">${loc}</option>`;
+
+            })
+
+            $('#start_loc').html(t_l);
+            $('#end_loc').html(t_l);
+
+            console.log(locations);
+        })
+        function DayScheduleData(city_id, city_index,val) 
+        {
+            var option_str = document.getElementById(city_id);
+                day_schedule.forEach((ds) =>
+                {
+                    if(ds.heading === val)
+                    {
+                        $(option_str).summernote('reset');
+                        $(option_str).summernote('pasteHTML', ds.data);
+                    }
+                })
+            }
+
+            const ActivityChange = (price_id,val,no_person) =>
+            {
+                var option_str = document.getElementById(price_id);
+                var n_p = document.getElementById(no_person);
+                
+                activity_array.forEach((act) =>
+                {
+                    if(act.name === val)
+                    {
+                        option_str.value = act.price ;
+                        n_p.value = 1;
+                    }
+                })
+            
+        }
+        const ChangeActivityValue = (val,price_id,act_name) =>{
+
+            var activity_name =document.getElementById(act_name);
+            var option_str = document.getElementById(price_id);
+
+            activity_array.forEach((act) =>
+            {
+                if(act.name === activity_name.value)
+                {
+                    option_str.value = val * act.price ;
+                }
+            })
+
+        }
+
+        const OtherVehicleType = (price_id,val,no_person) =>
+        {
+            var option_str = document.getElementById(price_id);
+            var n_p = document.getElementById(no_person);
+            other_transport_array.forEach((ota) =>
+            {
+                if(ota.name === val)
+                {
+                    option_str.value = ota.price ;
+                    n_p.value = 1;
+                }
+            })
+            
+        }
+
+        const OtherTransportValue = (val,tran_name,price_id) =>
+        {
+            var option_str = document.getElementById(price_id);
+            var tran_name =document.getElementById(tran_name);
+            var option_str = document.getElementById(price_id);
+
+            other_transport_array.forEach((act) =>
+            {
+                if(act.name === tran_name.value)
+                {
+                    option_str.value = val * act.price ;
+                }
+            })
+
+        }
+        
+        // ================================ onchange events others =======================================
+
+        const HotelData = (room_type,acco_cat,loc,stay_name,honeymoon_kit,hotel_img) =>
+        {
+            let after_get_city_array = []
+            let location = document.getElementById(loc);
+            let acco__cat = document.getElementById(acco_cat);
+            let room__type = document.getElementById(room_type);
+            let honey__kit = document.getElementById(honeymoon_kit);
+            let hotel__img = document.querySelector(`.${hotel_img}`);
+            console.log("HotelData Changes : ",room__type.value,location.value,acco__cat.value);
+
+            console.log('hello world')
+
+            city_hotels.forEach((ch) =>
+            {
+                if(ch.city === location.value && ch.accommodation_category === acco__cat.value && ch.room_type === room__type.value)
+                {
+                   after_get_city_array.push(ch);
+                }
+            })
+
+            console.log(after_get_city_array);
+
+            let s_n = `<option value="">Select Stay Name</option>`;
+
+            after_get_city_array.forEach((ach) =>
+            {
+                s_n += `<option value="${ach.stay_name}">${ach.stay_name}</option>`
+            })
+
+            $(`#${stay_name}`).html(s_n);
+            honey__kit.value = 0;
+            honey__kit.style.display = 'none';
+            hotel__img.innerHTML = '';
+
+        }
+
+        const StayChange = (val,meal_type,room_shar,honey_kit,honey_kit_price,number_of_room , number_of_night,hotel_price,hotel_image) =>
+        {
+            let meal__type = document.getElementById(meal_type);
+            let room__shar = document.getElementById(room_shar);
+            let honey__kit = document.getElementById(honey_kit);
+            let honey__kit_price = document.getElementById(honey_kit_price);
+            let num_room = document.getElementById(number_of_room);
+            let num_night = document.getElementById(number_of_night);
+            let hot_tot_price = document.getElementById(hotel_price);
+            let hotel__image = document.querySelector(`.${hotel_image}`);
+
+            console.log(val);
+
+            if(val.length !== 0)
+            {
+                city_hotels.forEach((c_h) =>
+                {
+                    if(c_h.stay_name === val)
+                    {
+                        meal__type.innerHTML = `<option value="${c_h.meal_type}" selected>${c_h.meal_type}</option>`;
+                        room__shar.innerHTML = `<option value="${c_h.room_sharing}" selected>${c_h.room_sharing}</option>`;
+                        num_night.value = 1;
+                        num_room.value = 1;
+                        hot_tot_price.value = c_h.total_price ;
+                        if(c_h.honeymoon_kit_price !== null)
+                        {
+                            honey__kit.innerHTML = `<option value='yes'>Yes</option>`;
+                            honey__kit_price.style.display = 'block';
+                            honey__kit_price.value = c_h.honeymoon_kit_price;
+                        }
+                        else
+                        {
+                            honey__kit.innerHTML = `<option value='no'>No</option>`;
+                        }
+
+                        if(c_h.image1)
+                        {
+                            hotel__image.innerHTML += `<img src="/abcd/${c_h.image1}" class="mx-2 my-2" style="width:200px;">`;
+                        }
+                        if(c_h.image2)
+                        {
+                            hotel__image.innerHTML += `<img src="/abcd/${c_h.image2}" class="mx-2 my-2" style="width:200px;">`;
+
+                        }
+                        if(c_h.image3)
+                        {
+                            hotel__image.innerHTML += `<img src="/abcd/${c_h.image3}" class="mx-2 my-2" style="width:200px;">`;
+
+                        }
+                        if(c_h.image4)
+                        {
+                            hotel__image.innerHTML += `<img src="/abcd/${c_h.image4}" class="mx-2 my-2" style="width:200px;">`;
+
+                        }
+                        if(c_h.image5)
+                        {
+                            hotel__image.innerHTML += `<img src="/abcd/${c_h.image5}" class="mx-2 my-2" style="width:200px;">`;
+
+                        }
+                        if(c_h.image6)
+                        {
+                            hotel__image.innerHTML += `<img src="/abcd/${c_h.image6}" class="mx-2 my-2" style="width:200px;">`;
+
+                        }
+                        if(c_h.image6)
+                        {
+                            hotel__image.innerHTML += `<img src="/abcd/${c_h.image6}" class="mx-2 my-2" style="width:200px;">`;
+
+                        }
+                    }
+                })
+
+            }
+            else
+            {
+                meal__type.innerHTML = ``;
+                room__shar.innerHTML = '';
+                honey__kit.innerHTML = '';
+                num_night.value = 0;
+                num_room.value = 0;
+                hot_tot_price.value = 0 ;
+                hotel__image.innerHTML = "";
+
+            }
+
+
+        }
+
+        const RoomNumberChange = (val,stay_name,total_price,no_night) =>
+        {
+            let stay__name = document.getElementById(stay_name);
+            let total__price = document.getElementById(total_price);
+            let no__night = document.getElementById(no_night);
+
+            city_hotels.forEach((c_h) =>
+            {
+                if(c_h.stay_name === stay__name.value)
+                {
+                    total__price.value = val * c_h.total_price * no__night.value;
+                }
+
+            })
+        }
+
+        const NumberNightChange = (val,total_price,no_room,stay_name) =>
+        {
+            let total__price = document.getElementById(total_price);
+            let stay__name = document.getElementById(stay_name);
+            let no__room = document.getElementById(no_room);
+
+            city_hotels.forEach((c_h) =>
+            {
+                if(c_h.stay_name === stay__name.value)
+                {
+                    total__price.value = no__room.value * c_h.total_price *val;
+                }
+
+            })
+
+        }
+        
+        // ================================ onchange events hotels =======================================
+
+
+
+        //======================================= get total price ======================================
+
+
+        const GetTotalPrice = () =>
+        {
+            let activity__price = document.querySelectorAll('.activity__price');
+            let transport_price = document.querySelectorAll('.transport__price');
+            let hotel__price = document.querySelectorAll('.hotel_price');
+            let act_price_count = 0;
+            let transport_price_count = 0;
+            let hotel_price_count = 0;
+            activity__price.forEach((e)=>
+            {
+                if(e.value.length !== 0)
+                {
+                    act_price_count +=  parseInt(e.value);
+                }
+            } )
+
+            transport_price.forEach((e) =>
+            {
+                if(e.value.length !== 0)
+                {
+                    transport_price_count += parseInt(e.value);
+                    console.log(e.value);
+                }
+            })
+
+            hotel__price.forEach((e) =>
+            {
+                if(e.value.length !== 0)
+                {
+                    hotel_price_count += parseInt(e.value);
+
+                }
+            })
+
+            $('#calculated_price').val(act_price_count + transport_price_count + hotel_price_count);
+    
+
+        }
+
+
+        $('#get_total_cost_btn').click(() =>
+        {
+            let changes__price = document.querySelectorAll('.change__price');
+            let total__count = document.getElementById('calculated_price');
+            let count_price = 0;
+            changes__price.forEach((e) =>
+            {
+                if(e.value.length !== 0)
+                {
+                    count_price += parseInt(e.value);
+                }
+            })
+
+            $('#total_calc_price').val(parseInt(total__count.value) + count_price);
+        })
+
+
+        $('#eachPerson_price_btn').click(() =>
+        {
+            let option = document.getElementById('each__person_option');
+            let count = document.getElementById('numberOfPerson');
+            let total_cost = document.getElementById('total_calc_price');
+            if(option.value === 'per copule')
+            {
+                let get_couple = count.value / 2;
+                let calculate = parseInt(total_cost.value)/get_couple
+                $('#display_Per_Price').val(calculate.toFixed(2));
+
+
+            }
+            else if(option.value === 'per person')
+            {
+                let calculate = parseInt(total_cost.value)/count.value;
+                $('#display_Per_Price').val(calculate.toFixed(2));
+
+            }
+
+
+        })
+
+
+</script>
+
+</body>
+
+</html>
+{% endblock %}

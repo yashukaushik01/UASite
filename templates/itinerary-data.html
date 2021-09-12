@@ -995,7 +995,9 @@
 
                     </div>
                 </div>
-                <button class="btn btn-danger py-3 mt-4" style="width: 100%;border-radius: 0;margin: 0;">Book Now</button>
+                <button class="btn btn-danger py-3 mt-4"
+                onclick=" window.location.href = `/tour-payment/{{itinerary.slug}}` "
+                 style="width: 100%;border-radius: 0;margin: 0;">Book Now</button>
             </div>
 
             {% endautoescape %}
@@ -1023,7 +1025,8 @@
             </div>
             <!-- <div class="extra_off__container container" style="padding: 0;border: 1px solid gray;margin: 0;">
             </div> -->
-            <button class="btn btn-danger" style="width: 100%;border-radius: 0;border: 1px solid gray;">Book your
+            <button class="btn btn-danger" style="width: 100%;border-radius: 0;border: 1px solid gray;"
+            onclick="window.location.href = `/tour-payment/{{itinerary.slug}}` ">Book your
                 package in 3 simple step!<br> Book Now!</button>
 
         </div>

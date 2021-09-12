@@ -28,6 +28,7 @@ urlpatterns = [
     path('city-hotel-form/',views.cityHotel , name="cityHotel"),
     path('city-hotel-list/',views.CityHotelList , name="cityHotelList"),
     path('itinerary-data-list/',views.ItineraryDataList , name="ItineraryDataList"),
+    path('itinerary-data-edit/<slug:pk>',views.ItineraryDataEdit,name="ItineraryDataEdit"),
     path('add-itinerary-form/',views.AddItineraryData , name="addItineraryForm"),
     path('getItineraryData/',views.getItineraryData , name="getItineraryData"),
     path('itinerary-data/<slug:slug>',views.itineraryData,name="itinerary-data"),

@@ -52,9 +52,9 @@
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
 </head>
    <script>
-        var state_arr = new Array("Andaman & Nicobar", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chandigarh", "Chhattisgarh", "Dadra & Nagar Haveli", "Daman & Diu", "Delhi", "Goa", "Gujarat", "Haryana", "Himachal-Pradesh", "Jammu-Kashmir", "Jharkhand", "Karnataka", "Kerala", "Lakshadweep", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Orissa", "Pondicherry", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Tripura", "Uttar-Pradesh", "Uttaranchal", "West Bengal");
+        {% comment %} var state_arr = new Array("Andaman & Nicobar", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chandigarh", "Chhattisgarh", "Dadra & Nagar Haveli", "Daman & Diu", "Delhi", "Goa", "Gujarat", "Haryana", "Himachal-Pradesh", "Jammu-Kashmir", "Jharkhand", "Karnataka", "Kerala", "Lakshadweep", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Orissa", "Pondicherry", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Tripura", "Uttar-Pradesh", "Uttaranchal", "West Bengal"); {% endcomment %}
         var cat_arr = new Array("Adventure","Tour");
-    var s_a = new Array();
+    {% comment %} var s_a = new Array();
     s_a[0]="";
     s_a[1]=" Alipur | Andaman Island | Anderson Island | Arainj-Laka-Punga | Austinabad | Bamboo Flat | Barren Island | Beadonabad | Betapur | Bindraban | Bonington | Brookesabad | Cadell Point | Calicut | Chetamale | Cinque Islands | Defence Island | Digilpur | Dolyganj | Flat Island | Geinyale | Great Coco Island | Haddo | Havelock Island | Henry Lawrence Island | Herbertabad | Hobdaypur | Ilichar | Ingoie | Inteview Island | Jangli Ghat | Jhon Lawrence Island | Karen | Kartara | KYD Islannd | Landfall Island | Little Andmand | Little Coco Island | Long Island | Maimyo | Malappuram | Manglutan | Manpur | Mitha Khari | Neill Island | Nicobar Island | North Brother Island | North Passage Island | North Sentinel Island | Nothen Reef Island | Outram Island | Pahlagaon | Palalankwe | Passage Island | Phaiapong | Phoenix Island | Port Blair | Preparis Island | Protheroepur | Rangachang | Rongat | Rutland Island | Sabari | Saddle Peak | Shadipur | Smith Island | Sound Island | South Sentinel Island | Spike Island | Tarmugli Island | Taylerabad | Titaije | Toibalawe | Tusonabad | West Island | Wimberleyganj | Yadita";
     s_a[2]=" Achampet | Adilabad | Adoni | Alampur | Allagadda | Alur | Amalapuram | Amangallu | Anakapalle | Anantapur | Andole | Araku | Armoor | Asifabad | Aswaraopet | Atmakur | B. Kothakota | Badvel | Banaganapalle | Bandar | Bangarupalem | Banswada | Bapatla | Bellampalli | Bhadrachalam | Bhainsa | Bheemunipatnam | Bhimadole | Bhimavaram | Bhongir | Bhooragamphad | Boath | Bobbili | Bodhan | Chandoor | Chavitidibbalu | Chejerla | Chepurupalli | Cherial | Chevella | Chinnor | Chintalapudi | Chintapalle | Chirala | Chittoor | Chodavaram | Cuddapah | Cumbum | Darsi | Devarakonda | Dharmavaram | Dichpalli | Divi | Donakonda | Dronachalam | East Godavari | Eluru | Eturnagaram | Gadwal | Gajapathinagaram | Gajwel | Garladinne | Giddalur | Godavari | Gooty | Gudivada | Gudur | Guntur | Hindupur | Hunsabad | Huzurabad | Huzurnagar | Hyderabad | Ibrahimpatnam | Jaggayyapet | Jagtial | Jammalamadugu | Jangaon | Jangareddygudem | Jannaram | Kadiri | Kaikaluru | Kakinada | Kalwakurthy | Kalyandurg | Kamalapuram | Kamareddy | Kambadur | Kanaganapalle | Kandukuru | Kanigiri | Karimnagar | Kavali | Khammam | Khanapur (AP) | Kodangal | Koduru | Koilkuntla | Kollapur | Kothagudem | Kovvur | Krishna | Krosuru | Kuppam | Kurnool | Lakkireddipalli | Madakasira | Madanapalli | Madhira | Madnur | Mahabubabad | Mahabubnagar | Mahadevapur | Makthal | Mancherial | Mandapeta | Mangalagiri | Manthani | Markapur | Marturu | Medachal | Medak | Medarmetla | Metpalli | Mriyalguda | Mulug | Mylavaram | Nagarkurnool | Nalgonda | Nallacheruvu | Nampalle | Nandigama | Nandikotkur | Nandyal | Narasampet | Narasaraopet | Narayanakhed | Narayanpet | Narsapur | Narsipatnam | Nazvidu | Nelloe | Nellore | Nidamanur | Nirmal | Nizamabad | Nuguru | Ongole | Outsarangapalle | Paderu | Pakala | Palakonda | Paland | Palmaneru | Pamuru | Pargi | Parkal | Parvathipuram | Pathapatnam | Pattikonda | Peapalle | Peddapalli | Peddapuram | Penukonda | Piduguralla | Piler | Pithapuram | Podili | Polavaram | Prakasam | Proddatur | Pulivendla | Punganur | Putturu | Rajahmundri | Rajampeta | Ramachandrapuram | Ramannapet | Rampachodavaram | Rangareddy | Rapur | Rayachoti | Rayadurg | Razole | Repalle | Saluru | Sangareddy | Sathupalli | Sattenapalle | Satyavedu | Shadnagar | Siddavattam | Siddipet | Sileru | Sircilla | Sirpur Kagaznagar | Sodam | Sompeta | Srikakulam | Srikalahasthi | Srisailam | Srungavarapukota | Sudhimalla | Sullarpet | Tadepalligudem | Tadipatri | Tanduru | Tanuku | Tekkali | Tenali | Thungaturthy | Tirivuru | Tirupathi | Tuni | Udaygiri | Ulvapadu | Uravakonda | Utnor | V.R. Puram | Vaimpalli | Vayalpad | Venkatgiri | Venkatgirikota | Vijayawada | Vikrabad | Vinjamuru | Vinukonda | Visakhapatnam | Vizayanagaram | Vizianagaram | Vuyyuru | Wanaparthy | Warangal | Wardhannapet | Yelamanchili | Yelavaram | Yeleswaram | Yellandu | Yellanuru | Yellareddy | Yerragondapalem | Zahirabad ";
@@ -91,13 +91,14 @@
     s_a[33]=" Achhnera | Agra | Akbarpur | Aliganj | Aligarh | Allahabad | Ambedkar Nagar | Amethi | Amiliya | Amroha | Anola | Atrauli | Auraiya | Azamgarh | Baberu | Badaun | Baghpat | Bagpat | Baheri | Bahraich | Ballia | Balrampur | Banda | Bansdeeh | Bansgaon | Bansi | Barabanki | Bareilly | Basti | Bhadohi | Bharthana | Bharwari | Bhogaon | Bhognipur | Bidhuna | Bijnore | Bikapur | Bilari | Bilgram | Bilhaur | Bindki | Bisalpur | Bisauli | Biswan | Budaun | Budhana | Bulandshahar | Bulandshahr | Capianganj | Chakia | Chandauli | Charkhari | Chhata | Chhibramau | Chirgaon | Chitrakoot | Chunur | Dadri | Dalmau | Dataganj | Debai | Deoband | Deoria | Derapur | Dhampur | Domariyaganj | Dudhi | Etah | Etawah | Faizabad | Farrukhabad | Fatehpur | Firozabad | Garauth | Garhmukteshwar | Gautam Buddha Nagar | Ghatampur | Ghaziabad | Ghazipur | Ghosi | Gonda | Gorakhpur | Gunnaur | Haidergarh | Hamirpur | Hapur | Hardoi | Harraiya | Hasanganj | Hasanpur | Hathras | Jalalabad | Jalaun | Jalesar | Jansath | Jarar | Jasrana | Jaunpur | Jhansi | Jyotiba Phule Nagar | Kadipur | Kaimganj | Kairana | Kaisarganj | Kalpi | Kannauj | Kanpur | Karchhana | Karhal | Karvi | Kasganj | Kaushambi | Kerakat | Khaga | Khair | Khalilabad | Kheri | Konch | Kumaon | Kunda | Kushinagar | Lalganj | Lalitpur | Lucknow | Machlishahar | Maharajganj | Mahoba | Mainpuri | Malihabad | Mariyahu | Math | Mathura | Mau | Maudaha | Maunathbhanjan | Mauranipur | Mawana | Meerut | Mehraun | Meja | Mirzapur | Misrikh | Modinagar | Mohamdabad | Mohamdi | Moradabad | Musafirkhana | Muzaffarnagar | Nagina | Najibabad | Nakur | Nanpara | Naraini | Naugarh | Nawabganj | Nighasan | Noida | Orai | Padrauna | Pahasu | Patti | Pharenda | Phoolpur | Phulpur | Pilibhit | Pitamberpur | Powayan | Pratapgarh | Puranpur | Purwa | Raibareli | Rampur | Ramsanehi Ghat | Rasara | Rath | Robertsganj | Sadabad | Safipur | Sagri | Saharanpur | Sahaswan | Sahjahanpur | Saidpur | Salempur | Salon | Sambhal | Sandila | Sant Kabir Nagar | Sant Ravidas Nagar | Sardhana | Shahabad | Shahganj | Shahjahanpur | Shikohabad | Shravasti | Siddharthnagar | Sidhauli | Sikandra Rao | Sikandrabad | Sitapur | Siyana | Sonbhadra | Soraon | Sultanpur | Tanda | Tarabganj | Tilhar | Unnao | Utraula | Varanasi | Zamania ";
     s_a[34]=" Almora | Bageshwar | Bhatwari | Chakrata | Chamoli | Champawat | Dehradun | Deoprayag | Dharchula | Dunda | Haldwani | Haridwar | Joshimath | Karan Prayag | Kashipur | Khatima | Kichha | Lansdown | Munsiari | Mussoorie | Nainital | Pantnagar | Partapnagar | Pauri Garhwal | Pithoragarh | Purola | Rajgarh | Ranikhet | Roorkee | Rudraprayag | Tehri Garhwal | Udham Singh Nagar | Ukhimath | Uttarkashi ";
     s_a[35]=" Adra | Alipurduar | Amlagora | Arambagh | Asansol | Balurghat | Bankura | Bardhaman | Basirhat | Berhampur | Bethuadahari | Birbhum | Birpara | Bishanpur | Bolpur | Bongoan | Bulbulchandi | Burdwan | Calcutta | Canning | Champadanga | Contai | Cooch Behar | Daimond Harbour | Dalkhola | Dantan | Darjeeling | Dhaniakhali | Dhuliyan | Dinajpur | Dinhata | Durgapur | Gangajalghati | Gangarampur | Ghatal | Guskara | Habra | Haldia | Harirampur | Harishchandrapur | Hooghly | Howrah | Islampur | Jagatballavpur | Jalpaiguri | Jhalda | Jhargram | Kakdwip | Kalchini | Kalimpong | Kalna | Kandi | Karimpur | Katwa | Kharagpur | Khatra | Krishnanagar | Mal Bazar | Malda | Manbazar | Mathabhanga | Medinipur | Mekhliganj | Mirzapur | Murshidabad | Nadia | Nagarakata | Nalhati | Nayagarh | Parganas | Purulia | Raiganj | Rampur Hat | Ranaghat | Seharabazar | Siliguri | Suri | Takipur | Tamluk";
+    {% endcomment %}
     var s_b = new Array();
     s_b[0]="";
-    s_b[1]="High Fly|High Thrills|Aqua Experiences|Land Adventure";
+    s_b[1]="High Fly|High Thrills|Aqua Experiences|Land Adventure|Luxury Experience";
     s_b[2]="Family Trip|Romantic Trip|Trip with Friends|Adventurous Trip";
     var s_c = new Array();
     s_c[0]="";
-    s_c[1]="Paragliding|Skydiving|Hot Air Balloon|Glider Ride|Helicopter Ride|Bungee Jumping|High Swings|Trekkings|Parasailing (Land)|Parasailing (Water)|Zipline|Mountain Climbing|Ropeway|Flyingfox|Scuba Diving|River Rafting|Flyboard|Jetski|ATV Ride|Sailing|Wake Boarding|Surfing|Kitesurfing|Zorbing|Bike Trips|Cycling|Paint Ball|Go Karting|Jungle Safari|Camping|Hiking|Bungee Jumping";
+    s_c[1]="Paragliding|Skydiving|Hot Air Balloon|Glider Ride|Helicopter Ride|Bungee Jumping|High Swings|Trekkings|Parasailing (Land)|Parasailing (Water)|Zipline|Mountain Climbing|Ropeway|Flyingfox|Scuba Diving|River Rafting|Flyboard|Jetski|ATV Ride|Sailing|Wake Boarding|Surfing|Kitesurfing|Zorbing|Bike Trips|Cycling|Paint Ball|Go Karting|Jungle Safari|Camping|Hiking|Bungee Jumping|Yacht|Dinner Cruise|Houseboat|Luxury Cruise|Walk|Candle Light Dinner|Car Charter";
     s_c[2]="";
     var s_d = new Array();
     s_d[0]="";
@@ -107,6 +108,7 @@
     s_e[0]="";
     s_e[1]="1 hour|2 hour|3 hour|4 hour|5 hour|6 hour|7 hour|8 hour";
     s_e[2]="1 Night 2 Days |2 Night 3 Days |3 Night 4 Days |4 Night 5 Days |5 Night 6 Days |6 Night 7 Days |7 Night 8 Days |8 Night 9 Days |9 Night 10 Days |10 Night 11 Days "
+
     function print_state(state_id){
     // given the id of the <select> tag as function argument, it inserts <option> tags
     var option_str = document.getElementById(state_id);
@@ -117,6 +119,7 @@
         option_str.options[option_str.length] = new Option(state_arr[i],state_arr[i]);
     }
     }
+    
     function print_cat(cat_id){
     // given the id of the <select> tag as function argument, it inserts <option> tags
     var option_str = document.getElementById(cat_id);
@@ -126,7 +129,7 @@
     for (var i=0; i<cat_arr.length; i++) {
         option_str.options[option_str.length] = new Option(cat_arr[i],cat_arr[i]);
     }
-    }
+    } 
     function print_tags(city_id, city_index){
     var option_str = document.getElementById(city_id);
     option_str.length=0;	// Fixed by Julian Woods
@@ -200,20 +203,24 @@
                 </div>
                 <div class="form-group col-md-6 mb-0">
                     <label>Select state*</label>
-                    <select onchange="print_city('state', this.selectedIndex);" id="sts" name ="state" class="form-control" required></select>
+                    <select id="sts" name ="state" class="form-control" required>
+                    <option value="">Select State</option>
+                    {% if states %}
+                        {% for state in states %}
+                         <option value="{{state.state}}">{{state.state}}</option>
+                        {% endfor %}
+                    {% endif %}
+                    </select>
                 </div>
                 <div class="form-group col-md-6 mb-0">
                     <label>Select city*</label>
-                    <select id ="state" class="form-control" name="city" required></select>
+                    <select id ="city_data" class="form-control" name="city" required>
+                    </select>
                 </div>
-                <script language="javascript">print_state("sts");</script>
+
                 <div class="form-group col-md-6 mb-0">
                     <label>Enter the location within city*</label>
-                    <select  name="loca_city"  class="form-control">
-                        <option selected="selected" disabled>Select  Location:</option>
-                        <option value="Kasol">Kasol</option>
-                        <option value="Calangute">Calangute</option>
-                        <option value="Mcleodgank">Mcleodgank</option>
+                    <select  name="loca_city" id="locality"  class="form-control">
                     </select>
                 </div>
                 <div class="form-group col-md-4 mb-0">
@@ -479,11 +486,42 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <script src= "https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.0.0/dist/js/BsMultiSelect.bs4.min.js"></script>
     <script>
-$(function(){
+     let p =`<option value="">Select City</option>`;
+        $('#sts').change((e) =>
+        {
+            {% for city in cities %}
+                    if(e.target.value === "{{city.state.state}}")
+                    {
+                        p += `<option value="{{city.city}}">{{city.city}}</option>`;
+                    }
+            {% endfor %}
 
-  $("#example").bsMultiSelect();
+            document.getElementById('city_data').innerHTML = p ;
+            p = '<option value="">Select City</option>';
 
-});
+        })
+    let q = `<option value="">Select Locality</option>`;
+    $('#city_data').change((e) =>
+    {
+        {% for locality in locality %}
+                    if(e.target.value === "{{locality.city.city}}")
+                    {
+                        q += `<option value="{{locality.locality}}">{{locality.locality}}</option>`;
+                    }
+        {% endfor %}
+        document.getElementById('locality').innerHTML = q ;
+        q = `<option value="">Select Locality</option>`;
+
+    })
+    </script>
+    
+    
+    <script>
+    $(function(){
+
+    $("#example").bsMultiSelect();
+
+    });
 
 function inc(){
     console.log($('#example').val())

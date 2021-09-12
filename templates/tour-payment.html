@@ -1,4 +1,4 @@
-﻿{% load static %}
+{% load static %}
 {% block content %}
 {% load socialaccount %}
 {% load crispy_forms_tags %}
@@ -178,7 +178,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </div>
     </div>
-    <header class="masthead" style="height:220px;width:100% ;background-image:url('/static/img/{{post.location}}.jpg');background-size:cover;background-position: center;">
+    <header class="masthead" style="height:220px;width:100% ;background-image:url('/static/img/{{post.state}}.jpg');background-size:cover;background-position: center;">
         <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
             <source src="./images/video.webm" type="video/mp4">
         </video>
@@ -189,40 +189,59 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </header>
     <div class="container my-5">
-        <form action="/checkout3/" method="post">
+        <form action="/checkout3/" method="POST">
             {%csrf_token%}
             <div class="form-row">
                 <div class="form-group col-lg-6 col-md-6 col-sm-6 col-6">
                     <label for="inputname">Name*</label>
-                    <input type="name" class="form-control" id="name" name="name" value="{{post.name}}" required>
+                    <input type="name" class="form-control" style="pointer-events: none;background-color: #e9ecef;" id="name" name="name" value="{{post.name}}" required>
                 </div>
                 <div class="form-group col-lg-6 col-md-6 col-sm-6 col-6">
         
                     <label for="inputEmail4">Email*</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                    <input type="email" style="pointer-events: none;background-color: #e9ecef;" class="form-control" value="{{post.email}}" id="email" name="email" required>
                 </div>
             </div>
             <input type="hidden" name="orderid" id="orderid" value="{{post.id}}">
             <div class="form-row">
             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-6 ">
                 <label for="phone">Phone*</label>
-                <input type="tel" class="form-control" id="phone" name="phone" value="{{post.phone}}">
+                <input type="tel" class="form-control" style="pointer-events: none;background-color: #e9ecef;" id="phone" name="phone" value="{{post.number}}" required>
             </div>
              <div class="form-group col-lg-6 col-md-6 col-sm-6 col-6">
-                <label for="price"> Price </label>
-                   <input type="text" id="price" class="form-control" value=&#8377;5000 disabled>
+                <label for="price">Total Price </label>
+                   <input type="text" id="price" class="form-control" value='&#8377;{{post.total_trip_cost}}' disabled>
               </div> 
             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
                 <label for="services"> Service </label>
-                <input type="text" class="form-control" id="services" name="services" disabled>
+                <input type="text" class="form-control" value={{post.trip_name}} id="services" name="services" disabled>
               </div> 
-               <input type="hidden" class="form-control" name="amount" id="amount" value="5000">
-            
+            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
+                <label for="services"> Payment Option </label>
+                <div class="row col-12" >
+                    <div class="row mx-2" style="display: flex;align-items: center;">
+                        <input type="radio" name="payment" value="full Payment" class="payment__option" checked>
+                        <span class="px-2">Full Payment</span>
+                    </div>
+                    <div class="row mx-3" style="display: flex;align-items: center;">
+                        <input type="radio" name="payment" value="partial Payent" class="payment__option">
+                        <span class="px-2">pay 30% Payment</span>
+                    </div>
+                </div>
+              </div> 
+
+              <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
+                <label> Payble payment </label>
+                <input type="number" class="form-control" name="amount" id="amount"
+                style="pointer-events: none;background-color: #e9ecef;" value="{{post.total_trip_cost}}">
+              </div> 
+
         </div>
             
-            <button id="heman" type="submit" class="btn btn-primary my-4">Pay Partially</button>
+            <button id="heman" type="submit" class="btn btn-primary my-4">Pay Payment</button>
         </form>
     </div>
+
     <div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -433,6 +452,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
     <script src={% static 'js/main.js' %}></script>
     <script>
+        let payment__option = document.querySelectorAll('.payment__option');
+        payment__option.forEach((p_o) =>
+        {
+            p_o.addEventListener('click',(e) =>
+            {
+                if(e.target.value === 'full Payment')
+                {
+                    $('#amount').val({{post.total_trip_cost}});
+                }
+                else
+                {
+                    let regular = '{{post.total_trip_cost}}';
+                    var discount = Math.round((parseInt(regular)/100)* 30);
+                    $('#amount').val(discount);
+                }
+        })
+    })
+    </script>
+    <script>
         $('#datepicker').datepicker({
             iconsLibrary: 'fontawesome',
             icons: {
@@ -441,10 +479,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         });
     </script>
 <script>
-var t= `{{post.location}}`+`-`+`{{post.days}}`
-var g= "&#8377;"+`5000`
+var t= `{{post.state}}`+`-`+`{{post.no_of_days}}`
+var g= "&#8377;"+`50000`
 $('#services').val(t);
-$('#price').val();
 </script>
     <script>
         $(function () {

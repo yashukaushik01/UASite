@@ -13,7 +13,7 @@ from django.http import HttpResponse
 from .models import Affiliate, Cities, CityHotelData, Erp,Populartags, Product, Destination, Images, StateItineraryData, TopPicksEntryForm, duration, phone, Purchase, states, des, promo, AdventureTourTypes, TravelGuide,BestPackage,ProductEnquiry
 from .models import Blogpost, wallet
 from .models import Itinerary,ItineraryData
-from .models import State as States
+from .models import State as States , Locality as Localities
 from .forms import CityHotelDataForm, ItineraryDataForm, ItineraryForm, ProductEnquiryForm, ProductForm, Addphone, StateItineraryDataForm, purchaseform, UpdateForm, BlogForm, UpdateItineraryForm, ErpForm, UpdateErpForm, TravelGuideEntryForm, PopularTagForm,Top_picks_entryForm,BestPackageForm,CourseEntryForm
 from django.views.decorators.csrf import csrf_exempt
 from django.forms import modelformset_factory
@@ -187,7 +187,7 @@ def Delete2(request, pk):
 
 
 def TourPayment(request, slug):
-    post = get_object_or_404(Itinerary, id=slug)
+    post = get_object_or_404(ItineraryData, slug=slug)
     return render(request, 'tour-payment.html', {'post': post})
 
 
@@ -354,6 +354,17 @@ def ItineraryDataList(request):
         'itineraryDatas':itineraryDatas
     }
     return render(request,'itinerary-data-list.html',context)
+
+@staff_member_required
+def ItineraryDataEdit(request,pk):
+    states = States.objects.all()
+    itinerary_data = get_object_or_404(ItineraryData,id = pk)
+    print(itinerary_data)
+    context = {
+        'states':states,
+        'itinerary':itinerary_data,
+    }
+    return render(request,'itinerary-data-edit.html',context)
 
 
 @staff_member_required
@@ -1050,6 +1061,7 @@ def checkout2(request):
 
 def checkout3(request):
     if request.method == "POST":
+        print(request.POST.get('name'))
         postData = {
             "appId": '3116246b3ec6d019344fd492a26113',
             "orderId": uuid.uuid4().hex[:6].upper(),
@@ -1146,6 +1158,9 @@ def ProductCreate(request):
     DescriptionFormSet = modelformset_factory(
         des, fields=('description',), extra=3)
     form = ProductForm()
+    states = States.objects.all()
+    cities = Cities.objects.all()
+    locality = Localities.objects.all()
     if request.method == 'POST':
         form = ProductForm(request.POST)
         print(form.errors)
@@ -1189,6 +1204,9 @@ def ProductCreate(request):
         'form': form,
         'formset': formset,
         'formset2': formset2,
+        'states':states,
+        'cities':cities,
+        'locality':locality
 
     }
     return render(request, 'form.html', context)
