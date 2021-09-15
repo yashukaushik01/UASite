@@ -101,55 +101,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     onclick="window.location = '/add-itinerary-form/'">Add Itinerary</button>
                 </div>
         </div>
-
-                        <table class="table table-hover" >
-                            <thead class="table-dark text-center">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Package Display Name</th>
-                                    <th scope="col">State</th>
-                                    <th scope="col">Starting Location</th>
-                                    <th scope="col">Ending Location</th>
-                                    <th scope="col">Date Of Travel</th>
-                                    <th scope="col">No of Days</th>
-                                    <th scope="col">Total Trip Cost</th>
-                                    <th scope="col">Payment Type</th>
-                                    <th scope="col">Each people Cost</th>
-                                    <th scope="col">Number of People</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-center">
-                               {% if itineraryDatas %}
-                                {% for itineraryData in itineraryDatas|dictsort:"state" %}
-                                <tr>
-                                    <th scope="col">{{forloop.counter}}</th>
-                                    <th scope="col">{{itineraryData.package_display_name}}</th>
-                                    <th scope="col">{{itineraryData.state}}</th>
-                                    <th scope="col">{{itineraryData.starting_location}}</th>
-                                    <th scope="col">{{itineraryData.ending_location}}</th>
-                                    <th scope="col">{{itineraryData.date_of_travel}}</th>
-                                    <th scope="col">{{itineraryData.no_of_days}}</th>
-                                    <th scope="col">Rs.{{itineraryData.total_trip_cost}}</th>
-                                    <th scope="col">{{itineraryData.payment_type}}</th>
-                                    <th scope="col">Rs.{{itineraryData.each_people_cost}}</th>
-                                    <th scope="col">{{itineraryData.number_of_people}}</th>
-                                    <th scope="col" >
-                                        <button class="btn btn-primary my-2"  onclick="window.location = '/itinerary-data/{{itineraryData.slug}}'">View</button> 
-                                        <button class="btn btn-warning my-2"  onclick="window.location = '/itinerary-data-edit/{{itineraryData.id}}'">Edit</button> 
-                                        {% comment %} <button class="btn btn-warning my-2">Edit</button> 
-                                        <button class="btn btn-danger my-2">Delete</button>  {% endcomment %}
-                                    </th>
-                                  </tr>
-                                {% endfor %}
-                                {% endif %} 
-                            </tbody>
-                          </table>
-                    </div>
-                </div>
+         <div class="container my-4 py-4" style="display:flex;align-items:center;justify-content:center; 
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);">
+            <div class="col-2">
+                <label style="font-weight:600;"> Select State : </label>
+            </div>
+            <div class="col-6">
+                <select name="state" id="state" class="form-control">
+                    <option value="">Select State</option>
+                    {% if states %}
+                        {% for state in states|dictsort:'state' %}
+                        <option value="{{state.state}}">{{state.state}}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
             </div>
         </div>
-    </div>
+
+        <div class="container main__container">
+
+        </div>
 </div>
 
     <footer class="footer">
@@ -299,20 +270,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </body>
 
     <script>
-        $(function () {
-            $(window).scroll(function () {
-                var mainbottom = $("header").offset().top + $("header").height();
-                if ($(this).scrollTop() < mainbottom) 
-                {
-                    $('nav').removeClass('first');
-
-                } else {
-
-                    $('nav').addClass('first');
-
-                }
-            })
+        const getData = (state_data) =>
+        {
+            $.ajax({
+            url: '/get-itinerary-list-data/',
+            method: 'GET',
+            data: {
+                'state': state_data,
+            },
+            success: (response) => {
+                console.log(response);
+                    document.querySelector('.main__container').innerHTML = response.data ;
+               
+            }
         })
+
+        }
+        getData($('#state').val());
+    $('#state').change((e) => {
+        getData(e.target.value);
+
+    })
     </script>
 </body>
 

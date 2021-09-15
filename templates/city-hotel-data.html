@@ -1,0 +1,42 @@
+{% if cityHotels %}
+<table class="table">
+    <thead class="table-dark text-center">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Hotel Name</th>
+            <th scope="col">State</th>
+            <th scope="col">City</th>
+            <th scope="col">Accommodation category</th>
+            <th scope="col">Room Type</th>
+            <th scope="col">Meal Type</th>
+            <th scope="col">Room Sharing</th>
+            <th scope="col">Honeymoon Kit Price</th>
+            <th scope="col">Total Price</th>
+            <th scope="col">Photo's</th>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+        {% for cityHotels in cityHotels|dictsort:"state" %}
+        <tr>
+            <th scope="col">{{forloop.counter}}</th>
+            <th scope="col">{{cityHotels.stay_name}}</th>
+            <th scope="col">{{cityHotels.state}}</th>
+            <th scope="col">{{cityHotels.city}}</th>
+            <th scope="col">{{cityHotels.accommodation_category}}</th>
+            <th scope="col">{{cityHotels.room_type}}</th>
+            <th scope="col">{{cityHotels.meal_type}}</th>
+            <th scope="col">{{cityHotels.room_sharing}}</th>
+            {% if cityHotels.honeymoon_kit_price %}
+                <th scope="col">{{cityHotels.honeymoon_kit_price}}</th>
+            {% else %}
+                <th scope="col">No Kit</th>
+            {% endif %}
+            <th scope="col">{{cityHotels.total_price}}</th>
+            <th scope="col">
+                <button class="btn btn-danger view_photo_btn" data-id='{{cityHotels.id}}'>View</button>
+            </th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}

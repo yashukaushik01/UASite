@@ -687,7 +687,7 @@ class phone(models.Model):
 
 class wallet(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    amount = models.IntegerField(null=True, default=2000)
+    amount = models.IntegerField(null=True, default=0)
     wallet_id = str(models.AutoField)
 
 

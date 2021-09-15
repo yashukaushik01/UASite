@@ -77,7 +77,7 @@
         // given the id of the <select> tag as function argument, it inserts <option> tags
         var option_str = document.getElementById(agent_id);
         option_str.length = 0;
-        option_str.options[0] = new Option('Select Agent', '');
+        option_str.options[0] = new Option('{{itinerary.agant_name}}', '{{itinerary.agant_name}}');
         option_str.selectedIndex = 0;
         for (var i = 0; i < agent_arr.length; i++) {
             option_str.options[option_str.length] = new Option(agent_arr[i], agent_arr[i]);
@@ -87,8 +87,7 @@
         // given the id of the <select> tag as function argument, it inserts <option> tags
         var option_str = document.getElementById(state_id);
         option_str.length = 0;
-        option_str.options[0] = new Option('Select Days', '');
-        option_str.options[0] = new Option('{{itinerary.no_of_days}}', 'selected');
+        option_str.options[0] = new Option('{{itinerary.no_of_days}}', '{{itinerary.no_of_days}}');
         option_str.selectedIndex = 0;
         for (var i = 0; i < days.length; i++) {
             option_str.options[option_str.length] = new Option(days[i], days[i]);
@@ -224,7 +223,6 @@
                             </div>
                             <div class="col-6">
                                 <select name="trip_name" id="trip__name" class="form-control">
-                                    <option value="{{itinerary.trip_name}}" selected>{{itinerary.trip_name}}</option>
                                 </select>
                             </div>
                         </div>
@@ -233,7 +231,7 @@
                                 <label>Date Of Travel</label>
                             </div>
                             <div class="col-6">
-                                <input type="date" value="{{itineraryData.date_of_travel}}" name="date_of_travel" class="form-control"  />
+                                <input type="date" value="{{itinerary.date_of_travel|date:"Y-m-d"}}" name="date_of_travel" class="form-control"  />
                             </div>
                         </div>
                         <div class="form-group row col-12">
@@ -259,7 +257,7 @@
                             </div>
                             <div class="col-6">
                                 <select name="starting_location" id="start_loc" class="form-control" class="form-control">
-                                    <option value="{{itinerary.starting_location}}" selected>{{itinerary.starting_location}}</option>
+                                 <option value="{{itinerary.starting_location}}" selected>{{itinerary.starting_location}}</option>
                                 </select>
                             </div>
                         </div>
@@ -281,7 +279,7 @@
                             <div class="col-6">
                                 <select name="no_of_days" class="form-control" onchange="iterary('iterary', this.selectedIndex)"
                                     id="days">
-                                    <option value="{{itinerary.no_of_days}}">{{itinerary.no_of_days}}</option>
+                                    <option value="{{itinerary.no_of_days}}" selected>{{itinerary.no_of_days}}</option>
                                 </select>
                             </div>
                             <script language="javascript">print_days("days");</script>
@@ -313,13 +311,29 @@
                             </div>
                             <div class="col-6">
                                 <select  id="example" class="form-control"  multiple="multiple" style="display: none;" onchange="inc()">
-
-                                    <option value='<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center mt-2"><img class="incimg" src="/static/img/svg_icon/Inclusion/Meal.svg" ><br><span class="inctext">Meals Included</span></div>'>Meals Included  </option>
-                                    <option value='<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center mt-2"><img class="incimg" src="/static/img/svg_icon/Inclusion/Guide.svg" ><br><span class="inctext">Guide</span></div>'> Guide </option>
-                                    <option value='<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center mt-2"><img class="incimg" src="/static/img/svg_icon/Inclusion/transport.svg" ><br><span class="inctext">Transport Included</span></div>'>Transport Included  </option>
-                                    <option value='<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center mt-2"><img class="incimg" src="/static/img/svg_icon/Inclusion/photos.svg" ><br><span class="inctext">Videos/ Photos</span></div>'>Videos/Photos</option>
-                                    <option value='<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center mt-2"><img class="incimg" src="/static/img/svg_icon/Inclusion/Map.svg" ><br><span class="inctext">Travel Map</span></div>'>Travel Map</option>  
-                                    <option value='<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 text-center mt-2"><img class="incimg" src="/static/img/svg_icon/Inclusion/Cashback.svg" ><br><span class="inctext">Cashback</span></div>'>Cashback</option>  
+                                 {% if inclusion %}
+                                    {% for inclusion in inclusion %}
+                                        {% if inclusion %}
+                                        <option value='{{inclusion}}</div>' selected>{{inclusion|safe}}</div></option>
+                                        {% endif %}
+                                    {% endfor %}
+                                 {% endif %}
+                                    <option value='<div class="itinerary-inclusion-icon"><img class="incimg" src="/static/img/svg_icon/itinerary_icons/Stay Included.svg" ><br><span class="inctext">Stay Included</span></div>'>Stay Included </option>
+                                    <option value='<div class="itinerary-inclusion-icon"><img class="incimg" src="/static/img/svg_icon/itinerary_icons/Meal Included.svg" ><br><span class="inctext">Meal Included</span></div>'>Meal Included  </option>
+                                    <option value='<div class="itinerary-inclusion-icon"><img class="incimg" src="/static/img/svg_icon/itinerary_icons/Private Transport.svg" ><br><span class="inctext">Private Transport</span></div>'>Private Transport</option>
+                                    <option value='<div class="itinerary-inclusion-icon"><img class="incimg" src="/static/img/svg_icon/itinerary_icons/Travel Guide.svg" ><br><span class="inctext">Travel Guide</span></div>'>Travel Guide</option>
+                                    <option value='<div class="itinerary-inclusion-icon"><img class="incimg" src="/static/img/svg_icon/itinerary_icons/Adventure Activities.svg" ><br><span class="inctext">Adventure Activities</span></div>'>Adventure Activities</option>  
+                                    <option value='<div class="itinerary-inclusion-icon"><img class="incimg" src="/static/img/svg_icon/itinerary_icons/Tickets.svg" ><br><span class="inctext">Train Tickets</span></div>'>Train Tickets</option>  
+                                    <option value='<div class="itinerary-inclusion-icon"><img class="incimg" src="/static/img/svg_icon/itinerary_icons/Tickets.svg" ><br><span class="inctext">Bus Tickets</span></div>'>Bus Tickets</option>  
+                                    <option value='<div class="itinerary-inclusion-icon"><img class="incimg" src="/static/img/svg_icon/itinerary_icons/Tickets.svg" ><br><span class="inctext">Flight Tickets</span></div>'>Flight Tickets</option>  
+                                    <option value='<div class="itinerary-inclusion-icon"><img class="incimg" src="/static/img/svg_icon/itinerary_icons/Photos Videos.svg" ><br><span class="inctext">Photos/ Videos</span></div>'>Photos/ Videos</option>  
+                                    <option value='<div class="itinerary-inclusion-icon"><img class="incimg" src="/static/img/svg_icon/itinerary_icons/Travel Map.svg" ><br><span class="inctext">Travel Map</span></div>'>Travel Map</option>  
+                                    <option value='<div class="itinerary-inclusion-icon"><img class="incimg" src="/static/img/svg_icon/itinerary_icons/Self Driving Bike Scooty.svg" ><br><span class="inctext">Self Driving Bike</span></div>'>Self Driving Bike</option>  
+                                    <option value='<div class="itinerary-inclusion-icon"><img class="incimg" src="/static/img/svg_icon/itinerary_icons/Self Driving Bike Scooty.svg" ><br><span class="inctext">Self Driving Scooty</span></div>'>Self Driving Scooty</option>  
+                                    <option value='<div class="itinerary-inclusion-icon"><img class="incimg" src="/static/img/svg_icon/itinerary_icons/Self Driving Car.svg" ><br><span class="inctext">Self Driving Car</span></div>'>Self Driving Car</option>  
+                                    <option value='<div class="itinerary-inclusion-icon"><img class="incimg" src="/static/img/svg_icon/itinerary_icons/Cashback.svg" ><br><span class="inctext">Cashback</span></div>'>Cashback</option>  
+                                    <option value='<div class="itinerary-inclusion-icon"><img class="incimg" src="/static/img/svg_icon/itinerary_icons/Honeymoon Kit.svg" ><br><span class="inctext">Honeymoon Kit</span></div>'>Honeymoon Kit</option>  
+                                    <option value='<div class="itinerary-inclusion-icon"><img class="incimg" src="/static/img/svg_icon/itinerary_icons/Candle Light Dinner.svg" ><br><span class="inctext">Candle Light Dinner</span></div>'>Candle Light Dinner</option>
                                 </select>
                             </div>
                         </div>
@@ -335,6 +349,9 @@
                                         <label>Select Day</label>
                                         <select name="day_1" id="days1" class="form-control">
                                             <option selected="selected" disabled>Select Day</option>
+                                            {% if itinerary.day_1 %}
+                                                <option value="{{itinerary.day_1}}" selected>{{itinerary.day_1}}</option>
+                                            {% endif %}
                                             <option value="Day 1">1</option>
                                             <option value="Day 2">2</option>
                                             <option value="Day 3">3</option>
@@ -353,17 +370,24 @@
                                         <label>Select Heading</label>
                                         <select class="form-control days_schedule" name="day_heading_1" class="form-control"
                                         onchange="DayScheduleData('textdays1', this.selectedIndex,this.value)">
+                                        {% if itinerary.day_heading_1 %}
+                                            <option value="{{itinerary.day_heading_1}}" selected>{{itinerary.day_heading_1}}</option>
+                                        {% endif %}
+                                        
                                         </select>
                                         <label>Day Itinerary</label>
-                                        <textarea id="textdays1" name="day_itinerary_1"></textarea>
+                                        <textarea id="textdays1" name="day_itinerary_1">{{itinerary.day_itinerary_1}}</textarea>
                                     </div>
                                 </div>
-                                <div id='days_schedule-1' style="display:none;">
+                                <div {% if not itinerary.day_heading_2 %}id='days_schedule-1' style="display:none;"{% endif %}>
                                     <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
                                         <div class="form-group col-md-2 mb-0">
                                             <label>Select Day</label>
                                             <select name="day_2" id="days2" class="form-control">
                                                 <option selected="selected" disabled>Select Day</option>
+                                                {% if itinerary.day_2 %}
+                                                    <option value="{{itinerary.day_2}}" selected>{{itinerary.day_2}}</option>
+                                                {% endif %}
                                                 <option value="Day 1">1</option>
                                                 <option value="Day 2">2</option>
                                                 <option value="Day 3">3</option>
@@ -382,19 +406,24 @@
                                             <label>Select Heading</label>
                                             <select class="form-control days_schedule" name="day_heading_2" class="form-control"
                                             onchange="DayScheduleData('textdays2', this.selectedIndex,this.value)">
+                                            {% if itinerary.day_heading_2 %}
+                                            <option value="{{itinerary.day_heading_2}}" selected>{{itinerary.day_heading_2}}</option>
+                                            {% endif %}
                                             </select>
                                             <label>Day Itinerary</label>
-                                            <textarea id="textdays2" name="day_itinerary_2">
-                                </textarea>
+                                            <textarea id="textdays2" name="day_itinerary_2">{{itinerary.day_itinerary_2}}</textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div id='days_schedule-2' style="display:none;">
+                                <div {% if not itinerary.day_3 %}id='days_schedule-2' style="display:none;"{% endif %}>
                                     <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
                                         <div class="form-group col-md-2 mb-0">
                                             <label>Select Day</label>
                                             <select name="day_3" id="days3" class="form-control">
                                                 <option selected="selected" disabled>Select Day</option>
+                                                {% if itinerary.day_3 %}
+                                                    <option value="{{itinerary.day_3}}" selected>{{itinerary.day_3}}</option>
+                                                {% endif %}
                                                 <option value="Day 1">1</option>
                                                 <option value="Day 2">2</option>
                                                 <option value="Day 3">3</option>
@@ -413,19 +442,24 @@
                                             <label>Select Heading</label>
                                             <select class="form-control days_schedule" name="day_heading_3" class="form-control"
                                             onchange="DayScheduleData('textdays3', this.selectedIndex,this.value)">
+                                             {% if itinerary.day_heading_3 %}
+                                            <option value="{{itinerary.day_heading_3}}" selected>{{itinerary.day_heading_3}}</option>
+                                            {% endif %}
                                             </select>
                                             <label>Day Itinerary</label>
-                                            <textarea id="textdays3" name="day_itinerary_3">
-                                </textarea>
+                                            <textarea id="textdays3" name="day_itinerary_3">{{itinerary.day_itinerary_3}}</textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div id='days_schedule-3' style="display:none;">
+                                <div {% if not itinerary.day_4 %}id='days_schedule-3' style="display:none;"{% endif %}>
                                     <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
                                         <div class="form-group col-md-2 mb-0">
                                             <label>Select Day</label>
                                             <select name="day_4" id="days4" class="form-control">
                                                 <option selected="selected" disabled>Select Day</option>
+                                                {% if itinerary.day_4 %}
+                                                    <option value="{{itinerary.day_4}}" selected>{{itinerary.day_4}}</option>
+                                                {% endif %}
                                                 <option value="Day 1">1</option>
                                                 <option value="Day 2">2</option>
                                                 <option value="Day 3">3</option>
@@ -444,19 +478,24 @@
                                             <label>Select Heading</label>
                                             <select class="form-control days_schedule" name="day_heading_4" class="form-control"
                                             onchange="DayScheduleData('textdays4', this.selectedIndex,this.value)">
+                                             {% if itinerary.day_heading_4 %}
+                                            <option value="{{itinerary.day_heading_4}}" selected>{{itinerary.day_heading_4}}</option>
+                                            {% endif %}
                                             </select>
                                             <label>Day Itinerary</label>
-                                            <textarea id="textdays4" name="day_itinerary_4">
-                                </textarea>
+                                            <textarea id="textdays4" name="day_itinerary_4">{{itinerary.day_itinerary_4}}</textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div id='days_schedule-4' style="display:none;">
+                                <div {% if not itinerary.day_5 %}id='days_schedule-4' style="display:none;"{% endif %}>
                                     <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
                                         <div class="form-group col-md-2 mb-0">
                                             <label>Select Day</label>
                                             <select name="day_5" id="days5" class="form-control">
                                                 <option selected="selected" disabled>Select Day</option>
+                                                {% if itinerary.day_5 %}
+                                                    <option value="{{itinerary.day_5}}" selected>{{itinerary.day_5}}</option>
+                                                {% endif %}
                                                 <option value="Day 1">1</option>
                                                 <option value="Day 2">2</option>
                                                 <option value="Day 3">3</option>
@@ -475,19 +514,24 @@
                                             <label>Select Heading</label>
                                             <select class="form-control days_schedule" name="day_heading_5" class="form-control"
                                             onchange="DayScheduleData('textdays5', this.selectedIndex,this.value)">
+                                             {% if itinerary.day_heading_5 %}
+                                            <option value="{{itinerary.day_heading_5}}" selected>{{itinerary.day_heading_5}}</option>
+                                            {% endif %}
                                             </select>
                                             <label>Day Itinerary</label>
-                                            <textarea id="textdays5" name="day_itinerary_5">
-                                    </textarea>
+                                            <textarea id="textdays5" name="day_itinerary_5">{{itinerary.day_itinerary_5}}</textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div id='days_schedule-5' style="display:none;">
+                                <div {% if not itinerary.day_6 %}id='days_schedule-5' style="display:none;"{% endif %}>
                                     <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
                                         <div class="form-group col-md-2 mb-0">
                                             <label>Select Day</label>
                                             <select name="day_6" id="days6" class="form-control">
                                                 <option selected="selected" disabled>Select Day</option>
+                                                {% if itinerary.day_6 %}
+                                                    <option value="{{itinerary.day_6}}" selected>{{itinerary.day_6}}</option>
+                                                {% endif %}
                                                 <option value="Day 1">1</option>
                                                 <option value="Day 2">2</option>
                                                 <option value="Day 3">3</option>
@@ -506,19 +550,24 @@
                                             <label>Select Heading</label>
                                             <select class="form-control days_schedule" name="day_heading_6" class="form-control"
                                             onchange="DayScheduleData('textdays6', this.selectedIndex,this.value)">
+                                            {% if itinerary.day_heading_6 %}
+                                            <option value="{{itinerary.day_heading_6}}" selected>{{itinerary.day_heading_6}}</option>
+                                            {% endif %}
                                             </select>
                                             <label>Day Itinerary</label>
-                                            <textarea id="textdays6" name="day_itinerary_6">
-                                    </textarea>
+                                            <textarea id="textdays6" name="day_itinerary_6">{{itinerary.day_itinerary_6}}</textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div id='days_schedule-6' style="display:none;">
+                                <div {% if not itinerary.day_7 %}id='days_schedule-6' style="display:none;"{% endif %}>
                                     <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
                                         <div class="form-group col-md-2 mb-0">
                                             <label>Select Day</label>
                                             <select name="day_7" id="days7" class="form-control">
                                                 <option selected="selected" disabled>Select Day</option>
+                                                {% if itinerary.day_7 %}
+                                                    <option value="{{itinerary.day_7}}" selected>{{itinerary.day_7}}</option>
+                                                {% endif %}
                                                 <option value="Day 1">1</option>
                                                 <option value="Day 2">2</option>
                                                 <option value="Day 3">3</option>
@@ -537,19 +586,24 @@
                                             <label>Select Heading</label>
                                             <select class="form-control days_schedule" name="day_heading_7" class="form-control"
                                             onchange="DayScheduleData('textdays7', this.selectedIndex,this.value)">
+                                            {% if itinerary.day_heading_7 %}
+                                            <option value="{{itinerary.day_heading_7}}" selected>{{itinerary.day_heading_7}}</option>
+                                            {% endif %}
                                             </select>
                                             <label>Day Itinerary</label>
-                                            <textarea id="textdays7" name="day_itinerary_7">
-                                        </textarea>
+                                            <textarea id="textdays7" name="day_itinerary_7">{{itinerary.day_itinerary_7}}</textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div id='days_schedule-7' style="display:none;">
+                                <div {% if not itinerary.day_8 %}id='days_schedule-7' style="display:none;"{% endif %}>
                                     <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
                                         <div class="form-group col-md-2 mb-0">
                                             <label>Select Day</label>
                                             <select name="day_8" id="days8" class="form-control">
                                                 <option selected="selected" disabled>Select Day</option>
+                                                {% if itinerary.day_8 %}
+                                                    <option value="{{itinerary.day_8}}" selected>{{itinerary.day_8}}</option>
+                                                {% endif %}
                                                 <option value="Day 1">1</option>
                                                 <option value="Day 2">2</option>
                                                 <option value="Day 3">3</option>
@@ -568,19 +622,25 @@
                                             <label>Select Heading</label>
                                             <select class="form-control days_schedule" name="day_heading_8" class="form-control"
                                             onchange="DayScheduleData('textdays8', this.selectedIndex,this.value)">
+                                            {% if itinerary.day_heading_8 %}
+                                            <option value="{{itinerary.day_heading_8}}" selected>{{itinerary.day_heading_8}}</option>
+                                            {% endif %}
+
                                             </select>
                                             <label>Day Itinerary</label>
-                                            <textarea id="textdays8" name="day_itinerary_8">
-                                            </textarea>
+                                            <textarea id="textdays8" name="day_itinerary_8">{{itinerary.day_itinerary_8}}</textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div id='days_schedule-8' style="display:none;">
+                                <div {% if not itinerary.day_9 %}id='days_schedule-8' style="display:none;"{% endif %} >
                                     <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
                                         <div class="form-group col-md-2 mb-0">
                                             <label>Select Day</label>
                                             <select name="day_9" id="days9" class="form-control">
                                                 <option selected="selected" disabled>Select Day</option>
+                                                {% if itinerary.day_9 %}
+                                                    <option value="{{itinerary.day_9}}" selected>{{itinerary.day_9}}</option>
+                                                {% endif %}
                                                 <option value="Day 1">1</option>
                                                 <option value="Day 2">2</option>
                                                 <option value="Day 3">3</option>
@@ -599,19 +659,24 @@
                                             <label>Select Heading</label>
                                             <select class="form-control days_schedule" class="form-control" name="day_heading_9"
                                             onchange="DayScheduleData('textdays9', this.selectedIndex,this.value)">
+                                            {% if itinerary.day_heading_9 %}
+                                            <option value="{{itinerary.day_heading_9}}" selected>{{itinerary.day_heading_9}}</option>
+                                            {% endif %}
                                             </select>
                                             <label>Day Itinerary</label>
-                                            <textarea id="textdays9" name="day_itinerary_9">
-                                                </textarea>
+                                            <textarea id="textdays9" name="day_itinerary_9">{{itinerary.day_itinerary_9}}</textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div id='days_schedule-9' style="display:none;">
+                                <div {% if not itinerary.day_10 %}id='days_schedule-9' style="display:none;"{% endif %}>
                                     <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
                                         <div class="form-group col-md-2 mb-0">
                                             <label>Select Day</label>
                                             <select name="day_10" id="days10" class="form-control">
                                                 <option selected="selected" disabled>Select Day</option>
+                                                {% if itinerary.day_10 %}
+                                                    <option value="{{itinerary.day_10}}" selected>{{itinerary.day_10}}</option>
+                                                {% endif %}
                                                 <option value="Day 1">1</option>
                                                 <option value="Day 2">2</option>
                                                 <option value="Day 3">3</option>
@@ -630,19 +695,24 @@
                                             <label>Select Heading</label>
                                             <select class="form-control days_schedule" class="form-control" name="day_heading_10"
                                             onchange="DayScheduleData('textdays10', this.selectedIndex,this.value)">
+                                            {% if itinerary.day_heading_10 %}
+                                            <option value="{{itinerary.day_heading_10}}" selected>{{itinerary.day_heading_10}}</option>
+                                            {% endif %}
                                             </select>
                                             <label>Day Itinerary</label>
-                                            <textarea id="textdays10" name="day_itinerary_10">
-                                                    </textarea>
+                                            <textarea id="textdays10" name="day_itinerary_10">{{itinerary.day_itinerary_10}}</textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div id='days_schedule-10' style="display:none;">
+                                <div {% if not itinerary.day_11 %}id='days_schedule-10' style="display:none;"{% endif %}>
                                     <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
                                         <div class="form-group col-md-2 mb-0">
                                             <label>Select Day</label>
                                             <select name="day_11" id="days11" class="form-control">
                                                 <option selected="selected" disabled>Select Day</option>
+                                                {% if itinerary.day_11 %}
+                                                    <option value="{{itinerary.day_11}}" selected>{{itinerary.day_11}}</option>
+                                                {% endif %}
                                                 <option value="Day 1">1</option>
                                                 <option value="Day 2">2</option>
                                                 <option value="Day 3">3</option>
@@ -661,19 +731,24 @@
                                             <label>Select Heading</label>
                                             <select class="form-control days_schedule" class="form-control" name="day_heading_11"
                                             onchange="DayScheduleData('textdays11', this.selectedIndex,this.value)">
+                                            {% if itinerary.day_heading_11 %}
+                                            <option value="{{itinerary.day_heading_11}}" selected>{{itinerary.day_heading_11}}</option>
+                                            {% endif %}
                                             </select>
                                             <label>Day Itinerary</label>
-                                            <textarea id="textdays11" name="day_itinerary_11">
-                                                        </textarea>
+                                            <textarea id="textdays11" name="day_itinerary_11">{{itinerary.day_itinerary_11}}</textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div id='days_schedule-11' style="display:none;">
+                                <div {% if not itinerary.day_12 %}id='days_schedule-11' style="display:none;"{% endif %}>
                                     <div class="form-row px-2 py-2" style="border: 2px solid rgb(179, 177, 177);">
                                         <div class="form-group col-md-2 mb-0">
                                             <label>Select Day</label>
                                             <select name="day_12" id="days12" class="form-control">
                                                 <option selected="selected" disabled>Select Day</option>
+                                                 {% if itinerary.day_12 %}
+                                                    <option value="{{itinerary.day_12}}" selected>{{itinerary.day_12}}</option>
+                                                {% endif %}
                                                 <option value="Day 1">1</option>
                                                 <option value="Day 2">2</option>
                                                 <option value="Day 3">3</option>
@@ -692,10 +767,12 @@
                                             <label>Select Heading</label>
                                             <select class="form-control Days_schedule" class="form-control" name="day_heading_12"
                                             onchange="DayScheduleData('textdays12', this.selectedIndex,this.value)">
+                                            {% if itinerary.day_heading_12 %}
+                                            <option value="{{itinerary.day_heading_12}}" selected>{{itinerary.day_heading_12}}</option>
+                                            {% endif %}
                                             </select>
                                             <label>Day Itinerary</label>
-                                            <textarea id="textdays12" name="day_itinerary_12">
-                                                            </textarea>
+                                            <textarea id="textdays12" name="day_itinerary_12">{{itinerary.day_itinerary_12}}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -727,6 +804,9 @@
                             </div>
                             <div class="col-12">
                                 <select name="activity_1" id="activity-data-1" onchange="ActivityChange('ActivityPrice-1',this.value,'number_of_people-1')" class="form-control activity_data">
+                                {% if itinerary.activity_1 %}
+                                    <option value="{{itinerary.activity_1}}" selected>{{itinerary.activity_1}}</option>
+                                {% endif %}
                                 </select>
                             </div>
                         </div>
@@ -735,7 +815,8 @@
                                 <label>No. of person</label>
                             </div>
                             <div class="col-12">
-                                <input type="number" id="number_of_people-1" onchange="ChangeActivityValue(this.value,'ActivityPrice-1','activity-data-1');" name="no_of_person_1" class="form-control" />
+                                <input type="number" id="number_of_people-1" value="{{itinerary.no_of_person_1}}" 
+                                onchange="ChangeActivityValue(this.value,'ActivityPrice-1','activity-data-1');" name="no_of_person_1" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group col-4">
@@ -743,19 +824,22 @@
                                 <label>Total Price</label>
                             </div>
                             <div class="col-12">
-                                <input type="number" name="activity_price_1" id="ActivityPrice-1" placeholder="Rs. X,xxx" class="form-control activity__price" />
+                                <input type="number" name="activity_price_1" value="{{itinerary.activity_price_1}}" id="ActivityPrice-1" placeholder="Rs. X,xxx" class="form-control activity__price" />
                             </div>
                         </div>
                     </div>
 
                     
-                    <div class="form-row row col-12" id="trip-inclusion-1" style="display: none;">
+                    <div class="form-row row col-12" {% if not itinerary.activity_2 %} id="trip-inclusion-1" style="display: none;"{% endif %}>
                         <div class="form-group col-4">
                             <div class="col-12">
                                 <label>Activities</label>
                             </div>
                             <div class="col-12">
                                 <select name="activity_2"  id="activity-data-2" onchange="ActivityChange('ActivityPrice-2',this.value,'number_of_people-2')" class="form-control activity_data">
+                                {% if itinerary.activity_2 %}
+                                    <option value="{{itinerary.activity_2}}" selected>{{itinerary.activity_2}}</option>
+                                {% endif %}
                                 </select>
                             </div>
                         </div>
@@ -764,7 +848,8 @@
                                 <label>No. of person</label>
                             </div>
                             <div class="col-12">
-                                <input type="number" id="number_of_people-2" onchange="ChangeActivityValue(this.value,'ActivityPrice-2','activity-data-2');" name="no_of_person_2" class="form-control" />
+                                <input type="number" id="number_of_people-2" value="{{itinerary.no_of_person_2}}"
+                                onchange="ChangeActivityValue(this.value,'ActivityPrice-2','activity-data-2');" name="no_of_person_2" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group col-4">
@@ -772,18 +857,22 @@
                                 <label>Total Price</label>
                             </div>
                             <div class="col-12">
-                                <input type="number" name="activity_price_2" id="ActivityPrice-2" placeholder="Rs. X,xxx" class="form-control activity__price" />
+                                <input type="number" name="activity_price_2" value="{{itinerary.activity_price_2}}" id="ActivityPrice-2"
+                                 placeholder="Rs. X,xxx" class="form-control activity__price" />
                             </div>
                         </div>
                     </div>
 
-                    <div class="form-row row col-12" id="trip-inclusion-2" style="display: none;">
+                    <div class="form-row row col-12" {% if not itinerary.activity_3 %}id="trip-inclusion-2" style="display: none;"{% endif %}>
                         <div class="form-group col-4">
                             <div class="col-12">
                                 <label>Activities</label>
                             </div>
                             <div class="col-12">
                                 <select name="activity_3"  id="activity-data-3" onchange="ActivityChange('ActivityPrice-3',this.value,'number_of_people-3')" class="form-control activity_data">
+                                 {% if itinerary.activity_3 %}
+                                    <option value="{{itinerary.activity_3}}" selected>{{itinerary.activity_3}}</option>
+                                {% endif %}
                                 </select>
                             </div>
                         </div>
@@ -792,7 +881,8 @@
                                 <label>No. of person</label>
                             </div>
                             <div class="col-12">
-                                <input type="number" id="number_of_people-3" onchange="ChangeActivityValue(this.value,'ActivityPrice-3','activity-data-3');" name="no_of_person_3" class="form-control" />
+                                <input type="number" id="number_of_people-3" value="{{itinerary.no_of_person_3}}"
+                                onchange="ChangeActivityValue(this.value,'ActivityPrice-3','activity-data-3');" name="no_of_person_3" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group col-4">
@@ -800,17 +890,21 @@
                                 <label>Total Price</label>
                             </div>
                             <div class="col-12">
-                                <input type="number" name="activity_price_3" id="ActivityPrice-3" placeholder="Rs. X,xxx" class="form-control activity__price" />
+                                <input type="number" name="activity_price_3" value="{{itinerary.activity_price_3}}" id="ActivityPrice-3"
+                                 placeholder="Rs. X,xxx" class="form-control activity__price" />
                             </div>
                         </div>
                     </div>
-                    <div class="form-row row col-12" id="trip-inclusion-3" style="display: none;">
+                    <div class="form-row row col-12" {% if not itinerary.activity_4 %}id="trip-inclusion-3" style="display: none;"{% endif %}>
                         <div class="form-group col-4">
                             <div class="col-12">
                                 <label>Activities</label>
                             </div>
                             <div class="col-12">
                                 <select name="activity_4" id="activity-data-4" onchange="ActivityChange('ActivityPrice-4',this.value,'number_of_people-4')" class="form-control activity_data">
+                                 {% if itinerary.activity_4 %}
+                                    <option value="{{itinerary.activity_4}}" selected>{{itinerary.activity_4}}</option>
+                                {% endif %}
                                 </select>
                             </div>
                         </div>
@@ -819,7 +913,8 @@
                                 <label>No. of person</label>
                             </div>
                             <div class="col-12">
-                                <input type="number" id="number_of_people-4" onchange="ChangeActivityValue(this.value,'ActivityPrice-4','activity-data-4');" name="no_of_person_4" class="form-control" />
+                                <input type="number" id="number_of_people-4" value="{{itinerary.no_of_person_4}}"
+                                 onchange="ChangeActivityValue(this.value,'ActivityPrice-4','activity-data-4');" name="no_of_person_4" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group col-4">
@@ -827,17 +922,21 @@
                                 <label>Total Price</label>
                             </div>
                             <div class="col-12">
-                                <input type="number" name="activity_price_4"  id="ActivityPrice-4" placeholder="Rs. X,xxx" class="form-control activity__price" />
+                                <input type="number" name="activity_price_4" value="{{itinerary.activity_price_4}}"  id="ActivityPrice-4"
+                                 placeholder="Rs. X,xxx" class="form-control activity__price" />
                             </div>
                         </div>
                     </div>
-                    <div class="form-row row col-12" id="trip-inclusion-4" style="display: none;">
+                    <div class="form-row row col-12" {% if not itinerary.activity_5 %}id="trip-inclusion-4" style="display: none;"{% endif %}>
                         <div class="form-group col-4">
                             <div class="col-12">
                                 <label>Activities</label>
                             </div>
                             <div class="col-12">
                                 <select name="activity_5" id="activity-data-5" onchange="ActivityChange('ActivityPrice-5',this.value,'number_of_people-5')" class="form-control activity_data">
+                                {% if itinerary.activity_5 %}
+                                    <option value="{{itinerary.activity_5}}" selected>{{itinerary.activity_5}}</option>
+                                {% endif %}
                                 </select>
                             </div>
                         </div>
@@ -846,7 +945,8 @@
                                 <label>No. of person</label>
                             </div>
                             <div class="col-12">
-                                <input type="number" id="number_of_people-5" onchange="ChangeActivityValue(this.value,'ActivityPrice-5','activity-data-5');" name="no_of_person_5" class="form-control" />
+                                <input type="number" id="number_of_people-5" value="{{itinerary.no_of_person_5}}"
+                                onchange="ChangeActivityValue(this.value,'ActivityPrice-5','activity-data-5');" name="no_of_person_5" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group col-4">
@@ -854,7 +954,8 @@
                                 <label>Total Price</label>
                             </div>
                             <div class="col-12">
-                                <input type="number" name="activity_price_5" id="ActivityPrice-5" placeholder="Rs. X,xxx" class="form-control activity__price" />
+                                <input type="number" name="activity_price_5" value="{{itinerary.activity_price_5}}" id="ActivityPrice-5" 
+                                placeholder="Rs. X,xxx" class="form-control activity__price" />
                             </div>
                         </div>
                     </div>
@@ -871,13 +972,17 @@
 
                 <h1 class="mt-4 mb-3 px-2" style="background-color: aquamarine;">Hotel Details</h1>
                 <div class="form-data">
+                        {% if hotel1 %}
                             <div class="form-row pl-3 my-3" style="border: 2px solid gainsboro; background-color:rgba(255,255,255,0.7);">
                                     <div class="form-group row col-12">
                                         <div class="col-3">
                                             <label>Select City</label>
                                         </div>
                                         <div class="col-6">
-                                            <select name="hotel_city_name_1" id="hotel_location1" class="form-control hotel_city">
+                                            <select name="hotel_city_name_1" value="{{hotel1.hotel_city_name_1}}" id="hotel_location1" class="form-control hotel_city">
+                                            {% if hotel1.city %}
+                                            <option value="{{hotel1.city}}" selected>{{hotel1.city}}</option>
+                                             {% endif %}
                                             </select>
                                         </div>
                                     </div>
@@ -889,6 +994,9 @@
                                             <div class="col-6">
                                                <select name="accommodation_category-1"  id="AccommodationCat-1" class="form-control">
                                                    <option value="">Select Accommodation Category</option>
+                                                   {% if hotel1.accommodation_category %}
+                                                    <option value="{{hotel1.accommodation_category}}" selected>{{hotel1.accommodation_category}}</option>
+                                                   {% endif %}
                                                    <option value="Budget Hotel">Budget Hotel</option>
                                                    <option value="2 Star Hotel">2 Star Hotel</option>
                                                    <option value="3 Star Hotel">3 Star Hotel</option>
@@ -905,6 +1013,9 @@
                                             </div>
                                             <div class="col-6">
                                                <select name="room_type" id="room_type-1" class="form-control">
+                                               {% if hotel1.room_type %}
+                                                    <option value="{{hotel1.room_type}}" selected>{{hotel1.room_type}}</option>
+                                                {% endif %}
                                                    <option value="">Select Room Type</option>
                                                    <option value="Standard">Standard</option>
                                                    <option value="Delux">Delux</option>
@@ -926,6 +1037,9 @@
                                             <div class="col-6">
                                                 <select name="hotel_stay_name_1" id="stay-name-1" 
                                                 onchange="StayChange(this.value,'meal_type-1','room_sharing-1','honeymoon_kit-1','honeymoon-kit-price-1','number_of_room-1','number_of_night-1','hotel-total-price-1','hotel__images-1')" class="form-control">
+                                                {% if hotel1.stay_name %}
+                                                    <option value="{{hotel1.stay_name}}" selected>{{hotel1.stay_name}}</option>
+                                                   {% endif %}
                                                 </select>
                                             </div>
                                         </div>
@@ -937,6 +1051,9 @@
                                             <div class="col-6">
                                                <select name="meal_type_1" id="meal_type-1" class="form-control">
                                                    <option value="">Select Category</option>
+                                                   {% if hotel1.meal_type %}
+                                                    <option value="{{hotel1.meal_type}}" selected>{{hotel1.meal_type}}</option>
+                                                   {% endif %}
                                                </select>
                                             </div>
                                         </div>
@@ -947,6 +1064,9 @@
                                             </div>
                                             <div class="col-6">
                                                <select name="room_sharing_1" id="room_sharing-1" class="form-control">
+                                               {% if hotel1.room_sharing %}
+                                                    <option value="{{hotel1.room_sharing}}" selected>{{hotel1.room_sharing}}</option>
+                                                {% endif %}
                                                </select>
                                             </div>
                                         </div>
@@ -958,10 +1078,15 @@
                                             <div class="col-6">
                                                <select name="honeymoon_kit" class="form-control" id="honeymoon_kit-1">
                                                    <option value="">Select Honeymoon Kit</option>
+                                                   {% if hotel1.honeymoon_kit_price %}
+                                                    <option value="yes" selected>Yes</option>
+                                                    {% else %}
+                                                    <option value="no" selected>no</option>
+                                                   {% endif %}
                                                </select>
                                             </div>
                                             <div class="col-3 honeymoon_kit_price">
-                                                <input type="number" name="honeymoon_kit_price_1" class="form-control honerymoon_kit_price" id="honeymoon-kit-price-1" placeholder="Rs." style="display: none;" />
+                                                <input type="number" name="honeymoon_kit_price_1" value="{{hotel1.honeymoon_kit_price}}" class="form-control honerymoon_kit_price" id="honeymoon-kit-price-1" placeholder="Rs." style="display: none;" />
                                             </div>
                                         </div>
                                         <div class="form-group row col-12">
@@ -969,7 +1094,7 @@
                                                 <label>Number Of Room</label>
                                             </div>
                                             <div class="col-6">
-                                                <input type="number" name="number_of_room_1" class="form-control" id="number_of_room-1" 
+                                                <input type="number" name="number_of_room_1" value="{{itinerary.number_of_room_1}}" class="form-control" id="number_of_room-1" 
                                                 onchange="RoomNumberChange(this.value,'stay-name-1','hotel-total-price-1','number_of_night-1')" />
                                             </div>
                                         </div>
@@ -978,7 +1103,7 @@
                                                 <label>Nights</label>
                                             </div>
                                             <div class="col-6">
-                                                <input type="text" name="hotel_nights_1" id="" class="form-control" />
+                                                <input type="text" name="hotel_nights_1" value="{{itinerary.hotel_nights_1}}" id="" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="form-group row col-12">
@@ -987,7 +1112,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <input type="number" name="number_of_night_1" class="form-control" id="number_of_night-1"
-                                                onchange="NumberNightChange(this.value,'hotel-total-price-1','number_of_room-1','stay-name-1')" />
+                                                value="{{itinerary.number_of_night_1}}" onchange="NumberNightChange(this.value,'hotel-total-price-1','number_of_room-1','stay-name-1')" />
                                             </div>
                                         </div>
 
@@ -996,21 +1121,41 @@
                                                 <label>Total price : </label>
                                             </div>
                                             <div class="col-6">
-                                                <input type="text" name="hotel_total_cost_1" class="form-control hotel_price" id="hotel-total-price-1" placeholder="Rs.x,xxx"/>
+                                                <input type="text" value="{{hotel1.total_price}}" name="hotel_total_cost_1" class="form-control hotel_price" id="hotel-total-price-1" placeholder="Rs.x,xxx"/>
                                             </div>
                                         </div>
                                         <div class="form-group hotel__images-1">
                                             <h3 class="my-3">Hotel Images</h3>
+                                            {% if hotel1.image1  %}
+                                            <img src="{{hotel1.image1.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel1.image2  %}
+                                            <img src="{{hotel1.image2.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel1.image3  %}
+                                            <img src="{{hotel1.image3.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel1.image4  %}
+                                            <img src="{{hotel1.image4.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel1.image5  %}
+                                            <img src="{{hotel1.image5.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel1.image6  %}
+                                            <img src="{{hotel1.image6.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel1.image7  %}
+                                            <img src="{{hotel1.image7.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
 
                                         </div>
                                 </div>
-                            <div id='Hotel_schedule-1' class="form-row pl-3 my-3" style="display:none;border: 2px solid gainsboro; background-color:rgba(255,255,255,0.7);">
+                            
+                           {% endif %}
+
+                            <div {% if not hotel2 %}style="display:none;border: 2px solid gainsboro; background-color:rgba(255,255,255,0.7);"id='Hotel_schedule-1'{% else %}  style="border: 2px solid gainsboro; background-color:rgba(255,255,255,0.7);" {% endif %}  class="form-row pl-3 my-3" >
                                 <div class="form-group row col-12">
                                     <div class="col-3">
                                         <label>Select City</label>
                                     </div>
                                     <div class="col-6">
                                         <select name="hotel_city_name_2" id="hotel_location2" class="form-control hotel_city">
+                                        {% if hotel2.city %}
+                                            <option value="{{hotel2.city}}" selected>{{hotel2.city}}</option>
+                                        {% endif %}
                                         </select>
                                     </div>
                                 </div>
@@ -1022,6 +1167,9 @@
                                         <div class="col-6">
                                            <select name="accommodation_category"  id="AccommodationCat-2" class="form-control">
                                                <option value="">Select Accommodation Category</option>
+                                               {% if hotel2.accommodation_category %}
+                                                    <option value="{{hotel2.accommodation_category}}" selected>{{hotel2.accommodation_category}}</option>
+                                               {% endif %}
                                                <option value="Budget Hotel">Budget Hotel</option>
                                                <option value="2 Star Hotel">2 Star Hotel</option>
                                                <option value="3 Star Hotel">3 Star Hotel</option>
@@ -1038,6 +1186,9 @@
                                         </div>
                                         <div class="col-6">
                                            <select name="room_type" id="room_type-2" class="form-control">
+                                             {% if hotel2.room_type %}
+                                                    <option value="{{hotel2.room_type}}" selected>{{hotel2.room_type}}</option>
+                                                {% endif %}
                                                <option value="">Select Room Type</option>
                                                <option value="Standard">Standard</option>
                                                <option value="Delux">Delux</option>
@@ -1059,6 +1210,9 @@
                                         <div class="col-6">
                                             <select name="hotel_stay_name_2" id="stay-name-2" 
                                             onchange="StayChange(this.value,'meal_type-2','room_sharing-2','honeymoon_kit-2','honeymoon-kit-price-2','number_of_room-2','number_of_night-2','hotel-total-price-2','hotel__images-2')" class="form-control">
+                                             {% if hotel2.stay_name %}
+                                                    <option value="{{hotel2.stay_name}}" selected>{{hotel2.stay_name}}</option>
+                                            {% endif %}
                                             </select>
                                         </div>
                                     </div>
@@ -1070,6 +1224,9 @@
                                         <div class="col-6">
                                            <select name="meal_type_2" id="meal_type-2" class="form-control">
                                                <option value="">Select Category</option>
+                                               {% if hotel2.meal_type %}
+                                                    <option value="{{hotel2.meal_type}}" selected>{{hotel2.meal_type}}</option>
+                                                {% endif %}
                                            </select>
                                         </div>
                                     </div>
@@ -1080,6 +1237,9 @@
                                         </div>
                                         <div class="col-6">
                                            <select name="room_sharing_2" id="room_sharing-2" class="form-control">
+                                             {% if hotel2.room_sharing %}
+                                                    <option value="{{hotel2.room_sharing}}" selected>{{hotel2.room_sharing}}</option>
+                                            {% endif %}
                                            </select>
                                         </div>
                                     </div>
@@ -1091,10 +1251,15 @@
                                         <div class="col-6">
                                            <select name="honeymoon_kit" class="form-control" id="honeymoon_kit-2">
                                                <option value="">Select Honeymoon Kit</option>
+                                                 {% if hotel2.honeymoon_kit_price %}
+                                                    <option value="yes" selected>Yes</option>
+                                                    {% else %}
+                                                    <option value="no" selected>no</option>
+                                                {% endif %}
                                            </select>
                                         </div>
                                         <div class="col-3 honeymoon_kit_price">
-                                            <input type="number" name="honeymoon_kit_price_2" class="form-control honerymoon_kit_price" id="honeymoon-kit-price-2" placeholder="Rs." style="display: none;" />
+                                            <input type="number" name="honeymoon_kit_price_2" value="{{hotel2.honeymoon_kit_price}}" class="form-control honerymoon_kit_price" id="honeymoon-kit-price-2" placeholder="Rs." style="display: none;" />
                                         </div>
                                     </div>
                                     <div class="form-group row col-12">
@@ -1102,7 +1267,7 @@
                                             <label>Number Of Room</label>
                                         </div>
                                         <div class="col-6">
-                                            <input type="number" name="number_of_room_2" class="form-control" id="number_of_room-2" 
+                                            <input type="number" name="number_of_room_2" value="{{itinerary.number_of_room_2}}" class="form-control" id="number_of_room-2" 
                                             onchange="RoomNumberChange(this.value,'stay-name-2','hotel-total-price-2','number_of_night-2')" />
                                         </div>
                                     </div>
@@ -1111,7 +1276,7 @@
                                             <label>Nights</label>
                                         </div>
                                         <div class="col-6">
-                                            <input type="text" name="hotel_nights_2" id="" class="form-control" />
+                                            <input type="text" name="hotel_nights_2" value="{{itinerary.hotel_nights_2}}" id="" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="form-group row col-12">
@@ -1120,7 +1285,7 @@
                                         </div>
                                         <div class="col-6">
                                             <input type="number" name="number_of_night_2" class="form-control" id="number_of_night-2"
-                                            onchange="NumberNightChange(this.value,'hotel-total-price-2','number_of_room-2','stay-name-2')" />
+                                          value="{{itinerary.number_of_night_2}}"  onchange="NumberNightChange(this.value,'hotel-total-price-2','number_of_room-2','stay-name-2')" />
                                         </div>
                                     </div>
 
@@ -1129,21 +1294,39 @@
                                             <label>Total price : </label>
                                         </div>
                                         <div class="col-6">
-                                            <input type="text" name="hotel_total_cost_2" class="form-control hotel_price" id="hotel-total-price-2" placeholder="Rs.x,xxx"/>
+                                            <input type="text" value="{{hotel2.total_price}}" name="hotel_total_cost_2" class="form-control hotel_price" id="hotel-total-price-2" placeholder="Rs.x,xxx"/>
                                         </div>
                                     </div>
                                     <div class="form-group hotel__images-2">
                                         <h3 class="my-3">Hotel Images</h3>
+                                         {% if hotel2.image1  %}
+                                            <img src="{{hotel2.image1.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel2.image2  %}
+                                            <img src="{{hotel2.image2.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel2.image3  %}
+                                            <img src="{{hotel2.image3.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel2.image4  %}
+                                            <img src="{{hotel2.image4.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel2.image5  %}
+                                            <img src="{{hotel2.image5.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel2.image6  %}
+                                            <img src="{{hotel2.image6.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel2.image7  %}
+                                            <img src="{{hotel2.image7.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
 
                                     </div>
-                        </div>
-                        <div id='Hotel_schedule-2' class="form-row pl-3 my-3" style="display:none;border: 2px solid gainsboro; background-color:rgba(255,255,255,0.7);">
+                             </div>
+
+                        <div {% if not hotel3 %}id='Hotel_schedule-2' style="display:none;border: 2px solid gainsboro; background-color:rgba(255,255,255,0.7);" {% else %}style="border: 2px solid gainsboro; background-color:rgba(255,255,255,0.7);" {% endif %}  class="form-row pl-3 my-3">
                             <div class="form-group row col-12">
                                 <div class="col-3">
                                     <label>Select City</label>
                                 </div>
                                 <div class="col-6">
                                     <select name="hotel_city_name_3" id="hotel_location3" class="form-control hotel_city">
+                                    {% if hotel3.city %}
+                                            <option value="{{hotel3.city}}" selected>{{hotel3.city}}</option>
+                                    {% endif %}
                                     </select>
                                 </div>
                             </div>
@@ -1154,6 +1337,9 @@
                                     </div>
                                     <div class="col-6">
                                        <select name="accommodation_category"  id="AccommodationCat-3" class="form-control">
+                                            {% if hotel3.accommodation_category %}
+                                                    <option value="{{hotel3.accommodation_category}}" selected>{{hotel3.accommodation_category}}</option>
+                                            {% endif %}
                                            <option value="">Select Accommodation Category</option>
                                            <option value="Budget Hotel">Budget Hotel</option>
                                            <option value="2 Star Hotel">2 Star Hotel</option>
@@ -1171,6 +1357,9 @@
                                     </div>
                                     <div class="col-6">
                                        <select name="room_type" id="room_type-3" class="form-control">
+                                       {% if hotel3.room_type %}
+                                                    <option value="{{hotel3.room_type}}" selected>{{hotel3.room_type}}</option>
+                                        {% endif %}
                                            <option value="">Select Room Type</option>
                                            <option value="Standard">Standard</option>
                                            <option value="Delux">Delux</option>
@@ -1192,6 +1381,9 @@
                                     <div class="col-6">
                                         <select name="hotel_stay_name_3" id="stay-name-3" 
                                         onchange="StayChange(this.value,'meal_type-3','room_sharing-3','honeymoon_kit-3','honeymoon-kit-price-3','number_of_room-3','number_of_night-3','hotel-total-price-3','hotel__images-3')" class="form-control">
+                                        {% if hotel3.stay_name %}
+                                                    <option value="{{hotel3.stay_name}}" selected>{{hotel3.stay_name}}</option>
+                                            {% endif %}
                                         </select>
                                     </div>
                                 </div>
@@ -1203,6 +1395,9 @@
                                     <div class="col-6">
                                        <select name="meal_type_3" id="meal_type-3" class="form-control">
                                            <option value="">Select Category</option>
+                                           {% if hotel3.meal_type %}
+                                                    <option value="{{hotel3.meal_type}}" selected>{{hotel3.meal_type}}</option>
+                                            {% endif %}
                                        </select>
                                     </div>
                                 </div>
@@ -1213,6 +1408,9 @@
                                     </div>
                                     <div class="col-6">
                                        <select name="room_sharing_3" id="room_sharing-3" class="form-control">
+                                        {% if hotel3.room_sharing %}
+                                                    <option value="{{hotel3.room_sharing}}" selected>{{hotel3.room_sharing}}</option>
+                                        {% endif %}
                                        </select>
                                     </div>
                                 </div>
@@ -1224,10 +1422,15 @@
                                     <div class="col-6">
                                        <select name="honeymoon_kit" class="form-control" id="honeymoon_kit-3">
                                            <option value="">Select Honeymoon Kit</option>
+                                            {% if hotel3.honeymoon_kit_price %}
+                                                    <option value="yes" selected>Yes</option>
+                                                    {% else %}
+                                                    <option value="no" selected>no</option>
+                                                {% endif %}
                                        </select>
                                     </div>
                                     <div class="col-3 honeymoon_kit_price">
-                                        <input type="number" name="honeymoon_kit_price_3" class="form-control honerymoon_kit_price_3" id="honeymoon-kit-price-3" placeholder="Rs." style="display: none;" />
+                                        <input type="number" name="honeymoon_kit_price_3" value="{{hotel3.honeymoon_kit_price}}" class="form-control honerymoon_kit_price_3" id="honeymoon-kit-price-3" placeholder="Rs." style="display: none;" />
                                     </div>
                                 </div>
                                 <div class="form-group row col-12">
@@ -1235,7 +1438,7 @@
                                         <label>Number Of Room</label>
                                     </div>
                                     <div class="col-6">
-                                        <input type="number" name="number_of_room_3" class="form-control" id="number_of_room-3" 
+                                        <input type="number" name="number_of_room_3" value="{{itinerary.number_of_room_3}}" class="form-control" id="number_of_room-3" 
                                         onchange="RoomNumberChange(this.value,'stay-name-3','hotel-total-price-3','number_of_night-3')" />
                                     </div>
                                 </div>
@@ -1244,7 +1447,7 @@
                                         <label>Nights</label>
                                     </div>
                                     <div class="col-6">
-                                        <input type="text" name="hotel_nights_3" id="" class="form-control" />
+                                        <input type="text" name="hotel_nights_3" value="{{itinerary.hotel_nights_3}}" id="" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="form-group row col-12">
@@ -1253,7 +1456,7 @@
                                     </div>
                                     <div class="col-6">
                                         <input type="number" name="number_of_night_3" class="form-control" id="number_of_night-3"
-                                        onchange="NumberNightChange(this.value,'hotel-total-price-3','number_of_room-3','stay-name-3')" />
+                                      value="{{itinerary.number_of_night_3}}"  onchange="NumberNightChange(this.value,'hotel-total-price-3','number_of_room-3','stay-name-3')" />
                                     </div>
                                 </div>
 
@@ -1262,21 +1465,38 @@
                                         <label>Total price : </label>
                                     </div>
                                     <div class="col-6">
-                                        <input type="text" name="hotel_total_cost_3" class="form-control hotel_price" id="hotel-total-price-3" placeholder="Rs.x,xxx"/>
+                                        <input type="text" value="{{hotel3.total_price}}" name="hotel_total_cost_3" class="form-control hotel_price" id="hotel-total-price-3" placeholder="Rs.x,xxx"/>
                                     </div>
                                 </div>
                                 <div class="form-group hotel__images-3">
                                     <h3 class="my-3">Hotel Images</h3>
-
+                                    {% if hotel3.image1  %}
+                                            <img src="{{hotel3.image1.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel3.image2  %}
+                                            <img src="{{hotel3.image2.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel3.image3  %}
+                                            <img src="{{hotel3.image3.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel3.image4  %}
+                                            <img src="{{hotel3.image4.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel3.image5  %}
+                                            <img src="{{hotel3.image5.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel3.image6  %}
+                                            <img src="{{hotel3.image6.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel3.image7  %}
+                                            <img src="{{hotel3.image7.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
                                 </div>
-                    </div>
-                    <div id='Hotel_schedule-3' class="form-row pl-3 my-3" style="display:none;border: 2px solid gainsboro; background-color:rgba(255,255,255,0.7);">
+                    </div> 
+
+                    <div {% if not hotel4 %}id='Hotel_schedule-3'style="display:none;border: 2px solid gainsboro; background-color:rgba(255,255,255,0.7);" {% else %} style="border: 2px solid gainsboro; background-color:rgba(255,255,255,0.7);"{% endif %}  class="form-row pl-3 my-3" >
                         <div class="form-group row col-12">
                             <div class="col-3">
                                 <label>Select City</label>
                             </div>
                             <div class="col-6">
                                 <select name="hotel_city_name_4" id="hotel_location4" class="form-control hotel_city">
+                                 {% if hotel4.city %}
+                                            <option value="{{hotel4.city}}" selected>{{hotel4.city}}</option>
+                                    {% endif %}
                                 </select>
                             </div>
                         </div>
@@ -1287,6 +1507,9 @@
                                 </div>
                                 <div class="col-6">
                                    <select name="accommodation_category"  id="AccommodationCat-4" class="form-control">
+                                          {% if hotel4.accommodation_category %}
+                                                    <option value="{{hotel4.accommodation_category}}" selected>{{hotel4.accommodation_category}}</option>
+                                            {% endif %}
                                        <option value="">Select Accommodation Category</option>
                                        <option value="Budget Hotel">Budget Hotel</option>
                                        <option value="2 Star Hotel">2 Star Hotel</option>
@@ -1304,6 +1527,9 @@
                                 </div>
                                 <div class="col-6">
                                    <select name="room_type" id="room_type-4" class="form-control">
+                                   {% if hotel4.room_type %}
+                                            <option value="{{hotel4.room_type}}" selected>{{hotel4.room_type}}</option>
+                                        {% endif %}
                                        <option value="">Select Room Type</option>
                                        <option value="Standard">Standard</option>
                                        <option value="Delux">Delux</option>
@@ -1326,6 +1552,9 @@
                                     <select name="hotel_stay_name_4" id="stay-name-4" 
                                     onchange="StayChange(this.value,'meal_type-4','room_sharing-4','honeymoon_kit-4','honeymoon-kit-price-4','number_of_room-4','number_of_night-4','hotel-total-price-4','hotel__images-4')" 
                                     class="form-control">
+                                      {% if hotel4.stay_name %}
+                                         <option value="{{hotel4.stay_name}}" selected>{{hotel4.stay_name}}</option>
+                                      {% endif %}
                                     </select>
                                 </div>
                             </div>
@@ -1337,6 +1566,9 @@
                                 <div class="col-6">
                                    <select name="meal_type_4" id="meal_type-4" class="form-control">
                                        <option value="">Select Category</option>
+                                        {% if hotel4.meal_type %}
+                                                    <option value="{{hotel4.meal_type}}" selected>{{hotel4.meal_type}}</option>
+                                        {% endif %}
                                    </select>
                                 </div>
                             </div>
@@ -1347,6 +1579,9 @@
                                 </div>
                                 <div class="col-6">
                                    <select name="room_sharing_4" id="room_sharing-4" class="form-control">
+                                    {% if hotel4.room_sharing %}
+                                                    <option value="{{hotel4.room_sharing}}" selected>{{hotel4.room_sharing}}</option>
+                                        {% endif %}
                                    </select>
                                 </div>
                             </div>
@@ -1358,10 +1593,15 @@
                                 <div class="col-6">
                                    <select name="honeymoon_kit" class="form-control" id="honeymoon_kit-4" >
                                        <option value="">Select Honeymoon Kit</option>
+                                       {% if hotel4.honeymoon_kit_price %}
+                                                    <option value="yes" selected>Yes</option>
+                                                    {% else %}
+                                                    <option value="no" selected>no</option>
+                                        {% endif %}
                                    </select>
                                 </div>
                                 <div class="col-3 honeymoon_kit_price">
-                                    <input type="number" name="honeymoon_kit_price_4" class="form-control honerymoon_kit_price_4" id="honeymoon-kit-price-4" placeholder="Rs." style="display: none;" />
+                                    <input type="number" name="honeymoon_kit_price_4"  value="{{hotel4.honeymoon_kit_price}}" class="form-control honerymoon_kit_price_4" id="honeymoon-kit-price-4" placeholder="Rs." style="display: none;" />
                                 </div>
                             </div>
                             <div class="form-group row col-12">
@@ -1369,7 +1609,7 @@
                                     <label>Number Of Room</label>
                                 </div>
                                 <div class="col-6">
-                                    <input type="number" name="number_of_room_4" class="form-control" id="number_of_room-4" 
+                                    <input type="number" name="number_of_room_4" value="{{itinerary.number_of_room_4}}" class="form-control" id="number_of_room-4" 
                                     onchange="RoomNumberChange(this.value,'stay-name-4','hotel-total-price-4','number_of_night-4')" />
                                 </div>
                             </div>
@@ -1378,7 +1618,7 @@
                                     <label>Nights</label>
                                 </div>
                                 <div class="col-6">
-                                    <input type="text" name="hotel_nights_4" id="" class="form-control" />
+                                    <input type="text" name="hotel_nights_4" value="{{itinerary.hotel_nights_4}}" id="" class="form-control" />
                                 </div>
                             </div>
                             <div class="form-group row col-12">
@@ -1387,7 +1627,7 @@
                                 </div>
                                 <div class="col-6">
                                     <input type="number" name="number_of_night_4" class="form-control" id="number_of_night-4"
-                                    onchange="NumberNightChange(this.value,'hotel-total-price-4','number_of_room-4','stay-name-4')" />
+                                  value="{{itinerary.number_of_night_4}}"  onchange="NumberNightChange(this.value,'hotel-total-price-4','number_of_room-4','stay-name-4')" />
                                 </div>
                             </div>
 
@@ -1396,21 +1636,41 @@
                                     <label>Total price : </label>
                                 </div>
                                 <div class="col-6">
-                                    <input type="text" name="hotel_total_cost_4" class="form-control hotel_price" id="hotel-total-price-4" placeholder="Rs.x,xxx"/>
+                                    <input type="text" value="{{hotel4.total_price}}" name="hotel_total_cost_4" class="form-control hotel_price" id="hotel-total-price-4" placeholder="Rs.x,xxx"/>
                                 </div>
                             </div>
                             <div class="form-group hotel__images-4">
                                 <h3 class="my-3">Hotel Images</h3>
+                                            {% if hotel4.image1  %}
+                                            <img src="{{hotel4.image1.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel4.image2  %}
+                                            <img src="{{hotel4.image2.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel4.image3  %}
+                                            <img src="{{hotel4.image3.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel4.image4  %}
+                                            <img src="{{hotel4.image4.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel4.image5  %}
+                                            <img src="{{hotel4.image5.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel4.image6  %}
+                                            <img src="{{hotel4.image6.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel4.image7  %}
+                                            <img src="{{hotel4.image7.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
 
                             </div>
                     </div>
-                    <div id='Hotel_schedule-4' class="form-row pl-3 my-3" style="display:none;border: 2px solid gainsboro; background-color:rgba(255,255,255,0.7);">
+
+
+                    <div {% if not hotel5 %}id='Hotel_schedule-4' class="form-row pl-3 my-3" style="display:none;border: 2px solid gainsboro; background-color:rgba(255,255,255,0.7);" 
+                    {% else %}  class="form-row pl-3 my-3" style="border: 2px solid gainsboro; background-color:rgba(255,255,255,0.7);"{% endif %} >
                         <div class="form-group row col-12">
                             <div class="col-3">
                                 <label>Select City</label>
                             </div>
                             <div class="col-6">
                                 <select name="hotel_city_name_5" id="hotel_location5" class="form-control hotel_city">
+                                {% if hotel5.city %}
+                                            <option value="{{hotel5.city}}" selected>{{hotel5.city}}</option>
+                                    {% endif %}
                                 </select>
                             </div>
                         </div>
@@ -1421,6 +1681,9 @@
                                 </div>
                                 <div class="col-6">
                                    <select name="accommodation_category"  id="AccommodationCat-5" class="form-control">
+                                       {% if hotel5.accommodation_category %}
+                                                    <option value="{{hotel5.accommodation_category}}" selected>{{hotel5.accommodation_category}}</option>
+                                            {% endif %}
                                        <option value="">Select Accommodation Category</option>
                                        <option value="Budget Hotel">Budget Hotel</option>
                                        <option value="2 Star Hotel">2 Star Hotel</option>
@@ -1438,6 +1701,9 @@
                                 </div>
                                 <div class="col-6">
                                    <select name="room_type" id="room_type-5" class="form-control">
+                                    {% if hotel5.room_type %}
+                                            <option value="{{hotel5.room_type}}" selected>{{hotel5.room_type}}</option>
+                                        {% endif %}
                                        <option value="">Select Room Type</option>
                                        <option value="Standard">Standard</option>
                                        <option value="Delux">Delux</option>
@@ -1460,6 +1726,9 @@
                                     <select name="hotel_stay_name_5" id="stay-name-5" 
                                     onchange="StayChange(this.value,'meal_type-5','room_sharing-5','honeymoon_kit-5','honeymoon-kit-price-5','number_of_room-5','number_of_night-5','hotel-total-price-5','hotel__images-5')" 
                                     class="form-control">
+                                     {% if hotel5.stay_name %}
+                                         <option value="{{hotel5.stay_name}}" selected>{{hotel5.stay_name}}</option>
+                                      {% endif %}
                                     </select>
                                 </div>
                             </div>
@@ -1471,6 +1740,9 @@
                                 <div class="col-6">
                                    <select name="meal_type_5" id="meal_type-5" class="form-control">
                                        <option value="">Select Category</option>
+                                    {% if hotel5.meal_type %}
+                                       <option value="{{hotel5.meal_type}}" selected>{{hotel5.meal_type}}</option>
+                                    {% endif %}
                                    </select>
                                 </div>
                             </div>
@@ -1481,6 +1753,9 @@
                                 </div>
                                 <div class="col-6">
                                    <select name="room_sharing_5" id="room_sharing-5" class="form-control">
+                                    {% if hotel5.room_sharing %}
+                                                    <option value="{{hotel5.room_sharing}}" selected>{{hotel5.room_sharing}}</option>
+                                        {% endif %}
                                    </select>
                                 </div>
                             </div>
@@ -1492,10 +1767,15 @@
                                 <div class="col-6">
                                    <select name="honeymoon_kit" class="form-control" id="honeymoon_kit-5">
                                        <option value="">Select Honeymoon Kit</option>
+                                       {% if hotel5.honeymoon_kit_price %}
+                                                    <option value="yes" selected>Yes</option>
+                                                    {% else %}
+                                                    <option value="no" selected>no</option>
+                                        {% endif %}
                                    </select>
                                 </div>
                                 <div class="col-3 honeymoon_kit_price">
-                                    <input type="number" name="honeymoon_kit_price_5" class="form-control honerymoon_kit_price_5" id="honeymoon-kit-price-5" placeholder="Rs." style="display: none;" />
+                                    <input type="number" name="honeymoon_kit_price_5" value="{{hotel5.honeymoon_kit_price}}" class="form-control honerymoon_kit_price_5" id="honeymoon-kit-price-5" placeholder="Rs." style="display: none;" />
                                 </div>
                             </div>
                             <div class="form-group row col-12">
@@ -1503,7 +1783,7 @@
                                     <label>Number Of Room</label>
                                 </div>
                                 <div class="col-6">
-                                    <input type="number" name="number_of_room_5" class="form-control" id="number_of_room-5" 
+                                    <input type="number" name="number_of_room_5" value="{{itinerary.number_of_room_5}}" class="form-control" id="number_of_room-5" 
                                     onchange="RoomNumberChange(this.value,'stay-name-5','hotel-total-price-5','number_of_night-5')" />
                                 </div>
                             </div>
@@ -1512,7 +1792,7 @@
                                     <label>Nights</label>
                                 </div>
                                 <div class="col-6">
-                                    <input type="text" name="hotel_nights_5" id="" class="form-control" />
+                                    <input type="text" name="hotel_nights_5" value="{{itinerary.hotel_nights_5}}"  id="" class="form-control" />
                                 </div>
                             </div>
                             <div class="form-group row col-12">
@@ -1521,7 +1801,7 @@
                                 </div>
                                 <div class="col-6">
                                     <input type="number" name="number_of_night_5" class="form-control" id="number_of_night-5"
-                                    onchange="NumberNightChange(this.value,'hotel-total-price-5','number_of_room-5','stay-name-5')" />
+                                   value="{{itinerary.number_of_night_5}}" onchange="NumberNightChange(this.value,'hotel-total-price-5','number_of_room-5','stay-name-5')" />
                                 </div>
                             </div>
 
@@ -1530,11 +1810,26 @@
                                     <label>Total price : </label>
                                 </div>
                                 <div class="col-6">
-                                    <input type="text" name="hotel_total_cost_5" class="form-control hotel_price" id="hotel-total-price-5" placeholder="Rs.x,xxx"/>
+                                    <input type="text" value="{{hotel5.total_price}}" name="hotel_total_cost_5" class="form-control hotel_price" id="hotel-total-price-5" placeholder="Rs.x,xxx"/>
                                 </div>
                             </div>
                             <div class="form-group hotel__images-5">
                                 <h3 class="my-3">Hotel Images</h3>
+                                {% if hotel5.image1  %}
+                                            <img src="{{hotel5.image1.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel5.image2  %}
+                                            <img src="{{hotel5.image2.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel5.image3  %}
+                                            <img src="{{hotel5.image3.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel5.image4  %}
+                                            <img src="{{hotel5.image4.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel5.image5  %}
+                                            <img src="{{hotel5.image5.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel5.image6  %}
+                                            <img src="{{hotel5.image6.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+                                            {% if hotel5.image7  %}
+                                            <img src="{{hotel5.image7.url}}" class="mx-2 my-2" style="width:200px;">{% endif %}
+
 
                             </div>
                     </div>
@@ -1561,7 +1856,9 @@
                             <div class="col-9">
                                 <select name="vehicle_type_1" class="form-control" id="">
                                     <option value="">Select Vehicle Type</option>
+                                    {% if itinerary.vehicle_type_1 %}
                                     <option value="{{itinerary.vehicle_type_1}}" selected>{{itinerary.vehicle_type_1}}</option>
+                                    {% endif %}
                                     <option value="Sedan">Sedan</option>
                                     <option value="Innova">Innova</option>
                                     <option value="Ertiga">Ertiga</option>
@@ -1604,7 +1901,9 @@
                             <div class="col-9">
                                 <select name="vehicle_type_2" class="form-control" id="">
                                     <option value="">Select Vehicle Type</option>
+                                    {% if itinerary.vehicle_type_2 %}
                                     <option value="{{itinerary.vehicle_type_2}}" selected>{{itinerary.vehicle_type_2}}</option>
+                                    {% endif %}
                                     <option value="Sedan">Sedan</option>
                                     <option value="Innova">Innova</option>
                                     <option value="Ertiga">Ertiga</option>
@@ -1646,7 +1945,9 @@
                             <div class="col-9">
                                 <select name="vehicle_type_3" class="form-control" id="">
                                     <option value="">Select Vehicle Type</option>
+                                    {% if itinerary.vehicle_type_3 %}
                                     <option value="{{itinerary.vehicle_type_3}}" selected>{{itinerary.vehicle_type_3}}</option>
+                                    {% endif %}
                                     <option value="Sedan">Sedan</option>
                                     <option value="Innova">Innova</option>
                                     <option value="Ertiga">Ertiga</option>
@@ -1688,7 +1989,9 @@
                             <div class="col-9">
                                 <select name="vehicle_type_4" class="form-control" id="">
                                     <option value="">Select Vehicle Type</option>
+                                    {% if itinerary.vehicle_type_4 %}
                                     <option value="{{itinerary.vehicle_type_4}}" selected>{{itinerary.vehicle_type_4}}</option>
+                                    {% endif %}
                                     <option value="Sedan">Sedan</option>
                                     <option value="Innova">Innova</option>
                                     <option value="Ertiga">Ertiga</option>
@@ -1728,7 +2031,9 @@
                             <div class="col-9">
                                 <select name="vehicle_type_5" class="form-control" id="">
                                     <option value="">Select Vehicle Type</option>
+                                    {% if itinerary.vehicle_type_5 %}
                                     <option value="{{itinerary.vehicle_type_5}}" selected>{{itinerary.vehicle_type_5}}</option>
+                                    {% endif %}
                                     <option value="Sedan">Sedan</option>
                                     <option value="Innova">Innova</option>
                                     <option value="Ertiga">Ertiga</option>
@@ -1778,7 +2083,11 @@
                                 <label>Other Transportation</label>
                             </div>
                             <div class="col-9">
-                                <select name="other_vehicle_type_1" id="other-transport-name-1" onchange="OtherVehicleType('OtherTransportPrice-1',this.value,'Other-tran-people-1');" class="form-control other_transport_type">
+                                <select name="other_vehicle_type_1" id="other-transport-name-1" 
+                                onchange="OtherVehicleType('OtherTransportPrice-1',this.value,'Other-tran-people-1');" class="form-control other_transport_type">
+                                    {% if itinerary.other_vehicle_type_1  %}
+                                        <option value="{{itinerary.other_vehicle_type_1}}"selected>{{itinerary.other_vehicle_type_1}}</option>
+                                    {% endif %}
                                 </select>
                             </div>
                         </div>
@@ -1788,7 +2097,7 @@
                                     <label>No of Unit</label>
                                 </div>
                                 <div class="col-6">
-                                    <input type="number" name="other_vehicle_no_of_unit_1" onchange="OtherTransportValue(this.value,'other-transport-name-1','OtherTransportPrice-1')" class="form-control" id="Other-tran-people-1" />
+                                    <input type="number" name="other_vehicle_no_of_unit_1" value="{{itinerary.other_vehicle_no_of_unit_1}}" onchange="OtherTransportValue(this.value,'other-transport-name-1','OtherTransportPrice-1')" class="form-control" id="Other-tran-people-1" />
                                 </div>
         
                             </div>
@@ -1797,20 +2106,26 @@
                                     <label>Total Price</label>
                                 </div>
                                 <div class="col-6">
-                                    <input type="number" name="other_vehicle_total_price_1" class="form-control transport__price" id="OtherTransportPrice-1" />
+                                    <input type="number" name="other_vehicle_total_price_1" value="{{itinerary.other_vehicle_total_price_1}}" class="form-control transport__price" id="OtherTransportPrice-1" />
                                 </div>
         
                             </div>
                     </div>
 
                     </div>
-                    <div class="form-row" id="other_transport-1" style="display: none;">
+                    <div class="form-row"
+                    {% if not itinerary.other_vehicle_type_2 %}
+                        id="other_transport-1" style="display: none;"
+                    {% endif %}>
                         <div class="form-row row col-12">
                             <div class="col-3">
                                 <label>Other Transportation</label>
                             </div>
                             <div class="col-9">
                                 <select name="other_vehicle_type_2" id="other-transport-name-2" onchange="OtherVehicleType('OtherTransportPrice-2',this.value,'Other-tran-people-2');" class="form-control other_transport_type" >
+                                {% if itinerary.other_vehicle_type_2  %}
+                                        <option value="{{itinerary.other_vehicle_type_2}}"selected>{{itinerary.other_vehicle_type_2}}</option>
+                                    {% endif %}
                                 </select>
                             </div>
                         </div>
@@ -1820,7 +2135,7 @@
                                     <label>No of Unit</label>
                                 </div>
                                 <div class="col-6">
-                                    <input type="number" name="other_vehicle_no_of_unit_2" class="form-control" onchange="OtherTransportValue(this.value,'other-transport-name-2','OtherTransportPrice-2')" class="form-control" id="Other-tran-people-2"/>
+                                    <input type="number" name="other_vehicle_no_of_unit_2" value="{{itinerary.other_vehicle_no_of_unit_2}}" class="form-control" onchange="OtherTransportValue(this.value,'other-transport-name-2','OtherTransportPrice-2')" class="form-control" id="Other-tran-people-2"/>
                                 </div>
         
                             </div>
@@ -1829,7 +2144,7 @@
                                     <label>Total Price</label>
                                 </div>
                                 <div class="col-6">
-                                    <input type="number" name="other_vehicle_total_price_2" class="form-control transport__price" id="OtherTransportPrice-2" />
+                                    <input type="number" name="other_vehicle_total_price_2" value="{{itinerary.other_vehicle_total_price_2}}" class="form-control transport__price" id="OtherTransportPrice-2" />
                                 </div>
         
                             </div>
@@ -1837,13 +2152,17 @@
 
                     </div>
 
-                    <div class="form-row" id="other_transport-2" style="display: none;">
+                    <div class="form-row" 
+                    {% if not itinerary.other_vehicle_type_3 %}id="other_transport-2" style="display: none;"{% endif %}>
                         <div class="form-row row col-12">
                             <div class="col-3">
                                 <label>Other Transportation</label>
                             </div>
                             <div class="col-9">
                                 <select name="other_vehicle_type_3" class="form-control other_transport_type" id="other-transport-name-3" onchange="OtherVehicleType('OtherTransportPrice-3',this.value,'Other-tran-people-3');">
+                                {% if itinerary.other_vehicle_type_3  %}
+                                        <option value="{{itinerary.other_vehicle_type_3}}"selected>{{itinerary.other_vehicle_type_3}}</option>
+                                    {% endif %}
                                 </select>
                             </div>
                         </div>
@@ -1853,7 +2172,7 @@
                                     <label>No of Unit</label>
                                 </div>
                                 <div class="col-6">
-                                    <input type="number" name="other_vehicle_no_of_unit_3" class="form-control" onchange="OtherTransportValue(this.value,'other-transport-name-3','OtherTransportPrice-3')" class="form-control" id="Other-tran-people-3"/>
+                                    <input type="number" name="other_vehicle_no_of_unit_3" value="{{itinerary.other_vehicle_no_of_unit_3}}" class="form-control" onchange="OtherTransportValue(this.value,'other-transport-name-3','OtherTransportPrice-3')" class="form-control" id="Other-tran-people-3"/>
                                 </div>
         
                             </div>
@@ -1862,20 +2181,23 @@
                                     <label>Total Price</label>
                                 </div>
                                 <div class="col-6">
-                                    <input type="number" name="other_vehicle_total_price_3" class="form-control transport__price" id="OtherTransportPrice-3" />
+                                    <input type="number" name="other_vehicle_total_price_3" value="{{itinerary.other_vehicle_total_price_3}}" class="form-control transport__price" id="OtherTransportPrice-3" />
                                 </div>
         
                             </div>
                     </div>
 
                     </div>
-                    <div class="form-row" id="other_transport-3" style="display: none;">
+                    <div class="form-row" {% if not itinerary.other_vehicle_type_4 %}id="other_transport-3" style="display: none;"{% endif %}>
                         <div class="form-row row col-12">
                             <div class="col-3">
                                 <label>Other Transportation</label>
                             </div>
                             <div class="col-9">
                                 <select name="other_vehicle_type_4" class="form-control other_transport_type" id="other-transport-name-4" onchange="OtherVehicleType('OtherTransportPrice-4',this.value,'Other-tran-people-4');">
+                                {% if itinerary.other_vehicle_type_4  %}
+                                        <option value="{{itinerary.other_vehicle_type_4}}"selected>{{itinerary.other_vehicle_type_4}}</option>
+                                    {% endif %}
                                 </select>
                             </div>
                         </div>
@@ -1885,7 +2207,7 @@
                                     <label>No of Unit</label>
                                 </div>
                                 <div class="col-6">
-                                    <input type="number" name="other_vehicle_no_of_unit_4" onchange="OtherTransportValue(this.value,'other-transport-name-4','OtherTransportPrice-4')" class="form-control" id="Other-tran-people-4" />
+                                    <input type="number" name="other_vehicle_no_of_unit_4" value="{{itinerary.other_vehicle_no_of_unit_4}}" onchange="OtherTransportValue(this.value,'other-transport-name-4','OtherTransportPrice-4')" class="form-control" id="Other-tran-people-4" />
                                 </div>
         
                             </div>
@@ -1894,20 +2216,23 @@
                                     <label>Total Price</label>
                                 </div>
                                 <div class="col-6">
-                                    <input type="number" name="other_vehicle_total_price_4" class="form-control transport__price" id="OtherTransportPrice-4" />
+                                    <input type="number" name="other_vehicle_total_price_4" value="{{itinerary.other_vehicle_total_price_4}}" class="form-control transport__price" id="OtherTransportPrice-4" />
                                 </div>
         
                             </div>
                     </div>
 
                     </div>
-                    <div class="form-row" id="other_transport-4" style="display: none;">
+                    <div class="form-row" {% if not itinerary.other_vehicle_type_5 %}id="other_transport-4" style="display: none;"{% endif %}>
                         <div class="form-row row col-12">
                             <div class="col-3">
                                 <label>Other Transportation</label>
                             </div>
                             <div class="col-9">
                                 <select name="other_vehicle_type_5" class="form-control other_transport_type" id="other-transport-name-5" onchange="OtherVehicleType('OtherTransportPrice-5',this.value,'Other-tran-people-5');">
+                                {% if itinerary.other_vehicle_type_5  %}
+                                        <option value="{{itinerary.other_vehicle_type_5}}"selected>{{itinerary.other_vehicle_type_5}}</option>
+                                    {% endif %}
                                 </select>
                             </div>
                         </div>
@@ -1917,7 +2242,7 @@
                                     <label>No of Unit</label>
                                 </div>
                                 <div class="col-6">
-                                    <input type="number" name="other_vehicle_no_of_unit_5" onchange="OtherTransportValue(this.value,'other-transport-name-5','OtherTransportPrice-5')" class="form-control" id="Other-tran-people-5" />
+                                    <input type="number" name="other_vehicle_no_of_unit_5" value="{{itinerary.other_vehicle_no_of_unit_5}}" onchange="OtherTransportValue(this.value,'other-transport-name-5','OtherTransportPrice-5')" class="form-control" id="Other-tran-people-5" />
                                 </div>
         
                             </div>
@@ -1926,7 +2251,7 @@
                                     <label>Total Price</label>
                                 </div>
                                 <div class="col-6">
-                                    <input type="number" name="other_vehicle_total_price_5" class="form-control transport__price" id="OtherTransportPrice-5" />
+                                    <input type="number" name="other_vehicle_total_price_5" value="{{itinerary.other_vehicle_total_price_5}}" class="form-control transport__price" id="OtherTransportPrice-5" />
                                 </div>
         
                             </div>
@@ -1951,7 +2276,7 @@
                             <label>Total Calculated Price </label>
                         </div>
                         <div class="col-6">
-                            <input type="Number" id="calculated_price" name="total_calculated_price" class="form-control" />
+                            <input type="Number" id="calculated_price" value="{{itinerary.total_calculated_price}}" name="total_calculated_price" class="form-control" />
                         </div>
                         <div class="col-3 mt-3">
                             <p class="btn btn-danger" onclick="GetTotalPrice()">Get Total Price</p>
@@ -1963,10 +2288,10 @@
                                 <label> Change in activity Price</label>
                             </div>
                             <div class="col-3">
-                                <input type="number" name="change_in_activity_price" id="" class="form-control change__price" />
+                                <input type="number" value="{{itinerary.change_in_activity_price}}" name="change_in_activity_price" id="" class="form-control change__price" />
                             </div>
                             <div class="col-6">
-                                <input type="text" name="change_in_activity_details" id="" class="form-control" placeholder="Details" />
+                                <input type="text" value="{{itinerary.change_in_activity_details}}" name="change_in_activity_details" id="" class="form-control" placeholder="Details" />
                             </div>
                         </div>
                         <div class="form-group row col-12">
@@ -1974,10 +2299,10 @@
                                 <label> Change in Hotel Price</label>
                             </div>
                             <div class="col-3">
-                                <input type="number" name="change_in_hotel_price" id="" class="form-control change__price" />
+                                <input type="number" value="{{itinerary.change_in_hotel_price}}" name="change_in_hotel_price" id="" class="form-control change__price" />
                             </div>
                             <div class="col-6">
-                                <input type="text" name="change_in_hotel_details" id="" class="form-control" placeholder="Details" />
+                                <input type="text" value="{{itinerary.change_in_hotel_details}}" name="change_in_hotel_details" id="" class="form-control" placeholder="Details" />
                             </div>
                         </div>
                         <div class="form-group row col-12">
@@ -1985,10 +2310,10 @@
                                 <label> Change in Transport Price</label>
                             </div>
                             <div class="col-3">
-                                <input type="number" name="change_in_transport_price" id="" class="form-control change__price" />
+                                <input type="number" value="{{itinerary.change_in_transport_price}}" name="change_in_transport_price" id="" class="form-control change__price" />
                             </div>
                             <div class="col-6">
-                                <input type="text" name="change_in_transport_details" id="" class="form-control" placeholder="Details" />
+                                <input type="text" value="{{itinerary.change_in_transport_details}}" name="change_in_transport_details" id="" class="form-control" placeholder="Details" />
                             </div>
                         </div>
                         <div class="form-group row col-12">
@@ -1996,10 +2321,10 @@
                                 <label>change other Price </label>
                             </div>
                             <div class="col-3">
-                                <input type="number" name="change_in_other_price" id="" class="form-control change__price" />
+                                <input type="number" value="{{itinerary.change_in_other_price}}" name="change_in_other_price" id="" class="form-control change__price" />
                             </div>
                             <div class="col-6">
-                                <input type="text" name="change_in_other_details" id="" class="form-control" placeholder="Details" />
+                                <input type="text" value="{{itinerary.change_in_other_details}}" name="change_in_other_details" id="" class="form-control" placeholder="Details" />
                             </div>
                         </div>
                     </div>
@@ -2008,7 +2333,7 @@
                             <label>Total Package Cost</label>
                         </div>
                         <div class="col-6">
-                            <input type="number" name="total_trip_cost" id="total_calc_price" class="form-control " placeholder="X,xxx" />
+                            <input type="number" name="total_trip_cost" value="{{itinerary.total_trip_cost}}" id="total_calc_price" class="form-control " placeholder="X,xxx" />
                         </div>
                         <div class="col-3 mt-3">
                             <p class="btn btn-danger" id="get_total_cost_btn">
@@ -2023,13 +2348,16 @@
                     <div class="form-group row col-12">
                         <div class="col-3"><label>Extra Price Off</label></div>
                         <div class="col-6">
-                            <input type="number" name="extra_price_off" class="form-control" id="" />
+                            <input type="number" name="extra_price_off" value="{{itinerary.extra_price_off}}" class="form-control" id="" />
                         </div>
                     </div>
                     <div class="form-group row col-12">
                         <div class="col-3"><label>End of Extra Off</label></div>
                         <div class="col-6">
                             <select name="end_extra_off" class="form-control" id="" >
+                                {% if itinerary.end_extra_off %}
+                                    <option value="{{itinerary.end_extra_off}}" selected>{{itinerary.end_extra_off}}</option>
+                                {% endif %}
                                 <option value="2 Hr">2 Hour</option>
                                 <option value="5 Hr">5 Hour</option>
                                 <option value="10 Hr">10 Hour</option>
@@ -2049,6 +2377,9 @@
                         </div>
                         <div class="col-6">
                             <select name="payment_type" class="form-control" id="each__person_option">
+                            {% if itinerary.payment_type %}
+                                <option value="{{itinerary.payment_type}}" selected>{{itinerary.payment_type}}</option>
+                            {% endif %}
                                 <option value="per copule">Per Couple</option>
                                 <option value="per person">Per person</option>
                             </select>
@@ -2060,7 +2391,7 @@
                           <label>Number of people</label>  
                         </div>
                         <div class="col-6">
-                            <input type="number" name="number_of_people" class="form-control" id="numberOfPerson" placeholder="number of person/couple" />
+                            <input type="number" value="{{itinerary.number_of_people}}" name="number_of_people" class="form-control" id="numberOfPerson" placeholder="number of person/couple" />
                         </div>
                     </div>
                     <div class="form-group row col-12">
@@ -2068,7 +2399,7 @@
                             <label >Display Price</label>
                         </div>
                         <div class="col-6">
-                            <input type="number" name="each_people_cost" class="form-control" id="display_Per_Price" />
+                            <input type="number" name="each_people_cost" value="{{itinerary.each_people_cost}}" class="form-control" id="display_Per_Price" />
                         </div>
                         <div class="col-3">
                             <p class="mt-3 btn btn-danger" id="eachPerson_price_btn">Get Price</p>
@@ -2079,7 +2410,7 @@
                             <label>Regular Price</label>
                         </div>
                         <div class="col-6">
-                            <input type="number" name="regular_price" id="regular_price" class="form-control" />
+                            <input type="number" value="{{itinerary.regular_price}}" name="regular_price" id="regular_price" class="form-control" />
                         </div>
 
                     </div>
@@ -2093,6 +2424,9 @@
                             </div>
                             <div class="col-6">
                                 <select name="agant_name" class="form-control" id="agent" onchange="Agent('agent_phone',this.selectedIndex);">
+                                {% if itinerary.agant_name %}
+                                    <option value="{{itinerary.agant_name}}" selected>{{itinerary.agant_name}}</option>
+                                {% endif %}
                                 </select>        
                             </div>
                         </div>
@@ -2101,7 +2435,7 @@
                                 <label>Agant Number</label>
                             </div>
                             <div class="col-6">
-                                <input type="number" name="agant_number" id="agent_phone" class="form-control" placeholder="agant Phone Number"/>
+                                <input type="number" value="{{itinerary.agant_number}}" name="agant_number" id="agent_phone" class="form-control" placeholder="agant Phone Number"/>
                             </div>
                         </div>
                         <script language="javascript">agent_names("agent");</script>
@@ -2159,11 +2493,11 @@
                             </h3>
                             <ul class="links">
                                 <ul class="links">
-                                    <li><a href="/about/">About</a></li>
-                                    <li><a href="/contact/"> Contact</a></li>
-                                    <li><a href="/privacy-policy/">Privacy-Policy</a></li>
-                                    <li><a href="/partial-payment/">Partial Payment</a></li>
-                                    <li><a href="/refund-policy">Payments & Refund Policy</a></li>
+                                    <li style="list-style: none;"><a href="/about/">About</a></li>
+                                    <li style="list-style: none;"><a href="/contact/"> Contact</a></li>
+                                    <li style="list-style: none;"><a href="/privacy-policy/">Privacy-Policy</a></li>
+                                    <li style="list-style: none;"><a href="/partial-payment/">Partial Payment</a></li>
+                                    <li style="list-style: none;"><a href="/refund-policy">Payments & Refund Policy</a></li>
                                 </ul>
                         </div>
                     </div>
@@ -2173,12 +2507,12 @@
                                 Popular destination
                             </h3>
                             <ul class="links double_links">
-                                <li><a href="/destination/Goa/">Goa</a></li>
-                                <li><a href="/destination/Karnataka/">Karnataka</a></li>
-                                <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
-                                <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
-                                <li><a href="/destination/Rajasthan/">Rajasthan</a></li>
-                                <li><a href="/destination/Maharashtra/">Maharashtra</a></li>
+                                <li style="list-style: none;"><a href="/destination/Goa/">Goa</a></li>
+                                <li style="list-style: none;"><a href="/destination/Karnataka/">Karnataka</a></li>
+                                <li style="list-style: none;"><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
+                                <li style="list-style: none;"><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
+                                <li style="list-style: none;"><a href="/destination/Rajasthan/">Rajasthan</a></li>
+                                <li style="list-style: none;"><a href="/destination/Maharashtra/">Maharashtra</a></li>
                             </ul>
                         </div>
                     </div>
@@ -2286,6 +2620,7 @@
             $('#inclusion').val(complete)
             console.log(complete)
         }
+        inc();
     </script>
     <script>
         $('#honeymoon_kit').change((e) =>
@@ -2458,13 +2793,22 @@
     let other_transport_array = [];
     let hotel_data = [];
     let trip_data = [];
-    $('#location').change((e) =>
+
+    const getData = (data,second_para) =>
     {
+         state_itineraries = [];
+         city_hotels =[];
+         day_schedule = [];
+         activity_array = [];
+         other_transport_array = [];
+         hotel_data = [];
+         trip_data = [];
+        console.log(second_para);
         $.ajax({
             url:'/getItineraryData/',
             method:'GET',
             data:{
-                'state':e.target.value
+                'state': data
             },
             success: (response) =>
             {
@@ -2499,59 +2843,121 @@
                     }
                 })
 
-                console.log(trip_data);
+                console.log(trip_data,second_para);
 
-                // =============================== hotel functionallity ===============================
-
-                let c_h =  `<option value="">Select hotel City</option>` ;
-
-                city_hotels.forEach((hotel) =>
+                let t_n = '';
+                let d_s = '' ;
+                let a1 = '';
+                let o_t = '' ;
+                let c_h = '';
+                if(second_para === 'first')
                 {
-                    c_h +=  `<option value="${hotel.city}">${hotel.city}</option>`;
+                    // =============================== hotel functionallity ===============================
 
-                })
-                $('.hotel_city').html(c_h);
+                        c_h =  `<option value="">Select hotel City</option>` ;
+
+                        city_hotels.forEach((hotel) =>
+                        {
+                            c_h +=  `<option value="${hotel.city}">${hotel.city}</option>`;
+
+                        })
+                        $('.hotel_city').append(c_h);
+
+
+                    // =============================== hotel functionallity ===============================
+
+                    t_n= `<option value="{{itinerary.trip_name}}" selected>{{itinerary.trip_name}}</option>`;
+                    trip_data.forEach((t_d) =>
+                    {
+                        t_n += `<option value="${t_d.trip_name}">${t_d.trip_name}</option>`;
+                    })
+                    document.getElementById('trip__name').innerHTML = t_n ;
+
+
+
+                     d_s = `<option value="">Select Day schedule</option>`;
+
+                    day_schedule.forEach((ds,index) =>
+                    {
+                        d_s += `<option value="${ds.heading}" data-id="${index+1}">${ds.heading}</option>`;
+                    })
+                    $('.Days_schedule').append(d_s);
+
+
+                    a1 = `<option value="">Select Activity</option>`;
                 
+                    activity_array.forEach((a,index) =>
+                    {
+                        a1 += `<option value="${a.name}" data-id="${index}">${a.name}</option>`;
+                        
+                    })
+                    $('.activity_data').append(a1);
 
-                // =============================== hotel functionallity ===============================
-                let t_n= `<option value="">Select Trip</option>`;
+                    o_t = `<option value="">Select other Transport</option>`;
 
-                trip_data.forEach((t_d) =>
+                    other_transport_array.forEach((o1,index) =>
+                    {
+                        o_t += `<option value="${o1.name}" data-id="${index}">${o1.name}</option>`;
+
+                    })
+                    $('.other_transport_type').append(o_t);   
+
+                }
+                else
                 {
-                    t_n += `<option value="${t_d.trip_name}">${t_d.trip_name}</option>`;
-                })
+                    c_h =  `<option value="">Select hotel City</option>` ;
 
-                $('#trip__name').html(t_n);
+                    city_hotels.forEach((hotel) =>
+                    {
+                        c_h +=  `<option value="${hotel.city}">${hotel.city}</option>`;
 
+                    })
+                    $('.hotel_city').html(c_h);
 
-                let d_s = `<option value="">Select Day schedule</option>`;
+                    console.log(t_n);
+                    t_n= `<option value="" selected>Select Trip</option>`;
+                    trip_data.forEach((t_d) =>
+                    {
+                        t_n += `<option value="${t_d.trip_name}">${t_d.trip_name}</option>`;
+                    })
+                    document.getElementById('trip__name').innerHTML = t_n ;
 
-                day_schedule.forEach((ds,index) =>
-                {
-                    d_s += `<option value="${ds.heading}" data-id="${index+1}">${ds.heading}</option>`;
-                })
-                $('.Days_schedule').html(d_s);
+                    d_s = `<option value="">Select Day schedule</option>`;
 
-                let a1 = `<option value="">Select Activity</option>`;
+                    day_schedule.forEach((ds,index) =>
+                    {
+                        d_s += `<option value="${ds.heading}" data-id="${index+1}">${ds.heading}</option>`;
+                    })
+                    $('.Days_schedule').html(d_s);
+
+                    a1 = `<option value="">Select Activity</option>`;
                 
-                activity_array.forEach((a,index) =>
-                {
-                    a1 += `<option value="${a.name}" data-id="${index}">${a.name}</option>`;
-                    
-                })
-                $('.activity_data').html(a1);
+                    activity_array.forEach((a,index) =>
+                    {
+                        a1 += `<option value="${a.name}" data-id="${index}">${a.name}</option>`;
+                        
+                    })
+                    $('.activity_data').html(a1);
 
-                let o_t = `<option value="">Select other Transport</option>`;
-                other_transport_array.forEach((o1,index) =>
-                {
-                    o_t += `<option value="${o1.name}" data-id="${index}">${o1.name}</option>`;
+                    let o_t = `<option value="">Select other Transport</option>`;
+                    other_transport_array.forEach((o1,index) =>
+                    {
+                        o_t += `<option value="${o1.name}" data-id="${index}">${o1.name}</option>`;
 
-                })
-                $('.other_transport_type').html(o_t);   
+                    })
+                    $('.other_transport_type').html(o_t);   
+                }
 
             }
         })
-        
+
+    }
+    getData($('#location').val(),'first');
+
+    $('#location').change((e) =>
+    {
+        getData(e.target.value,'ajax');
+
     });
 
 

@@ -28,6 +28,7 @@ import json
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Q
 from functools import reduce
+from django.forms.models import model_to_dict
 
 
 def error_404(request, exception):
@@ -291,15 +292,20 @@ def itineraryData(request,slug):
     hotel5 = ''
     itinerary = ItineraryData.objects.get(slug = slug)
     if itinerary.hotel_stay_name_1 :
-        hotel1 = CityHotelData.objects.get(state = itinerary.state , city = itinerary.hotel_city_name_1 , stay_name = itinerary.hotel_stay_name_1)
+        hotel1 = CityHotelData.objects.get(state = itinerary.state , 
+        city = itinerary.hotel_city_name_1 , stay_name = itinerary.hotel_stay_name_1)
     if itinerary.hotel_stay_name_2 :
-        hotel2 = CityHotelData.objects.get(state = itinerary.state , city = itinerary.hotel_city_name_2 , stay_name = itinerary.hotel_stay_name_2)
+        hotel2 = CityHotelData.objects.get(state = itinerary.state , 
+        city = itinerary.hotel_city_name_2 , stay_name = itinerary.hotel_stay_name_2)
     if itinerary.hotel_stay_name_3 :
-        hotel3 = CityHotelData.objects.get(state = itinerary.state , city = itinerary.hotel_city_name_3 , stay_name = itinerary.hotel_stay_name_3)
+        hotel3 = CityHotelData.objects.get(state = itinerary.state , 
+        city = itinerary.hotel_city_name_3 , stay_name = itinerary.hotel_stay_name_3)
     if itinerary.hotel_stay_name_4 :
-        hotel4 = CityHotelData.objects.get(state = itinerary.state , city = itinerary.hotel_city_name_4 , stay_name = itinerary.hotel_stay_name_4)
+        hotel4 = CityHotelData.objects.get(state = itinerary.state , 
+        city = itinerary.hotel_city_name_4 , stay_name = itinerary.hotel_stay_name_4)
     if itinerary.hotel_stay_name_5 :
-        hotel5 = CityHotelData.objects.get(state = itinerary.state , city = itinerary.hotel_city_name_5 , stay_name = itinerary.hotel_stay_name_5)
+        hotel5 = CityHotelData.objects.get(state = itinerary.state , 
+        city = itinerary.hotel_city_name_5 , stay_name = itinerary.hotel_stay_name_5)
 
     context = {
         'itinerary':itinerary,
@@ -316,6 +322,7 @@ def itineraryData(request,slug):
 @staff_member_required
 def StateItineraryList(request):
     stateItineraryDatas = StateItineraryData.objects.all()
+    states = States.objects.all()
     trip_data = []
     activity = []
     day_schedule = []
@@ -335,34 +342,139 @@ def StateItineraryList(request):
         'activity':activity,
         'day_schedule':day_schedule,
         'transport':transport,
+        'states':states,
     }
     return render(request,'state-itinerary-list.html',context)
+
+@staff_member_required
+def GetStateItineraryData(request):
+    state = request.GET.get('state')
+    stateItineraryDatas = StateItineraryData.objects.filter(state = state)
+    trip_data = []
+    activity = []
+    day_schedule = []
+    transport = []
+    for i in stateItineraryDatas:
+        if i.trip_name is not None:
+            trip_data.append(i)
+        elif i.day_schedule_heading is not None:
+            day_schedule.append(i)
+        elif i.activity_name is not None:
+            activity.append(i)
+        elif i.other_transport_name is not None:
+            transport.append(i)
+
+    context = {
+        'trip_data':trip_data,
+        'activity':activity,
+        'day_schedule':day_schedule,
+        'transport':transport,
+        'state':state,
+    }
+
+    data = render_to_string('state-itinerary-data.html',context)
+
+
+    return JsonResponse({'data':data})
+
 
 
 @staff_member_required
 def CityHotelList(request):
     cityHotels = CityHotelData.objects.all()
+    states = States.objects.all()
     context = {
-        'cityHotels':cityHotels
+        'cityHotels':cityHotels,
+        'states':states
     }
     return render(request,'city-hotel-list.html',context)
 
 @staff_member_required
+def GetCityHotelData(request):
+    state = request.GET.get('state')
+    context = {}
+    if state:
+        city_hotel = CityHotelData.objects.filter(state = state)
+        data = render_to_string('city-hotel-data.html',{'cityHotels':city_hotel})
+        context['data'] = data
+    else:
+        hotel_id = request.GET.get('id')
+        print(hotel_id)
+        city_hotel = CityHotelData.objects.get(id = hotel_id)
+        data = render_to_string('city-hotel-image.html',{'city_hotel':city_hotel})
+
+        context['data'] = data
+
+    return JsonResponse(context)
+
+
+
+@staff_member_required
 def ItineraryDataList(request):
     itineraryDatas = ItineraryData.objects.all()
+    states = States.objects.all()
     context = {
-        'itineraryDatas':itineraryDatas
+        'itineraryDatas':itineraryDatas,
+        'states':states,
     }
     return render(request,'itinerary-data-list.html',context)
 
 @staff_member_required
+def GetItineraryListData(request):
+    state = request.GET.get('state')
+
+    itinerary_datas = ItineraryData.objects.filter(state = state)
+
+    data = render_to_string('itinerary-list-data.html',{'itineraryDatas':itinerary_datas})
+
+    return JsonResponse({'data':data})
+
+@staff_member_required
 def ItineraryDataEdit(request,pk):
     states = States.objects.all()
-    itinerary_data = get_object_or_404(ItineraryData,id = pk)
-    print(itinerary_data)
+    itinerary = get_object_or_404(ItineraryData,id = pk)
+    hotel1 = ''
+    hotel2 = ''
+    hotel3 = ''
+    hotel4 = ''
+    hotel5 = ''
+    if itinerary.hotel_stay_name_1 :
+        hotel1 = CityHotelData.objects.get(state = itinerary.state ,
+         city = itinerary.hotel_city_name_1 , stay_name = itinerary.hotel_stay_name_1)
+    if itinerary.hotel_stay_name_2 :
+        hotel2 = CityHotelData.objects.get(state = itinerary.state , 
+        city = itinerary.hotel_city_name_2 , stay_name = itinerary.hotel_stay_name_2)
+    if itinerary.hotel_stay_name_3 :
+        hotel3 = CityHotelData.objects.get(state = itinerary.state , 
+        city = itinerary.hotel_city_name_3 , stay_name = itinerary.hotel_stay_name_3)
+    if itinerary.hotel_stay_name_4 :
+        hotel4 = CityHotelData.objects.get(state = itinerary.state , 
+        city = itinerary.hotel_city_name_4 , stay_name = itinerary.hotel_stay_name_4)
+    if itinerary.hotel_stay_name_5 :
+        hotel5 = CityHotelData.objects.get(state = itinerary.state , 
+        city = itinerary.hotel_city_name_5 , stay_name = itinerary.hotel_stay_name_5)
+    
+    inclusion = itinerary.additional_inclusion.split('</div>')
+    print(itinerary)
+
+    # form = ItineraryDataForm()
+
+    if request.method == 'POST':
+        form = ItineraryDataForm(request.POST or None, instance=itinerary)
+        print(form.errors)
+        form.save()
+        messages.success(request,'updated Successfully !')
+        return redirect('/itinerary-data-list/')
+
     context = {
         'states':states,
-        'itinerary':itinerary_data,
+        'itinerary':itinerary,
+        'inclusion':inclusion,
+        'hotel1':hotel1,
+        'hotel2':hotel2,
+        'hotel3':hotel3,
+        'hotel4':hotel4,
+        'hotel5':hotel5,
     }
     return render(request,'itinerary-data-edit.html',context)
 

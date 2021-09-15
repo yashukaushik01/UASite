@@ -11,22 +11,25 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href={% static './img/Uni.png' %} sizes="16x16" type="image/png">
- <!-- Google Tag Manager -->
-<script src="https://cdn.tiny.cloud/1/2n06ucf71roagptkroonkrn3btoomt1rrw0na61zi98zhb6w/tinymce/5/tinymce.min.js" 
-eferrerpolicy="origin"></script>
+    <!-- Google Tag Manager -->
+    <script src="https://cdn.tiny.cloud/1/2n06ucf71roagptkroonkrn3btoomt1rrw0na61zi98zhb6w/tinymce/5/tinymce.min.js"
+        eferrerpolicy="origin"></script>
 
-<script>
-tinymce.init({selector:'#textarea-main'})
-(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KH59H8J');
+    <script>
+        tinymce.init({ selector: '#textarea-main' })
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || []; w[l].push({
+                    'gtm.start':
+                        new Date().getTime(), event: 'gtm.js'
+                }); var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-KH59H8J');
 
-</script>
+    </script>
 
 
-<!-- End Google Tag Manager -->
+    <!-- End Google Tag Manager -->
     <!-- <link rel="manifest" href="site.webmanifest"> -->
     <link rel="icon" href={% static './img/uni.png' %} sizes="16x16" type="image/png">
     <!-- Place favicon.ico in the root directory -->
@@ -48,35 +51,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <link rel="stylesheet" href={% static 'css/style.css' %}>
     <link rel="stylesheet" href={% static 'css/tagsinput.css' %}>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" 
-    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <style>
-    a{
-        text-decoration:none;
-    }
-    th
-    {
-        box-shadow: 1px 1px 0px rgba(0,0,0,0.1) !important;
-    }
-    tbody th
-    {
-        font-weight: 500 !important;
+        a {
+            text-decoration: none;
+        }
 
-    }
+        th {
+            box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        tbody th {
+            font-weight: 500 !important;
+
+        }
     </style>
 </head>
-<script>
-    var state_arr = new Array("Himachal","kerela","Maharashtra","Goa","Darjeeling-Sikkim","Kashmir","Rajasthan");
-</script>
-<body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+<body >
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <nav class="navbar  navbar-expand-lg  fixed-top navbar-light" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="/"><img
-                    src={% static 'img//Universal Adventures Logo.png' %} width="70px">
+            <a class="navbar-brand js-scroll-trigger" href="/"><img src={% static 'img//Universal Adventures Logo.png'%} width="70px">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,67 +89,44 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </div>
     </nav>
+    <div class="main-container">
+    </div>
 
     <div class="container" style="min-height: 100vh;margin-top: 5rem;">
         <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="section_title text-center ">
-                        <h1>City Hotel List</h1>
-                    </div>
-                </div>
-                <div class="col-lg-11" style="display: flex;justify-content: center;align-items: center;">
-                    <button class="text-center btn btn-danger mb-4"  
-                    onclick="window.location = '/city-hotel-form/'"
-                    >Add City Hotels</button>
-                </div>
-        </div>
-
-        <div class="container">
-                        <table class="table">
-                            <thead class="table-dark text-center">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Hotel Name</th>
-                                    <th scope="col">State</th>
-                                    <th scope="col">City</th>
-                                    <th scope="col">Accommodation category</th>
-                                    <th scope="col">Room Type</th>
-                                    <th scope="col">Meal Type</th>
-                                    <th scope="col">Room Sharing</th>
-                                    <th scope="col">Honeymoon Kit Price</th>
-                                    <th scope="col">Total Price</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-center">
-                                {% if cityHotels %}
-                                {% for cityHotels in cityHotels|dictsort:"state" %}
-                                <tr>
-                                    <th scope="col">{{forloop.counter}}</th>
-                                    <th scope="col">{{cityHotels.stay_name}}</th>
-                                    <th scope="col">{{cityHotels.state}}</th>
-                                    <th scope="col">{{cityHotels.city}}</th>
-                                    <th scope="col">{{cityHotels.accommodation_category}}</th>
-                                    <th scope="col">{{cityHotels.room_type}}</th>
-                                    <th scope="col">{{cityHotels.meal_type}}</th>
-                                    <th scope="col">{{cityHotels.room_sharing}}</th>
-                                    {% if cityHotels.honeymoon_kit_price %}
-                                        <th scope="col">{{cityHotels.honeymoon_kit_price}}</th>
-                                    {% else %}
-                                        <th scope="col">No Kit</th>
-                                    {% endif %}
-                                    <th scope="col">{{cityHotels.total_price}}</th>
-                                  </tr>
-                                {% endfor %}
-                                {% endif %}
-                            </tbody>
-                          </table>
-                    </div>
-                  </div>
+            <div class="col-lg-6">
+                <div class="section_title text-center ">
+                    <h1>City Hotel List</h1>
                 </div>
             </div>
+            <div class="col-lg-11" style="display: flex;justify-content: center;align-items: center;">
+                <button class="text-center btn btn-danger mb-4" onclick="window.location = '/city-hotel-form/'">Add City
+                    Hotels</button>
+            </div>
+        </div>
+
+        <div class="container my-4 py-4" style="display:flex;align-items:center;justify-content:center; 
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);">
+            <div class="col-2">
+                <label style="font-weight:600;"> Select State : </label>
+            </div>
+            <div class="col-6">
+                <select name="state" id="state" class="form-control">
+                    <option value="">Select State</option>
+                    {% if states %}
+                        {% for state in states|dictsort:'state' %}
+                        <option value="{{state.state}}">{{state.state}}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+        </div>
+
+        <div class="container table_data">
+
+
         </div>
     </div>
-</div>
 
     <footer class="footer">
         <div class="footer_top">
@@ -161,7 +136,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <div class="footer_widget">
                             <div class="footer_logo">
                                 <a href="#">
-                                     <img src={% static 'img/footer.png' %} height="120px" width="300px" alt="">
+                                    <img src={% static 'img/footer.png' %} height="120px" width="300px" alt="">
                                 </a>
                             </div>
                             <a href="#">+91 8882654593</a> <br>
@@ -197,12 +172,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             </h3>
                             <ul class="links">
                                 <ul class="links">
-                                <li><a href="/about/">About</a></li>
-                                <li><a href="/contact/"> Contact</a></li>
-                                <li><a href="/privacy-policy/">Privacy-Policy</a></li>
-                                <li><a href="/partial-payment/">Partial Payment</a></li>
-                                <li><a href="/refund-policy">Payments & Refund Policy</a></li>
-                            </ul>
+                                    <li><a href="/about/">About</a></li>
+                                    <li><a href="/contact/"> Contact</a></li>
+                                    <li><a href="/privacy-policy/">Privacy-Policy</a></li>
+                                    <li><a href="/partial-payment/">Partial Payment</a></li>
+                                    <li><a href="/refund-policy">Payments & Refund Policy</a></li>
+                                </ul>
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-6 col-lg-3">
@@ -284,11 +259,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script src={% static 'js/gijgo.min.js' %}></script>
     <script src={% static 'js/slick.min.js' %}></script>
     <script src={% static 'js/tagsinput.js' %}></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
-     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" 
-     integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <!--contact js-->
 
     <script src={% static 'js/contact.js' %}></script>
@@ -297,24 +273,98 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script src={% static 'js/jquery.validate.min.js' %}></script>
     <script src={% static 'js/mail-script.js' %}></script>
 
-    </body>
+</body>
 
-    <script>
-        $(function () {
-            $(window).scroll(function () {
-                var mainbottom = $("header").offset().top + $("header").height();
-                if ($(this).scrollTop() < mainbottom) 
+<script>
+
+
+    let buttons_click = null;
+
+
+    if(buttons_click)
+    {
+        buttons_click.forEach((v_b) =>
+            {
+                    v_b.addEventListener('click' ,(e) =>
+                    {
+                        console.log("button Clicked");
+                        const id = e.target.getAttribute('data-id');
+                        $.ajax({
+                            url: '/get-city-hotel/',
+                            method: 'GET',
+                            data: {
+                                'id': id,
+                            },
+                            success:(res) =>
+                            {
+                                console.log(res);
+                                document.querySelector('.main-container').innerHTML += res.data ;
+                            }
+                        })
+
+                    })
+
+                })
+    }
+
+    $('#state').change((e) => {
+        const state_data = e.target.value;
+        $.ajax({
+            url: '/get-city-hotel/',
+            method: 'GET',
+            data: {
+                'state': state_data,
+            },
+            success: (response) => {
+                console.log(response);
+                if(response.data.length === 0)
                 {
-                    $('nav').removeClass('first');
-
-                } else {
-
-                    $('nav').addClass('first');
-
+                    document.querySelector('.table_data').innerHTML = '<h1 class="text-center">No data Found</h1>' ;
                 }
-            })
+                else
+                {
+                    document.querySelector('.table_data').innerHTML = response.data ;
+                }
+
+                const view_photo_btns = document.querySelectorAll('.view_photo_btn');
+                buttons_click = view_photo_btns;
+
+                view_photo_btns.forEach((v_b) =>
+                {
+                        v_b.addEventListener('click' ,(e) =>
+                        {
+                            console.log("button Clicked");
+                            const id = e.target.getAttribute('data-id');
+                            $.ajax({
+                                url: '/get-city-hotel/',
+                                method: 'GET',
+                                data: {
+                                    'id': id,
+                                },
+                                success:(res) =>
+                                {
+                                    console.log(res);
+                                    document.querySelector('.main-container').innerHTML = res.data ;
+                                }
+                            })
+
+                        })
+
+                    })
+               
+            }
         })
-    </script>
+
+    })
+
+    const hideImages = (car) =>
+    {
+        const model = document.getElementById(car);
+        model.style.transform = 'scale(0)';
+    }
+
+
+</script>
 </body>
 
 </html>

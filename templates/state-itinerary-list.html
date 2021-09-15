@@ -106,157 +106,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
         </div>
 
-        <div class="container">
-            <div class="accordion" id="accordionPanelsStayOpenExample">
-                <div class="accordion-item my-3">
-                  <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                    <button class="accordion-button w-100" type="button" data-bs-toggle="collapse" 
-                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" 
-                    aria-controls="panelsStayOpen-collapseOne"
-                    style="font-size: 25px;text-transform: capitalize;font-weight: 600;">
-                      Trip data
-                    </button>
-                  </h2>
-                  <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                    <div class="accordion-body">
-                        <table class="table">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Trip Name</th>
-                                    <th scope="col">State</th>
-                                    <th scope="col">Category</th>
-                                    <th scope="col">locations</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% if trip_data %}
-                                {% for trip_data in trip_data|dictsort:"state" %}
-                                <tr>
-                                    <th scope="col">{{forloop.counter}}</th>
-                                    <th scope="col">{{trip_data.trip_name}}</th>
-                                    <th scope="col">{{trip_data.state}}</th>
-                                    <th scope="col">{{trip_data.trip_category}}</th>
-                                    <th scope="col">{{trip_data.locations}}</th>
+        <div class="container my-4 py-4" style="display:flex;align-items:center;justify-content:center; 
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);">
+            <div class="col-2">
+                <label style="font-weight:600;"> Select State : </label>
+            </div>
+            <div class="col-6">
+                <select name="state" id="state" class="form-control">
+                    <option value="">Select State</option>
+                    {% if states %}
+                        {% for state in states|dictsort:'state' %}
+                        <option value="{{state.state}}">{{state.state}}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+        </div>
 
-                                  </tr>
-                                {% endfor %}
-                                {% endif %}
-                            </tbody>
-                          </table>
-                    </div>
-                  </div>
-                </div>
-            </div>
-            <div class="accordion" id="accordionPanelsStayOpenExample">
-                <div class="accordion-item my-3">
-                    <h2 class="accordion-header" id="headingT">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" 
-                      aria-expanded="false" aria-controls="collapseTwo"
-                      style="font-size: 25px;text-transform: capitalize;font-weight: 600;">
-                      Day Schedule
-                      </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                      <div class="accordion-body">
-                        <table class="table">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Heading</th>
-                                    <th scope="col">State</th>
-                                  </tr>
-                            </thead>
-                            <tbody>
-                                 {% if day_schedule %}
-                                {% for day_schedule in day_schedule|dictsort:"state" %}
-                                <tr>
-                                    <th scope="col">{{forloop.counter}}</th>
-                                    <th scope="col">{{day_schedule.day_schedule_heading}}</th>
-                                    <th scope="col">{{day_schedule.state}}</th>
-                                </tr>
-                                {% endfor %}
-                                {% endif %}
-                            </tbody>
-                          </table>
-                      </div>
-                    </div>
-                  </div>
-            </div>
-            <div class="accordion" id="accordionPanelsStayOpenExample">
-                <div class="accordion-item my-3">
-                    <h2 class="accordion-header" id="headingThree">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" 
-                      aria-expanded="false" aria-controls="collapseThree"
-                      style="font-size: 25px;text-transform: capitalize;font-weight: 600;">
-                      Activity
-                      </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                      <div class="accordion-body">
-                        <table class="table">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">State</th>
-                                    <th scope="col">Activity Name</th>
-                                    <th scope="col">Price</th>
-                                  </tr>
-                            </thead>
-                            <tbody>
-                                {% if activity %}
-                                {% for activity in activity|dictsort:"state" %}
-                                <tr>
-                                    <th scope="col">{{forloop.counter}}</th>
-                                    <th scope="col">{{activity.state}}</th>
-                                    <th scope="col">{{activity.activity_name}}</th>
-                                    <th scope="col">Rs.{{activity.activity_price}}</th>
-                                </tr>
-                                {% endfor %}
-                                {% endif %}
-                            </tbody>
-                          </table>
-                      </div>
-                    </div>
-                  </div>
-            </div>
-            <div class="accordion" id="accordionPanelsStayOpenExample">
-                <div class="accordion-item my-3">
-                    <h2 class="accordion-header" id="headingFour">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" 
-                      aria-expanded="false" aria-controls="collapseFour"
-                      style="font-size: 25px;text-transform: capitalize;font-weight: 600;">
-                      Other transport
-                      </button>
-                    </h2>
-                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-                      <div class="accordion-body">
-                        <table class="table">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">State</th>
-                                    <th scope="col">Other Transport</th>
-                                    <th scope="col">Price</th>
-                                  </tr>
-                            </thead>
-                            <tbody>
-                                {% if transport %}
-                                {% for transport in transport|dictsort:"state" %}
-                                <tr>
-                                    <th scope="col">{{forloop.counter}}</th>
-                                    <th scope="col">{{transport.state}}</th>
-                                    <th scope="col">{{transport.other_transport_name}}</th>
-                                    <th scope="col">Rs.{{transport.other_transport_price}}</th>
-                                </tr>
-                                {% endfor %}
-                                {% endif %}
-                            </tbody>
-                          </table>
-                      </div>
-                    </div>
-                  </div>
-            </div>
+        <div class="container main__container">
         </div>
     </div>
 </div>
@@ -407,22 +274,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     </body>
 
-    <script>
-        $(function () {
-            $(window).scroll(function () {
-                var mainbottom = $("header").offset().top + $("header").height();
-                if ($(this).scrollTop() < mainbottom) 
-                {
-                    $('nav').removeClass('first');
-
-                } else {
-
-                    $('nav').addClass('first');
-
-                }
-            })
+<script>
+     $('#state').change((e) => {
+        const state_data = e.target.value;
+        $.ajax({
+            url: '/get-state-itinerary/',
+            method: 'GET',
+            data: {
+                'state': state_data,
+            },
+            success: (response) => {
+                console.log(response);
+                    document.querySelector('.main__container').innerHTML = response.data ;
+               
+            }
         })
-    </script>
+
+    })
+</script>
 </body>
 
 </html>

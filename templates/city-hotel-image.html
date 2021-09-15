@@ -1,0 +1,51 @@
+{% if city_hotel %}
+<div id="carosuel-5" class="carosuel"
+  style=" z-index: 111111; position: fixed;top: 0;left: 0;width: 100%;height: 100vh;
+                            display: flex;justify-content: center;align-items: center; background-color:rgba(0, 0, 0, 0.19);">
+
+  <div class="close__btn__block" style="position: absolute;top: 10px;right: 20px;">
+    <button type="button" id="close__btn" onclick="hideImages('carosuel-5')"
+      style="border: none;background:transparent;outline: none;font-size: 4rem;cursor: pointer;">&times;</button>
+  </div>
+
+  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel"
+    style="position: relative;overflow: hidden;display:flex;justify-content:center;width:1000px;height: 600">
+    <div class="carousel-inner" style="width:1000px;height: 600px;">
+      {% if city_hotel.image1 %}
+      <div class="carousel-item active" style="width:100%;height: 100%;">
+        <img src="{{city_hotel.image1.url}}" class="d-block" style="width: 100%;height: 100%;">
+      </div>
+      {% endif %}
+      {% if city_hotel.image2 %}
+      <div class="carousel-item" style="width:100%;height: 100%;">
+        <img src="{{ city_hotel.image2.url }}" class="d-block" style="width: 100%;height: 100%;">
+      </div>
+      {% endif %}
+      {% if city_hotel.image3 %}
+      <div class="carousel-item" style="width:100%;height: 100%;">
+        <img src="{{ city_hotel.image3.url }}" class="d-block" style="width: 100%;height: 100%;">
+      </div>
+      {% endif %}
+      {% if city_hotel.image4 %}
+      <div class="carousel-item" style="width:100%;height: 100%;">
+        <img src="{{ city_hotel.image4.url }}" class="d-block" style="width: 100%;height: 100%;">
+      </div>
+      {% endif %}
+      {% if city_hotel.image5 %}
+      <div class="carousel-item" style="width:100%;height: 100%;">
+        <img src="{{ city_hotel.image5.url }}" class="d-block" style="width: 100%;height: 100%;">
+      </div>
+      {% endif %}
+
+    </div>
+    <button class="carousel-control-prev" style="position: absolute;top: 50%;left: 10px;background-color: black;height: 30px;width: 30px;" type="button"
+      data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </button>
+    <button class="carousel-control-next" style="position: absolute;top: 50%;right: 10px;background-color: black;height: 30px;width: 30px;" type="button"
+      data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </button>
+  </div>
+</div>
+{% endif %}
