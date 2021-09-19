@@ -260,9 +260,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </div>
                          <div class="form-group col-md-3 mb-0">
                             <label>payment Date</label>
-                            <input type="date" class="form-control" value="{{post.payment_date1}}" name="payment_date1">
+                            <input type="date" class="form-control payment_date" value="{{post.payment_date1}}" name="payment_date1">
                         </div>
-                        <div class="form-group col-md-3 mb-0">
+                        <div class="form-group col-md-2 mb-0">
                             <label>Mode of payment*</label>
                             <input type="text" class="form-control" value="{{post.mop1}}" name="mop1">
                         </div>
@@ -274,6 +274,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <label>Save</label>
                             <p class="btn btn-success" onclick="Balance()"> Save</p>
                         </div>
+                        <div class="form-group col-md-1 mb-0">
+                            <label>Send Mail</label>
+                            <p class="btn btn-warning send__mail">Send Mail</p>
+                        </div>
 
                         </div>
                         <div class="form-row">
@@ -283,9 +287,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             </div>
                              <div class="form-group col-md-3 mb-0">
                                 <label>payment Date</label>
-                                <input type="date" class="form-control" value="{{post.payment_date2}}" name="payment_date2">
+                                <input type="date" class="form-control payment_date" value="{{post.payment_date2}}" name="payment_date2">
                             </div>
-                            <div class="form-group col-md-3 mb-0">
+                            <div class="form-group col-md-2 mb-0">
                                 <label>Mode of payment*</label>
                                 <input type="text" class="form-control" value="{{post.mop2}}" name="mop2">
                             </div>
@@ -296,6 +300,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <div class="form-group col-md-1 mb-0">
                                 <label>Save</label>
                                 <p class="btn btn-success" onclick="Balance()"> Save</p>
+                                
+                            </div>
+                            <div class="form-group col-md-1 mb-0">
+                                <label>Send Mail</label>
+                                <p class="btn btn-warning send__mail">Send Mail</p>
                             </div>
     
                             </div>
@@ -306,9 +315,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 </div>
                                  <div class="form-group col-md-3 mb-0">
                                     <label>payment Date</label>
-                                    <input type="date" class="form-control" value="{{post.payment_date3}}" name="payment_date3">
+                                    <input type="date" class="form-control payment_date" value="{{post.payment_date3}}" name="payment_date3">
                                 </div>
-                                <div class="form-group col-md-3 mb-0">
+                                <div class="form-group col-md-2 mb-0">
                                     <label>Mode of payment*</label>
                                     <input type="text" class="form-control" value="{{post.mop3}}" name="mop3">
                                 </div>
@@ -320,6 +329,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                     <label>Save</label>
                                     <p class="btn btn-success" onclick="Balance()"> Save</p>
                                 </div>
+                                <div class="form-group col-md-1 mb-0">
+                                    <label>Send Mail</label>
+                                    <p class="btn btn-warning send__mail">Send Mail</p>
+                                </div>
         
                                 </div>
                                 <div class="form-row">
@@ -329,9 +342,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                     </div>
                                      <div class="form-group col-md-3 mb-0">
                                         <label>payment Date</label>
-                                        <input type="date" class="form-control" value="{{post.payment_date4}}" name="payment_date4">
+                                        <input type="date" class="form-control payment_date" value="{{post.payment_date4}}" name="payment_date4">
                                     </div>
-                                    <div class="form-group col-md-3 mb-0">
+                                    <div class="form-group col-md-2 mb-0">
                                         <label>Mode of payment*</label>
                                         <input type="text" class="form-control" value="{{post.mop4}}" name="mop4">
                                     </div>
@@ -342,6 +355,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                     <div class="form-group col-md-1 mb-0">
                                         <label>Save</label>
                                         <p class="btn btn-success" onclick="Balance()"> Save</p>
+                                    </div>
+                                    <div class="form-group col-md-1 mb-0">
+                                        <label>Send Mail</label>
+                                        <p class="btn btn-warning send__mail">Send Mail</p>
                                     </div>
             
                                     </div>
@@ -1392,6 +1409,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 }
             })
         })
+    </script>
+    <script>
+    const send_mail_btns = document.querySelectorAll('.send__mail');
+    const all_payments = document.querySelectorAll('.payment');
+    const all_payment_date = document.querySelectorAll('.payment_date');
+    send_mail_btns.forEach((btn,index) =>
+    {
+        btn.addEventListener('click',() =>
+        {
+            $.ajax({
+            url:'/send-erp-mail/',
+            method:'POST',
+            data:{
+                'name':`{{post.name}}`,
+                'email':`{{post.email}}`,
+                'phone_no':`{{post.phone}}`,
+                'booking_id':`{{post.booking_id}}`,
+                 'tour_date':`{{post.start_date}}`,
+                 'tour_name':`{{post.package}}`,
+                 'total_package_cost':`{{post.net}}`,
+                 'payment1':all_payments[index].value,
+                 'payment_date':all_payment_date[index].value,
+                 'due_payment_amount':`{{post.due}}`,
+
+            },
+            success:(response)=>{
+                console.log(response.data);
+
+            }
+        })
+
+        })
+    })
+    
     </script>
 
 </body>

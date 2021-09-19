@@ -40,7 +40,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <link rel="stylesheet" href={% static 'css/nice-select.css' %}>
     <link rel="stylesheet" href={% static 'css/flaticon.css' %}>
     <link rel="stylesheet" href={% static 'css/gijgo.css' %}"">
-    <link rel="stylesheet" href={% static ' css/animate.css' %}>
+    <link rel="stylesheet" href={% static 'css/animate.css' %}>
     <link rel="stylesheet" href={% static 'css/slick.css' %}>
     <link rel="stylesheet" href={% static 'css/slicknav.css' %}>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
@@ -246,8 +246,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script src={% static 'js/imagesloaded.pkgd.min.js' %}></script>
     <script src={% static 'js/scrollIt.js' %}></script>
     <script src={% static 'js/jquery.scrollUp.min.js' %}></script>
-    <script src={% static 'js/wow.min.js' %}""></script>
-    <script src={% static 'js\nice-select.min.js' %}></script>
+    <!-- <script src={% static 'js/wow.min.js' %}""></script> -->
+    <script src={% static 'js/nice-select.min.js' %}></script>
     <script src={% static 'js/jquery.slicknav.min.js' %}></script>
     <script src={% static 'js/jquery.magnific-popup.min.js' %}""></script>
     <script src={% static 'js/plugins.js' %}></script>
@@ -279,14 +279,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 'state': state_data,
             },
             success: (response) => {
-                console.log(response);
                     document.querySelector('.main__container').innerHTML = response.data ;
                
             }
         })
 
         }
-        getData($('#state').val());
+
     $('#state').change((e) => {
         getData(e.target.value);
 

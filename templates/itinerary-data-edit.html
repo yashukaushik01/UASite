@@ -119,7 +119,7 @@
         if (city_index == 7) {
             id = 8847633907
         }
-        console.log(id);
+        // console.log(id);
         $(option_str).val(id);
     }
 
@@ -1080,8 +1080,10 @@
                                                    <option value="">Select Honeymoon Kit</option>
                                                    {% if hotel1.honeymoon_kit_price %}
                                                     <option value="yes" selected>Yes</option>
+                                                    <option value="no" >no</option>
                                                     {% else %}
                                                     <option value="no" selected>no</option>
+                                                    <option value="yes" >Yes</option>
                                                    {% endif %}
                                                </select>
                                             </div>
@@ -1100,7 +1102,7 @@
                                         </div>
                                         <div class="form-group col-12 row">
                                             <div class="col-3">
-                                                <label>Nights</label>
+                                                <label>Which Nights</label>
                                             </div>
                                             <div class="col-6">
                                                 <input type="text" name="hotel_nights_1" value="{{itinerary.hotel_nights_1}}" id="" class="form-control" />
@@ -1108,7 +1110,7 @@
                                         </div>
                                         <div class="form-group row col-12">
                                             <div class="col-3">
-                                                <label>Number Of Night</label>
+                                                <label>Stay Number Of Night</label>
                                             </div>
                                             <div class="col-6">
                                                 <input type="number" name="number_of_night_1" class="form-control" id="number_of_night-1"
@@ -1273,7 +1275,7 @@
                                     </div>
                                     <div class="form-group col-12 row">
                                         <div class="col-3">
-                                            <label>Nights</label>
+                                            <label>Which Nights</label>
                                         </div>
                                         <div class="col-6">
                                             <input type="text" name="hotel_nights_2" value="{{itinerary.hotel_nights_2}}" id="" class="form-control" />
@@ -1281,7 +1283,7 @@
                                     </div>
                                     <div class="form-group row col-12">
                                         <div class="col-3">
-                                            <label>Number Of Night</label>
+                                            <label>Stay Number Of Night</label>
                                         </div>
                                         <div class="col-6">
                                             <input type="number" name="number_of_night_2" class="form-control" id="number_of_night-2"
@@ -1444,7 +1446,7 @@
                                 </div>
                                 <div class="form-group col-12 row">
                                     <div class="col-3">
-                                        <label>Nights</label>
+                                        <label>Which Nights</label>
                                     </div>
                                     <div class="col-6">
                                         <input type="text" name="hotel_nights_3" value="{{itinerary.hotel_nights_3}}" id="" class="form-control" />
@@ -1452,7 +1454,7 @@
                                 </div>
                                 <div class="form-group row col-12">
                                     <div class="col-3">
-                                        <label>Number Of Night</label>
+                                        <label>Stay Number Of Night</label>
                                     </div>
                                     <div class="col-6">
                                         <input type="number" name="number_of_night_3" class="form-control" id="number_of_night-3"
@@ -1615,7 +1617,7 @@
                             </div>
                             <div class="form-group col-12 row">
                                 <div class="col-3">
-                                    <label>Nights</label>
+                                    <label>Which Nights</label>
                                 </div>
                                 <div class="col-6">
                                     <input type="text" name="hotel_nights_4" value="{{itinerary.hotel_nights_4}}" id="" class="form-control" />
@@ -1623,7 +1625,7 @@
                             </div>
                             <div class="form-group row col-12">
                                 <div class="col-3">
-                                    <label>Number Of Night</label>
+                                    <label>Stay Number Of Night</label>
                                 </div>
                                 <div class="col-6">
                                     <input type="number" name="number_of_night_4" class="form-control" id="number_of_night-4"
@@ -1789,7 +1791,7 @@
                             </div>
                             <div class="form-group col-12 row">
                                 <div class="col-3">
-                                    <label>Nights</label>
+                                    <label>Which Nights</label>
                                 </div>
                                 <div class="col-6">
                                     <input type="text" name="hotel_nights_5" value="{{itinerary.hotel_nights_5}}"  id="" class="form-control" />
@@ -1797,7 +1799,7 @@
                             </div>
                             <div class="form-group row col-12">
                                 <div class="col-3">
-                                    <label>Number Of Night</label>
+                                    <label>Stay Number Of Night</label>
                                 </div>
                                 <div class="col-6">
                                     <input type="number" name="number_of_night_5" class="form-control" id="number_of_night-5"
@@ -2610,7 +2612,7 @@
         $("#example").bsMultiSelect();
         
         function inc(){
-            console.log($('#example').val())
+            // console.log($('#example').val())
             var arr= $('#example').val()
                     var complete =``;
                     arr.forEach(element => {
@@ -2618,7 +2620,7 @@
                     }); 
 
             $('#inclusion').val(complete)
-            console.log(complete)
+            // console.log(complete)
         }
         inc();
     </script>
@@ -2803,7 +2805,7 @@
          other_transport_array = [];
          hotel_data = [];
          trip_data = [];
-        console.log(second_para);
+        // console.log(second_para);
         $.ajax({
             url:'/getItineraryData/',
             method:'GET',
@@ -2815,7 +2817,7 @@
                 state_itineraries = response.state_itineraries;
                 city_hotels = response.city_hotels;
 
-                console.log(city_hotels);
+                // console.log(city_hotels);
 
                 state_itineraries.forEach((state_itinerary) =>
                 {
@@ -2843,7 +2845,7 @@
                     }
                 })
 
-                console.log(trip_data,second_para);
+                // console.log(trip_data,second_para);
 
                 let t_n = '';
                 let d_s = '' ;
@@ -2914,7 +2916,7 @@
                     })
                     $('.hotel_city').html(c_h);
 
-                    console.log(t_n);
+                    // console.log(t_n);
                     t_n= `<option value="" selected>Select Trip</option>`;
                     trip_data.forEach((t_d) =>
                     {
@@ -2966,7 +2968,7 @@
         $('#trip__name').change((e) =>
         {
             let locations = [];
-            console.log(e.target.value);
+            // console.log(e.target.value);
             trip_data.forEach((t_d) =>
             {
                 if(t_d.trip_name === e.target.value)
@@ -2986,7 +2988,7 @@
             $('#start_loc').html(t_l);
             $('#end_loc').html(t_l);
 
-            console.log(locations);
+            // console.log(locations);
         })
         function DayScheduleData(city_id, city_index,val) 
         {
@@ -3072,9 +3074,9 @@
             let room__type = document.getElementById(room_type);
             let honey__kit = document.getElementById(honeymoon_kit);
             let hotel__img = document.querySelector(`.${hotel_img}`);
-            console.log("HotelData Changes : ",room__type.value,location.value,acco__cat.value);
+            // console.log("HotelData Changes : ",room__type.value,location.value,acco__cat.value);
 
-            console.log('hello world')
+            // console.log('hello world')
 
             city_hotels.forEach((ch) =>
             {
@@ -3084,7 +3086,7 @@
                 }
             })
 
-            console.log(after_get_city_array);
+            // console.log(after_get_city_array);
 
             let s_n = `<option value="">Select Stay Name</option>`;
 
@@ -3111,7 +3113,7 @@
             let hot_tot_price = document.getElementById(hotel_price);
             let hotel__image = document.querySelector(`.${hotel_image}`);
 
-            console.log(val);
+            // console.log(val);
 
             if(val.length !== 0)
             {
@@ -3123,17 +3125,7 @@
                         room__shar.innerHTML = `<option value="${c_h.room_sharing}" selected>${c_h.room_sharing}</option>`;
                         num_night.value = 1;
                         num_room.value = 1;
-                        hot_tot_price.value = c_h.total_price ;
-                        if(c_h.honeymoon_kit_price !== null)
-                        {
-                            honey__kit.innerHTML = `<option value='yes'>Yes</option>`;
-                            honey__kit_price.style.display = 'block';
-                            honey__kit_price.value = c_h.honeymoon_kit_price;
-                        }
-                        else
-                        {
-                            honey__kit.innerHTML = `<option value='no'>No</option>`;
-                        }
+                        hot_tot_price.value = c_h.total_price - c_h.honeymoon_kit_price;
 
                         if(c_h.image1)
                         {
@@ -3169,6 +3161,28 @@
                             hotel__image.innerHTML += `<img src="/abcd/${c_h.image6}" class="mx-2 my-2" style="width:200px;">`;
 
                         }
+
+                          honey__kit.addEventListener('change',(e) =>
+                            {
+                                // console.log(c_h);
+                                if(e.target.value === 'yes')
+                                {
+                                    honey__kit_price.value = c_h.honeymoon_kit_price;
+                                    honey__kit_price.style.display = 'block';
+                                    honey__kit_price.style.pointerEvents = 'none';
+                                    hot_tot_price.value = c_h.total_price;
+                                    
+                                }
+                                else if(e.target.value === 'no')
+                                {
+                                    honey__kit_price.value = 0;
+                                    honey__kit_price.style.display = 'none';
+                                    honey__kit_price.style.pointerEvents = 'none';
+                                    hot_tot_price.value = c_h.total_price - c_h.honeymoon_kit_price;
+
+                                }
+
+                            })
                     }
                 })
 
@@ -3249,7 +3263,7 @@
                 if(e.value.length !== 0)
                 {
                     transport_price_count += parseInt(e.value);
-                    console.log(e.value);
+                    // console.log(e.value);
                 }
             })
 

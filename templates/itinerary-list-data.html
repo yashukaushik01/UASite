@@ -3,16 +3,17 @@
                             <thead class="table-dark text-center">
                                 <tr>
                                     <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Phone No.</th>
                                     <th scope="col">Package Display Name</th>
                                     <th scope="col">State</th>
-                                    <th scope="col">Starting Location</th>
-                                    <th scope="col">Ending Location</th>
+                                    <th scope="col">Trip Category</th>
                                     <th scope="col">Date Of Travel</th>
                                     <th scope="col">No of Days</th>
                                     <th scope="col">Total Trip Cost</th>
-                                    <th scope="col">Payment Type</th>
-                                    <th scope="col">Each people Cost</th>
-                                    <th scope="col">Number of People</th>
+                                    <th scope="col">No. of People</th>
+                                    <th scope="col">Agant Name</th>
+
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -20,16 +21,16 @@
                                 {% for itineraryData in itineraryDatas|dictsort:"state" %}
                                 <tr>
                                     <th scope="col">{{forloop.counter}}</th>
+                                    <th scope="col">{{itineraryData.name}}</th>
+                                    <th scope="col">{{itineraryData.number}}</th>
                                     <th scope="col">{{itineraryData.package_display_name}}</th>
                                     <th scope="col">{{itineraryData.state}}</th>
-                                    <th scope="col">{{itineraryData.starting_location}}</th>
-                                    <th scope="col">{{itineraryData.ending_location}}</th>
+                                    <th scope="col">{{itineraryData.trip_category}}</th>
                                     <th scope="col">{{itineraryData.date_of_travel}}</th>
                                     <th scope="col">{{itineraryData.no_of_days}}</th>
                                     <th scope="col">Rs.{{itineraryData.total_trip_cost}}</th>
-                                    <th scope="col">{{itineraryData.payment_type}}</th>
-                                    <th scope="col">Rs.{{itineraryData.each_people_cost}}</th>
                                     <th scope="col">{{itineraryData.number_of_people}}</th>
+                                    <th scope="col">{{itineraryData.agant_name}}</th>
                                     <th scope="col" >
                                         <button class="btn btn-primary my-2"  onclick="window.location = '/itinerary-data/{{itineraryData.slug}}'">View</button> 
                                         <button class="btn btn-warning my-2"  onclick="window.location = '/itinerary-data-edit/{{itineraryData.id}}'">Edit</button> 

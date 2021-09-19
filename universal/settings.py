@@ -189,3 +189,10 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # facebook
 SOCIAL_AUTH_FACEBOOK_KEY = '537819890592864'  # App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = '9cc11615020b717c35e6a81945fdf896'  # app key
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''

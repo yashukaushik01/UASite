@@ -29,6 +29,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Q
 from functools import reduce
 from django.forms.models import model_to_dict
+from django.conf import settings
+from django.core.mail import send_mail , EmailMessage
 
 
 def error_404(request, exception):
@@ -203,6 +205,8 @@ def EditItinerary(request, slug):
         return redirect('/itinerarylist')
     return render(request, 'edititinerary.html', {'post': post})
 
+# ======================= new itinerary Tool =================================
+
 @staff_member_required
 def stateItinerary(request):
     form = StateItineraryDataForm()
@@ -222,100 +226,6 @@ def stateItinerary(request):
         'states':states
     }
     return render(request,'state-itinerary-form.html',context)
-
-
-@staff_member_required
-def cityHotel(request):
-    form = CityHotelDataForm()
-    states = States.objects.all()
-    cities = Cities.objects.all()
-    if request.method == 'POST':
-        form = CityHotelDataForm(request.POST or None,request.FILES or None)
-        print(form.errors)
-        prod = form.save(commit = False)
-        prod.save()
-        form.save_m2m()
-        messages.success(request,'added !')
-        return redirect('/city-hotel-form/')
-
-    context = {
-        'form':form,
-        'states':states,
-        'cities':cities
-    }
-    return render(request,'city-hotel-form.html',context)
-
-
-
-
-@staff_member_required
-def AddItineraryData(request):
-    form = ItineraryDataForm()
-    states = States.objects.all()
-    if request.method == 'POST':
-        form = ItineraryDataForm(request.POST or None)
-        print(form.errors)
-        prod = form.save(commit = False)
-        prod.save()
-        form.save_m2m()
-        messages.success(request,'added !')
-        return redirect('/add-itinerary-form/')
-    
-    context = {
-        'form':form,
-        'states':states,
-    }
-
-    return render(request,'itinerary-data-form.html',context)
-
-@staff_member_required
-def getItineraryData(request):
-    arr_1 = []
-    arr_2 = []
-    state = request.GET.get('state')
-    state_itineraries = StateItineraryData.objects.filter(state = state).values()
-    city_hotels = CityHotelData.objects.filter(state = state).values()
-
-    for i in state_itineraries:
-        arr_1.append(i)
-    for j in city_hotels:
-        arr_2.append(j)
-    
-    return JsonResponse({'state_itineraries':arr_1,'city_hotels':arr_2})
-
-
-def itineraryData(request,slug):
-    hotel1 = ''
-    hotel2 = ''
-    hotel3 = ''
-    hotel4 = ''
-    hotel5 = ''
-    itinerary = ItineraryData.objects.get(slug = slug)
-    if itinerary.hotel_stay_name_1 :
-        hotel1 = CityHotelData.objects.get(state = itinerary.state , 
-        city = itinerary.hotel_city_name_1 , stay_name = itinerary.hotel_stay_name_1)
-    if itinerary.hotel_stay_name_2 :
-        hotel2 = CityHotelData.objects.get(state = itinerary.state , 
-        city = itinerary.hotel_city_name_2 , stay_name = itinerary.hotel_stay_name_2)
-    if itinerary.hotel_stay_name_3 :
-        hotel3 = CityHotelData.objects.get(state = itinerary.state , 
-        city = itinerary.hotel_city_name_3 , stay_name = itinerary.hotel_stay_name_3)
-    if itinerary.hotel_stay_name_4 :
-        hotel4 = CityHotelData.objects.get(state = itinerary.state , 
-        city = itinerary.hotel_city_name_4 , stay_name = itinerary.hotel_stay_name_4)
-    if itinerary.hotel_stay_name_5 :
-        hotel5 = CityHotelData.objects.get(state = itinerary.state , 
-        city = itinerary.hotel_city_name_5 , stay_name = itinerary.hotel_stay_name_5)
-
-    context = {
-        'itinerary':itinerary,
-        'hotel1':hotel1,
-        'hotel2':hotel2,
-        'hotel3':hotel3,
-        'hotel4':hotel4,
-        'hotel5':hotel5,
-    }
-    return render(request,'itinerary-data.html',context)
 
 
 
@@ -377,6 +287,26 @@ def GetStateItineraryData(request):
 
     return JsonResponse({'data':data})
 
+@staff_member_required
+def cityHotel(request):
+    form = CityHotelDataForm()
+    states = States.objects.all()
+    cities = Cities.objects.all()
+    if request.method == 'POST':
+        form = CityHotelDataForm(request.POST or None,request.FILES or None)
+        print(form.errors)
+        prod = form.save(commit = False)
+        prod.save()
+        form.save_m2m()
+        messages.success(request,'added !')
+        return redirect('/city-hotel-form/')
+
+    context = {
+        'form':form,
+        'states':states,
+        'cities':cities
+    }
+    return render(request,'city-hotel-form.html',context)
 
 
 @staff_member_required
@@ -406,6 +336,81 @@ def GetCityHotelData(request):
         context['data'] = data
 
     return JsonResponse(context)
+
+
+
+@staff_member_required
+def AddItineraryData(request):
+    form = ItineraryDataForm()
+    states = States.objects.all()
+    if request.method == 'POST':
+        form = ItineraryDataForm(request.POST or None)
+        print(form.errors)
+        prod = form.save(commit = False)
+        prod.save()
+        form.save_m2m()
+        messages.success(request,'added !')
+        return redirect('/add-itinerary-form/')
+    
+    context = {
+        'form':form,
+        'states':states,
+    }
+
+    return render(request,'itinerary-data-form.html',context)
+
+@staff_member_required
+def getItineraryData(request):
+    arr_1 = []
+    arr_2 = []
+    hotel_cities = []
+    state = request.GET.get('state')
+    state_itineraries = StateItineraryData.objects.filter(state = state).values()
+    city_hotels = CityHotelData.objects.filter(state = state).values()
+
+    for i in state_itineraries:
+        arr_1.append(i)
+    for j in city_hotels:
+        arr_2.append(j)
+        hotel_cities.append(j['city'])
+
+    hotel_cities = list(dict.fromkeys(hotel_cities))
+    
+    return JsonResponse({'state_itineraries':arr_1,'city_hotels':arr_2,'hotel_cities':hotel_cities})
+
+
+def itineraryData(request,slug):
+    hotel1 = ''
+    hotel2 = ''
+    hotel3 = ''
+    hotel4 = ''
+    hotel5 = ''
+    itinerary = ItineraryData.objects.get(slug = slug)
+    if itinerary.hotel_stay_name_1 :
+        hotel1 = CityHotelData.objects.get(state = itinerary.state , 
+        city = itinerary.hotel_city_name_1 , stay_name = itinerary.hotel_stay_name_1)
+    if itinerary.hotel_stay_name_2 :
+        hotel2 = CityHotelData.objects.get(state = itinerary.state , 
+        city = itinerary.hotel_city_name_2 , stay_name = itinerary.hotel_stay_name_2)
+    if itinerary.hotel_stay_name_3 :
+        hotel3 = CityHotelData.objects.get(state = itinerary.state , 
+        city = itinerary.hotel_city_name_3 , stay_name = itinerary.hotel_stay_name_3)
+    if itinerary.hotel_stay_name_4 :
+        hotel4 = CityHotelData.objects.get(state = itinerary.state , 
+        city = itinerary.hotel_city_name_4 , stay_name = itinerary.hotel_stay_name_4)
+    if itinerary.hotel_stay_name_5 :
+        hotel5 = CityHotelData.objects.get(state = itinerary.state , 
+        city = itinerary.hotel_city_name_5 , stay_name = itinerary.hotel_stay_name_5)
+
+    context = {
+        'itinerary':itinerary,
+        'hotel1':hotel1,
+        'hotel2':hotel2,
+        'hotel3':hotel3,
+        'hotel4':hotel4,
+        'hotel5':hotel5,
+    }
+    return render(request,'itinerary-data.html',context)
 
 
 
@@ -498,6 +503,33 @@ def profile(request):
     }
 
     return render(request, 'profile.html', context)
+
+@csrf_exempt
+def SendErpMail(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone_no = request.POST.get('phone_no')
+        booking_id = request.POST.get('booking_id')
+        tour_name = request.POST.get('tour_name')
+        tour_date = request.POST.get('tour_date')
+        total_package_cost = request.POST.get('total_package_cost')
+        payment1 = request.POST.get('payment1')
+        payment_date = request.POST.get('payment_date')
+        due_payment_amount = request.POST.get('due_payment_amount')
+
+        if str(payment1) == 'None':
+            return JsonResponse({'data':'payment not done At.'})
+        else:
+            subject = 'Payment Recept'
+            message = f'Universal Adventure \n name : {name} \n phone No. : {phone_no} \n booking_id : {booking_id} \n Tour Name : {tour_name} \n Tour Date : {tour_date} \n Total Package Cost : Rs. {total_package_cost} \n Payment : Rs. {payment1} \n Payment Date : {payment_date} \n Due Payment Amount : Rs. {due_payment_amount}'
+            print(message)
+            # email_from = settings.EMAIL_HOST_USER
+            # recipient_list = [email,]
+            # send_mail( subject, message, email_from, recipient_list )
+
+            return JsonResponse({'data':'mail sended to client'})
+
 
 
 def affiliate(request):
@@ -1183,6 +1215,7 @@ def checkout3(request):
             "customerName": request.POST.get('name'),
             "customerPhone": request.POST.get('phone'),
             "customerEmail": request.POST.get('email'),
+            "paymentType": request.POST.get('payment_type'),
             "returnUrl": 'https://universaladventures.in/handlerequestpartial/',
             "notifyUrl": 'https://universaladventures.in/'
         }

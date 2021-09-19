@@ -21,6 +21,7 @@ urlpatterns = [
     path('add-popular-tag/', views.AddPopularTag, name='Addpopulartag'),
     path('productslist/', views.ProductsList, name='productslist'),
     path('erp/', views.AddErp, name='Erp'),
+    path('erplist/', views.ErpList, name='erplist'),
     path('itinerarylist/', views.ItineraryList, name='itinerarylist'),
 
     path('state-itinerary-form/',views.stateItinerary , name="stateItineraryForm"),
@@ -36,7 +37,6 @@ urlpatterns = [
     path('itinerary-data-list/',views.ItineraryDataList , name="ItineraryDataList"),
     path('get-itinerary-list-data/',views.GetItineraryListData , name="GetItineraryListData"),
 
-    path('erplist/', views.ErpList, name='erplist'),
     path('addblog/', views.BlogCreate, name='blogcreate'),
     path('profile/', views.profile, name='profile'),
     path('download/<slug:slug>/', views.download, name='download'),
@@ -74,6 +74,9 @@ urlpatterns = [
     path('editerp/<slug:slug>', views.EditErp, name='edit_erp'),
     path('itinerary_response/<slug:slug>',
          views.Response_Itinerary, name='Itinerary_response'),
+
+    path('send-erp-mail/',views.SendErpMail,name='SendErpMail'),
+    
     path('top-picks-entry-form/',views.topPicksEntryForm,name="toppicksentryform"),
     path('top-picks/<slug:slug>',views.topPicks,name="toppicks"),
     path('productEnquiry/',views.productEnqueryForm,name="product_enquiry"),
