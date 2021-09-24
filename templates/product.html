@@ -12,14 +12,22 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Google Tag Manager -->
-    <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-KH59H8J');</script>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-KH59H8J');
+    </script>
 
     <!-- End Google Tag Manager -->
     <!-- <link rel="manifest" href="site.webmanifest"> -->
@@ -36,8 +44,8 @@
     <link rel="stylesheet" href={% static 'css/themify-icons.css' %}>
     <link rel="stylesheet" href={% static 'css/nice-select.css' %}>
     <link rel="stylesheet" href={% static 'css/flaticon.css' %}>
-    <link rel="stylesheet" href={% static 'css/gijgo.css' %}"">
-    <link rel="stylesheet" href={% static ' css/animate.css' %}>
+    <link rel="stylesheet" href={% static 'css/gijgo.css' %}>
+    <link rel="stylesheet" href={% static 'css/animate.css' %}>
     <link rel="stylesheet" href={% static 'css/slick.css' %}>
     <link rel="stylesheet" href={% static 'css/slicknav.css' %}>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
@@ -49,309 +57,359 @@
         integrity="sha512-YdYyWQf8AS4WSB0WWdc3FbQ3Ypdm0QCWD2k4hgfqbQbRCJBEgX0iAegkl2S1Evma5ImaVXLBeUkIlP6hQ1eYKQ=="
         crossorigin="anonymous" />
     <link rel="stylesheet" href={% static 'css/style.css' %}>
+
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
     <style>
         html,
-        body {
-            overflow-x: hidden;
-            scroll-behavior: smooth !important;
-            transition: all 0.25s ease;
-        }
+ body {
+     overflow-x: hidden;
+     scroll-behavior: smooth !important;
+     transition: all 0.25s ease;
+ }
 
-        input#number2 {
-            text-align: center;
-            border: none;
-            border-top: 1px solid #ddd;
-            border-bottom: 1px solid #ddd;
-            margin: 0px;
-            width: 40px;
-            height: 40px;
-        }
+ body {
+     background-color: #f2f2f2;
+ }
 
-        .datepicker td,
-        .datepicker th {
-            width: 2.5rem;
-            height: 2.5rem;
-            font-size: 0.85rem;
-        }
+ input#number2 {
+     text-align: center;
+     border: none;
+     border-top: 1px solid #ddd;
+     border-bottom: 1px solid #ddd;
+     margin: 0px;
+     width: 40px;
+     height: 40px;
+ }
 
-        .datepicker {
-            margin-bottom: 3rem;
-        }
+ .datepicker td,
+ .datepicker th {
+     width: 2.5rem;
+     height: 2.5rem;
+     font-size: 0.85rem;
+ }
 
-        #more {
-            display: none;
-        }
+ .datepicker {
+     margin-bottom: 3rem;
+ }
 
-        #more2 {
-            display: none;
-        }
+ #more {
+     display: none;
+ }
 
-        #more3 {
-            display: none;
-        }
+ #more2 {
+     display: none;
+ }
 
-        .carousel-control-prev,
-        .carousel-control-next {
-            top: auto;
-            bottom: auto;
-            padding: 20px;
-        }
+ #more3 {
+     display: none;
+ }
 
-        .ui-autocomplete {
-            max-height: 200px;
-            /* prevent horizontal scrollbar */
-            overflow-x: hidden;
-            overflow-y: auto;
+ .carousel-control-prev,
+ .carousel-control-next {
+     top: auto;
+     bottom: auto;
+     padding: 20px;
+ }
 
+ .ui-autocomplete {
+     max-height: 200px;
+     /* prevent horizontal scrollbar */
+     overflow-x: hidden;
+     overflow-y: auto;
+ }
 
-        }
-
-        /* IE 6 doesn't support max-height
+ /* IE 6 doesn't support max-height
    * we use height instead, but this forces the menu to always be this tall
    */
-        * html .ui-autocomplete {
-            height: 250px;
-        }
+ * html .ui-autocomplete {
+     height: 250px;
+ }
+
+ .open-button {
+     color: white;
+     padding: 16px 10px;
+     border: none;
+     cursor: pointer;
+     opacity: 0.8;
+     position: fixed;
+     bottom: 4px;
+     right: 4px;
+     background: transparent;
+     text-decoration: none;
+     z-index: 8;
+ }
+
+ /* The popup chat - hidden by default */
+ .chat-popup {
+     display: none;
+     position: fixed;
+     bottom: 0;
+     right: 15px;
+     border-radius: 10px;
+     z-index: 9;
+ }
+
+ #exploreview2 
+ {
+    display: none;
+}
+#mobilemodal {
+    display: none;
+}
+
+ #fr2 {
+     display: none;
+ }
+
+ /* Add styles to the form container */
+ .form-container {
+     max-width: 300px;
+     padding: 10px;
+     border-radius: 10px;
+     background-color: white;
+     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ }
 
 
-        .carousel .carousel-indicators 
-        {
-            bottom: -50px;
-        }
+ .incimg {
+     width: 55% !important;
+     margin: 0 auto;
+ }
 
-        .carousel-indicators li,
-        .carousel-indicators li.active 
-        {
-            width: 10px;
-            height: 10px;
-            margin: 4px;
-            border-radius: 50%;
-            cursor: pointer;
-            border-color: transparent;
-        }
-
-        .carousel-indicators li {
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .carousel-indicators li.active {
-            background: rgba(0, 0, 0, 0.6);
-        }
-
-        .open-button {
-            color: white;
-            padding: 16px 10px;
-            border: none;
-            cursor: pointer;
-            opacity: 0.8;
-            position: fixed;
-            bottom: 4px;
-            right: 4px;
-            background: transparent;
-            text-decoration: none;
-            z-index: 8;
-        }
-
-        /* The popup chat - hidden by default */
-        .chat-popup {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            right: 15px;
-            border-radius: 10px;
-            z-index: 9;
-        }
-
-        #fr2 {
-            display: none;
-        }
-
-        /* Add styles to the form container */
-        .form-container {
-            max-width: 300px;
-            padding: 10px;
-            border-radius: 10px;
-            background-color: white;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        }
+ .inctext {
+     display: flex;
+     justify-content: center;
+     font-size: 0.8em;
+     line-height: 1.3;
+ }
 
 
+ .add-inc {
+     border: 1px solid #00000045 !important;
+     background-color: white;
+     border-radius: 20px;
+     padding: 5px 10px;
+     font-weight: 500;
+     margin-bottom: 8px;
+ }
 
-        .incimg {
-            width: 55% !important;
-            margin: 0 auto;
-        }
+ .shadoww {
 
-        .inctext {
-            display: flex;
-            justify-content: center;
-            font-size: 0.8em;
-            line-height: 1.3;
-        }
+     box-shadow: inset 0px -87px 20px -18px #fdfdfddb;
+ }
 
+ #highlights li,
+ #overview li ,
+ #additionalinfo li {
 
-        .add-inc {
-            border: 1px solid #00000045 !important;
-            background-color: white;
-            border-radius: 20px;
-            padding: 5px 10px;
-            font-weight: 500;
-            margin-bottom: 8px;
-        }
+     list-style-type: none;
+ }
 
-        .shadoww {
+ #highlights li,
+ #overview li,
+#additionalinfo li  {
+     margin-left: 1.3em;
+     margin-bottom: 0.5em;
+ }
 
-            box-shadow: inset 0px -87px 20px -18px #fdfdfddb;
-        }
-
-        #highlights li,
-        #overview li {
-
-            list-style-type: none;
-        }
-
-        #highlights li,
-        #overview li {
-            margin-left: 1.3em;
-            margin-bottom: 0.5em;
-        }
-
-        #highlights li:before,
-        #overview li:before {
-            content: '\f14e';
-            font-family: 'FontAwesome';
-            float: left;
-            margin-left: -1.5em;
-            margin-top: ;
-            color: #0074D9;
-        }
+ #highlights li:before,
+ #overview li:before,
+ #additionalinfo li:before 
+ {
+     content: '\f14e';
+     font-family: 'FontAwesome';
+     float: left;
+     margin-left: -1.5em;
+     /* margin-top: ; */
+     color: #0074D9;
+ }
 
 
-        .my-heading {
-            margin: 0.4rem 0.4rem 0.4rem -8px !important;
-            padding: 0.5rem 1rem !important;
-            border-left: 7px solid #0090e0;
-        }
+ .my-heading {
+     margin: 0.4rem 0.4rem 0.4rem -8px !important;
+     padding: 0.5rem 1rem !important;
+     border-left: 7px solid #0090e0;
+ }
 
-        /* ====================== multi-item-example2 ================== */
-        .multi__items
-        {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 500px;
-        
-        }
-        #multi-item-example2
-        {
-            width: 100%;
+ /* ====================== multi-item-example2 ================== */
+ .multi__items {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     min-height: 500px;
 
-        }
+ }
 
-        /* ====================== multi-item-example2 ================== */
+ #multi-item-example2 {
+     width: 100%;
 
-        /* ======================carosuel =========================== */
-        .owl-carousel .owl-item
-        {
-            margin-right: 15px !important;
-        }
-        .owl-carousel 
-    {
-      perspective: 100px;
-    }
-    .owl-carousel .owl-nav {
-      overflow: hidden;
-      height: 0px;
-      margin: 10px;
-    }
+ }
 
-    .owl-carousel .nav-button {
-      height: 25px;
-      width: 25px;
-      border-radius: 50%;
-      border: 1px solid black;
-      cursor: pointer;
-      position: absolute;
-      font-size: 12px;
-      top: 48% !important;
-    }
+ /* ====================== multi-item-example2 ================== */
 
-    .owl-carousel .owl-prev.disabled
-    {
-        left: -40px !important;
-    }
-    .owl-carousel .owl-prev.disabled,
-    .owl-carousel .owl-next.disabled {
-      pointer-events: none;
-      opacity: 0.25;
-    }
+ /* ======================carosuel =========================== */
+ .owl-prev,.owl-next{
+    color: #fff;
+    border: 1px solid transparent;
+    font-size: 30px !important;
+    width: 50px !important;
+    height: 50px !important;
+    line-height: 50px !important;
+    border-radius: 50%;
+    text-align: center;
+    background-color: rgba(85, 85, 85, 0.829) !important;
+}
 
-    .owl-carousel .owl-prev 
-    {
-        left: 0px !important;
-    }
+.owl-prev:hover,.owl-next:hover{
+    background-color: rgb(37, 37, 37) !important;
+}
 
-    .owl-carousel .owl-next 
-    {
-      right: 0px !important;
-    }
+.owl-prev{
+  left:-20px !important;
+}
 
-    .owl-theme .owl-nav [class*=owl-] {
-      color: #fff;
-      font-size: 30px;
-      background: transparent;
-      width: 35px;
-      height: 35px;
-      line-height: 35px;
-      border-radius: 50%;
-      text-align: center;
-      padding-top: -10px;
-      background-color: rgba(85, 85, 85, 0.829);
-      
-    }
-    ..owl-theme .owl-nav [class*=owl-]:hover
-    {
-      background-color: green;
-    }
-    .owl-carousel .prev-carousel:hover {
-      background-position: 0px -53px;
-      box-shadow: 2px 2px 10px green;
-    }
+.owl-next{
+  right: -20px !important;
+}
 
-    .owl-carousel .next-carousel:hover {
-      background-position: -24px -53px;
-    }
+ /* ======================carosuel =========================== */
 
-        /* ======================carosuel =========================== */
+ @media only screen and (max-width: 600px) {
+  #navbarResponsive
+  {
+      display:none;
+  }
+  #exploreview2{
+      display:block;
+  }
+  #mobilemodal{
+      display:block;
+  }
+  #exampleModal{
+    margin-top:30%;
+    margin-right:0%;
+}
+  .mobile-searchbox{
+      display:block;
+  }
+  .laptop-searchbox{
+      display:none;
+  }
+}
 
 
-        @media (max-width: 767px) {
+ @media (max-width: 767px) {
 
-            .book-now-btn {
-                display: none;
-            }
-        }
-        @media (max-width: 467px) {
+     .book-now-btn {
+         display: none;
+     }
+ }
 
-            .owl-carousel .owl-next.disabled, 
-            .owl-carousel .owl-prev.disabled
-            {
-                display: none;
-            }
-            .owl-carousel .owl-prev
-            {
-                display: none !important;
-            }
-            .owl-carousel .owl-next
-            {
-                display: none !important;
-            }
-        }
+ @media (max-width: 770px) {
+     .owl-carousel .owl-prev,
+     .owl-carousel .owl-next {
+         display: none;
+     }
+ }
+
+ /* Card Design */
+ .box-shadow {
+     -webkit-box-shadow: 0 1px 1px rgba(72, 78, 85, .6);
+     box-shadow: 0 1px 1px rgba(72, 78, 85, .6);
+     -webkit-transition: all .2s ease-out;
+     -moz-transition: all .2s ease-out;
+     -ms-transition: all .2s ease-out;
+     -o-transition: all .2s ease-out;
+     transition: all .2s ease-out;
+ }
+
+ .box-shadow:hover {
+     /* -webkit-box-shadow: 0 20px 40px rgba(72, 78, 85, .6);
+            box-shadow: 0 20px 40px rgba(72, 78, 85, .6); */
+     -webkit-transform: translateY(-15px);
+     -moz-transform: translateY(-15px);
+     -ms-transform: translateY(-15px);
+     -o-transform: translateY(-15px);
+     transform: translateY(-15px);
+ }
+
+ .recommended-products .card {
+     border-radius: 8px;
+     margin-top: 20px;
+     overflow: hidden;
+
+ }
+
+ .recommended-products .card-body {
+     min-height: 160px;
+     padding: 0px;
+ }
+
+ .recommended-products .card-text {
+     padding: 10px 15px 0px 15px;
+     min-height: 160px;
+ }
+
+ .recommended-products .card img {
+     border-top-left-radius: 8px;
+     border-top-right-radius: 8px;
+ }
+
+ .recommended-products .card svg {
+     position: absolute;
+     bottom: -0.1rem;
+     -webkit-transition: all .2s ease-out;
+     -moz-transition: all .2s ease-out;
+     -ms-transition: all .2s ease-out;
+     -o-transition: all .2s ease-out;
+     transition: all .2s ease-out;
+     filter: drop-shadow(2px -9px 4px rgba(0, 69, 134, 0.2));
+ }
+
+ .recommended-products .card:hover svg {
+     filter: drop-shadow(2px -9px 4px rgba(0, 69, 134, 0.4));
+ }
+
+ .duration span {
+     color: gray;
+     font-weight: 500;
+ }
+
+ .rating span,
+ .rating span a {
+     color: gray;
+ }
+
+ .vertical_hr {
+     opacity: 0.4;
+     padding: 5px;
+     font-weight: 400 !important;
+ }
+
+ .sale-price {
+     color: rgb(220, 46, 46);
+     font-size: 24px;
+     font-weight: 600;
+ }
+
+ .regular-price,
+ .regular-price i {
+     text-decoration: line-through;
+     color: gray;
+ }
+ .navbar
+ {
+    background-image: linear-gradient(0deg, rgb(0 0 0 / 0%) .5%, rgba(10, 8, 8, 0.67) 100%) !important;
+    /* background-color: #161616 !important; */
+ }
+ .fixed-top
+ {
+     position:relative !important;
+ }
     </style>
 </head>
 
-<body style="background-color: #f2f2f2;">
+<body>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
@@ -360,215 +418,232 @@
         <div class="loader">
         </div>
     </div> -->
-    <nav class="navbar  navbar-expand-lg  fixed-top navbar-light" id="mainNav">
+    <nav class="navbar  navbar-expand-lg  fixed-top navbar-light" id="mainNav" >
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="/"><img src={% static 'img//Nav Menu Icons//UA Logo white.svg' %} width="200px">
+            <a class="navbar-brand js-scroll-trigger" href="/"><img
+                src={% static 'img//Nav Menu Icons//UA Logo white.svg' %} height="40px">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            <div class="navbar-collapse collapse" id="navbarResponsive">
+              <div class="navbar-collapse collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/blog">Our Blog</a></li>
+                      <li class="nav-item"> <a class="nav-link js-scroll-trigger" id="exploreview" style ="font-weight: 600;color: white !important;padding-right: 50px;font-size: 19px !important;cursor: pointer;"><img class="explore-ico" src={% static 'img//Nav Menu Icons//Explore white.svg' %}> Explore</a></li>
                     {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="/profile">Hello {{user}}</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/accounts/logout">logout</a></li>
-                    {% else %}<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#" id="modal"
-                            data-toggle="modal" data-target="#log">Login</a></li>
+                    <li class="nav-item">  
+                        <div class="dropdown">
+                          <button class="btn btn-secondary" style="background-color:transparent;border:none;padding: 0px;font-weight: 600;color: white !important;font-size: 19px !important;" type="button" id="dropdownMenuButton"
+                          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <img src={% static 'img//Nav Menu Icons//User white.svg' %}>
+                            Hello {{user}}
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="options" style="display: none;text-transform: none;box-shadow: 0px 3px 8px 0px #252525a6;margin-top: 19px;">
+                            {% for wallet in amount %}
+                            <a class="dropdown-item"  href="#"><img class="col-md-2 p-0" src={% static 'img//Nav Menu Icons//wallet.svg' %} height="25px" ><span class="col-md-10 pl-2">UA Cash: &#8377;{{wallet.amount}}</span></a>
+                            {% endfor %}
+                            <a class="dropdown-item"  href="/profile/" id="profileview"><img class="col-md-2 p-0" src={% static 'img//Nav Menu Icons//user profile.svg' %} height="25px"><span class="col-md-10 pl-2">Profile</span></a>
+                            <a class="dropdown-item" href="/profile/#booking"><img class="col-md-2 p-0"src={% static 'img//Nav Menu Icons//bookings.svg' %} height="25px" ><span class="col-md-10 pl-2">Bookings</span></a>
+                            <hr> 
+                            <a class="dropdown-item"  href="/accounts/logout"><button type="button" class="btn btn-warning" style="display: block;margin-left: auto;margin-right: auto;margin-top: 6px;border-radius: 25px;width: 150px;">Logout</button></a>
+                            
+                          </div>
 
+                        </div>
+ 
+                    </li>
+                    
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" style ="font-weight: 600;color: white !important;padding-right: 50px;font-size: 19px !important;cursor: pointer;" href="#" id="modal"
+                            data-toggle="modal" data-target="#log"><img src={% static 'img//Nav Menu Icons//User white.svg' %}> Login</a>
+                  </li>
                     {% endif %}
                 </ul>
             </div>
-        </div>
-    </nav>
-
-    <div class="modal fade" id="bookingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLabel">Booking Details</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="bookingbody">
-                    <div class="row " style="padding: 8px 0px;
-                border-top: 1px solid rgba(221,221,221,0.4);
-                border-bottom: 1px solid rgba(221,221,221,0.5);">
-
-
-                        <div class="col" style="display:flex;flex-wrap:wrap;">
-                            <div class="col-lg-8 col-md-8 col-sm-8 col-8 pl-0">
-                                <span class="normal" style="color: black;font-weight: 500;">₹ {{product.regular}}</span>
-                                <p style="color: #EE4347">
-                                    <span class="pr" style=" font-size: 30px;color: #EE4347"> ₹
-                                        {{product.sale}}</span>per adult
-                                </p>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-4 pr-0">
-                                <button type="button" class="btn bg-white text-danger float-right"
-                                    onclick="location.href='tel:8882654593'" style="border: 1px solid #ee4347;"><i
-                                        class="fas fa-headset mr-2" aria-hidden="true"></i>Support</button>
-                            </div>
-                        </div>
-                    </div>
-                    <form method="post" action="/booking/">
-                        {% csrf_token %}
-                        <input type="hidden" name="product" id="product" value="{{product.name}}">
-                        <input type="hidden" name="amount" id="amount" value="{{product.sale}}">
-                        <input type="hidden" name="orderid" id="orderid" value="{{product.id}}">
-                        <input type="hidden" name="name" id="name" value="{{user.get_username}}">
-                        <input type="hidden" name="email" id="email" value="{{user.email}}">
-                        <input type="hidden" name="max_discount" value="{{product.discount}}">
-                        <input type="hidden" name="adult_price" value="{{product.regular}}">
-                        <input type="hidden" name="child_price" value="{{product.child}}">
-                        <input type="hidden" name="adult_price2" value="{{product.sale}}">
-                        <input type="hidden" name="child_price2" value="{{product.sale_child}}">
-                        <div class="row" style="padding: 5px 0px 0px;border-bottom: 1px solid rgba(221,221,221,0.5);">
-                            <div class="form-group col-12 m-0 py-2" style="vertical-align: middle;display: flex;">
-                                <div class="col-md-3 px-0">
-                                    <label style="display: inline;padding: 0px;color: #2d2d2d;font-size: 15px;"><i
-                                            class="fa fa-calendar" aria-hidden="true"></i> Date</label>
-                                </div>
-                                <div class="col-md-9 px-0">
-                                    <input
-                                        style="width: 160px;margin-left: 10px;line-height: 1.5;display: inline;border-radius: 25px;margin-top: 0px!important;font-size: 13px;"
-                                        type="date" class="form-control my-0 mx-0" name="date"
-                                        placeholder="Choose a Booking Date" required />
-                                </div>
-                            </div>
-                            <div class="col-12 pt-2 pb-3" style="vertical-align: middle;display: flex;">
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-3 px-0">
-                                    <label style="display: inline;padding: 0px;color: #2d2d2d;font-size: 15px;"> <i
-                                            class="fa fa-users" aria-hidden="true"></i> Guests</label>
-                                </div>
-                                <div class="col-lg-9 col-md-9 col-sm-9 col-9 pr-0 pl-2 py-0"
-                                    style="border: 1px solid #8484845e;border-radius: 7px;background-color: white;">
-
-
-                                    <div class="col-md-12 m-0 px-0 py-1" style="display: flex;">
-
-                                        <div class="col-md-3 m-0 p-0">
-                                            <p>Adults</p>
-                                        </div>
-                                        <div class="col-md-9 m-0 p-0">
-                                            <span>
-                                                <div class="btn btn-info" id="decrease" onclick="decreaseValue()"
-                                                    value="Decrease Value" style="display: inline;">-</div>
-                                            </span>
-                                            <input type="number" id="number" name="number1" value="1"
-                                                placeholder="Adults" style="height: 33px;" />
-                                            <span>
-                                                <div class="btn btn-info" id="increase" onclick="increaseValue()"
-                                                    value="Increase Value" style="display: inline;">+</div>
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12 m-0 px-0 py-1" style="display: flex;">
-                                        <div class="col-md-3 m-0 p-0">
-                                            <p>Child</p>
-                                        </div>
-                                        <div class="col-md-9 m-0 p-0">
-                                            <span>
-                                                <div class="btn btn-info" id="decrease" onclick="decreaseValue2()"
-                                                    value="Decrease Value" style="display: inline;">-</div>
-                                            </span>
-                                            <input type="number" id="number2" name="number2" value="0"
-                                                placeholder="child" style="height: 33px;" />
-                                            <span>
-                                                <div class="btn btn-info" id="increase" onclick="increaseValue2()"
-                                                    value="Increase Value" style="display: inline;">+</div>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                            <div class="form-group col-12 mb-0 mt-2" style="vertical-align: middle;">
-                                <hr style="border-top: 2px dashed #999;">
-
-                                <h4 style="text-align: center; padding-top: 20px;">Price Breakdown</h4>
-
-
-                                <div class="col-md-12 m-0 p-0" style="display: flex;">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-3 m-0 p-0">
-                                        <p>Adult:</p>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6 m-0 p-0">
-                                        <p>Rs. {{product.sale}} x <span id="ad">1</span> &nbsp;&nbsp;&nbsp;&nbsp;=</p>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-3 m-0 p-0">
-                                        <p><span id="ad2">Rs. {{product.sale}}</span></p>
-                                    </div>
-                                </div>
-
-                                <div id="childbreak" style="display: none;">
-                                    <div class="col-md-12 m-0 p-0" style="display: flex;">
-                                        <div class="col-lg-3 col-md-3 col-sm-3 col-3 m-0 p-0">
-                                            <p>Child:</p>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-6 m-0 p-0">
-                                            <p>Rs. {{product.sale_child}} x <span id="ch">0</span>
-                                                &nbsp;&nbsp;&nbsp;&nbsp; =</p>
-                                        </div>
-                                        <div class="col-lg-3 col-md-3 col-sm-3 col-3 m-0 p-0">
-                                            <p>Rs. <span id="ch2">0</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="final-price pt-3" style="display: flex;font-weight: bold;">
-                                    <h3 style="color: #ee4347;">Total Price:</h3>
-                                    <h3 style="color: #ee4347;right: 7%;position: absolute;" id="total">Rs
-                                        {{product.sale}}</h3>
-                                </div>
-
-
-
-                            </div>
-
-                        </div>
-                </div>
-
+            <div>
+                <i id="exploreview2" ><img class="explore-ico" style="position: absolute;" src={% static 'img//Nav Menu Icons//Explore white.svg' %}></i>
+                <i id="mobilemodal" style="padding-left: 45px; color:white; height:32px;" ><img src={% static 'img//Nav Menu Icons//User white.svg' %}></i>
             </div>
-        </div>
-    </div>
 
-    <div class="modal fade" id="log" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"
-        style="z-index: 2500;">
+        </div>
+</nav>
+
+<div class="modal fade" id="log" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" style="z-index: 2500;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
-                    <a href="{% provider_login_url "google" %}" process="connect"
+                    
+                    <a href="{% provider_login_url "google"  %}" process="connect"
                         class="btn btn-block btn-social btn-google"
                         style="background-color:red;text-align:center;color:white">
                         <span class="fa fa-google-plus"></span>
                         Sign in with Google
                     </a>
 
-                    <a href="{% provider_login_url "facebook" %}" process="connect"
-                        class="btn btn-block btn-social btn-facebook"
-                        style="background-color:#339AF7;text-align:center;color:white">
-                        <span class="fa fa-facebook"></span>
-                        Sign in with facebook
-                    </a>
 
                 </div>
             </div>
         </div>
+</div>
+    
+
+<div class="modal fade" style="margin: 25% 0% 0% 0%;padding: 0% 15%;width: 100%;" id="exampleModalmobile" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-body font-weight-bold">
+        {% if user.is_authenticated %}
+        <ul>
+          {% for wallet in amount %}
+        <li><h4 class="pb-1 pl-2"><img src={% static 'img//Nav Menu Icons//wallet.svg' %} height="30px" style="margin-left:-10px;margin-right:5px" class="pr-2"> UA Wallet:&#8377;{{wallet.amount}}</h4></li>
+        {% endfor %}
+        <li><a href="/profile/" class="pb-1 pl-2"><img src={% static 'img//Nav Menu Icons//user profile.svg' %} height="30px" style="margin-left:-10px;margin-right:5px" class="pr-2"><span style="margin-left:8px">Profile</span></a></li>
+        <li class="mt-2"> <a href="/profile/#booking" class="pb-1 pl-2"><img src={% static 'img//Nav Menu Icons//bookings.svg' %} height="30px" style="margin-left:-10px;margin-right:5px" class="pr-2"><span style="margin-left:8px">Bookings</span></a></li>
+        </ul>
+        <div class="mt-2 pt-2" style="border-top:1px solid black">
+        <center>
+        <a href="/accounts/logout"><button class="btn btn-warning px-4 font-weight-bold" style="border-radius:1.4rem">Logout</button></a>
+        </center>
+        </div>
+        {% else %}<li class="nav-item"><a class="nav-link js-scroll-trigger" style ="font-weight: 600;color: #2e3342fc !important;" href="#" id="modal"
+          data-toggle="modal" data-target="#log">Login</a></li>
+
+  {% endif %}
+      </div>
+      </div>
+      <div>
+      <center>
+      <i class="fa fa-close" style="font-size:48px;color:red"></i>
+      </center>
+      </div>
+  </div>
+</div>
+<!-- expert modal -->
+<div class="modal fade" id="expertModal" tabindex="-1" aria-labelledby="expertModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="expert ModalLabel"><img src={% static 'img/Universal Adventures Logo.png' %} width="150px" style="margin-bottom: 1rem;"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="f56">
+        <h3 style="color: black;">Please provide the information for customize package</h3>
+    <div class="form-row">
+        <div class="form-group col-md-12 mb-0">
+                <ul>
+                    <li><button class="btn btn-warning  btn-block mt-2" style="border-radius: 20px;" onclick="f56(this)" value="Family Trip" id="${value1}" name="adventure56">&nbsp;&nbsp;Family Trip</input></button>
+                    <li><button class="btn btn-warning  btn-block mt-2" style="border-radius: 20px;" onclick="f56(this)" value="Romantic Trip" id="${value1}" name="adventure56">&nbsp;&nbsp;Romantic Trip</input></button>
+                    <li><button class="btn btn-warning  btn-block mt-2" style="border-radius: 20px;" onclick="f56(this)" value="Friends Trip" id="${value1}" name="adventure56">&nbsp;&nbsp;Friends Trip</input></button>
+                    <li><button class="btn btn-warning  btn-block mt-2" style="border-radius: 20px;" onclick="f56(this)" value="Corporate Trip" id="${value1}" name="adventure56">&nbsp;&nbsp;Corporate Trip</input></button>
+                    <li><button class="btn btn-warning  btn-block mt-2" style="border-radius: 20px;" onclick="f56(this)" value="Adventurous Trip" id="${value1}" name="adventure56">&nbsp;&nbsp;Adventurous Trip</input></button>
+                    <li><button class="btn btn-warning  btn-block mt-2" style="border-radius: 20px;" onclick="f56(this)" value="Other"  id="${value1}" name="adventure56">&nbsp;&nbsp;Other</input></button>    
+                </ul>
+        </div>
+        </div>
     </div>
+    </div>
+  </div>
+</div>
+<!-- explore modal -->
+
+<div class="modal fade align-content-center pr-0" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="padding: 0!important;">
+    <div class="modal-dialog" style="padding-left: 3%;padding-right: 3%;max-width: 450px;">
+      <div class="modal-content">
+        <div class="modal-body"  id="f1">
+          <center>
+            {% if user.is_authenticated %}
+           <h3 style="color:rgb(73, 73, 73);">Hi {{user}}</h3>
+           {% else %}
+           <h3 style="color:rgb(129, 127, 127);">Hi Explorer</h3>
+           {% endif %}
+           <h4 style="color:rgb(73, 73, 73);">What are you looking for? </h4>
+          </center> 
+
+          <div class="container px-0 mobile-searchbox">
+            <div class="text-center">
+               <form class="form-group" method='get' action='/search'  style=" display: block;margin-left: auto; margin-right: auto;">
+                   <div class="input-group">
+                    <input class="form-control" style="border: 1px solid #656c8a;" type="search" name="search" id="search" placeholder="Search Adventure, Tours, Destinations" aria-label="Search">
+                    <div class="input-group-prepend mt-2">
+                        <button id="button-addon2" type="submit" class="btn" style="background-color: rgb(224, 223, 223); border-radius: 0px 5px 5px 0 ;margin-top: 5px;">
+                          <i class="fa fa-search"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+            </div>
+        </div>
+
+
+           <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;cursor: pointer;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f52()" >
+            <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+              <div class="col-4">
+                 <img src={% static 'img//Modal icons//Adventure modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+              </div>
+            
+              <div class="col-8">
+                          <h3 style="float:right;margin-top: 14px;" class="pr-3"></h3>
+                     </div>  
+             </div>        
+                                  </span>
+           <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f; cursor: pointer; filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f50()">
+            <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+              <div class="col-4">
+                 <img src={% static 'img//Modal icons//Tour modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+              </div>
+              <div class="col-8">
+                          <h3 style="float:right;margin-top: 14px;" class="pr-3">Tour Packages</h3>
+                     </div>  
+             </div>
+             </span>
+           <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+           <a href="/blog">
+                 <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+              <div class="col-4">
+                 <img src={% static 'img//Modal icons//Blog modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+              </div>
+            
+              <div class="col-8">
+                          <h3 style="float:right;margin-top: 14px;" class="pr-3">Travel Blogs </h3>
+                     </div>  
+             </div>
+                               </a></span>
+
+           </div>
+                  
+                   <!-- <div class="modal-body" id="adventurelocationnear"  style="display:none">
+                         <div>
+                         <center>
+                         <h5 style="color:red">Please allow your location</h5>
+                         <h5 style="color:red">sharing to find Adventures</h5>
+                         <h5 style="color:red">around you</h5>
+                         <h5 style="color:red" class="mt-4 mb-4">Or select state below!</h5>
+                         </center>
+                         </div>
+                        <div style="margin-left:6%">
+                         <select class="custom-select custom-select-md mb-3 w-100" id="selectstate2">
+                         <option selected>Select State</option>
+                          {% for i in statelist %}
+                              <option value="{{i.name}}">{{i.name}}</option>
+                            {% endfor %}
+                     
+                         </select>
+                         </div>
+
+               </div>  -->
+              
+        </div>
+      </div>
+       <div id="closemodalmain">
+      <center><i class="fa fa-close" style="font-size:48px;color:red"></i></center>
+           </div>
+    </div>
+</div>
+
 
     <div class="main-container offset-0 mt-4"
-        style="padding-top: 75px;width: 1100px;max-width: 100%;margin-left: auto;margin-right: auto;">
+        style="width: 1100px;max-width: 100%;margin-left: auto;margin-right: auto;">
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-caret" style="padding: .5rem 1rem;">
@@ -628,7 +703,7 @@
                     <div class="col-6" style="font-size: 1rem;">
                         <span class="" style="color: #fecb19;">
                             <script>
-                                for (var i = 1; i <= {{ product.rating }}; i++) {
+                                for (var i = 1; i <= {{product.rating}}; i++) {
                                     document.write('<i class="fa fa-star"></i>');
                                 }
                             </script>
@@ -645,7 +720,7 @@
                     </div>
                     <div class="col-6">
                         <p style="font-size: 1rem;">{{product.reviews}} reviews
-                        <p>
+                            <p>
                     </div>
                 </div>
                 <div class="row" style="vertical-align: middle;
@@ -817,7 +892,7 @@
                             style="border: 1px solid #e4e4e4; background-color: #ffffffd0; padding: 8px 20px 8px 8px;margin: 0px 0px 15px 0px;position: relative;">
                             <div class="shadoww" id="addinfo"
                                 style="position:absolute;bottom: 0px;width:100%;height: 50%;margin-left: -8px;"></div>
-                            <h4 class="my-heading" style="margin-top: 1rem;">Additioanl Info about {{product.name}}</h4>
+                            <h4 class="my-heading" style="margin-top: 1rem;">Additional Info about {{product.name}}</h4>
                             <div style="height: 100px; overflow: hidden;" id="addinfo2">
                                 <div id="additionalinfo" class="ml-3">{{product.additional_info}}</div>
                             </div>
@@ -838,15 +913,18 @@
                     {{product.itenary}}
                     {% endautoescape %} -->
 
-
+                        <!-- FAQ's -->
                         <div
                             style="border: 1px solid #e4e4e4; background-color: #ffffffd0; padding: 8px;margin: 0px 0px 15px 0px;">
                             <h4 class="my-heading" style="margin-top: 1rem;font-weight: bold;">FAQ's</h4>
-                            <div class="accordion" id="accordionExample" style="padding: 5px;">
+
+
+                            <div class="accordion" id="accordionExample">
                                 <div class="card" id="q1">
+
                                     <div class="card-header" id="headingOne">
                                         <h2 class="mb-0">
-                                            <button class="btn btn-link" type="button" style=" text-decoration:none;"
+                                            <button class="btn btn-link" type="button" style=" text-decoration:none;white-space: unset;"
                                                 data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                                                 aria-controls="collapseOne">
                                                 {{product.ques1}}
@@ -861,11 +939,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="card" id="q2">
                                     <div class="card-header" id="headingTwo">
                                         <h2 class="mb-0">
                                             <button class="btn btn-link collapsed" type="button"
-                                                style=" text-decoration:none;" data-toggle="collapse"
+                                                style=" text-decoration:none;white-space: unset;" data-toggle="collapse"
                                                 data-target="#collapseTwo" aria-expanded="false"
                                                 aria-controls="collapseTwo">
                                                 {{product.ques2}}
@@ -883,7 +962,7 @@
                                     <div class="card-header" id="headingThree">
                                         <h2 class="mb-0">
                                             <button class="btn btn-link collapsed" type="button"
-                                                style=" text-decoration:none;" data-toggle="collapse"
+                                                style=" text-decoration:none; white-space: unset;" data-toggle="collapse"
                                                 data-target="#collapseThree" aria-expanded="false"
                                                 aria-controls="collapseThree">
                                                 {{product.ques3}}
@@ -901,7 +980,7 @@
                                     <div class="card-header" id="headingfour">
                                         <h2 class="mb-0">
                                             <button class="btn btn-link collapsed" type="button"
-                                                style=" text-decoration:none;" data-toggle="collapse"
+                                                style=" text-decoration:none; white-space: unset;" data-toggle="collapse"
                                                 data-target="#collapsefour" aria-expanded="false"
                                                 aria-controls="collapsefour">
                                                 {{product.ques4}}
@@ -919,7 +998,7 @@
                                     <div class="card-header" id="headingfive">
                                         <h2 class="mb-0">
                                             <button class="btn btn-link collapsed" type="button"
-                                                style=" text-decoration:none;" data-toggle="collapse"
+                                                style=" text-decoration:none; white-space: unset;" data-toggle="collapse"
                                                 data-target="#collapsefive" aria-expanded="false"
                                                 aria-controls="collapsefive">
                                                 {{product.ques5}}
@@ -934,7 +1013,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                     </div>
                 </div>
                 <div class="col-md-4 mt-4 pr-0 pl-2">
@@ -1152,51 +1231,97 @@
         <h3>Recommended Products</h3>
     </div>
 
-    <div class="container" style="margin-top:30px; margin-bottom: 7%">
-        <div class="carousel-wrapper top-exp-dt my-2 py-2 mx-2">
+    <div class="container recommended-products" style="margin-top:30px; margin-bottom: 7%">
+        <div class="">
 
-          <div class="owl-carousel owl-theme my-2">
-            {% for prod in recommended %}
-            <div class="item product__items my-2" style="width: 200px;min-height: 350px;
-            box-shadow: 2px 2px 10px rgba(218, 216, 216, 0.822);
-             border-radius: 10px;overflow: hidden;margin: 0;">
-              <a href="/products/{{prod.manual_slug}}">
-                <div class="top-rated-image" style="width: 100%;height: 200px;">
-                  {% with prod.images_set.all|first as image %}
-                  <img src="{{image.image.url}}" style="width: 100%;height: 100%;" />
-                  {% endwith %}
+            <div class="owl-carousel owl-theme my-2">
+                {% for prod in recommended %}
+                <div class="item card box-shadow mx-auto" style="width: 300px;">
+                    <a href="/products/{{prod.manual_slug}}">
+                        <div style="position: relative;">
+                            {% with prod.images_set.all|first as image %}
+                            <img src="{{image.image.url}}" class="card-img-top" />
+                            {% endwith %}
 
-                  <div class="days"
-                    style="margin-top: -25px; margin-left:15px; color: white;z-index:10;;font-weight:200;">
-                    <i class="fa fa-clock-o" style="color:#fff"></i>
-                    <a href="#" style="color: white;">{{prod.duration}}</a>
-                    <i class="fa fa-map-marker ml-2"></i>
-                    <a href="#" style="color: white;">{{prod.city}}</a>
-                  </div>
-                  <div class="top-rated-body my-1 px-2 mb-2">
-                    <a href="#">
-                      <h4>{{prod.name}}</h4>
+                            <!-- wave div -->
+                            <div class="wave">
+                                <svg viewBox="0 0 500 150" preserveAspectRatio="none"
+                                    style="height: 50px; width: 100%;">
+                                    <path
+                                        d="M-21.22,5.24 C13.20,296.34 422.34,-40.16 530.70,153.25 L500.00,150.00 L0.00,150.00 Z"
+                                        style="stroke: none; fill: #fff;"></path>
+                                </svg>
+                                <!-- <a href="" class="off">15% OFF </a> -->
+                            </div>
+                        </div>
                     </a>
-                    <div>
-                      <i class="fa fa-star" style="color: gold;"></i> ({{prod.rating}})<a href="#"> {{prod.reviews}} Reviews</a>
-                    </div>
-                    <div class="px-2py-1 my-1" style="display: flex;flex-direction: row;justify-content: space-between;align-items:center;">
-                      <span style='display: block; 
-                      text-decoration:line-through; 
-                      color: gray;'><i
-                          class="fa fa-inr"></i>{{prod.regular}}</span>
 
-                      <span style="display: block; color:rgb(220, 46, 46); font-size: 20px;font-weight: 600;"><i
-                          class="fa fa-inr"></i>{{prod.sale}} </span>
+                    <div class="card-body">
+                        <!-- title -->
+                        <div class="card-text row" style="align-content: space-between">
+
+                            <div class="col-12">
+                                <a href="/products/{{prod.manual_slug}}">
+                                    <h4 class="">{{prod.name}}</h4>
+                                </a>
+                            </div>
+                            <!-- duration -->
+                            <div class="col-12 duration">
+                                <span>
+                                    <i class="far fa-clock-o"></i>
+                                    {{prod.duration}}
+                                </span>
+                                <span class="vertical_hr">
+                                    |
+                                </span>
+                                <span>
+                                    <i class="fa fa-map-marker-alt"></i>
+                                    {{prod.city}}
+                                </span>
+
+                            </div>
+                            <!-- rating -->
+                            <div class="col-12 rating">
+                               <span>
+                                    <i class="fa fa-star" style="color: gold;"></i>
+                                    <span style="font-size: 14px;
+                                        padding: 2px 4px;
+                                        background: #4caf50;
+                                        color: white;
+                                        border-radius: 4px;">
+                                        {{prod.rating}}
+                                    </span>
+                                </span>
+
+                                <span class="vertical_hr">
+                                    |
+                                </span>
+                                <span>
+                                    <a href="#">
+                                        {{prod.reviews}} Reviews
+                                    </a>
+                                </span>
+                            </div>
+                            <!-- price -->
+                            <div class="col-12">
+                                <span class="sale-price">
+                                    <i class="fa fa-inr"></i>{{prod.sale}}
+                                </span>
+
+                                <span class="regular-price">
+                                    <i class="fa fa-inr"></i>{{prod.regular}}
+                                </span>
+                                <a href="/products/{{prod.manual_slug}}" class="btn btn-sm btn-info"
+                                    style="float: right;">Details</a>
+                            </div>
+                        </div>
                     </div>
-                  </div>
+
                 </div>
-              </a>
+                {% endfor %}
             </div>
-            {% endfor %}
-          </div>
         </div>
-      </div>
+    </div>
 
 
 
@@ -1328,19 +1453,19 @@
         integrity="sha512-RCgrAvvoLpP7KVgTkTctrUdv7C6t7Un3p1iaoPr1++3pybCyCsCZZN7QEHMZTcJTmcJ7jzexTO+eFpHk4OCFAg=="
         crossorigin="anonymous"></script>
 
+
     <script src={% static 'js/main.js' %}></script>
 
     <script>
         $('.owl-carousel').owlCarousel({
-        loop: false,
-        margin: 30,
-        autoWidth: true,
-        nav: true,
-        navText: [
-        "<div class='nav-button owl-prev'>‹</div>",
-          "<div class='nav-button owl-next'>›</div>",
-        ],
-      })
+            stagePadding: 0,
+            loop: false,
+            margin: 15,
+            autoWidth: true,
+            nav: true,
+            singleItem: false,
+             navText : ["‹","›"],
+        })
     </script>
 
     <script>
@@ -1365,6 +1490,7 @@
         function closeForm() {
             document.getElementById("myForm").style.display = "none";
         }
+
         function Sub() {
             document.getElementById("formg").style.display = "none";
             document.getElementById("fr2").style.display = "block";
@@ -1374,8 +1500,8 @@
         function scro() {
 
             $('html,body').animate({
-                scrollTop: $("#book").offset().top
-            },
+                    scrollTop: $("#book").offset().top
+                },
                 'slow');
         }
         $(function () {
@@ -1393,11 +1519,394 @@
             })
         })
     </script>
+     <script>
+        // setTimeout(function() {
+        //     $('#exampleModal').modal('show')
+        // }, 7000);
+
+        $("#exploreview").click(() =>
+        {
+            console.log('hello world')
+          $('#f1').empty();
+          card61=` <div class="modal-body" id="f1">
+              <center>
+                {% if user.is_authenticated %}
+               <h3 style="color:rgb(73, 73, 73);">Hi {{user}}</h3>
+               {% else %}
+               <h3 style="color:rgb(129, 127, 127);">Hi Explorer</h3>
+               {% endif %}
+               <h4 style="color:rgb(73, 73, 73);">What are you looking for? </h4>
+              </center> 
+
+              <div class="container px-0 mobile-searchbox">
+                <div class="text-center">
+                   <form class="form-group" method='get' action='/search'  style=" display: block;margin-left: auto; margin-right: auto;">
+                       <div class="input-group">
+                        <input class="form-control" style="border: 1px solid #656c8a;" type="search" name="search" id="search" placeholder="Search Adventure, Tours, Destinations" aria-label="Search">
+                        <div class="input-group-prepend mt-2">
+                            <button id="button-addon2" type="submit" class="btn" style="background-color: rgb(224, 223, 223); border-radius: 0px 5px 5px 0 ;margin-top: 5px;">
+                              <i class="fa fa-search"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                </div>
+            </div>
+
+
+               <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;cursor: pointer;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f52()" >
+                <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+                  <div class="col-4">
+                     <img src={% static 'img//Modal icons//Adventure modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+                  </div>
+                
+                  <div class="col-8">
+                              <h3 style="float:right;margin-top: 14px;" class="pr-3">Adventures</h3>
+                         </div>  
+                 </div>        
+                                      </span>
+               <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f; cursor: pointer; filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f50()">
+                <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+                  <div class="col-4">
+                     <img src={% static 'img//Modal icons//Tour modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+                  </div>
+                  <div class="col-8">
+                              <h3 style="float:right;margin-top: 14px;" class="pr-3">Tour Packages</h3>
+                         </div>  
+                 </div>
+                 </span>
+               <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+               <a href="/blog">
+                     <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+                  <div class="col-4">
+                     <img src={% static 'img//Modal icons//Blog modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+                  </div>
+                
+                  <div class="col-8">
+                              <h3 style="float:right;margin-top: 14px;" class="pr-3">Travel Blogs</h3>
+                         </div>  
+                 </div>
+                                   </a></span>
+
+               </div>`
+            $('#f1').html(card61);
+
+            $('#exampleModal').modal('show');
+
+        });
+        $("#exploreview2").click(function()
+        {
+          $('#f1').empty();
+          card61=`     <div class="modal-body"  id="f1">
+              <center>
+                {% if user.is_authenticated %}
+               <h3 style="color:rgb(73, 73, 73);">Hi {{user}}</h3>
+               {% else %}
+               <h3 style="color:rgb(129, 127, 127);">Hi Explorer</h3>
+               {% endif %}
+               <h4 style="color:rgb(73, 73, 73);">What are you looking for? </h4>
+              </center> 
+
+              <div class="container px-0 mobile-searchbox">
+                <div class="text-center">
+                   <form class="form-group" method='get' action='/search'  style=" display: block;margin-left: auto; margin-right: auto;">
+                       <div class="input-group">
+                        <input class="form-control" style="border: 1px solid #656c8a;" type="search" name="search" id="search" placeholder="Search Adventure, Tours, Destinations" aria-label="Search">
+                        <div class="input-group-prepend mt-2">
+                            <button id="button-addon2" type="submit" class="btn" style="background-color: rgb(224, 223, 223); border-radius: 0px 5px 5px 0 ;margin-top: 5px;">
+                              <i class="fa fa-search"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                </div>
+            </div>
+
+
+               <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;cursor: pointer;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f52()" >
+                <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+                  <div class="col-4">
+                     <img src={% static 'img//Modal icons//Adventure modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+                  </div>
+                
+                  <div class="col-8">
+                              <h3 style="float:right;margin-top: 14px;" class="pr-3">Adventures</h3>
+                         </div>  
+                 </div>        
+                                      </span>
+               <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f; cursor: pointer; filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f50()">
+                <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+                  <div class="col-4">
+                     <img src={% static 'img//Modal icons//Tour modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+                  </div>
+                  <div class="col-8">
+                              <h3 style="float:right;margin-top: 14px;" class="pr-3">Tour Packages</h3>
+                         </div>  
+                 </div>
+                 </span>
+               <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+               <a href="/blog">
+                     <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+                  <div class="col-4">
+                     <img src={% static 'img//Modal icons//Blog modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+                  </div>
+                
+                  <div class="col-8">
+                              <h3 style="float:right;margin-top: 14px;" class="pr-3">Travel Blogs</h3>
+                         </div>  
+                 </div>
+                                   </a></span>
+
+               </div>`
+               $('#f1').html(card61);
+            $('#exampleModal').modal('show');
+        });
+        $("#dropdownMenuButton").click(function(){
+            $("#options").toggle();
+        });
+        $("#mobilemodal").click(function(){
+            $("#exampleModalmobile").modal('show');
+        });
+        $("#closemodalmain").click(function(){
+        $("#exampleModal").modal('hide');    
+        });
+        $("#adventurenear").click(function(){
+          $("#adventurelist").css("display","none");
+          $("#adventurelocationnear").css("display","block");
+        });
+        function myfunction(){
+          var e = document.getElementById("selectmodelstate");
+          var value = e.value;
+          window.location.href = `/state/${value}`;
+        }
+        function myfunction2(){
+          var e = document.getElementById("selectmodelcity");
+          var value = e.value;
+          window.location.href = `/city/${value}`;
+        }
+        function f73(){
+          $('#f1').empty();
+          card72=`<div class="modal-body"   style=" height:350px">       
+            <div class="row">
+            <div class="col-12">
+              <select class="custom-select w-75 mt-5" id="selectmodelcity" onchange="myfunction2()">
+              <option selected>Select City</option>
+              <option value="Banglore">Banglore</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Bir Billing">Bir Billing</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Chopta">Chopta</option>
+                <option value="Coorg">Coorg</option>
+                <option value="Dandeli">Dandeli</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Goa">Goa</option>
+                <option value="Gokarna">Gokarna</option>
+                <option value="Jaipur">Jaipur</option>
+                <option value="Jaisalmer">Jaisalmer</option>
+                <option value="Kamshet">Kamshet</option>
+                <option value="Kochi">Kochi</option>
+                <option value="Jammu-Kashmir">Jammu-Kashmir</option>
+                <option value="Kolad">Kolad</option>
+                <option value="Leh">Leh</option>
+                <option value="Lonavala">Lonavala</option>
+                <option value="Malvan">Malvan</option>
+                <option value="Manali">Manali</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Munnar">Munnar</option>
+                <option value="Mysore">Mysore</option>
+                <option value="Nagaon">Nagaon</option>
+                <option value="Nandi Hills">Nandi Hills</option>
+                <option value="Ooty">Ooty</option>
+                <option value="Pondicherry">Pondicherry</option>
+                <option value="Pune">Pune</option>
+                <option value="Rishikesh">Rishikesh</option>
+                <option value="Srinagar">Srinagar</option>
+                <option value="Udaipur">Udaipur</option>
+                <option value="Wayanad">Wayanad</option>
+              </select>
+            </div>
+            </div>
+            </div>`
+          $('#f1').html(card72);
+        }
+        function f72(){
+          $('#f1').empty();
+          card72=`<div class="modal-body"   style=" height:350px">       
+            <div class="row">
+            <div class="col-12">
+              <select class="custom-select w-75 mt-5" id="selectmodelstate" onchange="myfunction()">
+              <option selected>Select State</option>
+              <option value="Andaman & Nicobar">Andaman & Nicobar</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Dadra & Nagar Haveli">Dadra & Nagar Haveli</option>
+                <option value="Daman & Diu">Daman & Diu</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal-Pradesh">Himachal-Pradesh</option>
+                <option value="Jammu-Kashmir">Jammu-Kashmir</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Lakshadweep">Lakshadweep</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Orissa">Orissa</option>
+                <option value="Pondicherry">Pondicherry</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Tripura">Tripura</option>
+                <option value="Uttar-Pradesh">Uttar-Pradesh</option>
+                <option value="Uttaranchal">Uttaranchal</option>
+                <option value="West Bengal">West Bengal</option>
+              </select>
+            </div>
+            </div>
+            </div>`
+          $('#f1').html(card72);
+        }
+       function f54(){
+          $('#f1').empty();
+          card72=`<div class="modal-body"   style=" height:350px">       
+            <span class="badge badge-light mb-2 w-100 mt-5" onclick="f72()" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;"  name="adventure" >
+            <div class="row">
+            <div class="col-12">
+            <p class="mr-3" style="font-size: 21px; margin-top: 20px;color: #38495a;font-weight: 500;text-align: center;">Adventure By State</p>
+            </div>
+            </div>
+            </span>
+
+            <span class="badge badge-light mb-2 w-100" onclick="f73()" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;"  name="adventure" >
+            <div class="row">
+            <div class="col-12">
+            <p class="mr-3" style="font-size: 21px;margin-top: 20px;color: #38495a;font-weight: 500;text-align: center;">Adventures by City</p>
+            </div>
+            </div>
+            </span>
+          
+            </div>`
+          $('#f1').html(card72);
+        };
+      
+      function f1(e){
+        value1= $(e).attr('value')
+          $('#f1').empty();
+          $('#f1').css("margin-top","0px");
+           let card1=` <div class="modal-body">
+                <h5 style="color:red;">When are you planning to go?</h5>
+                <span class="badge badge-light mb-2 w-100" onclick="f2(this)" value="In 1-2 week" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" id="${value1}" name="adventure2">
+                <center>
+                <h5 class="mt-2">1-2 Weeks</h5> 
+                </center>
+                </span>
+                <span class="badge badge-light mb-2 w-100" onclick="f2(this)" value="In 1-2 month" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" id="${value1}" name="adventure2">
+                <center>
+                <h5 class="mt-2">1-2 Months</h5> 
+                </center>
+                </span>
+                <span class="badge badge-light mb-2 w-100" onclick="f2(this)" value="In 3-4 month" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" id="${value1}" name="adventure2">
+                <center>
+                <h5 class="mt-2">1-2 Months</h5> 
+                </center>
+                </span>
+                <span class="badge badge-light mb-2 w-100" onclick="f2(this)" value="After 5 months" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" id="${value1}" name="adventure2">
+                <center>
+                <h5 class="mt-2">After 5 months</h5> 
+                </center>
+                </span>
+                </div>`;
+           $('#f1').html(card1)
+        }
+        function f2(e){
+            value1= $(e).attr('value')
+            value2= $(e).attr('id')
+            $('#f1').empty()
+          let card2= `<div class="modal-body">
+                <h3  style="color: black;">Searching best tour destinations of the season! 
+                    Please wait.</h3>
+                    
+        <img src="https://i.ibb.co/Jcq8M33/giphy.gif" alt="giphy" border="0" width="200px" height="200px"style=" display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;">
+    
+            </div>`
+            $('#f1').html(card2)
+            setTimeout(function() {
+                $('#f1').empty()
+                 n =  new Date();
+                 y = n.getFullYear();
+                 m = n.getMonth()+1;
+                 h = n.getHours();
+                 mm= n.getMinutes()
+                 d = n.getDate();
+                let date = d + "/" + m + "/" + y +"("+h+":"+mm+")";                 
+                let num=Math.floor(Math.random() * (400 - 100 + 1)) + 100;
+            let card3= `<div class="modal-body">
+                <h3  style="color: black;">Found ${num} results for you...</h3><br>
+                Please provide your contact number, our <b> ${value2} </b> expert will discuss tour package with you over phone call.
+                <form action="\" name="popup">
+                    <input type="hidden" value="${date}"   name="Timestamp" ></input>
+                    <input type="hidden" value="${value2}" name="Type"></input>
+                    <input type="hidden" value="${value1}" name="Time"></input>
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-0">
+                        <label>Name</label>
+                        <input type="text" class="form-control" name="Name" required>
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                        <label>Phone Number</label>
+                        <input type="tel" class="form-control" name="Phone" required>
+                    </div>
+                </div>
+        <br>
+               <button type="submit" onclick="finish()" class="btn btn-success btn-block  float-right" >Submit</button>
+        </form>
+                <br><br>
+                <div class="text-center">OR</div>
+                You can directly call our expert now:<br><button onclick="location.href='tel:8882654593'"class="btn btn-danger btn-block"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;8882654593</button>
+            </div>`
+            $('#f1').html(card3)
+        }, 3000);
+        }
+        function finish(){
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz5GdxDJ5-LmqJMEEIZKCQpOT9VRdN4wpqjwnc_4VgVLzqSW-79/exec'
+        const form = document.forms['popup']
+         form.addEventListener('submit', e => {
+           e.preventDefault()
+           fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+             .then(response => {
+               console.log("Thanks for Contacting us..! We Will Contact You Soon...");
+              })
+             .catch(error => console.error('Error!', error.message))
+         })
+         $('#exampleModal').modal('hide')
+         $('html, body').animate({ scrollTop: $('#tour-package').offset().top }, 'slow');
+        }
+ 
+
+    </script>
     <script>
-        var regular = `{{product.regular}}`; var sale = `{{product.sale}}`
+        var regular = `{{product.regular}}`;
+        var sale = `{{product.sale}}`
         var discount = Math.round(((regular - sale) * 100 / regular));
-        var Question1 = `{{product.ques1}}`; var Question2 = `{{product.ques2}}`;
-        var Question3 = `{{product.ques3}}`; var Question4 = `{{product.ques4}}`; var Question5 = `{{product.ques5}}`;
+        var Question1 = `{{product.ques1}}`;
+        var Question2 = `{{product.ques2}}`;
+        var Question3 = `{{product.ques3}}`;
+        var Question4 = `{{product.ques4}}`;
+        var Question5 = `{{product.ques5}}`;
         console.log(discount)
         $('#off').html(discount + ' ' + '%' + ' ' + 'off')
         if (Question1 == "None") {
@@ -1425,14 +1934,21 @@
             value++;
             document.getElementById('number').value = value;
             document.getElementById('ad').innerHTML = value;
-            var value2 = {{ product.sale }
-        }
-        var value3 = {{ product.sale_child }}
-        document.getElementById('ad2').innerHTML = (value2 * value);
-        value2 = (value2 * value) + (value3 * child_value);
-        document.getElementById('total').innerHTML = 'Rs' + ' ' + value2;
-        document.getElementById('amount').value = value2;
+            var value2 = {
+                {
+                    product.sale
+                }
             }
+            var value3 = {
+                {
+                    product.sale_child
+                }
+            }
+            document.getElementById('ad2').innerHTML = (value2 * value);
+            value2 = (value2 * value) + (value3 * child_value);
+            document.getElementById('total').innerHTML = 'Rs' + ' ' + value2;
+            document.getElementById('amount').value = value2;
+        }
 
         function decreaseValue() {
             var value = parseInt(document.getElementById('number').value, 10);
@@ -1446,14 +1962,22 @@
 
             document.getElementById('number').value = value;
             document.getElementById('ad').innerHTML = value;
-            var value2 = {{ product.sale }
-        }
-        var value3 = {{ product.sale_child }}
-        document.getElementById('ad2').innerHTML = (value2 * value);
-        value2 = (value2 * value) + (value3 * child_value);
-        document.getElementById('total').innerHTML = 'Rs' + ' ' + value2;
-        document.getElementById('amount').value = value2;
+            var value2 = {
+                {
+                    product.sale
+                }
             }
+            var value3 = {
+                {
+                    product.sale_child
+                }
+            }
+            document.getElementById('ad2').innerHTML = (value2 * value);
+            value2 = (value2 * value) + (value3 * child_value);
+            document.getElementById('total').innerHTML = 'Rs' + ' ' + value2;
+            document.getElementById('amount').value = value2;
+        }
+
         function increaseValue2() {
             var value = parseInt(document.getElementById('number2').value, 10);
             var parent = parseInt(document.getElementById('number').value, 10);
@@ -1462,15 +1986,24 @@
             value++;
             document.getElementById('number2').value = value;
             document.getElementById('ch').innerHTML = value;
-            var value3 = {{ product.sale }
-        }
-        var value2 = {{ product.sale_child }}
-        if (value > 0) { $('#childbreak').css('display', 'block') }
-        document.getElementById('ch2').innerHTML = (value2 * value);
-        value2 = (value2 * value) + (value3 * parent_value);
-        document.getElementById('total').innerHTML = 'Rs' + ' ' + value2;
-        document.getElementById('amount').value = value2;
+            var value3 = {
+                {
+                    product.sale
+                }
             }
+            var value2 = {
+                {
+                    product.sale_child
+                }
+            }
+            if (value > 0) {
+                $('#childbreak').css('display', 'block')
+            }
+            document.getElementById('ch2').innerHTML = (value2 * value);
+            value2 = (value2 * value) + (value3 * parent_value);
+            document.getElementById('total').innerHTML = 'Rs' + ' ' + value2;
+            document.getElementById('amount').value = value2;
+        }
 
         function decreaseValue2() {
             var value = parseInt(document.getElementById('number2').value, 10);
@@ -1484,15 +2017,24 @@
 
             document.getElementById('number2').value = value;
             document.getElementById('ch').innerHTML = value;
-            var value3 = {{ product.sale }
-        }
-        var value2 = {{ product.sale_child }}
-        if (value == 0) { $('#childbreak').css('display', 'none') }
-        document.getElementById('ch2').innerHTML = (value2 * value);
-        value2 = (value2 * value) + (value3 * parent_value);
-        document.getElementById('total').innerHTML = 'Rs' + ' ' + value2;
-        document.getElementById('amount').value = value2;
+            var value3 = {
+                {
+                    product.sale
+                }
             }
+            var value2 = {
+                {
+                    product.sale_child
+                }
+            }
+            if (value == 0) {
+                $('#childbreak').css('display', 'none')
+            }
+            document.getElementById('ch2').innerHTML = (value2 * value);
+            value2 = (value2 * value) + (value3 * parent_value);
+            document.getElementById('total').innerHTML = 'Rs' + ' ' + value2;
+            document.getElementById('amount').value = value2;
+        }
     </script>
     <script>
         function clickAlert() {
@@ -1561,8 +2103,6 @@
                 $('#overv').addClass('shadoww');
             }
         }
-
-
     </script>
     <script>
         var Things = `{{product.adventuretype}}`
@@ -1601,7 +2141,7 @@
         <li style="list-style-type: circle;">Water bottle</li>
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Skydiving') {
             $('#things').html(`<ul>
@@ -1610,7 +2150,7 @@
         <li style="list-style-type: circle;">Sunscreen</li>
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Hot Air Balloon') {
             $('#things').html(`<ul>
@@ -1621,7 +2161,7 @@
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Caps</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Glider Ride') {
             $('#things').html(`<ul>
@@ -1632,7 +2172,7 @@
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Caps</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Helicopter Ride') {
             $('#things').html(`<ul>
@@ -1643,7 +2183,7 @@
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Caps</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Bungee Jumping') {
             $('#things').html(`<ul>
@@ -1652,7 +2192,7 @@
         <li style="list-style-type: circle;">Water bottle</li>
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'High Swings') {
             $('#things').html(`<ul>
@@ -1661,7 +2201,7 @@
         <li style="list-style-type: circle;">Water bottle</li>
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Trekkings') {
             $('#things').html(`<ul>
@@ -1677,7 +2217,7 @@
         <li style="list-style-type: circle;">Energy Bars</li>
         <li style="list-style-type: circle;">Torch</li>
         <li style="list-style-type: circle;">First aid kit</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Parasailing (Land)') {
             $('#things').html(`<ul>
@@ -1686,7 +2226,7 @@
         <li style="list-style-type: circle;">Water bottle</li>
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Parasailing (Water)') {
             $('#things').html(`<ul>
@@ -1695,7 +2235,7 @@
         <li style="list-style-type: circle;">Water bottle</li>
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Zipline') {
             $('#things').html(`<ul>
@@ -1704,7 +2244,7 @@
         <li style="list-style-type: circle;">Water bottle</li>
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Mountain Climbing') {
             $('#things').html(`<ul>
@@ -1715,7 +2255,7 @@
         <li style="list-style-type: circle;">Caps</li>
         <li style="list-style-type: circle;">Mountain Climbing Shoes</li>
         <li style="list-style-type: circle;">Extra pair of socks</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Ropeway') {
             $('#things').html(`<ul>
@@ -1725,7 +2265,7 @@
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Caps</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Flyingfox') {
             $('#things').html(`<ul>
@@ -1735,7 +2275,7 @@
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Caps</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Scuba Diving') {
             $('#things').html(`<ul>
@@ -1744,7 +2284,7 @@
         <li style="list-style-type: circle;">Caps</li>
         <li style="list-style-type: circle;">Swimwear or Extra pair of dress</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'River Rafting') {
             $('#things').html(`<ul>
@@ -1754,7 +2294,7 @@
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Swimwear or Extra pair of dress</li>
         <li style="list-style-type: circle;">Walking shoes </li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Flyboard') {
             $('#things').html(`<ul>
@@ -1763,7 +2303,7 @@
         <li style="list-style-type: circle;">Water bottle</li>
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Jetski') {
             $('#things').html(`<ul>
@@ -1773,7 +2313,7 @@
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Caps</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'ATV Ride') {
             $('#things').html(`<ul>
@@ -1782,7 +2322,7 @@
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Caps</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Sailing') {
             $('#things').html(`<ul>
@@ -1792,7 +2332,7 @@
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Caps</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Wake Boarding') {
             $('#things').html(`<ul>
@@ -1802,7 +2342,7 @@
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Caps</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Surfing') {
             $('#things').html(`<ul>
@@ -1812,7 +2352,7 @@
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Caps</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Kitesurfing') {
             $('#things').html(`<ul>
@@ -1822,7 +2362,7 @@
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Caps</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Zorbing') {
             $('#things').html(`<ul>
@@ -1831,7 +2371,7 @@
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Caps</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Bike Trips') {
             $('#things').html(`<ul>
@@ -1845,7 +2385,7 @@
         <li style="list-style-type: circle;">Energy Bars</li>
         <li style="list-style-type: circle;">Torch</li>
         <li style="list-style-type: circle;">First aid kit</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Cycling') {
             $('#things').html(`<ul>
@@ -1858,7 +2398,7 @@
         <li style="list-style-type: circle;">Cycling Shoes</li>
         <li style="list-style-type: circle;">Extra pair of socks</li>
         <li style="list-style-type: circle;">Energy Bars</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Paint Ball') {
             $('#things').html(`<ul>
@@ -1866,7 +2406,7 @@
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Caps</li>
         <li style="list-style-type: circle;">Outdoor Shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Go Karting') {
             $('#things').html(`<ul>
@@ -1875,7 +2415,7 @@
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Caps</li>
         <li style="list-style-type: circle;">Walking shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Jungle Safari') {
             $('#things').html(`<ul>
@@ -1886,7 +2426,7 @@
         <li style="list-style-type: circle;">Daypack (20-30L)</li>
         <li style="list-style-type: circle;">Caps</li>
         <li style="list-style-type: circle;">Outdoor Shoes</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Camping') {
             $('#things').html(`<ul>
@@ -1902,7 +2442,7 @@
         <li style="list-style-type: circle;">Energy Bars</li>
         <li style="list-style-type: circle;">Torch</li>
         <li style="list-style-type: circle;">First aid kit</li>
-        </ul>` )
+        </ul>`)
         }
         if (Things == 'Hiking') {
             $('#things').html(`<ul>
@@ -1917,9 +2457,8 @@
         <li style="list-style-type: circle;">Energy Bars</li>
         <li style="list-style-type: circle;">Torch</li>
         <li style="list-style-type: circle;">First aid kit</li>
-        </ul>` )
+        </ul>`)
         }
-
     </script>
     <script>
         setTimeout(function () {
@@ -2085,8 +2624,7 @@
                         </form>`)
                     $('.footer2').css('display', 'block')
 
-                }
-                else {
+                } else {
                     $('#bookingcard').html(`<h3 style="font-weight: 500;text-align: center;padding-bottom: 10px;" >Booking Details</h3>
                     <div class="row " style="padding: 8px 0px;
                     border-top: 1px solid rgba(221,221,221,0.4);
@@ -2227,6 +2765,7 @@
             };
 
         })();
+
         function booking() {
             $('#bookingModal').modal('show');
         }
@@ -2239,9 +2778,9 @@
         form.addEventListener('submit', e => {
             e.preventDefault()
             fetch(scriptURL, {
-                method: 'POST',
-                body: new FormData(form)
-            })
+                    method: 'POST',
+                    body: new FormData(form)
+                })
                 .then(response => console.log('Success!', response))
                 .catch(error => console.error('Error!', error.message))
         })
@@ -2262,7 +2801,8 @@
                     url: `https://www.instagram.com/p/${node.shortcode}/`,
                     thumbnailUrl: node.thumbnail_src,
                     displayUrl: node.display_url,
-                    caption: node.edge_media_to_caption.edges.length > 0 ? node.edge_media_to_caption.edges[0].node.text : ""
+                    caption: node.edge_media_to_caption.edges.length > 0 ? node.edge_media_to_caption
+                        .edges[0].node.text : ""
                 }
             })
             return photos
@@ -2295,6 +2835,7 @@
             }
         })()
     </script>
+
 </body>
 
 </html>

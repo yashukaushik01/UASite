@@ -803,6 +803,7 @@ def State(request, slug):
         locations = destination.location.split(',')
     else:
         locations = []
+    print( TravelGuide.objects.filter(name=slug, tag='General Travel Guide'))
     context = {
         'city': slug,
         'destination': Destination.objects.filter(type='state', name=slug),
@@ -811,7 +812,7 @@ def State(request, slug):
         'tour': Product.objects.filter(category='Tour', state=slug),
         'popular': Product.objects.filter(state=slug, order=1),
         'populartags': Populartags.objects.filter(tag=slug),
-        'travelguide': TravelGuide.objects.filter(name=slug, tag='General travel guide'),
+        'travelguide': TravelGuide.objects.filter(name=slug, tag='General Travel Guide'),
         'top_places_to_visit':top_places_to_visit,
         'things_to_do':things_to_do,
         'len': len(Product.objects.filter(state=slug))
@@ -1438,7 +1439,7 @@ def travelGuide(request,slug,slug1):
     else:
         bestplace = TravelGuide.objects.get(name = slug,manual_slug = slug1)
 
-    trandings = TravelGuide.objects.filter(name = slug, tag='General travel guide')
+    trandings = TravelGuide.objects.filter(name = slug, tag='General travel guide')[:10]
     context = {
         'city': slug,
         'bestplace': bestplace,
@@ -1463,6 +1464,42 @@ def travelGuideEntryForm(request):
         'form': form,
     }
     return render(request, 'travelguideentryform.html', context)
+
+@staff_member_required
+def travelGuideList(request):
+    states = States.objects.all()
+    cities = Cities.objects.all()
+    localities = Localities.objects.all()
+
+    context = {
+        'states':states,
+        'cities':cities,
+        'localities':localities,
+    }
+    return render(request,'travel-guide-list.html',context)
+
+@staff_member_required
+def travelGuideData(request):
+    state = request.GET.get('state')
+    travel_guide = TravelGuide.objects.filter(name = state)
+
+    print(travel_guide)
+    data = render_to_string('travel-guide-data.html',{'travel_guide':travel_guide})
+
+    return JsonResponse({'data':data})
+
+
+@staff_member_required
+def travelGuideEdit(request,slug):
+    travel_guide = TravelGuide.objects.get(manual_slug = slug)
+    if request.method == 'POST':
+        form = TravelGuideEntryForm(request.POST or None,request.FILES or None, instance=travel_guide)
+        print(form.errors)
+        form.save()
+        messages.success(request,'updated Successfully !')
+        return redirect('/travel-guide-list/')
+
+    return render(request,'travel-guide-edit.html',{'travel_guide':travel_guide})
 
 
 @staff_member_required

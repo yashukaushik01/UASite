@@ -404,6 +404,10 @@ padding:0 1.75rem .375rem .75rem;
 
 </style>
 <style>
+  .fa-caret-left , .fa-caret-right
+  {
+    color:black !important;
+  }
   @media (min-width:1208px)
   {
       .single_carousel
@@ -479,16 +483,16 @@ padding:0 1.75rem .375rem .75rem;
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-    <nav class="navbar navbar-expand-lg navbar-light mainnav" style="background-color: transparent;
-    border: none;
-    color: white;
-    transition: background-color 0.5s ease 0s;
-    position: absolute;
-    z-index: 100;
-    width: 100%;
-    background-image: linear-gradient(
-0deg
-, rgb(0 0 0 / 0%) 1%, rgba(0,0,0,0.6699054621848739) 100%);" id="mainNav">
+<nav class="navbar navbar-expand-lg navbar-light mainnav" style="background-color: transparent;
+        border: none;
+        color: white;
+        transition: background-color 0.5s ease 0s;
+        position: absolute;
+        z-index: 100;
+        width: 100%;
+        background-image: linear-gradient(
+    0deg
+    , rgb(0 0 0 / 0%) 1%, rgba(0,0,0,0.6699054621848739) 100%);" id="mainNav">
         <div class="container">
           <a class="navbar-brand js-scroll-trigger" href="/"><img
             src={% static 'img//Nav Menu Icons//UA Logo white.svg' %} height="40px">
@@ -500,7 +504,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div class="navbar-collapse collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
 
-<!-- 
+                  <!-- 
                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/">Home</a></li>
                       <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/blog">Our Blog</a></li>
                    -->
@@ -510,22 +514,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <li class="nav-item">
                     
                         <div class="dropdown">
-  <button class="btn btn-secondary" style="background-color:transparent;font-family: Open sans;border:none;padding: 0px;font-weight: 600;color: #fffffffc !important;font-size: 19px !important;" type="button" id="dropdownMenuButton"
-   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <img src={% static 'img//Nav Menu Icons//User white.svg' %} height="28px">
-    Hello {{user}}
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="options" style="display: none;text-transform: none;box-shadow: 0px 3px 8px 0px #252525a6;margin-top: 19px;">
-    {% for wallet in amount %}
-    <a class="dropdown-item"  href="#"><img class="col-md-2 p-0" src={% static 'img//Nav Menu Icons//wallet.svg' %} height="25px" ><span class="col-md-10 pl-2">UA Cash: &#8377;{{wallet.amount}}</span></a>
-    {% endfor %}
-    <a class="dropdown-item"  href="/profile/" id="profileview"><img class="col-md-2 p-0" src={% static 'img//Nav Menu Icons//user profile.svg' %} height="25px"><span class="col-md-10 pl-2">Profile</span></a>
-    <a class="dropdown-item" href="/profile/#booking"><img class="col-md-2 p-0"src={% static 'img//Nav Menu Icons//bookings.svg' %} height="25px" ><span class="col-md-10 pl-2">Bookings</span></a>
-    <hr> 
-    <a class="dropdown-item"  href="/accounts/logout"><button type="button" class="btn btn-warning" style="display: block;margin-left: auto;margin-right: auto;margin-top: 6px;border-radius: 25px;width: 150px;">Logout</button></a>
-     
-  </div>
+              <button class="btn btn-secondary" style="background-color:transparent;font-family: Open sans;border:none;padding: 0px;font-weight: 600;color: #fffffffc !important;font-size: 19px !important;" type="button" id="dropdownMenuButton"
+              data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <img src={% static 'img//Nav Menu Icons//User white.svg' %} height="28px">
+                Hello {{user}}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="options" style="display: none;text-transform: none;box-shadow: 0px 3px 8px 0px #252525a6;margin-top: 19px;">
+                {% for wallet in amount %}
+                <a class="dropdown-item"  href="#"><img class="col-md-2 p-0" src={% static 'img//Nav Menu Icons//wallet.svg' %} height="25px" ><span class="col-md-10 pl-2">UA Cash: &#8377;{{wallet.amount}}</span></a>
+                {% endfor %}
+                <a class="dropdown-item"  href="/profile/" id="profileview"><img class="col-md-2 p-0" src={% static 'img//Nav Menu Icons//user profile.svg' %} height="25px"><span class="col-md-10 pl-2">Profile</span></a>
+                <a class="dropdown-item" href="/profile/#booking"><img class="col-md-2 p-0"src={% static 'img//Nav Menu Icons//bookings.svg' %} height="25px" ><span class="col-md-10 pl-2">Bookings</span></a>
+                <hr> 
+                <a class="dropdown-item"  href="/accounts/logout"><button type="button" class="btn btn-warning" style="display: block;margin-left: auto;margin-right: auto;margin-top: 6px;border-radius: 25px;width: 150px;">Logout</button></a>
+                
+              </div>
 
-</div>
+  </div>
 
                     </li>
                     
@@ -548,8 +552,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
 
         </div>
-    </nav>
-    <div class="modal fade" id="log" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" style="z-index: 2500;">
+</nav>
+
+<div class="modal fade" id="log" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" style="z-index: 2500;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
@@ -572,7 +577,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
             </div>
         </div>
-    </div>
+</div>
     
 
 <div class="modal fade" style="margin: 25% 0% 0% 0%;padding: 0% 15%;width: 100%;" id="exampleModalmobile" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1584,7 +1589,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="row">
                     <div class="testmonial_active owl-carousel px-2">
                         <div class="single_carousel col-12 col-md-11 col-sm-6 my-2" style="width:1150px;margin-left: 30px;">
-                            <div class="row col-12">
+                            <div class="row col-12" style="margin-left:26px;">
                                     <div class="single_testmonial text-center">
                                          <div class="author_thumb">
                                             <img src="{% static 'img/testmonial/traveller.jpg' %}" alt="">
@@ -1603,7 +1608,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             </div>
                         </div>
                         <div class="single_carousel col-12 col-md-11 col-sm-6 my-2" style="width:1150px ;margin-left: 30px;">
-                            <div class="row col-12">
+                            <div class="row col-12" style="margin-left:26px;">
                                     <div class="single_testmonial text-center">
                                          <div class="author_thumb">
                                             <img src="{% static 'img/testmonial/traveller.jpg' %}" alt="">
@@ -1622,7 +1627,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             </div>
                         </div>
                         <div class="single_carousel col-12 col-md-11 col-sm-6 my-2" style="width:1150px ;margin-left: 30px;">
-                            <div class="row col-12">
+                            <div class="row col-12" style="margin-left:26px;">
                                     <div class="single_testmonial text-center">
                                          <div class="author_thumb">
                                             <img src="{% static 'img/testmonial/traveller.jpg' %}" alt="">
@@ -1641,7 +1646,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             </div>
                         </div>
                         <div class="single_carousel col-12 col-md-11 col-sm-6 my-2" style="width:1150px ;margin-left: 30px;">
-                            <div class="row col-12">
+                            <div class="row col-12" style="margin-left:26px;">
                                     <div class="single_testmonial text-center">
                                          <div class="author_thumb">
                                             <img src="{% static 'img/testmonial/traveller.jpg' %}" alt="">
@@ -1660,7 +1665,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             </div>
                         </div>
                         <div class="single_carousel col-12 col-md-11 col-sm-6 my-2" style="width:1150px ;margin-left: 30px;">
-                            <div class="row col-12">
+                            <div class="row col-12" style="margin-left:26px;">
                                     <div class="single_testmonial text-center">
                                          <div class="author_thumb">
                                             <img src="{% static 'img/testmonial/traveller.jpg' %}" alt="">

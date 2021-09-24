@@ -54,7 +54,12 @@ urlpatterns = [
     path('city/<slug:slug>/', views.City, name='city'),
     path('state/<slug:slug>/', views.State, name='state'),
     path('locality/<slug:slug>/', views.Locality, name='locality'),
+
     path('travel-guide/<slug:slug>/<slug:slug1>', views.travelGuide, name='travelguide'),
+    path('travel-guide-list/', views.travelGuideList, name='travelGuideList'),
+    path('travel-guide-data/', views.travelGuideData, name='travelGuideData'),
+    path('travel-guide-edit/<slug:slug>/', views.travelGuideEdit, name='travelGuideEdit'),
+
     path('partial-payment/', views.Partial, name='partial-payment'),
     path('tour-payment/<slug:slug>', views.TourPayment, name='tourpayment'),
     path('refund-policy/', views.Refund, name='refund-policy'),

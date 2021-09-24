@@ -433,7 +433,8 @@
       display: none;
     }
 
-    .popular-tags-div {
+    .popular-tags-div 
+    {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
@@ -465,10 +466,12 @@
       flex-wrap: wrap;
     }
 
-    .travel-guide-card {
+    .travel-guide-card 
+    {
       display: flex;
       flex-direction: row;
       justify-content:left;
+      margin:10px;
       width: 400px;
       border: 1px solid rgb(136, 139, 239);
     }
@@ -1669,10 +1672,16 @@
       <h3 class="mx-2 py-3" style="margin-top:70px;border-left: 4px solid #007bff;padding:10px 20px;">Popular Tags  </h3>
       <div class="container popular-tags-div" style="margin-top:30px; margin-bottom: 5%">
          {% for tags in populartags %} 
-          <a href="{{tags.link}}"> 
+          <a class="popular-tags" href="{{tags.link}}"> 
            <p>{{tags.name}}</p> 
           </a>
          {% endfor %} 
+         <a class="popular-tags" href="{{tags.link}}"> 
+           <p>Tag 1</p> 
+          </a>
+          <a class="popular-tags" href="{{tags.link}}"> 
+           <p>Tag 2</p> 
+          </a>
 
       </div>
 
