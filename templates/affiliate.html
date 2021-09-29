@@ -47,7 +47,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <style>
         .user-card {
         border-radius: 10px;
-        box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.55);
         }
         .user-icon {
         display: inline-block;
@@ -111,7 +111,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         .popular_destination_area 
         {
-            padding-top: 10px;
+            padding-top: 30px !important;
+            padding-bottom:0px !important;
+            margin-top:30px;
         }
 
         @media screen and (max-width: 990px) {
@@ -312,7 +314,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
  <div class="popular_destination_area" id="des">
         <div class="container mt-4">
             <div class="row">
-        <div class="col-md-6">
+        {% comment %} <div class="col-md-6">
             {% if user.is_authenticated %}
             {% if length == 0 %}
             {% else %}
@@ -321,8 +323,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <h3>Phone : {{phone}}</h3><br>
             {% endif %}
             {% endif %}
-        </div>
-        <div class="col-md-6">
+        </div> {% endcomment %}
+        {% comment %} <div class="col-md-6">
             {% if user.is_authenticated %}
             {% if length == 0 %}
             {% else %}
@@ -333,9 +335,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <h2><span class="badge badge-primary" style="cursor: pointer; margin-left: 135px;"><a  href="#" id="modal"
                 data-toggle="modal" data-target="#log">Login Now</a></span> </h2>
             {% endif %}
+        </div> {% endcomment %}
         </div>
-        </div>
-        {% if user.is_authenticated %}
+        {% comment %} {% if user.is_authenticated %}
         {% if length == 0 %}
         {% else %}
         <h4 class="mt-4"> Your Coupons</h4><br>
@@ -364,8 +366,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 {% endif %}
                 {% endif %}
             </tbody>
-        </table>
-        {% if user.is_authenticated %}
+        </table> {% endcomment %}
+        {% comment %} {% if user.is_authenticated %}
 
         {% if length == 0 %}
         {% else %}
@@ -400,11 +402,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </tbody>
             </table>
 
-        </div>
-    </div> 
+        </div> {% endcomment %}
+    </div>  
 
     
-    <div class="popular_destination_area" id="des">
+    <div class="popular_destination_area mt-5" id="des">
         <div class="container">
             <div class="row p-2 user-card">
                 {% if user.is_authenticated %} 

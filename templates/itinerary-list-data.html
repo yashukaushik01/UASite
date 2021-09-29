@@ -32,8 +32,8 @@
                                     <th scope="col">{{itineraryData.number_of_people}}</th>
                                     <th scope="col">{{itineraryData.agant_name}}</th>
                                     <th scope="col" >
-                                        <button class="btn btn-primary my-2"  onclick="window.location = '/itinerary-data/{{itineraryData.slug}}'">View</button> 
-                                        <button class="btn btn-warning my-2"  onclick="window.location = '/itinerary-data-edit/{{itineraryData.id}}'">Edit</button> 
+                                       <a class="btn btn-primary my-2"  href="/itinerary-data/{{itineraryData.slug}}" target="_blank">View</a> 
+                                        <a class="btn btn-warning my-2"  href="/itinerary-data-edit/{{itineraryData.id}}" target="_blank">Edit</a> 
                                         {% comment %} <button class="btn btn-warning my-2">Edit</button> 
                                         <button class="btn btn-danger my-2">Delete</button>  {% endcomment %}
                                     </th>

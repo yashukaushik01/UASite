@@ -1,6 +1,6 @@
 from django import forms
 from django.db.models import fields
-from .models import CityHotelData, ItineraryData, Product, phone, Purchase, Blogpost, Itinerary, Erp, TravelGuide, Populartags,TopPicksEntryForm,BestPackage,ProductEnquiry,Course ,StateItineraryData
+from .models import CityHotelData, ItineraryData, Product, phone, Purchase, Blogpost, Itinerary, Erp, TravelGuide, Populartags,TopPicksEntryForm,BestPackage,ProductEnquiry,Course ,StateItineraryData,AffiliateUser
 
 
 class ProductForm(forms.ModelForm):
@@ -154,3 +154,9 @@ class ItineraryDataForm(forms.ModelForm):
         'extra_price_off','end_extra_off','payment_type','number_of_people','each_people_cost','agant_name','agant_number')
 
 
+
+# ================================ Affiliate User ========================================
+class AffiliateUserForm(forms.ModelForm):
+    class Meta:
+        model = AffiliateUser
+        fields = ('name','email','phone','bank_name','account_number','ifsc_code','upi_id','status','photo_copy')

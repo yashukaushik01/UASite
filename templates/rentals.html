@@ -1,0 +1,3258 @@
+{% load static %}
+{% block content %}
+{% load socialaccount %}
+
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+<style>
+
+{% comment %} Modal CSS here {% endcomment %}
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  {% comment %} padding-top: 100px; /* Location of the box */ {% endcomment %}
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+</style>
+
+{% comment %} Modal CSS ends {% endcomment %}
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Universal Adventures</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-KH59H8J');</script>
+
+  <!-- End Google Tag Manager -->
+  <!-- <link rel="manifest" href="site.webmanifest"> -->
+  <link rel="icon" href={% static './img/Uni.png' %} sizes="16x16" type="image/png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <!-- CSS here -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
+  <link rel="stylesheet" href={% static 'css/owl.carousel.min.css' %}>
+  <link rel="stylesheet" href={% static 'css/magnific-popup.css' %}>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href={% static 'css/font-awesome.min.css' %}>
+  <link rel="stylesheet" href={% static 'css/themify-icons.css' %}>
+  <link rel="stylesheet" href={% static 'css/nice-select.css' %}>
+  <link rel="stylesheet" href={% static 'css/flaticon.css' %}>
+  <link rel="stylesheet" href={% static 'css/gijgo.css' %}"">
+  <link rel="stylesheet" href={% static ' css/animate.css' %}>
+  <link rel="stylesheet" href={% static 'css/slick.css' %}>
+  <link rel="stylesheet" href={% static 'css/slicknav.css' %}>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+  <link rel="stylesheet" href={% static 'css/style.css' %}>
+  <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+  <style>
+    html,
+    body {
+      overflow-x: hidden;
+      scroll-behavior: smooth !important;
+      transition: all 0.25s ease;
+    }
+
+    .datepicker td,
+    .datepicker th {
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 0.85rem;
+    }
+
+    .datepicker {
+      margin-bottom: 3rem;
+    }
+
+
+    .carousel-control-prev,
+    .carousel-control-next {
+      top: auto;
+      bottom: auto;
+      padding: 20px;
+    }
+
+    .ui-autocomplete {
+      max-height: 200px;
+      /* prevent horizontal scrollbar */
+      overflow-x: hidden;
+      overflow-y: auto;
+
+
+    }
+
+    /* IE 6 doesn't support max-height
+   * we use height instead, but this forces the menu to always be this tall
+   */
+    * html .ui-autocomplete {
+      height: 250px;
+    }
+
+
+    .carousel .carousel-indicators {
+      bottom: -50px;
+    }
+
+    .carousel-indicators li,
+    .carousel-indicators li.active {
+      width: 10px;
+      height: 10px;
+      margin: 4px;
+      border-radius: 50%;
+      cursor: pointer;
+      border-color: transparent;
+    }
+
+    .carousel-indicators li {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .carousel-indicators li.active {
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .open-button {
+      color: white;
+      padding: 16px 10px;
+      border: none;
+      cursor: pointer;
+      opacity: 0.8;
+      position: fixed;
+      bottom: 4px;
+      right: 4px;
+      background: transparent;
+      text-decoration: none;
+      z-index: 20;
+    }
+
+    #ui-id-1 {
+      z-index: 999;
+    }
+
+    /* The popup chat - hidden by default */
+    .chat-popup {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      right: 15px;
+      border-radius: 10px;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 9;
+    }
+
+
+    .navbar {
+      padding: .3rem 1rem;
+      box-shadow: 0px 1px 3px 1px #88888863;
+    }
+
+    .custom-nav-display {
+      display: none;
+    }
+
+    .mobile-nav.solid {
+      display: none;
+    }
+
+    .dropdown-item {
+      width: auto;
+    }
+
+    .navbar-toggler-icon {
+      display: none;
+    }
+
+    .navbar-light .navbar-toggler {
+      border-color: rgba(0, 0, 0, 0);
+    }
+
+    #fr2 {
+      display: none;
+    }
+
+    #exploreview2 {
+      display: none;
+    }
+
+    #exploreview22 {
+      display: none;
+    }
+
+    #mobilemodal {
+      display: none;
+    }
+
+    #mobilemodal2 {
+      display: none;
+    }
+
+    #exampleModal {
+      margin-top: 7%;
+    }
+
+    .filter-button {
+      display: none;
+    }
+
+
+
+    @media only screen and (max-width: 600px) {
+      #navbarResponsive {
+        display: none;
+      }
+
+      #exploreview2 {
+        display: block;
+      }
+
+      #exploreview22 {
+        display: block;
+      }
+
+      #mobilemodal {
+        display: block;
+      }
+
+      #mobilemodal2 {
+        display: block;
+      }
+
+      #exampleModal {
+        margin-top: 30%;
+        margin-right: 0%;
+      }
+
+    }
+
+    .overlayme {
+      display: none;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      margin-left: -1rem;
+      background-color: rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+    }
+
+    .custom-ul {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+    }
+
+    .custom-ul li {
+      margin: 5px;
+    }
+
+    .custom-price-main {
+      font-size: 1.7rem;
+    }
+
+    @media (max-width: 991px) {
+      .tourhelpcard {
+        max-height: 90px !important;
+        padding-left: 10px;
+      }
+
+      .adventure-category {
+        max-height: 100px !important;
+
+      }
+    }
+
+
+
+    /* Add styles to the form container */
+    .form-container {
+      max-width: 300px;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: white;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    @media (min-width: 992px) {
+      .carousel-content {
+        height: 100vh;
+        min-height: 40rem;
+        padding-top: 4.5rem;
+        padding-bottom: 0;
+      }
+
+      .carousel-content p {
+        font-size: 1.15rem;
+      }
+
+      .carousel-content h3 {
+        font-size: 2.5rem;
+      }
+
+    }
+
+    @media (min-width: 1200px) {
+      .carousel-content h3 {
+        font-size: 3.0rem;
+      }
+    }
+
+    .carousel-content {
+      position: absolute;
+      bottom: 8%;
+      left: 5%;
+      z-index: 50;
+      color: white;
+    }
+
+    .custom-select {
+      padding: 0 1.75rem .375rem .75rem;
+    }
+
+
+    /* < !--Icon Animation --> */
+    .blank-ico {
+      opacity: 1;
+    }
+
+    .explore22-ico {
+      animation: explore-key 10s ease infinite;
+    }
+
+    .search-ico {
+      animation: search-key 10s ease infinite;
+    }
+
+    .my-box-shadow:hover {
+      transform: scale(1.01);
+      box-shadow: 1px 3px 8px 0px #727484b7;
+    }
+
+    @keyframes search-key {
+      0% {
+        opacity: 0;
+      }
+
+      5% {
+        opacity: 0;
+      }
+
+      45% {
+        opacity: 0;
+      }
+
+      50% {
+        opacity: 0;
+      }
+
+      55% {
+        opacity: 1;
+      }
+
+      95% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes explore-key {
+      0% {
+        opacity: 0;
+      }
+
+      5% {
+        opacity: 1;
+      }
+
+      45% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+
+      55% {
+        opacity: 0;
+      }
+
+      95% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+    .incimg {
+      width: 75% !important;
+      margin: 0 auto;
+    }
+    .inctext {
+      display: flex;
+      justify-content: center;
+      font-size: 0.8em;
+      line-height: 1.3;
+    }
+    .add-inc {
+      border: 1px solid #00000045 !important;
+      background-color: white;
+      border-radius: 20px;
+      padding: 5px 10px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .dt-nav{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .adventure-sticky{
+      position:fixed !important;
+      top: 0;
+      left: 0;
+      width: 100%;
+      margin: 0 !important;
+    }
+  </style>
+
+  <style>
+   /*  desktop mobile display */
+    .content-desktop {
+      display: block;
+    }
+
+    .content-mobile {
+      display: none;
+    }
+    
+    @media only screen and (max-width: 990px) {
+       #image__data
+      {
+        display: block !important;
+      }
+      #duration__block
+      {
+        display: none !important;
+
+      }
+      .popular_places_area .container {
+        padding: 0;
+      }
+      .my-box-shadow:hover {
+        transform: scale(1);
+        box-shadow: 1px 3px 8px 0px #727484b7;
+      }
+    }
+
+    @media (max-width: 768px)
+    {
+      .container {
+        max-width: 887px !important;
+      }
+    } 
+
+    @media (max-width: 576px){
+      #dan {
+        margin-left: 0 !important;
+      }
+     .show_all_product_count{
+        display: none;
+      }
+      .showing_page_number{
+        display: none;
+      }
+      .filter-button {
+        display: block;
+      }
+    } 
+
+    @media (max-width: 510px){
+      #dan{
+        margin-left: 0 !important;
+      }
+      .page__navigations
+      {
+        padding: 10px;
+        font-size:12px;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .custom_12 {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .custom-price {
+        font-size: 12px;
+      }
+
+      .custom-price-main {
+        font-size: 18px;
+      }
+
+      .filter-button {
+        display: block;
+      }
+
+    .filter-div {
+        display: none;
+      } 
+    .product__data.row {
+    margin-right: 10px !important; 
+    margin-left: -8px !important;
+}
+    }
+
+</style>
+
+
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <!-- <div class="loader_bg">
+        <div class="loader">
+        </div>
+    </div> -->
+  <nav class="navbar navbar-expand-lg navbar-light mainnav " style="background-color: transparent;
+    border: none;
+    color: white;
+    transition: background-color 0.5s ease 0s;
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    background-image: linear-gradient(
+0deg
+, rgb(0 0 0 / 0%) 1%, rgba(0,0,0,0.6699054621848739) 100%);" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="/"><img src={% static 'img//Nav Menu Icons//UA Logo white.svg' %}
+          height="40px">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse" id="navbarResponsive">
+        <ul class="navbar-nav text-uppercase ml-auto">
+
+          <!-- 
+                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/blog">Our Blog</a></li>
+                 -->
+
+          <li class="nav-item"> <a class="nav-link js-scroll-trigger" id="exploreview"
+              style="font-weight: 600;color: white !important;padding-right: 50px;font-size: 19px !important;cursor: pointer;"><img
+                src={% static 'img//Explore.svg' %} height="28px"> Explore</a></li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+
+            <div class="dropdown">
+              <button class="btn btn-secondary"
+                style="background-color:transparent;font-family: Open sans;border:none;padding: 0px;font-weight: 600;color: #fffffffc !important;font-size: 19px !important;"
+                type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false"> <img src={% static 'img//Nav Menu Icons//User white.svg' %} height="28px">
+                Hello {{user}}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="options"
+                style="display: none;text-transform: none;box-shadow: 0px 3px 8px 0px #252525a6;margin-top: 19px;">
+                {% for wallet in amount %}
+                <a class="dropdown-item" href="#"><img class="col-md-2 p-0" src={%
+                    static 'img//Nav Menu Icons//wallet.svg' %} height="25px"><span class="col-md-10 pl-2">UA Cash:
+                    &#8377;{{wallet.amount}}</span></a>
+                {% endfor %}
+                <a class="dropdown-item" href="/profile/" id="profileview"><img class="col-md-2 p-0" src={%
+                    static 'img//Nav Menu Icons//user profile.svg' %} height="25px"><span
+                    class="col-md-10 pl-2">Profile</span></a>
+                <a class="dropdown-item" href="/profile/#booking"><img class="col-md-2 p-0" src={%
+                    static 'img//Nav Menu Icons//bookings.svg' %} height="25px"><span
+                    class="col-md-10 pl-2">Bookings</span></a>
+                <hr>
+                <a class="dropdown-item" href="/accounts/logout"><button type="button" class="btn btn-warning"
+                    style="display: block;margin-left: auto;margin-right: auto;margin-top: 6px;border-radius: 25px;width: 150px;">Logout</button></a>
+
+              </div>
+
+            </div>
+
+          </li>
+
+          {% else %}
+          <li class="nav-item"><a class="nav-link js-scroll-trigger"
+              style="font-weight: 600;color: #fffffffc !important;padding-right: 50px;font-size: 19px !important;cursor: pointer;"
+              href="#" id="modal" data-toggle="modal" data-target="#log"><img src={%
+                static 'img//Nav Menu Icons//User white.svg' %}> Login</a></li>
+
+          {% endif %}
+        </ul>
+      </div>
+      <div>
+        <i id="exploreview2">
+
+          <img class="explore22-ico" src={% static 'img//Explore.svg' %} style="height:32px;position: absolute;">
+          <img class="search-ico" src={% static 'img//Search.svg' %} style="height:32px;position: absolute;">
+
+        </i>
+
+        <i id="mobilemodal" style="padding-left: 50px;"><img src={% static 'img//User.svg' %} height="32px"></i>
+      </div>
+
+    </div>
+  </nav>
+
+  <nav class="navbar  navbar-expand-lg  fixed-top navbar-light custom-nav-display" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="/"><img src={% static 'img//Universal Adventures Logo.png' %}
+          height="45px">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse" id="navbarResponsive">
+        <ul class="navbar-nav text-uppercase ml-auto">
+
+          <!-- <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/">Home</a></li>
+               <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/blog">Our Blog</a></li>
+              -->
+
+          <li class="nav-item"> <a class="nav-link js-scroll-trigger" id="exploreview1"
+              style="font-weight: 600;color: black !important;padding-right: 50px;font-size: 19px !important;cursor: pointer;"><img
+                src={% static 'img//Explore.svg' %} height="28px"> Explore</a></li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+
+            <div class="dropdown">
+              <button class="btn btn-secondary"
+                style="background-color:transparent;font-family: Open sans;border:none;padding: 0px;font-weight: 600;color: black !important;font-size: 19px !important;"
+                type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false"> <img src={% static 'img//Nav Menu Icons//User.svg' %} height="28px">
+                Hello {{user}}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="options2"
+                style="display: none;text-transform: none;box-shadow: 0px 3px 8px 0px #252525a6;margin-top: 19px;">
+                {% for wallet in amount %}
+                <a class="dropdown-item" href="#"><img class="col-md-2 p-0" src={%
+                    static 'img//Nav Menu Icons//wallet.svg' %} height="25px"><span class="col-md-10 pl-2">UA Cash:
+                    &#8377;{{wallet.amount}}</span></a>
+                {% endfor %}
+                <a class="dropdown-item" href="/profile/" id="profileview"><img class="col-md-2 p-0" src={%
+                    static 'img//Nav Menu Icons//user profile.svg' %} height="25px"><span
+                    class="col-md-10 pl-2">Profile</span></a>
+                <a class="dropdown-item" href="/profile/#booking"><img class="col-md-2 p-0" src={%
+                    static 'img//Nav Menu Icons//bookings.svg' %} height="25px"><span
+                    class="col-md-10 pl-2">Bookings</span></a>
+                <hr>
+                <a class="dropdown-item" href="/accounts/logout"><button type="button" class="btn btn-warning"
+                    style="display: block;margin-left: auto;margin-right: auto;margin-top: 6px;border-radius: 25px;width: 150px;">Logout</button></a>
+
+              </div>
+
+            </div>
+
+          </li>
+
+          {% else %}
+          <li class="nav-item"><a class="nav-link js-scroll-trigger"
+              style="font-weight: 600;color: black !important;padding-right: 50px;font-size: 19px !important;cursor: pointer;"
+              href="#" id="modal" data-toggle="modal" data-target="#log"><img src={%
+                static 'img//Nav Menu Icons//User white.svg' %}> Login</a></li>
+
+          {% endif %}
+        </ul>
+      </div>
+      <div>
+        <i id="exploreview22">
+
+          <img class="explore22-ico" src={% static 'img//Explore.svg' %} style="height:32px;position: absolute;">
+          <img class="search-ico" src={% static 'img//Search.svg' %} style="height:32px;position: absolute;">
+
+        </i>
+
+        <i id="mobilemodal2" style="padding-left: 50px;"><img src={% static 'img//User.svg' %} height="32px"></i>
+      </div>
+
+    </div>
+  </nav>
+
+  <div class="modal fade" id="log" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"
+    style="z-index: 2500;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+
+          <a href="{% provider_login_url 'google' %}" process="connect" class="btn btn-block btn-social btn-google"
+            style="background-color:red;text-align:center;color:white">
+            <span class="fa fa-google-plus"></span>
+            Sign in with Google
+          </a>
+
+          <a href="{% provider_login_url 'facebook' %}" process="connect" class="btn btn-block btn-social btn-facebook"
+            style="background-color:#339AF7;text-align:center;color:white">
+            <span class="fa fa-facebook"></span>
+            Sign in with facebook
+          </a>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" style="margin: 25% 0% 0% 0%;padding: 0% 15%;width: 100%;" id="exampleModalmobile"
+    role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-body font-weight-bold">
+          {% if user.is_authenticated %}
+          <h3 style="color:rgb(73, 73, 73);">Hi {{user}}</h3>
+          <ul>
+            {% for wallet in amount %}
+            <li>
+              <h4 class="pb-1 pl-2"><img src={% static 'img//Nav Menu Icons//wallet.svg' %} height="30px"
+                  style="margin-left:-10px;margin-right:5px" class="pr-2"> UA Wallet:&#8377;{{wallet.amount}}</h4>
+            </li>
+            {% endfor %}
+            <li><a href="/profile/" class="pb-1 pl-2"><img src={% static 'img//Nav Menu Icons//user profile.svg' %}
+                  height="30px" style="margin-left:-10px;margin-right:5px" class="pr-2"><span
+                  style="margin-left:8px">Profile</span></a></li>
+            <li class="mt-2"> <a href="/profile/#booking" class="pb-1 pl-2"><img src={%
+                  static 'img//Nav Menu Icons//bookings.svg' %} height="30px" style="margin-left:-10px;margin-right:5px"
+                  class="pr-2"><span style="margin-left:8px">Bookings</span></a></li>
+
+          </ul>
+          <div class="mt-2 pt-2" style="border-top:1px solid black">
+            <center>
+              <a href="/accounts/logout"><button class="btn btn-warning px-4 font-weight-bold"
+                  style="border-radius:1.4rem">Logout</button></a>
+            </center>
+          </div>
+          {% else %}<li class="nav-item"><a class="nav-link js-scroll-trigger" style="font-weight: 600;" href="#"
+              id="modal" data-toggle="modal" data-target="#log">Login</a></li>
+
+          {% endif %}
+        </div>
+      </div>
+      <div>
+        <center>
+          <i class="fa fa-close" style="font-size:48px;color:red"></i>
+        </center>
+      </div>
+    </div>
+  </div>
+  <!-- expert modal -->
+
+  <div class="modal fade align-content-center pr-0" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" style="padding: 0!important;">
+    <div class="modal-dialog" style="padding-left: 3%;padding-right: 3%;max-width: 450px;">
+      <div class="modal-content">
+        <div class="modal-body" id="f1">
+          <center>
+            {% if user.is_authenticated %}
+            <h3 style="color:rgb(73, 73, 73);">Hi {{user}}</h3>
+            {% else %}
+            <h3 style="color:rgb(129, 127, 127);">Hi Explorer</h3>
+            {% endif %}
+            <h4 style="color:rgb(73, 73, 73);">What are you looking for? </h4>
+          </center>
+
+          <div class="container px-0 mobile-searchbox">
+            <div class="text-center">
+              <form class="form-group" method='get' action='/search'
+                style=" display: block;margin-left: auto; margin-right: auto;">
+                <div class="input-group">
+                  <input class="form-control" style="border: 1px solid #656c8a;" type="search" name="search" id="search"
+                    placeholder="Search Adventure, Tours, Destinations" aria-label="Search">
+                  <div class="input-group-prepend mt-2">
+                    <button id="button-addon2" type="submit" class="btn"
+                      style="background-color: rgb(224, 223, 223); border-radius: 0px 5px 5px 0 ;margin-top: 5px;">
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+
+          <span class="badge badge-light mt-2 mb-2 w-100"
+            style="border: 1px solid #8080804f;cursor: pointer;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;"
+            onclick="f52()">
+            <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+              <div class="col-4">
+                <img src={% static 'img//Modal icons//Adventure modal icon.png' %}
+                  style="float:left;margin-left:2vw;height: 4.7em;">
+              </div>
+
+              <div class="col-8">
+                <h3 style="float:right;margin-top: 14px;" class="pr-3">Adventures</h3>
+              </div>
+            </div>
+          </span>
+          <span class="badge badge-light mt-2 mb-2 w-100"
+            style="border: 1px solid #8080804f; cursor: pointer; filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;"
+            onclick="f50()">
+            <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+              <div class="col-4">
+                <img src={% static 'img//Modal icons//Tour modal icon.png' %}
+                  style="float:left;margin-left:2vw;height: 4.7em;">
+              </div>
+              <div class="col-8">
+                <h3 style="float:right;margin-top: 14px;" class="pr-3">Tour Packages</h3>
+              </div>
+            </div>
+          </span>
+          <span class="badge badge-light mt-2 mb-2 w-100"
+            style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+            <a href="/blog">
+              <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+                <div class="col-4">
+                  <img src={% static 'img//Modal icons//Blog modal icon.png' %}
+                    style="float:left;margin-left:2vw;height: 4.7em;">
+                </div>
+
+                <div class="col-8">
+                  <h3 style="float:right;margin-top: 14px;" class="pr-3">Travel Blogs</h3>
+                </div>
+              </div>
+            </a></span>
+
+        </div>
+
+        <!-- <div class="modal-body" id="adventurelocationnear"  style="display:none">
+                       <div>
+                       <center>
+                       <h5 style="color:red">Please allow your location</h5>
+                       <h5 style="color:red">sharing to find Adventures</h5>
+                       <h5 style="color:red">around you</h5>
+                       <h5 style="color:red" class="mt-4 mb-4">Or select state below!</h5>
+                       </center>
+                       </div>
+                      <div style="margin-left:6%">
+                       <select class="custom-select custom-select-md mb-3 w-100" id="selectstate2">
+                       <option selected>Select State</option>
+                        {% for i in statelist %}
+                            <option value="{{i.name}}">{{i.name}}</option>
+                          {% endfor %}
+                   
+                       </select>
+                       </div>
+
+             </div>  -->
+
+      </div>
+    </div>
+    <div id="closemodalmain">
+      <center><i class="fa fa-close" style="font-size:48px;color:red"></i></center>
+    </div>
+  </div>
+
+  <div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <h3 class="modal-title" id="lineModalLabel">Get A Call</h3>
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span
+              class="sr-only">Close</span></button>
+        </div>
+        <div class="modal-body">
+
+          <!-- content goes here -->
+          <form>
+            <div class="form-group">
+              <label for="exampleInputEmail2">Name</label>
+              <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" required>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPhone1">Phone Number</label>
+              <input type="password" class="form-control" id="exampleInputPhone1" placeholder="+91-XXXXXXXXXX" required>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <textarea class="form-control textarea" rows="3" name="Message" id="Message"
+                    placeholder="Ask Anything related to your dream  Adventure or Destination"></textarea>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="expertModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body" id="f56">
+          <h3>FILTER</h3>
+          <div class=" col-md-3 mt-2 " >
+            <p id="the_json_data" style="background-color: #fcfafae0; 
+            width: fit-content; 
+            display: block;padding: 5px;
+            border-radius: 5px;text-align: center;">
+            showing <strong>{{len}} </strong>products Result</p>
+          </div>
+          <a class="nav-link js-scroll-trigger" id="filterviewclose"
+            style="float: right; font-weight: 600; font-size: 19px !important;cursor: pointer;padding-left: 10px;padding-right: 10px; border: 1px solid #CED4DA; text-align: center;">
+            close</a>
+          <div style="margin-top: 1rem;">
+            <div style="margin-top: 1rem;">
+              <h4>Price Range</h4>
+              <input type="hidden" id="hidden_minimum_price" value="0">
+              <input type="hidden" id="hidden_maximum_price" value="100000">
+              <p id="price_show1">&#8377;1000-&#8377;100000</p>
+              <div id="price_range1"></div>
+            </div>
+            <div id="cities" style="margin-top: 1rem;">
+              <h4>Cities</h4>
+              <ul class="custom-ul">
+                {% for product in products %}
+                {% ifchanged %}
+                <li>
+                  <div class="form-check">
+                    <input class="form-check-input city common_selector" type="checkbox" value="{{product.city}}"
+                      id="defaultCheck1">
+                    {{product.city}}
+                  </div>
+                </li>
+                {% endifchanged %}
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="form-row mt-3">
+              <div class="form-group col-md-12 mb-0">
+                <h4 class="mt-2">Adventure Type</h4>
+                <ul id="adv_type" class="custom-ul">
+                  {% for product in products|dictsort:'adventuretype' %}
+                  {% ifchanged %}
+                  <li>
+                    <div class="form-check">
+                      <input class="form-check-input type common_selector" type="checkbox"
+                        value="{{product.adventuretype}}" id="defaultCheck1">
+                      {{product.adventuretype}}
+                    </div>
+                  </li>
+                  {% endifchanged %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+            <h4 class="mt-2">Adventure Level</h4>
+            <ul class="custom-ul">
+              <li>
+                <div class="form-check">
+                  <input class="form-check-input level common_selector" type="checkbox" value="Less Adventure"
+                    id="defaultCheck1">
+                  Less
+                </div>
+              </li>
+              <li>
+                <div class="form-check">
+                  <input class="form-check-input level common_selector" type="checkbox" value="Medium Adventure"
+                    id="defaultCheck1">
+                  Medium
+                </div>
+              </li>
+              <li>
+                <div class="form-check">
+                  <input class="form-check-input level common_selector" type="checkbox" value="High Adventure"
+                    id="defaultCheck1">
+                  High
+                </div>
+              </li>
+              <li>
+                <div class="form-check">
+                  <input class="form-check-input level common_selector" type="checkbox" value="Extreme Adventure"
+                    id="defaultCheck1">
+                  Extreme
+                </div>
+              </li>
+            </ul>
+            <h4 class="mt-2">Adventure Location</h4>
+            <ul class="custom-ul">
+              <li>
+                <div class="form-check">
+                  <input class="form-check-input loc common_selector" type="checkbox" value="On Mountains"
+                    id="defaultCheck1">
+                  On Mountains
+                </div>
+              </li>
+              <li>
+                <div class="form-check">
+                  <input class="form-check-input loc common_selector" type="checkbox" value="Near Beaches"
+                    id="defaultCheck1">
+                  Near Beaches
+                </div>
+              </li>
+              <li>
+                <div class="form-check">
+                  <input class="form-check-input loc common_selector" type="checkbox" value="In/Near Rivers"
+                    id="defaultCheck1">
+                  In/Near Rivers
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div style="margin-top: 1rem;">
+            <h4>Duration</h4>
+            <ul class="custom-ul">
+              <li>
+                <div class="form-check">
+                  <input class="form-check-input duration common_selector" type="checkbox" value="1-2 hours"
+                    id="defaultCheck1">
+                  1-2 hours
+                </div>
+              </li>
+              <li>
+                <div class="form-check">
+                  <input class="form-check-input duration common_selector" type="checkbox" value="3-5 hours"
+                    id="defaultCheck1">
+                  3-5 hours
+                </div>
+              </li>
+              <li>
+                <div class="form-check">
+                  <input class="form-check-input duration common_selector" type="checkbox" value="Half Day"
+                    id="defaultCheck1">
+                  Half Day
+                </div>
+              </li>
+              <li>
+                <div class="form-check">
+                  <input class="form-check-input duration common_selector" type="checkbox" value="Full Day"
+                    id="defaultCheck1">
+                  Full Day
+                </div>
+              </li>
+              <li>
+                <div class="form-check">
+                  <input class="form-check-input duration common_selector" type="checkbox" value="Multiday"
+                    id="defaultCheck1">
+                  Multiday
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <header class="masthead" style="min-height: 100%;background-image:url({{state.image.url}});background-size:cover;background-position: center;">
+            <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+                <source src="./images/video.webm" type="video/mp4">
+            </video>
+            <div class="container s">
+                <div class="slider_text text-center">
+                    <h3>{{state.name}}</h3>
+                </div>
+            </div>
+        </header> -->
+
+
+
+  <!-- popular_destination_area_start  -->
+  <div class="popular_places_area" id="adv" style="padding-top: 0;">
+    {% comment %} {% for adventure in adven %} {% endcomment %}
+    <div class="row mb-4"
+      style="box-shadow: 0px 1px 2px 0px #72748461;background-image: linear-gradient(rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.2)), url('{{adventure.image.url}}');background-position: center;background-size: cover;">
+      <div class="container row" style="margin-top: 80px;">
+
+        <div class="col-lg-6 col-md-6 col-sm-12 mb-4 ">
+          <div style="border-left: 10px solid white;font-weight: 500;color: white;font-size: 40px;">
+            <input type="hidden" id="rentals_type" value="{{field}}">
+            &nbsp;{{field}}</div>
+
+          <div style="bottom: 1px; padding-left:20px;">
+            <a href="#faq" class="btn mt-2"
+              style="border: 2px solid white;border-radius: 50px;color: white;font-weight: 500;background-color: #00000057;">
+              {{adventure.name}} FAQs</a>
+            <a href="{{adventure.best_time_visit}}" class="btn mt-2"
+              style="border: 2px solid white;border-radius: 50px;color: white;font-weight: 500;background-color: #00000057;">Best
+              Time for {{adventure.name}}</a>
+            <a href="{{adventure.top_10_places}}" class="btn mt-2"
+              style="border: 2px solid white;border-radius: 50px;color: white;font-weight: 500;background-color: #00000057;">Top
+              10 Places for {{adventure.name}}</a>
+          </div>
+
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12 mb-2" id="editor">
+
+          <div class="mt-3"
+            style="  background-color: rgb(255 255 255);box-shadow: 0px 1px 2px 0px #72748461;width: 100%;border-radius: 10px;display: flex;justify-content: center;align-items: flex-end;padding: 20px 10px; visibility: hidden;">
+            <div class="shadoww" id="h"
+              style="position:absolute;bottom: 0px;width:100%;height: 50%;border-radius: 0px 0px 10px 10px;"></div>
+            <div style="height: 200px; overflow: hidden;" id="maindetails">
+              <div id="highlights" class="ml-3" style="text-align: justify;">
+
+                {{adventure.readmore}}
+
+              </div>
+            </div>
+            <span id="dots" style="visibility: hidden;">...</span><span id="more"></span>
+
+            <button onclick="myFunction()" id="myBtn" class="btn text-primary float-right "
+              style="border: 0.5px solid #007bff;padding: 2px 10px;position: absolute;z-index: 10;box-shadow: none;bottom: 5px;">Read
+              more</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    {% comment %} {% endfor %} {% endcomment %}
+
+    <div class="container">
+      <div class="row dt-nav mobile-nav"
+        style="min-height: 50px;background-color: rgb(255 255 255);
+        box-shadow: 0px 1px 2px 0px #72748461;
+        border: 1px solid #3e3c4c1a;
+        position: sticky;top: 0px;
+        z-index: 20; margin:0;
+        justify-content: space-evenly;">
+        <div class="col-md-3 col-4 p-0">
+            <div class="form-group">
+              <input class="form-control" style="border: 1px solid #656c8a; font-family: FontAwesome, Arial; font-style: normal; padding: 3px 10px" onkeyup="sea(this)" type="search" 
+              name="search" id="search" placeholder="&#xF002; Search"  aria-label="Search" > 
+          </div>
+        </div>
+        <div class="col-md-3 col-4 p-0">
+          <div class="form-group" >
+            <select name="adventurelevel" class="form-control sorted_by" style="border: 1px solid #656c8a; ">
+              <option selected="selected" disabled>Sort by</option>
+              <option value="Less Adventure">Popularity</option>
+              <option value="Medium Adventure">Rating</option>
+          </select>
+          </div>
+          
+        </div>
+        <div class=" col-md-3 col-2 p-0 filter-button form-group" style="text-align: center;">
+            <a class="nav-link js-scroll-trigger  form-control" id="filterview"
+              style="color:gray !important;font-weight: 400;cursor: pointer;
+              padding: 3px;
+              border: 1px solid #656c8a; 
+              border-radius: 0.25rem;">
+              <i class="fas fa-filter"></i></a>
+          </div>
+
+        <div class=" col-md-3 col-5 my-2 show_all_product_count" >
+          
+          <p id="the_json_data2" class="mx-auto" style="background-color: #fcfafae0; 
+          width: fit-content; 
+          padding: 5px;
+          border-radius: 5px;text-align: center;">
+          showing <strong>{{len}} </strong>products Result</p>
+        </div>
+
+        <div class="col-md-2 col-5 showing_page_number" style="" >
+          <p class="" style="background-color: #faf8f8e0; 
+          width: fit-content; 
+          padding: 5px 3px;
+          border-radius: 5px;">
+         Page <strong> {{ products.number }} </strong>of <strong>{{ products.paginator.num_pages }}</strong></p>
+        </div>
+         
+       
+      </div>
+
+
+
+
+
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-3 col-sm-3 col-2 mt-4 filter-div " id="van"
+          style="background-color: #fff;
+          margin-left: -10px;
+          padding-top: 10px;padding-bottom: 10px;
+          height: fit-content;
+          box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.19);">
+            <div style="position: sticky;">
+              <h3>FILTER</h3>
+              <div style="margin-top: 1rem;">
+                {% comment %} <div style="margin-top: 1rem;">
+                  <h4>Price Range</h4>
+                  <input type="hidden" id="hidden_minimum_price" value="0">
+                  <input type="hidden" id="hidden_maximum_price" value="100000">
+                  <p id="price_show">&#8377;1000-&#8377;100000</p>
+                  <div id="price_range"></div>
+                </div> {% endcomment %}
+                {% comment %} <div id="cities" style="margin-top: 1rem;">
+                  <h4>Cities</h4>
+                  <ul>
+                    {% for product in products %}
+                    {% ifchanged %}
+                    <li>
+                      <div class="form-check">
+                        <input class="form-check-input city common_selector" type="checkbox" value="{{product.city}}"
+                          id="defaultCheck1">
+                        {{product.city}}
+                      </div>
+                    </li>
+                    {% endifchanged %}
+                    {% endfor %}
+                  </ul>
+                </div> {% endcomment %}
+
+                <div class="form-row mt-3">
+                  <div class="form-group col-md-12 mb-0">
+                    <h4 class="mt-2">Select Category</h4>
+                      {% for p in products|slice:":1" %}
+                        {% if p.rentals_type == "Self Driving Vehicle" %}                      
+                          <ul>
+                            <li>
+                              <div class="form-check">
+                                <input class="form-check-input category common_selector" name="category" type="radio" value="Scooty"
+                                  id="defaultCheck1">
+                                Scooty/Scooter
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-check">
+                                <input class="form-check-input category common_selector" name="category" type="radio" value="Bike"
+                                  id="defaultCheck1">
+                                Bikes
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-check">
+                                <input class="form-check-input category common_selector" name="category" type="radio" value="Car"
+                                  id="defaultCheck1">
+                                Cars
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-check">
+                                <input class="form-check-input category common_selector" name="category" type="radio" value="SUV"
+                                  id="defaultCheck1">
+                                SUVs
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-check">
+                                <input class="form-check-input category common_selector" name="category" type="radio" value="Luxury Car"
+                                  id="defaultCheck1">
+                                Luxury Cars
+                              </div>
+                            </li>
+                          </ul>
+                          <hr>
+                          <div>
+                            <div class="form-check-inline"><label for=""><input class="mr-1 gear_selector" type="radio" name="vehicle_gear_type" id="" value="Both">Both</label></div>
+                            <div class="form-check-inline"><label for=""><input class="mr-1 gear_selector" type="radio" name="vehicle_gear_type" id="" value="Gear">Gear</label></div>
+                            <div class="form-check-inline"><label for=""><input class="mr-1 gear_selector" type="radio" name="vehicle_gear_type" id="" value="Gear-Less">Gear-Less</label></div>
+                          </div>
+
+                        {% elif p.rentals_type == "Sleeping Bag & Tent" %}
+                          <ul>
+                            <li>
+                              <div class="form-check">
+                                <input class="form-check-input category common_selector" type="radio" value="Sleeping Bag"
+                                  id="defaultCheck1">
+                                Sleeping Bag
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-check">
+                                <input class="form-check-input category common_selector" type="radio" value="Tent"
+                                  id="defaultCheck1">
+                                Tent
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-check">
+                                <input class="form-check-input category common_selector" type="radio" value="Combo"
+                                  id="defaultCheck1">
+                                Combo
+                              </div>
+                            </li>
+                          </ul>
+
+                        {% elif p.rentals_type == "Trekking Gear" %}
+                          <ul>
+                            <li>
+                              <div class="form-check">
+                                <input class="form-check-input category common_selector" type="radio" value="Trekking Bag"
+                                  id="defaultCheck1">
+                                Trekking Bag
+                              </div>
+                            </li>
+                            <li>
+                              <div class="form-check">
+                                <input class="form-check-input category common_selector" type="radio" value="Trekking Shoe"
+                                  id="defaultCheck1">
+                                Trekking Shoe
+                              </div>
+                            </li>
+                          </ul>
+                        {% endif %}
+                      {% endfor %}
+                                                                                                 
+                  </div>
+                </div>                
+              </div>
+            </div>
+          </div>
+
+          
+
+        
+          <div class="col-lg-9 col-md-9 col-sm-9 col-10" id="conts">
+
+            <div class="filter">
+              <h5 class="mt-4 ml-3">Filters: 
+
+              </h5>
+              <input type="button" value="Reset" id="reset" style="display:none">
+              
+              <div class="badges" id="brands_filters" style="display: none">
+                {% comment %} <input type="button" value="Reset"> {% endcomment %}
+                {% for brand in brands %}
+                  {% comment %} <button class="brand_badge" value={{filter}}> {% endcomment %}
+                  <label for="badge-check-{{brand}}" class="badge badge-primary ml-3" > 
+                    <input type="checkbox" id="badge-check-{{brand}}" class="brand_badge brand" style="" value="{{brand}}"> {{brand}}
+                  </label>
+
+                {% endfor %}
+              </div>
+            </div>
+
+
+
+            <div  id="dan">
+            
+              <!-- Start Desktop View -->
+                <div id="products" class="content-desktop ml-3 ">
+                  {% for product in products %}
+
+                    
+                      <!-- The Modal -->
+                      <div id="ModalMy" class="modal mx-4 mc" style="z-index: 1111; position: fixed; top:0%; left: 0%;width: 100%;height: 100%;display: none; width:fit-content;">
+                        <!-- Modal content -->
+                      <form action="/rentals-booking" method="post">
+                      {% csrf_token %}    
+                        <div class="row my-box-shadow" 
+                                        style=" margin-top: 1.6rem; border:1px solid blue;  background-color: rgb(255, 255, 255); cursor: pointer;box-shadow: 1px 3px 8px 0px #72748452;transition: transform .3s;"
+                                        name="{{product.adventuretype}}"> 
+                                      <div class="col-lg-5 px-0 py-0" >
+                                              
+                                          {% comment %} <a href="/products/{{product.manual_slug}}"> {% endcomment %}
+                                          <span id="productImage">
+                                            <img src="/abcd/{{product.product_image}}" class="img-responsive"
+                                              width="200px" height="250px" style="height: 84%;    object-fit: cover;    width: 100%;" />
+                                          </span>
+                                              <div class="custom_12" style="background-color:yellow;">
+                                                <div class="row" > 
+                                                  <div class="col-10 text-center" style="font-size: 0.6rem;">
+                                                    <span class="btn " id="productPopularityScore"
+                                                      style="font-size: 14px;top: 2px;padding: 1px 7px;background: yellow;color: black;border-radius: 4px;padding-top: 3px;">
+                                                      Popularity: {{product.popularity_score}}/5</span>
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                              <div style="background-color:white" class="text-center mt-1">
+                                                <span>Select Days:</span>
+                                                <span> <input type="number" name="totalDays" class="totalDays" value="" required> </span>
+                                                <span> <input type="date" name="date" class="date" required></span>
+                                                <div class="endDate"></div>
+                                                {% comment %} <span> <button id="calculatePrice">Calculate Price</button></span> {% endcomment %}
+                                              </div>     
+                                      </div>
+                                        
+                                      <div class="col-lg-7 pt-3" style="border:1px solid black">
+                                          <div class="modal-header">
+                                          <input type="hidden" name="productName" value="{{product.product_name}} ({{product.city}})">
+                                              <h3 class="mt-0" id="productName">{{product.product_name}}  </h3>
+                                              <button type="button" class="cc" data-bs-dismiss="modal" aria-label="Close"
+                                                  style="color: #000;border: none;outline: none;background-color: none;" >&times; </button>
+                                          </div>
+                                            <div class="row" id="duration__block">
+                                              <div class="col" >
+                                                <span style="padding-right: 5px;
+                                                    position: relative;
+                                                    vertical-align: middle;
+                                                    font-size: 16px;
+                                                    color: rgba(59,68,78,0.7);">
+                                                  <span class="badge badge-pill badge-light" id="productVehicleGearType" style="border: 1px solid blue">{{product.vehicle_gear_type}}</span>
+                                                  <span class="badge badge-pill badge-light" id="productBrand" style="border: 1px solid blue">{{product.brand_name}}</span>
+                                                  <span class="badge badge-pill badge-light" id="productCategory" style="border: 1px solid blue">{{product.category}}</span>                            
+                                                </span>
+                                              </div>
+                                            </div>
+                                            
+                                            <div class="ml-3">
+                                              <ul>
+                                                <li style="list-style-type: disc;" id="productSpecification1">{{product.specification_1}}</li>
+                                                <li style="list-style-type: disc;" id="productSpecification2">{{product.specification_2}}</li>
+                                                <li style="list-style-type: disc;" id="productSpecification3">{{product.specification_3}}</li>
+                                              </ul>
+                                            </div>
+                                            <hr>
+                                            
+                                            <div class="my-2" style=""><h3>Delivery: <span id="productDelivery">{{product.delivery_option}}</span> </h3></div>
+                                            <hr>
+                                            
+                                            <div style="">
+                                              <div style="display: flex; ">
+                                                <label for=""  style="word-wrap:break-word" class="mx-4">
+                                                  <input class="perDayPrice" name="perDayPrice" data-item="{{product.product_name}}" type="hidden" value="{{product.price_1_3}}" /> <strong style="color:black"> 1-3 Days: <span id="productPrice1-3" style="color:red">{{product.price_1_3}}</span> </strong>
+                                                </label>
+                                                <label for=""  style="word-wrap:break-word">
+                                                  <input class="perDayPrice" name="perDayPrice" data-item="{{product.product_name}}" type="hidden" value="{{product.price_4_7}}" /> <strong style="color:black"> 4-7 Days: <span id="productPrice4-7" style="color:red">{{product.price_4_7}}</span> </strong>
+                                                </label>
+                                              </div>
+                                              <div style="display: flex;">
+                                                <label for=""  style="word-wrap:break-word" class="mx-4">
+                                                  <input class="perDayPrice" name="perDayPrice" data-item="{{product.product_name}}" type="hidden" value="{{product.price_8_15}}" /> <strong style="color:black"> 8-15 Days: <span id="productPrice8-15" style="color:red">{{product.price_8_15}}</span> </strong>
+                                                </label>
+                                                <label for=""  style="word-wrap:break-word">
+                                                  <input class="perDayPrice" name="perDayPrice" data-item="{{product.product_name}}" type="hidden" value="{{product.price_16_30}}" /> <strong style="color:black"> 16-30 Days: <span id="productPrice16-30" style="color:red">{{product.price_16_30}}</span> </strong>
+                                                </label>
+                                              </div>
+                                              <div style=" display:flex; justify-content:space-between; ">
+                                                <input type="hidden" class="priced" name="totalPrice" value=""> 
+                                                <div><h1>Total:  <span class="totalPrice" name="totalPrice"> </span></h1>  </div>
+
+                                                <div>
+                                                    <div style="border:1px solid yellow; background-color:yellow" class="pt-2 text-center">
+                                                        {% comment %} <h5>Terms & Conditions</h5> {% endcomment %}
+
+                                                      <div class="accordion accordion-flush" id="accordionFlushExample">
+                                                        <div class="accordion-item">
+                                                          <h2 class="accordion-header" id="flush-headingOne">
+                                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                              Terms & Conditions
+                                                            </button>
+                                                          </h2>
+                                                          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                                            <div class="accordion-body">{{product.terms_and_conditions|safe}}</div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+
+                                                    </div>
+                                                    <div  class="pt-2 text-center">
+                                                        {% comment %} style="border:1px solid blue; background-color:blue;"  <h5 style="color:white;" class="text-center">Book Now</h5> {% endcomment %}
+                                                        <button class="btn btn-primary btn-lg btn-block" type="submit" style="cursor: pointer;border-radius: 12px;color:white;background-image: linear-gradient(93deg, #53b2fe, #065af3);
+                                                          box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.2) !important">Book Now</button>
+                                                    </div>
+                                                </div> 
+                                              </div>
+                                            </div>
+                                          
+                                        
+                                          {% comment %} </a> {% endcomment %}
+                                      </div>
+                        </div>
+                      </form>
+                      </div>
+                    
+                    {% comment %} {% endautoescape %}                   {% endcomment %}
+
+                  <div class="row my-box-shadow product__data pc" data-item="{{product.product_name}}" id="product_name" 
+                    style="margin-top: 1.6rem;border:1px solid blue; background-color: rgb(255, 255, 255);cursor: pointer;box-shadow: 1px 3px 8px 0px #72748452;transition: transform .3s;"
+                    name="">
+                    <div class="col-lg-3 px-0 py-0">
+
+
+                      <img src="/abcd/{{product.product_image}}" class="img-responsive" 
+                          width="200px" height="250px" style="height: 100%;    object-fit: cover;    width: 100%;" />
+                          
+                          {% comment %} <span class="icon" id="image__data" style="display:none; padding: 11px 0 5px 5px;
+                        position: absolute;
+                        bottom: 0px;
+                        left: 0px;
+                        font-size: 15px;
+                        width: 100%;
+                        background-color: rgba(0,0,0,0.5);
+                        color: #ffffff;"><i class="far fa-clock"></i> {{product.duration}}  | 
+                          <span style="text-align: right; ">
+                          <i class="fas fa-map-marker-alt"></i> 
+                                {% if product.loca_city %} 
+                                {{product.loca_city}} 
+                                <span style="color: #fff;">, </span>
+                                {% endif %}
+                                {{product.city}}
+                            </span>
+                        </span> {% endcomment %}
+                        {% comment %} </a> {% endcomment %}
+                      {% comment %} {% endwith %} {% endcomment %}
+
+                    </div>
+                    
+                    <div class="col-lg-6 pt-3">
+                      {% comment %} <a href="/products/{{product.manual_slug}}"> {% endcomment %}
+                        <h3 class="mt-0" name="product_name" >{{product.product_name}}</h3>
+                        <div class="row" id="duration__block">
+                          <div class="col">
+                            {% comment %} <span class="icon" style="padding: 0px 3px 0px 6px;    position: relative;
+                                            vertical-align: middle;
+                                            font-size: 16px;
+                                            color: rgba(59,68,78,0.7);"><i class="far fa-clock"></i></span> {% endcomment %}
+                            {% if product.vehicle_gear_type != "NA" %}
+                            <span style="padding-right: 5px;
+                                                border-right: 1px solid rgba(59,68,78,0.3);    position: relative;
+                            vertical-align: middle;
+                            font-size: 16px;
+                            color: rgba(59,68,78,0.7);">{{product.vehicle_gear_type}}</span>
+                            {% endif %}
+                            <span class="icon" style="padding: 0px 3px 0px 6px;    position: relative;
+                            vertical-align: middle;
+                            font-size: 16px;
+                            color: rgba(59,68,78,0.7);"><i class="fas fa-map-marker-alt"></i></span>
+                            <span style="padding-right: 5px;
+                                position: relative;
+                                vertical-align: middle;
+                                font-size: 16px;
+                                color: rgba(59,68,78,0.7);">
+                              {% comment %} {% if product.loca_city %}
+                              {{product.loca_city}}
+                              <span>,</span>
+                              {% endif %} {% endcomment %}
+                              {{product.city}}</span>
+                          </div>
+                        </div>
+                        {% comment %} <hr class="mt-1 mb-0" style="opacity:0.4;"> {% endcomment %}
+                        {% autoescape off %}
+                        {% comment %} <div class="row mt-0 text-center" id="inn">{{product.delivery_option}} </div> {% endcomment %}
+                        {% comment %} <hr class="mt-2 mb-2" style="opacity:0.4;"> {% endcomment %}
+                        {% comment %} <div class="row pl-1" style="font-size: 1rem;">
+                          {{product.specification_2}}
+                        </div> {% endcomment %}
+                        <div class="ml-3">
+                          <ul>
+                            <li style="list-style-type: disc;">{{product.specification_1}}</li>
+                            <li style="list-style-type: disc;">{{product.specification_2}}</li>
+                            <li style="list-style-type: disc;">{{product.specification_3}}</li>
+                          </ul>
+                        </div>
+                      </a>
+                    </div>
+                    {% endautoescape %}
+                    <div class=" col-lg-3 pt-3 pb-3"
+                    style="border-left: 1px solid blue;display: flex;justify-content: center;align-items: center;">
+                    {% comment %} <a href="/products/{{product.manual_slug}}"> {% endcomment %}
+                        <div>
+                          <div class="custom_12">
+                            <div class="row" >  {% comment %}   style="justify-content: center;" {% endcomment %}
+                              <div class="col-10 text-center" style="font-size: 0.6rem;">
+                                <span class="btn "
+                                  style="font-size: 14px;top: 2px;padding: 1px 7px;background: yellow;color: black;border-radius: 4px;padding-top: 3px;">
+                                  Popularity: {{product.popularity_score}}/5</span>
+
+                              </div>
+                            </div>
+
+
+                          </div>
+                          <hr class="mt-2">
+                          
+                          <div class="mt-2">  {% comment %} Left Most Column of Card (Rent For) {% endcomment %}
+                            <center> <h6>Rent For</h3> </center>
+                            <p class="mt-2 btn btn-success view__details_btn" style="border-radius:24px; border:1px solid blue; width: 100%; bottom: 10px; left: 0px; background-color:white; color:black;">1-3 Days</p>
+                            <p class="mt-2 btn btn-success view__details_btn" style="border-radius:24px; border:1px solid blue; width: 100%; bottom: 10px; left: 0px; background-color:white; color:black;">4-7 Days</p>
+                            <p class="mt-2 btn btn-success view__details_btn" style="border-radius:24px; border:1px solid blue; width: 100%; bottom: 10px; left: 0px; background-color:white; color:black;">8-15 Days</p>
+                            <p class="mt-2 btn btn-success view__details_btn" style="border-radius:24px; border:1px solid blue; width: 100%; bottom: 10px; left: 0px; background-color:white; color:black;">16-30 Days</p>
+                          </div>
+                          {% comment %} <p class="mt-2"><a class="btn btn-success view__details_btn" style=" width: 100%; bottom: 10px; left: 0px;" 
+                              type="button" href="/products/{{product.manual_slug}}">View Details</a></p> {% endcomment %}
+
+                        </div>
+                        {% comment %} </a> {% endcomment %}
+                      </div>
+                  </div>
+                  {% endfor %} 
+                </div>
+                <!-- Desktop View End -->
+
+              {% comment %} <!-- Start Mobile View -->
+                <div id="products" class="content-mobile" >
+                {% for product in products %}
+                <div class="my-box-shadow" style="margin-top: 1.6rem;background-color: rgb(255, 255, 255);cursor: pointer;box-shadow: 1px 3px 8px 0px #72748452;"  name="{{product.adventuretype}}">
+                  <div class="row p-0 m-0" 
+                    style="box-shadow: 1px 3px 8px 0px #72748452;"
+                  >
+                    <div class="col-12 px-0 py-0">
+
+
+                      {% with product.images_set.all|first as image %}
+
+                      <a href="/products/{{product.manual_slug}}">
+                        
+                        <img src="{{image.image.url}}" class="image-responsive"
+                        style="position: relative; width: 100%;object-fit: cover; height: 100%; " />
+                        
+                        <span class="icon" style="padding: 11px 0 5px 5px;
+                        position: absolute;
+                        bottom: 0px;
+                        left: 0px;
+                        font-size: 15px;
+                        width: 100%;
+                        background-color: rgba(0,0,0,0.5);
+                        color: #ffffff;"><i class="far fa-clock"></i> {{product.duration}}  | 
+                          <span style="text-align: right; ">
+                          <i class="fas fa-map-marker-alt"></i> 
+                                {% if product.loca_city %} 
+                                {{product.loca_city}} 
+                                <span style="color: #fff;">, </span>
+                                {% endif %}
+                                {{product.city}}
+                            </span>
+                        </span>
+                          
+                      </a>
+                      {% endwith %}
+                    </div>
+                  </div> {% endcomment %}
+
+                  <!-- Content Column -->
+                  {% comment %} <div class="row">
+                    <div class="col-12 pt-3 mx-auto ">
+                      <a href="/products/{{product.manual_slug}}">
+                        <h3 class="mt-0 mx-2">{{product.name}}</h3>
+                        <hr class="mt-1 mb-0" style="opacity:0.4;">
+                        {% autoescape off %}
+                        <div class="row mt-0 mx-2 text-center" id="inn">{{product.inclusion}} </div>
+                        <hr class="mt-2 mb-2 " style="opacity:0.4;">
+                        <div class="row mx-2" style="font-size: 1rem;">
+                          {{product.a_inclusion}}
+                        </div>
+                      </a>
+                    </div>
+                    {% endautoescape %}
+                  </div>
+
+                  <!-- Price Review Column -->
+                  <div class="row">
+                    <div class="col-12 px-0" >
+                      <div class="pt-2">
+                          <a href="/products/{{product.manual_slug}}">
+
+                            <div class="row m-0"> 
+                              <div class="col-5 text-center" style="font-size: 0.6rem; padding: 0; margin:0 auto; display: flex; justify-content: center; flex-direction: column;">
+                                <div>
+                                <span style="color: #fecb19;">
+                                  <script>
+                                    for (var i = 1; i <= {{ product.rating }}; i++) {
+                                      document.write('<i class="fa fa-star" style="font-size: 0.9rem;"> </i>');
+                                    }
+                                  </script>
+                                </span>
+                                <span
+                                  style="font-size: 14px;padding:5px;background: #4caf50;color: white;border-radius: 4px;">
+                                  {{product.rating}}</span>
+                                </div>
+
+                                <div class="text-center">
+                                <p style="font-size: 16px;">{{product.reviews}} reviews<p>
+                                </div>
+                              </div>
+
+
+                              <div class="col-7 price__block">
+                                <p class="custom-price" style="font-size: 16px;">Starting from <span style="text-decoration: line-through; font-size: 16px; margin-right: 5px;">&#8377;{{product.regular}} 
+                                    </span></p>
+                                <p class="custom-price-main" ><strong style="color:#ec2929; display: inline; font-size: 1.4rem;">&#8377;{{product.sale}} </strong>  
+                                  <script>
+                                    for (var i = 1; i <= 1; i++) {
+                                        let per =  (({{product.regular}} - {{product.sale}})*100/{{product.regular}}).toFixed(0);
+                                        document.write(`<span style="font-size:14px; font-weight:bold; text-align:center; border: 1px solid red; border-radius:30px; padding: 2px 8px;"> ${per}% Off </span>`);
+                                      }
+                                    </script>
+                                </p>
+
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                        <p class="my-2" style="width:90%;margin:0 auto;"><a class="btn btn-success" style="width: 100%;"
+                              type="button" href="/products/{{product.manual_slug}}">View Details</a></p>
+                    </div>
+                  </div>
+
+                </div>
+                {% endfor %}
+                <!-- End Mobile View  --> {% endcomment %}
+
+                <div class="pagination my-3 mx-1 px-2 py-2 page__navigations" style="width: fit-content;
+                background-color: #fff;
+                box-shadow: 1px 1px 5px rgba(221, 220, 220, 0.747);">
+                  <span class="step-links">
+                    {% if products.has_previous %}
+                    <button type="button" class="btn btn-outline-primary">
+                      <a href="?page=1"><i class="fas fa-angle-double-left"></i>
+                        
+                      </a></button>
+                    <button type="button" class="btn btn-primary" style="background-color: #007bff;border: none;">
+                      <a href="?page={{ products.previous_page_number }}" style="text-decoration: none; color: #fff;">
+                        <i class="fas fa-chevron-left px-1"></i></a></button>
+                    {% endif %}
+
+                    <span class="current">
+                      Page <strong>{{ products.number }}</strong>  of <strong>{{ products.paginator.num_pages }}</strong> 
+                    </span>
+
+                    {% if products.has_next %}
+                    <button type="button" class="btn btn-primary mx-1" style="background-color: #007bff;border: none;">
+                      <a href="?page={{ products.next_page_number }}" style="text-decoration: none; color: #fff;">
+                      <i class="fas fa-chevron-right px-1" style="color: #fff;"></i></a>
+                    <button type="button" class="btn btn-outline-primary"><a href="?page={{ products.paginator.num_pages }}">
+                    <i class="fas fa-angle-double-right"></i></a></button>
+                    {% endif %}
+                  </span>
+                </div>
+                <!-- <nav aria-label="...">
+                          <ul class="pagination">
+                              {% if products.has_previous %}
+                              <li class="page-item">
+                                  <span href="?page={{ products.previous_page_number }}" class="page-link">Previous</span>
+                                </li>
+                              {% else %}
+                            <li class="page-item">
+                              <span href="#" class="page-link" tabindex="-1" aria-disabled="true">Previous</span>
+                            </li>
+                            {% endif %}
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item active">
+                              <span class="page-link">
+                                2
+                                <span class="sr-only">(current)</span>
+                              </span>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                              <a class="page-link" href="#">Next</a>
+                            </li>
+                          </ul>
+                        </nav> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% autoescape off %}
+      <h1 class="mt-4" id="faq">FAQ</h1>
+      <div>
+        {% for adventure in adven %}
+        {{adventure.faq}}
+        {% endfor %}
+      </div>
+    </div>
+    {% endautoescape %}
+
+    <button class="open-button" onclick="openForm()">
+      <img src={% static 'img/calling.svg' %}
+        style="filter: drop-shadow(0.15rem 0.15rem 0.3rem rgba(0, 0, 0, 0.5));width: 55px;" /></button>
+
+    <div class="chat-popup" id="myForm">
+      <div class="form-container" id="fr2" style="text-align: center;">
+        <img src={% static 'img/Universal Adventures Logo.png' %} width="70px" style="margin-bottom: 1rem;">
+        <h3 style="margin-bottom: 1rem;">Thank You!</h3>
+        <h3 style="margin-bottom: 1rem;">Our Expert Will Call You In A Moment</h3>
+        <button class="btn btn-info" onclick="closeForm()">Close</button>
+      </div>
+      <form action="/" class="form-container mb-3 p-3" id='formg' name="google-sheet"
+        style="max-width: 380px;border-radius: 10px 0px 10px 10px;">
+
+        <!-- <i onclick="closeForm()" class="fa fa-times" style="float: right; cursor: pointer;"></i> -->
+
+        <div class="mt-n3" onclick="closeForm()"
+          style="position: absolute;cursor: pointer;background-color: #d82343;color: white;font-weight: 600;right: 0px;padding: 5px 15px;margin-top: -3.1rem;border-radius: 5px 5px 0px 0px;">
+          Close</div>
+        <h3>How can we help you?</h3>
+        <p>Please send your query or Call Us</p>
+        <div class="form-group row mb-0">
+          <div class="col-md-12">
+            <input type="text" class="form-control" id="inputname" placeholder="Name" name="Name">
+          </div>
+        </div>
+
+        <div class="form-group row mb-0">
+          <div class="col-md-12">
+            <input type="tel" class="form-control" id="inputPhone" placeholder="Phone" name="Phone">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-12">
+            <textarea class="form-control" id="inputEmail3" placeholder="Message (optional)" name="Email"
+              style="height: 100px;"></textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-12">
+            <button type="submit" onclick="Sub()" class="btn btn-primary">Send Enquiry</button>&nbsp;or &nbsp; <button
+              type="button" class="btn bg-white text-danger float-right" onclick="location.href='tel:8882654593'"
+              style="border: 1px solid #ee4347;"><i class="fas fa-headset mr-2" aria-hidden="true"></i>Call
+              Expert</button>
+
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- <footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-lg-4 ">
+                        <div class="footer_widget">
+                            <div class="footer_logo">
+                                <a href="#">
+                                    <img src={% static 'img/footer.png' %} width="200px" alt="">
+                                </a>
+                            </div>
+                            <a href="#">+91 8882654593</a> <br>
+                            <a href="mailto:contact@universaladventures.in">contact@universaladventures.in</a>
+                            </p>
+                            <div class="socail_links">
+                                <ul>
+                                    <li>
+                                        <a href="https://www.facebook.com/universaladventuresindia/">
+                                            <i class="ti-facebook"></i>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="https://www.instagram.com/universaladventuresindia/">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://g.co/kgs/FEs31r">
+                                            <i class="fa fa-google-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Company
+                            </h3>
+                             <ul class="links">
+                                <ul class="links">
+                                <li><a href="/about/">About</a></li>
+                                <li><a href="/contact/"> Contact</a></li>
+                                <li><a href="/privacy-policy/">Privacy-Policy</a></li>
+                                <li><a href="/partial-payment/">Partial Payment</a></li>
+                                <li><a href="/refund-policy">Payments & Refund Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Popular destination
+                            </h3>
+                           <ul class="links double_links">
+                                <li><a href="/destination/Goa/">Goa</a></li>
+                                <li><a href="/destination/Karnataka/">Karnataka</a></li>
+                                <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
+                                <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
+                                <li><a href="/destination/Rajasthan/">Rajasthan</a></li>
+                                <li><a href="/destination/Maharashtra/">Maharashtra</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Instagram
+                            </h3>
+                            <div class="instagram_feed" id="ing">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer> -->
+    <!-- JS here -->
+    <script src={% static 'js/vendor/modernizr-3.5.0.min.js' %}></script>
+    <script src={% static 'js/vendor/jquery-1.12.4.min.js' %}></script>
+    <script src={% static 'js/popper.min.js' %}></script>
+    <script src={% static 'js/bootstrap.min.js' %}></script>
+    <script src={% static 'js/owl.carousel.min.js' %}></script>
+    <script src={% static 'js/isotope.pkgd.min.js' %}></script>
+    <script src={% static 'js/ajax-form.js' %}></script>
+    <script src={% static 'js/waypoints.min.js' %}></script>
+    <script src={% static 'js/jquery.counterup.min.js' %}></script>
+    <script src={% static 'js/imagesloaded.pkgd.min.js' %}></script>
+    <script src={% static 'js/scrollIt.js' %}></script>
+    <script src={% static 'js/jquery.scrollUp.min.js' %}></script>
+    <script src={% static 'js/wow.min.js' %}""></script>
+    <script src={% static 'js/nice-select.min.js' %}></script>
+    <script src={% static 'js/jquery.slicknav.min.js' %}></script>
+    <script src={% static 'js/jquery.magnific-popup.min.js' %}""></script>
+    <script src={% static 'js/plugins.js' %}></script>
+    <script src={% static 'js/gijgo.min.js' %}></script>
+    <script src={% static 'js/slick.min.js' %}></script>
+    <script src={% static 'js/tagsinput.js' %}></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"></script>
+    <!--contact js-->
+
+    <script src={% static 'js/contact.js' %}></script>
+    <script src={% static 'js/jquery.ajaxchimp.min.js' %}></script>
+    <script src={% static 'js/jquery.form.js' %}></script>
+    <script src={% static 'js/jquery.validate.min.js' %}></script>
+    <script src={% static 'js/mail-script.js' %}></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.0.0/dist/js/BsMultiSelect.bs4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        // $("input[name=search]").click(function() {
+        //     $(window).animate({
+        //         scrollTop: $("#dan").offset().top
+        //     }, 1000);
+        // });
+
+        $("input[name='search']").on('click', function() {
+        var ww = $(window).width();
+        if (ww < 550) {
+          window.scrollTo(0, 550);
+          console.log('click triggered at less than 500px');
+        } else if (ww < 780){
+          window.scrollTo(0,340);
+
+          console.log('click ignored! window >= 500px');
+        }else{
+          window.scrollTo(0,330);
+
+          // window.scrollTo(0,0);
+        }
+      });
+    </script> 
+
+    <script>
+      {% comment %} $(function () {
+
+        $("#example").bsMultiSelect();
+
+      }); {% endcomment %}
+          
+      $(document).ready(function () {
+        // Transition effect for navbar 
+        if($(window).innerWidth() > 450)
+        {
+          $(window).scroll(function () 
+          {
+                if ($(this).scrollTop() > 320) 
+                {
+                  $('.dt-nav').addClass('adventure-sticky');
+                } else {
+                  $('.dt-nav').removeClass('adventure-sticky');
+                }
+              });
+        }
+        else
+        {
+          $(window).scroll(function () {
+                if ($(this).scrollTop() > 500) 
+                {
+                  $('.dt-nav').addClass('adventure-sticky');
+                } else {
+                  $('.dt-nav').removeClass('adventure-sticky');
+                }
+              });
+
+        }
+          $(window).resize((e) =>
+          {
+            if($(this).innerWidth() < 400)
+            {
+              $(window).scroll(function () {
+                if ($(this).scrollTop() > 380) 
+                {
+                  $('.dt-nav').addClass('adventure-sticky');
+                } else {
+                  $('.dt-nav').removeClass('adventure-sticky');
+                }
+              });
+              
+            }
+            else
+              {
+                $(window).scroll(function () {
+                      if ($(this).scrollTop() > 320) 
+                      {
+                        $('.dt-nav').addClass('adventure-sticky');
+                      } else {
+                        $('.dt-nav').removeClass('adventure-sticky');
+                      }
+                    });
+
+              }
+          });
+      });
+      function inc() {
+        console.log($('#example').val())
+        var arr = $('#example').val()
+        var complete = ``;
+        arr.forEach(element => {
+          complete = complete + element
+        });
+
+        $('#inclusion').val(complete)
+        console.log(complete)
+      }
+    </script>
+
+    <script>
+
+      $("#exploreview").click(function () {
+        $('#f1').empty();
+        card61 = `     <div class="modal-body"  id="f1">
+        <center>
+          {% if user.is_authenticated %}
+         <h3 style="color:rgb(73, 73, 73);">Hi {{user}}</h3>
+         {% else %}
+         <h3 style="color:rgb(129, 127, 127);">Hi Explorer</h3>
+         {% endif %}
+         <h4 style="color:rgb(73, 73, 73);">What are you looking for? </h4>
+        </center> 
+
+        <div class="container px-0 mobile-searchbox">
+          <div class="text-center">
+             <form class="form-group" method='get' action='/search'  style=" display: block;margin-left: auto; margin-right: auto;">
+                 <div class="input-group">
+                  <input class="form-control" style="border: 1px solid #656c8a;" type="search" name="search" id="search" placeholder="Search Adventure, Tours, Destinations" aria-label="Search">
+                  <div class="input-group-prepend mt-2">
+                      <button id="button-addon2" type="submit" class="btn" style="background-color: rgb(224, 223, 223); border-radius: 0px 5px 5px 0 ;margin-top: 5px;">
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+          </div>
+      </div>
+
+
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;cursor: pointer;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f52()" >
+          <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Adventure modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+          
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Adventures</h3>
+                   </div>  
+           </div>        
+                                </span>
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f; cursor: pointer; filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f50()">
+          <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Tour modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Tour Packages</h3>
+                   </div>  
+           </div>
+           </span>
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+         <a href="/blog">
+               <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Blog modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+          
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Travel Blogs</h3>
+                   </div>  
+           </div>
+                             </a></span>
+
+         </div>`
+        $('#f1').html(card61);
+        $('#exampleModal').modal('show');
+      });
+      $("#exploreview2").click(function () {
+        $('#f1').empty();
+        card61 = `     <div class="modal-body"  id="f1">
+        <center>
+          {% if user.is_authenticated %}
+         <h3 style="color:rgb(73, 73, 73);">Hi {{user}}</h3>
+         {% else %}
+         <h3 style="color:rgb(129, 127, 127);">Hi Explorer</h3>
+         {% endif %}
+         <h4 style="color:rgb(73, 73, 73);">What are you looking for? </h4>
+        </center> 
+
+        <div class="container px-0 mobile-searchbox">
+          <div class="text-center">
+             <form class="form-group" method='get' action='/search'  style=" display: block;margin-left: auto; margin-right: auto;">
+                 <div class="input-group">
+                  <input class="form-control" style="border: 1px solid #656c8a;" type="search" name="search" id="search" placeholder="Search Adventure, Tours, Destinations" aria-label="Search">
+                  <div class="input-group-prepend mt-2">
+                      <button id="button-addon2" type="submit" class="btn" style="background-color: rgb(224, 223, 223); border-radius: 0px 5px 5px 0 ;margin-top: 5px;">
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+          </div>
+      </div>
+
+
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;cursor: pointer;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f52()" >
+          <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Adventure modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+          
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Adventures</h3>
+                   </div>  
+           </div>        
+                                </span>
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f; cursor: pointer; filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f50()">
+          <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Tour modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Tour Packages</h3>
+                   </div>  
+           </div>
+           </span>
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+         <a href="/blog">
+               <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Blog modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+          
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Travel Blogs</h3>
+                   </div>  
+           </div>
+                             </a></span>
+
+         </div>`
+        $('#f1').html(card61);
+        $('#exampleModal').modal('show');
+      });
+      $("#exploreview1").click(function () {
+        $('#f1').empty();
+        card61 = `     <div class="modal-body"  id="f1">
+        <center>
+          {% if user.is_authenticated %}
+         <h3 style="color:rgb(73, 73, 73);">Hi {{user}}</h3>
+         {% else %}
+         <h3 style="color:rgb(129, 127, 127);">Hi Explorer</h3>
+         {% endif %}
+         <h4 style="color:rgb(73, 73, 73);">What are you looking for? </h4>
+        </center> 
+
+        <div class="container px-0 mobile-searchbox">
+          <div class="text-center">
+             <form class="form-group" method='get' action='/search'  style=" display: block;margin-left: auto; margin-right: auto;">
+                 <div class="input-group">
+                  <input class="form-control" style="border: 1px solid #656c8a;" type="search" name="search" id="search" placeholder="Search Adventure, Tours, Destinations" aria-label="Search">
+                  <div class="input-group-prepend mt-2">
+                      <button id="button-addon2" type="submit" class="btn" style="background-color: rgb(224, 223, 223); border-radius: 0px 5px 5px 0 ;margin-top: 5px;">
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+          </div>
+      </div>
+
+
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;cursor: pointer;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f52()" >
+          <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Adventure modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+          
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Adventures</h3>
+                   </div>  
+           </div>        
+                                </span>
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f; cursor: pointer; filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f50()">
+          <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Tour modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Tour Packages</h3>
+                   </div>  
+           </div>
+           </span>
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+         <a href="/blog">
+               <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Blog modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+          
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Travel Blogs</h3>
+                   </div>  
+           </div>
+                             </a></span>
+
+         </div>`
+        $('#f1').html(card61);
+        $('#exampleModal').modal('show');
+      });
+      $("#exploreview22").click(function () {
+        $('#f1').empty();
+        card61 = `     <div class="modal-body"  id="f1">
+        <center>
+          {% if user.is_authenticated %}
+         <h3 style="color:rgb(73, 73, 73);">Hi {{user}}</h3>
+         {% else %}
+         <h3 style="color:rgb(129, 127, 127);">Hi Explorer</h3>
+         {% endif %}
+         <h4 style="color:rgb(73, 73, 73);">What are you looking for? </h4>
+        </center> 
+
+        <div class="container px-0 mobile-searchbox">
+          <div class="text-center">
+             <form class="form-group" method='get' action='/search'  style=" display: block;margin-left: auto; margin-right: auto;">
+                 <div class="input-group">
+                  <input class="form-control" style="border: 1px solid #656c8a;" type="search" name="search" id="search" placeholder="Search Adventure, Tours, Destinations" aria-label="Search">
+                  <div class="input-group-prepend mt-2">
+                      <button id="button-addon2" type="submit" class="btn" style="background-color: rgb(224, 223, 223); border-radius: 0px 5px 5px 0 ;margin-top: 5px;">
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+          </div>
+      </div>
+
+
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;cursor: pointer;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f52()" >
+          <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Adventure modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+          
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Adventures</h3>
+                   </div>  
+           </div>        
+                                </span>
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f; cursor: pointer; filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f50()">
+          <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Tour modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Tour Packages</h3>
+                   </div>  
+           </div>
+           </span>
+         <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+         <a href="/blog">
+               <div class="row" style="position: relative;top: 50%;-webkit-transform: translateY(-50%);">
+            <div class="col-4">
+               <img src={% static 'img//Modal icons//Blog modal icon.png' %}  style="float:left;margin-left:2vw;height: 4.7em;">
+            </div>
+          
+            <div class="col-8">
+                        <h3 style="float:right;margin-top: 14px;" class="pr-3">Travel Blogs</h3>
+                   </div>  
+           </div>
+                             </a></span>
+
+         </div>`
+        $('#f1').html(card61);
+        $('#exampleModal').modal('show');
+      });
+      $("#dropdownMenuButton").click(function () {
+        $("#options").toggle();
+      });
+      $("#dropdownMenuButton2").click(function () {
+        $("#options2").toggle();
+      });
+      $("#mobilemodal").click(function () {
+        $("#exampleModalmobile").modal('show');
+      });
+      $("#mobilemodal2").click(function () {
+        $("#exampleModalmobile").modal('show');
+      });
+      $("#closemodalmain").click(function () {
+        $("#exampleModal").modal('hide');
+      });
+      $("#adventurenear").click(function () {
+        $("#adventurelist").css("display", "none");
+        $("#adventurelocationnear").css("display", "block");
+      });
+      function f52() {
+        $("#f1").empty();
+        card52 = `<div class="modal-body"   style=" height:350px">       
+                          
+                          <span class="badge badge-light mb-2 w-100 mt-5" onclick="f54()" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;"  name="adventure" >
+                          <div class="row">
+                         <div class="col-4">
+                          <img src={% static 'img//Modal icons//Adventure by Location Modal Icon.png' %} style="float:left;margin-left:2vw;height: 5em;">
+                         </div>
+                         <div class="col-8">
+                          <p class="mr-3" style="font-size: 21px;float:right; margin-top: 3px;color: #38495a;font-weight: 500;text-align: right;">Adventure By<br>Destinations</p>
+                          </div>
+                          </div>
+                         
+                          </span>
+                           <span class="badge badge-light mb-2 w-100" onclick="f53()" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;"  name="adventure" >
+                          <div class="row">
+                         <div class="col-4">
+                          <img src={% static 'img//Modal icons//Popular Adventures Modal Icon.png' %} style="float:left;margin-left:2vw;height: 5em;">
+
+                         </div>
+                         <div class="col-8">
+                          <p class="mr-3" style="font-size: 21px;float:right; margin-top: 3px;color: #38495a;font-weight: 500;text-align: right;">Popular<br>Adventures</p>
+                          </div>
+                          </div>
+                         
+                          </span>
+                          <span class="badge badge-light mb-2 w-100" onclick="f51()" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;" onclick="f1(this)" value="Romantic Trip" name="adventure" >
+                          <div class="row">
+                         <div class="col-4">
+                          <img src={% static 'img//Modal icons//Adventure category modal Icon.png' %} style="float:left;margin-left:2vw;height: 5em;">
+
+                         </div>
+                         <div class="col-8">
+                          <p class="mr-3" style="font-size: 21px;float:right; margin-top: 3px;color: #38495a;font-weight: 500;text-align: right;">Adventure By<br>Categories</p>
+                          </div>
+                          </div>
+                         
+                          </span>
+                        
+                         </div>`
+        $("#f1").html(card52);
+      };
+      function f51() {
+        $("#f1").empty();
+        card51 = `<div class="modal-body"   style="margin-top:-50px">
+                           <br><br/>
+                           <a href="/adventures/High-Fly">
+                             <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" >
+                             <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">High Fly</h5>
+                              </div>
+                              </div>
+                              </span>
+                              </a>
+
+                              <a href="/adventure/High-Thrills">
+                              <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))"  >
+                              <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">High Thrills</h5>
+                              </div>
+                              </div>
+                             
+                              </span>
+                              </a>
+                               
+                               <a href="/adventure/Aqua-Experience">
+                              <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))"  >
+                              <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">Aqua Experience</h5>
+                              </div>
+                              </div>
+                             
+                              </span>
+                              </a>
+
+                              <a href="/adventure/Land-Adventure">
+                              <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))"  >
+                              <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">Land Adventure</h5>
+                              </div>
+                              </div>
+                             
+                              </span>
+                               </a>
+                         </div>`
+        $("#f1").html(card51);
+      };
+      function f53() {
+        $("#f1").empty();
+        card53 = `<div class="modal-body"  style="margin-top:-50px">
+                           <br><br/>
+                            <a href="/adventure/Paragliding"> 
+                            <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" >
+                             <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">Paragliding</h5>
+                              </div>
+                              </div>
+                              </span>
+                              </a>
+                              
+                              <a href="/adventure/Bungee-Jumping">
+                              <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" >
+                              <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">Bungee Jumping</h5>
+                              </div>
+                              </div>
+                             
+                              </span>
+                              </a>
+                              <a href="/adventure/Camping">
+                              <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" >
+                              <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">Camping</h5>
+                              </div>
+                              </div>
+                             
+                              </span>
+                              </a>
+                              
+                              <a href="/adventure/Trekking">
+                              <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))"  >
+                              <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">Trekking</h5>
+                              </div>
+                              </div>
+                             
+                              </span>
+                              </a>
+
+                              <a href="/adventure/River-Rafting">
+                              <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" >
+                              <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">River Rafting</h5>
+                              </div>
+                              </div>
+                             
+                              </span>
+                                 </a>
+                              
+
+                              <a href="/adventures/Scuba-Diving">
+                              <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))"  >
+                              <div class="row">
+                             <div class="col-4">
+                               <img src={% static 'img/Family Trip.svg' %} height="30vh" width="80vw">
+                             </div>
+                             <div class="col-8">
+                                <h5 class="mt-1">Scuba Diving</h5>
+                              </div>
+                              </div>
+                             
+                              </span>
+                              </a>
+                 
+                         </div>`
+        $("#f1").html(card53);
+      };
+      function f50() {
+        $('#f1').empty();
+        card50 = `<div class="modal-body"   style="margin-top:-50px">
+                           <br></br>
+                           <center>
+                             <h4  style="color:rgb(73, 73, 73);">What Type of Tour?</h4>
+                            </center>
+                            
+                            <a onclick="f1(this)" value="Family Trip">
+                              <span class="badge badge-light mt-2 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+                              
+                                <div class="row">
+                             <div class="col-4">
+                              <img src={% static 'img//Modal icons//Family Trip.png' %} style="float:left;margin-left:2vw;height: 5em;">
+                             </div>
+                             <div class="col-8">
+                                <p class="mr-3" style="font-size: 21px;float:right; margin-top: 16px;color: #38495a;font-weight: 500;">Family Trip</p>
+                              </div>
+                              </div>
+                              </span>
+                               </a>
+                                <a onclick="f1(this)" value="Romantic Trip">
+                                  <span class="badge badge-light mt-1 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+                                    <div class="row">
+                             <div class="col-4">
+                              <img src={% static 'img//Modal icons//Romantic Trip.png' %} style="float:left;margin-left:2vw;height: 5em;">
+                             </div>
+                             <div class="col-8">
+                                <p class="mr-3" style="font-size: 21px;float:right; margin-top: 16px;color: #38495a;font-weight: 500;">Romantic Trip</p>
+                              </div>
+                              </div>
+                             
+                              </span></a>
+                                     
+                            <a onclick="f1(this)" value="Trip with Friends">
+                              <span class="badge badge-light mt-1 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+                              
+                              <div class="row">
+                             <div class="col-4">
+                              <img src={% static 'img//Modal icons//Trip with friends.png' %} style="float:left;margin-left:2vw;height: 5em;">
+                             </div>
+                             <div class="col-8">
+                                <p class="mr-3" style="font-size: 21px;float:right; margin-top: 16px;color: #38495a;font-weight: 500;">Trip with Friends</p>
+                              </div>
+                              </div>
+                            </span>
+                            </a>
+
+                            <a onclick="f1(this)" value="Adventurous Trip">
+                              <span class="badge badge-light mt-1 mb-2 w-100" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;">
+                                 
+                              <div class="row">
+                             <div class="col-4">
+                              <img src={% static 'img//Modal icons//Adventurous Trip Modal Icon.png' %} style="float:left;margin-left:2vw;height: 5em;">
+                             </div>
+                             <div class="col-8">
+                                <p class="mr-3" style="font-size: 21px;float:right; margin-top: 16px;color: #38495a;font-weight: 500;">Adventurous Trip</p>
+                              </div>
+                              </div>
+                        
+                              </span>
+                              </a>
+                            
+                             </div>`
+        $("#f1").html(card50);
+      };
+      function f54() {
+        $('#f1').empty();
+        card54 = `        <div class="modal-body" id="adventureonlocation"  style="height:350px">
+             <div style="margin-left:25%">
+             <select class="custom-select w-75 mt-5" id="selectstate">
+                    <option selected>Select State</option>
+                       {% for i in statelist %}
+                            <option value="{{i.name}}">{{i.name}}</option>
+                          {% endfor %}
+                    </select>
+                 </div>   
+             
+            </div>`
+        $('#f1').html(card54);
+      };
+
+      function f1(e) {
+        value1 = $(e).attr('value')
+        $('#f1').empty();
+        $('#f1').css("margin-top", "0px");
+        let card1 = ` <div class="modal-body">
+          <h5 style="color:red;">When are you planning to go?</h5>
+          <span class="badge badge-light mb-2 w-100" onclick="f2(this)" value="In 1-2 week" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" id="${value1}" name="adventure2">
+          <center>
+          <h5 class="mt-2">1-2 Weeks</h5> 
+          </center>
+          </span>
+          <span class="badge badge-light mb-2 w-100" onclick="f2(this)" value="In 1-2 month" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" id="${value1}" name="adventure2">
+          <center>
+          <h5 class="mt-2">1-2 Months</h5> 
+          </center>
+          </span>
+          <span class="badge badge-light mb-2 w-100" onclick="f2(this)" value="In 3-4 month" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" id="${value1}" name="adventure2">
+          <center>
+          <h5 class="mt-2">1-2 Months</h5> 
+          </center>
+          </span>
+          <span class="badge badge-light mb-2 w-100" onclick="f2(this)" value="After 5 months" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" id="${value1}" name="adventure2">
+          <center>
+          <h5 class="mt-2">After 5 months</h5> 
+          </center>
+          </span>
+          </div>`;
+        $('#f1').html(card1)
+      }
+      function f2(e) {
+        value1 = $(e).attr('value')
+        value2 = $(e).attr('id')
+        $('#f1').empty()
+        let card2 = `<div class="modal-body">
+          <h3  style="color: black;">Searching best tour destinations of the season! 
+              Please wait.</h3>
+              
+  <img src="https://i.ibb.co/Jcq8M33/giphy.gif" alt="giphy" border="0" width="200px" height="200px"style=" display: block;
+margin-left: auto;
+margin-right: auto;
+width: 50%;">
+
+      </div>`
+        $('#f1').html(card2)
+        setTimeout(function () {
+          $('#f1').empty()
+          n = new Date();
+          y = n.getFullYear();
+          m = n.getMonth() + 1;
+          h = n.getHours();
+          mm = n.getMinutes()
+          d = n.getDate();
+          let date = d + "/" + m + "/" + y + "(" + h + ":" + mm + ")";
+          let num = Math.floor(Math.random() * (400 - 100 + 1)) + 100;
+          let card3 = `<div class="modal-body">
+          <h3  style="color: black;">Found ${num} results for you...</h3><br>
+          Please provide your contact number, our <b> ${value2} </b> expert will discuss tour package with you over phone call.
+          <form action="\" name="popup">
+              <input type="hidden" value="${date}"   name="Timestamp" ></input>
+              <input type="hidden" value="${value2}" name="Type"></input>
+              <input type="hidden" value="${value1}" name="Time"></input>
+          <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                  <label>Name</label>
+                  <input type="text" class="form-control" name="Name" required>
+              </div>
+              <div class="form-group col-md-6 mb-0">
+                  <label>Phone Number</label>
+                  <input type="tel" class="form-control" name="Phone" required>
+              </div>
+          </div>
+  <br>
+         <button type="submit" onclick="finish()" class="btn btn-success btn-block  float-right" >Submit</button>
+  </form>
+          <br><br>
+          <div class="text-center">OR</div>
+          You can directly call our expert now:<br><button onclick="location.href='tel:8882654593'"class="btn btn-danger btn-block"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;8882654593</button>
+      </div>`
+          $('#f1').html(card3)
+        }, 3000);
+      }
+      function finish() {
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz5GdxDJ5-LmqJMEEIZKCQpOT9VRdN4wpqjwnc_4VgVLzqSW-79/exec'
+        const form = document.forms['popup']
+
+        form.addEventListener('submit', e => {
+          e.preventDefault()
+          fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+            .then(response => console.log("Thanks for Contacting us..! We Will Contact You Soon..."))
+            .catch(error => console.error('Error!', error.message))
+        })
+
+        $('#exampleModal').modal('hide')
+
+      }
+
+
+    </script>
+
+    <script>
+      function openForm() {
+        document.getElementById("myForm").style.display = "block";
+
+      }
+
+      function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+
+      }
+      function Sub() {
+        document.getElementById("formg").style.display = "none";
+        document.getElementById("fr2").style.display = "block";
+      }
+    </script>
+    <script>
+      $('#datepicker').datepicker({
+        iconsLibrary: 'fontawesome',
+        icons: {
+          rightIcon: '<span class="fa fa-caret-down"></span>'
+        }
+      });
+    </script>
+    <script>
+      function openForm() {
+        document.getElementById("myForm").style.display = "block";
+      }
+
+      function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+      }
+      function Sub() {
+        document.getElementById("formg").style.display = "none";
+        document.getElementById("fr2").style.display = "block";
+      }
+    </script>
+    <!-- <script>
+      $(function () {
+        $(window).scroll(function () 
+        {
+            var mainbottom = $("header").offset().top + $("header").height();
+          if ($(this).scrollTop() < mainbottom) {
+
+            $('nav').removeClass('first');
+
+          } else {
+
+            $('nav').addClass('first');
+
+          }
+        })
+      })
+    </script> -->
+    <script>
+      setTimeout(function () {
+        $('.loader_bg').fadeToggle();
+      }, 2000);
+    </script>
+    <script>
+      if (`{{city}}` == '') {
+        $('#cities').css('display', 'block')
+      }
+      else {
+        $('#cities').css('display', 'none')
+      }
+
+
+      function filter_data() {
+        {% comment %} var state = `{{state}}`
+        var city = `{{city}}`
+        var slug = `{{slug}}`
+        var level = get_filter('level')
+        var duration = get_filter('duration')
+        var citye = get_filter('city')
+        var type = get_filter('type')
+        var location = get_filter('loc') {% endcomment %}
+
+        var category = get_filter('category')
+        var rentals_type = document.getElementById("rentals_type").value
+        {% comment %} var brand_name = get_filter('brand_badge')
+        console.log(brand_name) {% endcomment %}
+        {% comment %} if (state.length < 1) {
+          state = 'None'
+        }
+        if (city.length < 1) {
+          city = 'None'
+        } {% endcomment %}
+        var searchh = ''
+        var da = ``;
+        var formData = {
+          'category': category,
+          'rentals_type': rentals_type,
+          'a': 1
+        };
+        $.ajax({
+          type: 'POST',
+          url: `/filter-rentals/`,
+          data: formData,
+          encode: true,
+          beforeSend: function () {
+            $('#dan').html('Loading...')
+          },
+          success: function (res) {
+            da = da + res.data
+            var brandsfiltered = []
+            brandsfiltered = res.filters
+            console.log(brandsfiltered)
+            document.getElementById('brands_filters').innerHTML = ""
+            for (x in brandsfiltered){
+              document.getElementById('brands_filters').innerHTML += `<label for="badge-check-${brandsfiltered[x]}" class="badge badge-primary ml-3"> 
+                    <input type="checkbox" id="badge-check-${brandsfiltered[x]}" class="brand_badge brand" style="" value="${brandsfiltered[x]}"> ${brandsfiltered[x]}
+                  </label>`  
+            }
+            
+            document.getElementById('dan').innerHTML = da            
+            modalWork();
+            
+            var badges = document.querySelectorAll('.brand')
+            console.log(badges)
+            badges.forEach((bdg) => {
+              bdg.addEventListener("click", () => {
+                filter_data2();
+              })
+            })
+
+            if(res.product_len > {{len}})
+            {
+              document.getElementById('the_json_data').innerHTML = 'showing <strong> {{len}} </strong>products Result';
+              document.getElementById('the_json_data2').innerHTML = 'showing <strong> {{len}} </strong>products Result';
+            }
+            else
+            {
+              document.getElementById('the_json_data').innerHTML = `showing <strong>${res.product_len} </strong>products Result`;
+              document.getElementById('the_json_data2').innerHTML = `showing <strong>${res.product_len} </strong>products Result`;
+            }
+          }
+        })
+      }
+
+      function get_filter(class_name) {
+        var filter = []
+        $('.' + class_name + ':checked').each(function () {
+          filter.push($(this).val());
+        });
+        return filter;
+      }
+
+      $('.common_selector').click(function () {
+        filter_data();
+        document.getElementById('brands_filters').style.display = "block";
+        document.getElementById('reset').style.display = "block";
+      })
+
+      $('.gear_selector').click(function () {
+        filter_data3();
+      })
+
+      var badges = document.querySelectorAll('.brand')
+      badges.forEach((bdg) => {
+        bdg.addEventListener("click", () => {
+          filter_data2();
+        })
+      })
+
+      function filter_data2() {
+        var category = get_filter('category')
+        console.log(category)
+        var brand = get_filter('brand')
+        console.log(brand)
+        var gear = get_filter('gear_selector')
+        var brands = []
+        //brands = document.querySelectorAll('.brand').val;
+        var rentals_type = document.getElementById("rentals_type").value
+        var searchh = ''
+        var da = ``;
+        var formData = {
+          'category': category,
+          'brand': brand,
+          'gear': gear,
+          'rentals_type': rentals_type
+        };
+        $.ajax({
+          type: 'POST',
+          url: `/filter-rentals-brand/`,
+          data: formData,
+          encode: true,
+          beforeSend: function () {
+            $('#dan').html('Loading...')
+          },
+          success: function (res) {
+            da = da + res.data
+            document.getElementById('dan').innerHTML = da
+            modalWork();
+            if(res.product_len > {{len}})
+            {
+              document.getElementById('the_json_data').innerHTML = 'showing <strong> {{len}} </strong>products Result';
+              document.getElementById('the_json_data2').innerHTML = 'showing <strong> {{len}} </strong>products Result';
+            }
+            else
+            {
+              document.getElementById('the_json_data').innerHTML = `showing <strong>${res.product_len} </strong>products Result`;
+              document.getElementById('the_json_data2').innerHTML = `showing <strong>${res.product_len} </strong>products Result`;
+            }
+          }
+        })
+      }
+
+      function filter_data3() {
+        var category = get_filter('category')
+        var brand = get_filter('brand')
+        var gear = get_filter('gear_selector')
+        var brands = []
+        //brands = document.querySelectorAll('.brand').val;
+        var rentals_type = document.getElementById("rentals_type").value
+        var searchh = ''
+        var da = ``;
+        var formData = {
+          'category': category,
+          'brand': brand,
+          'gear': gear,
+          'rentals_type': rentals_type
+        };
+        $.ajax({
+          type: 'POST',
+          url: `/filter-rentals-brand/`,
+          data: formData,
+          encode: true,
+          beforeSend: function () {
+            $('#dan').html('Loading...')
+          },
+          success: function (res) {
+            da = da + res.data
+            document.getElementById('dan').innerHTML = da
+            modalWork();
+            if(res.product_len > {{len}})
+            {
+              document.getElementById('the_json_data').innerHTML = 'showing <strong> {{len}} </strong>products Result';
+              document.getElementById('the_json_data2').innerHTML = 'showing <strong> {{len}} </strong>products Result';
+            }
+            else
+            {
+              document.getElementById('the_json_data').innerHTML = `showing <strong>${res.product_len} </strong>products Result`;
+              document.getElementById('the_json_data2').innerHTML = `showing <strong>${res.product_len} </strong>products Result`;
+            }
+          }
+        })
+      }
+
+
+
+
+
+      function sea(a) {
+        search = $(a).val()
+        console.log(search)
+        var category = get_filter('category')
+        var rentals_type = document.getElementById("rentals_type").value
+        var searchh = search
+        var da = ``;
+        var formData = {
+          'category': category,
+          'search': searchh,
+          'rentals_type': rentals_type,
+          'a': 0
+        };
+        $.ajax({
+          type: 'POST',
+          url: `/filter-rentals/`,
+          data: formData,
+          encode: true,
+          beforeSend: function () {
+            $('#products').html('Loading...')
+          },
+          success: function (res) {
+            da = da + res.data
+            document.getElementById('dan').innerHTML = da
+            modalWork();
+            if(res.product_len > {{len}})
+            {
+              document.getElementById('the_json_data').innerHTML = 'showing <strong> {{len}} </strong>products Result';
+              document.getElementById('the_json_data2').innerHTML = 'showing <strong> {{len}} </strong>products Result';
+            }
+            else
+            {
+              document.getElementById('the_json_data').innerHTML = `showing <strong>${res.product_len} </strong>products Result`;
+              document.getElementById('the_json_data2').innerHTML = `showing <strong>${res.product_len} </strong>products Result`;
+            }
+          }
+        })
+      }
+
+    </script>
+    <script>
+      $("#price_range").slider({
+        range: true,
+        min: 1000,
+        max: 100000,
+        values: [1000, 100000],
+        step: 500,
+        slide: function (event, ui) {
+          $('#price_show').html('&#8377;' + ui.values[0] + '-' + '&#8377;' + ui.values[1]);
+        },
+        stop: function (event, ui) {
+          $('#price_show').html('&#8377;' + ui.values[0] + '-' + '&#8377;' + ui.values[1]);
+          $('#hidden_minimum_price').val(ui.values[0]);
+          $('#hidden_maximum_price').val(ui.values[1]);
+          filter_data();
+        }
+      });
+      $("#price_range1").slider({
+        range: true,
+        min: 1000,
+        max: 100000,
+        values: [1000, 100000],
+        step: 500,
+        slide: function (event, ui) {
+          $('#price_show1').html('&#8377;' + ui.values[0] + '-' + '&#8377;' + ui.values[1]);
+        },
+        stop: function (event, ui) {
+          $('#price_show1').html('&#8377;' + ui.values[0] + '-' + '&#8377;' + ui.values[1]);
+          $('#hidden_minimum_price').val(ui.values[0]);
+          $('#hidden_maximum_price').val(ui.values[1]);
+          filter_data();
+        }
+      });
+    </script>
+    <script>
+      var width = $(window).width();
+      (function () {
+        window.onresize = displayWindowSize;
+        window.onload = displayWindowSize;
+
+        function displayWindowSize() {
+          let myWidth = window.innerWidth;
+          if (myWidth <= '576') {
+            $('#van').css('display', 'none')
+            $('#dan').css('display', 'block')
+            $('#dan').removeClass("col-lg-9 col-md-9 col-sm-9 col-9")
+            $('#dan').addClass("col-lg-12 col-md-12 col-sm-12 col-12 mt-5")
+
+          }
+          else {
+            $('#van').css('display', 'block')
+            $('#dan').removeClass("col-lg-12 col-md-12 col-sm-12 col-12 mt-5")
+            $('#dan').addClass("col-lg-9 col-md-9 col-sm-9 col-9")
+          }
+        };
+
+      })();
+
+    </script>
+    <script>
+      function myFunction() {
+
+        var height = document.getElementById("maindetails");
+        var moreText = document.getElementById("more");
+        var btnText = document.getElementById("myBtn");
+        console.log(height.style.height)
+        if (height.style.height === "200px") {
+          height.style.height = "100%"
+          btnText.innerHTML = "Read less";
+          $('#h').removeClass('shadoww');
+        } else {
+          height.style.height = "200px"
+          btnText.innerHTML = "Read more";
+          $('#h').addClass('shadoww');
+
+        }
+      }
+
+      $("#filterview").click(function () {
+        $('#filterModal').modal('show');
+      });
+      $("#filterviewclose").click(function () {
+        $('#filterModal').modal('hide');
+      });
+      $("#exploreview").click(function () {
+        $('#exampleModa').modal('show');
+      });
+    </script>
+
+
+
+    <script>
+
+    function modalWork() {
+      // Get the modal
+      var modal = document.querySelectorAll(".mc");
+      var button = document.querySelectorAll(".pc");
+      var close = document.querySelectorAll(".cc");
+
+      button.forEach((btn, index) => {
+        btn.addEventListener("click", () => {
+          modal[index].style.display="block";
+          
+          var today = new Date().toISOString().split('T')[0];
+          var date = document.querySelectorAll(".date");
+          date.forEach((a) => {
+            a.setAttribute('min', today);
+            
+            //calculateEndDate(date.val);
+          })
+          
+          
+          var dayBlock = document.querySelectorAll(".totalDays")
+          dayBlock.forEach((a) =>  {
+            a.addEventListener("input", (evt) => {
+              var days = evt.target.value;
+              var allElements = document.querySelectorAll(".perDayPrice");
+              var elements = Array.from(allElements).filter(f => f.getAttribute("data-item") === btn.getAttribute("data-item"));
+              var totalPrice = 0;
+              if(days>=1 && days<=3) {
+                elements[0].parentElement.style.border = "1px solid black";  
+                elements[1].parentElement.style.border = "none";
+                elements[2].parentElement.style.border = "none";
+                elements[3].parentElement.style.border = "none";            
+                totalPrice = days * elements[0].value;
+              }
+              else if(days>=4 && days<=7) {
+                elements[1].parentElement.style.border = "1px solid black";
+                elements[0].parentElement.style.border = "none";
+                elements[2].parentElement.style.border = "none";
+                elements[3].parentElement.style.border = "none";
+                totalPrice = days * elements[1].value;
+              }
+              else if(days>=8 && days<=15) {
+                elements[2].parentElement.style.border = "1px solid black";
+                elements[0].parentElement.style.border = "none";
+                elements[1].parentElement.style.border = "none";
+                elements[3].parentElement.style.border = "none";
+                totalPrice = days * elements[2].value;
+              }
+              else if(days>=16 && days<=30) {
+                elements[3].parentElement.style.border = "1px solid black";
+                elements[0].parentElement.style.border = "none";
+                elements[1].parentElement.style.border = "none";
+                elements[2].parentElement.style.border = "none";
+                totalPrice = days * elements[3].value;
+              }else {
+                elements[0].parentElement.style.border = "none";
+                elements[1].parentElement.style.border = "none";
+                elements[2].parentElement.style.border = "none";
+                elements[3].parentElement.style.border = "none";
+              }
+              var priced = document.querySelectorAll(".priced");
+              priced[index].value = `${totalPrice}`;
+              var price = document.querySelectorAll(".totalPrice");
+              price[index].innerHTML = `${totalPrice}`;
+            })
+          })
+          date[index].addEventListener('change', (e) =>{
+            console.log(e.target.value);
+            console.log(dayBlock[index].value)
+            days = dayBlock[index].value;
+            var date_split = e.target.value.split("-");
+            var year = Number(date_split[0]);
+            var month = Number(date_split[1]);
+            var day = Number(date_split[2]);
+            var endDay = Number(day)+Number(days)-1;
+            var endMonth = month;
+            var endYear = year;
+            console.log(endDay)
+            if ([1,3,5,7,8,10,12].includes(month)){
+              if (endDay>31){
+                endDay-=31;
+                endMonth+=1;
+                if(month===12){
+                  endYear+=1;
+                  endMonth-=12;
+                }
+              }
+            }else if([4,6,9,11].includes(month)){
+              if (endDay>30){
+                endDay-=30;
+                endMonth+=1;
+              }
+            }else if(month === 2){
+              if (endDay>28){
+                endDay-=28;
+                endMonth+=11;
+              }
+            }
+            if (endMonth < 10) endMonth = "0" + String(endMonth);
+            if (endDay < 10) endDay = "0" + String(endDay);
+            var endDate = String(endYear) + "-" + String(endMonth) + "-" + String(endDay);
+            console.log(endDate);
+            var d = document.querySelectorAll('.endDate');
+            d[index].innerHTML =  `<span> <input type="date" name="date" class="date" value="${endDate}" disabled></span>`;
+          });
+        });
+      });
+
+      close.forEach((clos, index) => {
+        clos.addEventListener("click", () => {
+          modal[index].style.display="none";
+        })
+      })
+    }
+    modalWork();  
+  </script>
+  {% comment %} Modals ends {% endcomment %}
+
+<script>
+                document.getElementById('reset').addEventListener('click', ()=>{
+                  $('.brand').prop('checked', false);
+                  filter_data2();
+                })
+              </script>
+
+
+</body>
+
+
+</html>
+
+{% endblock %}

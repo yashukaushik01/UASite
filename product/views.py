@@ -10,11 +10,11 @@ from django.http.response import JsonResponse
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
-from .models import Affiliate, Cities, CityHotelData, Erp,Populartags, Product, Destination, Images, StateItineraryData, TopPicksEntryForm, duration, phone, Purchase, states, des, promo, AdventureTourTypes, TravelGuide,BestPackage,ProductEnquiry
+from .models import Affiliate, Cities, CityHotelData, Erp,Populartags, Product, Destination, Images, StateItineraryData, TopPicksEntryForm, duration, phone, Purchase, states, des, promo, AdventureTourTypes, TravelGuide,BestPackage,ProductEnquiry ,AffiliateUser
 from .models import Blogpost, wallet
-from .models import Itinerary,ItineraryData
-from .models import State as States , Locality as Localities
-from .forms import CityHotelDataForm, ItineraryDataForm, ItineraryForm, ProductEnquiryForm, ProductForm, Addphone, StateItineraryDataForm, purchaseform, UpdateForm, BlogForm, UpdateItineraryForm, ErpForm, UpdateErpForm, TravelGuideEntryForm, PopularTagForm,Top_picks_entryForm,BestPackageForm,CourseEntryForm
+from .models import Itinerary,ItineraryData , Rentals
+from .models import State as States , Locality as Localities 
+from .forms import CityHotelDataForm, ItineraryDataForm, ItineraryForm, ProductEnquiryForm, ProductForm, Addphone, StateItineraryDataForm, purchaseform, UpdateForm, BlogForm, UpdateItineraryForm, ErpForm, UpdateErpForm, TravelGuideEntryForm, PopularTagForm,Top_picks_entryForm,BestPackageForm,CourseEntryForm,AffiliateUserForm
 from django.views.decorators.csrf import csrf_exempt
 from django.forms import modelformset_factory
 from django.contrib import messages
@@ -514,21 +514,38 @@ def SendErpMail(request):
         tour_name = request.POST.get('tour_name')
         tour_date = request.POST.get('tour_date')
         total_package_cost = request.POST.get('total_package_cost')
-        payment1 = request.POST.get('payment1')
+        payment = request.POST.get('payment1')
         payment_date = request.POST.get('payment_date')
+        payment_mod = request.POST.get('payment_mod')
         due_payment_amount = request.POST.get('due_payment_amount')
 
-        if str(payment1) == 'None':
-            return JsonResponse({'data':'payment not done At.'})
+        if str(payment) == 'None':
+            return JsonResponse({'data':'payment not done At.','status':'info'})
         else:
-            subject = 'Payment Recept'
-            message = f'Universal Adventure \n name : {name} \n phone No. : {phone_no} \n booking_id : {booking_id} \n Tour Name : {tour_name} \n Tour Date : {tour_date} \n Total Package Cost : Rs. {total_package_cost} \n Payment : Rs. {payment1} \n Payment Date : {payment_date} \n Due Payment Amount : Rs. {due_payment_amount}'
-            print(message)
-            # email_from = settings.EMAIL_HOST_USER
-            # recipient_list = [email,]
-            # send_mail( subject, message, email_from, recipient_list )
+            message = render_to_string('mail.html',{
+                'name':name,
+                'email':email,
+                'phone_no':phone_no,
+                'booking_id':booking_id,
+                'tour_name':tour_name,
+                'tour_date':tour_date,
+                'total_package_cost':total_package_cost,
+                'payment':payment,
+                'payment_date':payment_date,
+                'payment_mod':payment_mod,
+                'due_payment_amount':due_payment_amount
 
-            return JsonResponse({'data':'mail sended to client'})
+            })
+            mail = EmailMessage(
+            subject = 'Payment Recept',
+            body=message,
+            from_email='bookings@universaladventures.in',
+            to=['aditya2462001@gmail.com',]
+            )
+            mail.content_subtype = "html"
+            mail.send()
+
+            return JsonResponse({'data':'mail sended to client successfully','status':'success'})
 
 
 
@@ -584,6 +601,48 @@ def affiliate(request):
             return render(request, 'affiliate.html', context)
     else:
         return render(request, 'affiliate.html')
+
+
+def affiliateUser(request):
+    form = AffiliateUserForm()
+    context = {
+        'form':form
+    }
+    if request.user.is_active:
+        if AffiliateUser.objects.filter(email = request.user.email).exists():
+            messages.success(request,'Email id is already exits please try again')
+            render(request,'affiliate_form.html',context)
+
+    if request.method == 'POST':
+        form = AffiliateUserForm(request.POST or None , request.FILES or None)
+        print(form.errors)
+        if AffiliateUser.objects.filter(email = form['email'] ).exists():
+            messages.success(request,'Email id is already exits please try again')
+            render(request,'affiliate_form.html',context)
+        if form.is_valid():
+            form.save()
+
+        messages.success(request,'Your account is created wait for approval')
+    context = {
+        'form':form
+    }
+
+    return render(request,'affiliate_form.html',context)
+@staff_member_required
+def affiliateList(request):
+    return render(request,'affiliate_list.html')
+
+@staff_member_required
+def affiliateListData(request):
+    status = request.GET.get('status')
+    print(status)
+    data = ''
+    affiliateUsers = AffiliateUser.objects.filter(status = status)
+    data = render_to_string('affiliate_list_data.html',{'affiliateusers':affiliateUsers,'status':status})
+
+    return  JsonResponse({'data':data})
+
+
 
 
 def product(request, slug):
@@ -642,6 +701,7 @@ def Adventure(request, slug):
                 category='Adventure', city=city), 15)
 
         elif len(state) > 0:
+            print(slug)
             paginator = Paginator(Product.objects.filter(
                 category='Adventure', state=state), 15)
         else:
@@ -1307,6 +1367,7 @@ def ProductCreate(request):
     states = States.objects.all()
     cities = Cities.objects.all()
     locality = Localities.objects.all()
+    print(states,cities,locality)
     if request.method == 'POST':
         form = ProductForm(request.POST)
         print(form.errors)
@@ -1546,6 +1607,9 @@ def download(request, slug):
 @staff_member_required
 def ProductUpdate(request, slug):
     form = UpdateForm()
+    states = States.objects.all()
+    cities = Cities.objects.all()
+    locality = Localities.objects.all()
     ImageFormSet = modelformset_factory(Images,
                                         fields=('image',), extra=5)
     DescriptionFormSet = modelformset_factory(
@@ -1618,6 +1682,9 @@ def ProductUpdate(request, slug):
         'form': form,
         'formset': formset,
         'formset2': formset2,
+        'states':states,
+        'cities':cities,
+        'locality':locality
     }
 
     return render(request, 'editproduct.html', context)
@@ -1793,3 +1860,271 @@ def course(request):
 
 def StateCity(request):
     return render(request,'state-city.html')
+
+
+
+
+# ===================================== rentals ========================================= 
+# rentals-submit
+@ staff_member_required
+def rentalsForm(request):
+    states = States.objects.all()
+    cities = Cities.objects.all()
+    context = {'states': states, 'cities': cities}
+    return render(request, 'rentals-form.html', context)
+
+
+def rentalsSubmit(request):
+    if request.method == "POST":
+        state = request.POST['state']
+        city = request.POST['city']
+        rentals_type = request.POST['rentals_type']
+        vehicle_gear_type = request.POST['vehicle_gear_type']
+        category = request.POST['category']
+        brand_name = request.POST['brand_name']
+        product_name = request.POST['product_name']
+        # if len(request.FILES) != 0:
+        #     product_image = request.FILES['product_image']
+        product_image = request.FILES['product_image']
+        product_image_2 = request.FILES['product_image_2']
+        specification_1 = request.POST['specification_1']
+        specification_2 = request.POST['specification_2']
+        specification_3 = request.POST['specification_3']
+        popularity_score = request.POST['popularity_score']
+        delivery_option = request.POST['delivery_option']
+        terms_and_conditions = request.POST['terms_and_conditions']
+        price_1_3 = request.POST['price_1_3']
+        price_4_7 = request.POST['price_4_7']
+        price_8_15 = request.POST['price_8_15']
+        price_16_30 = request.POST['price_16_30']
+        rental = Rentals(state=state, city=city, rentals_type=rentals_type, product_image=product_image, product_image_2=product_image_2,
+                         vehicle_gear_type=vehicle_gear_type, category=category, brand_name=brand_name, product_name=product_name,
+                          specification_1=specification_1, 
+                         specification_2=specification_2, specification_3=specification_3, popularity_score=popularity_score,
+                          delivery_option=delivery_option, terms_and_conditions=terms_and_conditions, price_1_3=price_1_3, price_4_7=price_4_7,
+                           price_8_15=price_8_15, price_16_30=price_16_30)
+        rental.save()
+        messages.success(request, "Submitted Successfully")
+        return redirect('/rentals-form')
+
+    return redirect('rentals-form')
+
+
+@ csrf_exempt
+def rentals(request, slug):
+    state = request.GET.get('state', '')
+    city = request.GET.get('city', '')
+
+    if slug == 'all':
+        if len(city) > 0:
+            paginator = Paginator(Product.objects.filter(
+                category='Adventure', city=city), 15)
+
+        elif len(state) > 0:
+            paginator = Paginator(Product.objects.filter(
+                category='Adventure', state=state), 15)
+        else:
+            paginator = Paginator(
+                Product.objects.filter(category='Adventure'), 15)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context = {
+            'products': page_obj,
+            'len': len(page_obj),
+            'city': city,
+            'state': state,
+            'adven': AdventureTourTypes.objects.filter(name=slug),
+            'slug': slug,
+        }
+    elif slug == 'Self-Driving-Vehicle':
+
+        if len(city) > 0:
+            paginator = Paginator(Rentals.objects.filter(
+                rentals_type='Self Driving Vehicle', city=city), 15)
+
+        elif len(state) > 0:
+            paginator = Paginator(Rentals.objects.filter(
+                rentals_type='Self Driving Vehicle', state=state), 15)
+
+        else:
+            paginator = Paginator(Rentals.objects.filter(
+                rentals_type='Self Driving Vehicle'), 15)
+
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        brands = []
+        for p in page_obj:
+            brands.append(p.brand_name)
+        context = {
+            'products': page_obj,
+            'len': len(page_obj),
+            'city': city,
+            'state': state,
+            # 'adven': AdventureTourTypes.objects.filter(name='High Fly'),
+            'field': 'Self Driving Vehicle',
+            'slug': slug,
+            'brands': brands,
+        }
+    elif slug == 'Trekking-Gears':
+        if len(city) > 0:
+            paginator = Paginator(Rentals.objects.filter(
+                rentals_type='Trekking Gear', city=city), 15)
+        elif len(state) > 0:
+            paginator = Paginator(Rentals.objects.filter(
+                rentals_type='Trekking Gear', state=state), 15)
+        else:
+            paginator = Paginator(Rentals.objects.filter(
+                rentals_type='Trekking Gear'), 15)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        brands = []
+        for p in page_obj:
+            brands.append(p.brand_name)
+        context = {
+            'products': page_obj,
+            'len': len(page_obj),
+            'city': city,
+            'state': state,
+            # 'adven': AdventureTourTypes.objects.filter(name='High Thrills'),
+            'slug': slug,
+            'brands': brands,
+            'field': 'Trekking Gear'
+        }
+    elif slug == 'Sleeping-Bag-Tents':
+        if len(city) > 0:
+            paginator = Paginator(Rentals.objects.filter(
+                rentals_type='Sleeping Bag & Tent', city=city), 15)
+        elif len(state) > 0:
+            paginator = Paginator(Rentals.objects.filter(
+                rentals_type='Sleeping Bag & Tent', state=state), 15)
+        else:
+            paginator = Paginator(Rentals.objects.filter(
+                rentals_type='Sleeping Bag & Tent'), 15)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context = {
+            'products': page_obj,
+            'len': len(page_obj),
+            'city': city,
+            'state': state,
+            # 'adven': AdventureTourTypes.objects.filter(name='Land Adventure'),
+            'slug': slug,
+            'field': 'Sleeping Bag & Tent'
+        }
+    else:
+        a = slug.split('-')
+        if len(a) > 1:
+            slug = a[0]+' '+a[1]
+        if len(city) > 0:
+            paginator = Paginator(Product.objects.filter(
+                category='Adventure', city=city, adventuretype=slug), 15)
+        elif len(state) > 0:
+            paginator = Paginator(Product.objects.filter(
+                category='Adventure', state=state, adventuretype=slug), 15)
+        else:
+            paginator = Paginator(Product.objects.filter(
+                category='Adventure', adventuretype=slug), 15)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context = {
+            'products': page_obj,
+            'len': len(page_obj),
+            'city': city,
+            'state': state,
+            'adven': AdventureTourTypes.objects.filter(name=slug),
+            'slug': slug,
+        }
+
+    return render(request, 'rentals.html', context)
+
+
+@ csrf_exempt
+def FilterRentals(request):
+    category = request.POST.getlist('category[]')
+    rentals_type = request.POST.get('rentals_type')
+    search = request.POST.get('search')
+    a = request.POST.get('a')
+
+    if rentals_type == 'Self Driving Vehicle':
+        allproducts = Rentals.objects.filter(
+            rentals_type='Self Driving Vehicle')
+    elif rentals_type == 'Sleeping Bag & Tent':
+        allproducts = Rentals.objects.filter(
+            rentals_type='Sleeping Bag & Tent')
+    elif rentals_type == 'Trekking Gear':
+        allproducts = Rentals.objects.filter(
+            rentals_type='Trekking Gear')
+    filters = []
+
+    if a == '0':
+        allproducts = Rentals.objects.filter(
+            rentals_type='Self Driving Vehicle', city__icontains=search)
+
+        for p in allproducts:
+            filters.append(p.brand_name)
+        context = {'products': allproducts}
+        t = render_to_string('rental_card.html', context)
+        print(filters)
+
+        return JsonResponse({'data': t, 'len': len(t), 'product_len': len(allproducts), 'filters': filters})
+    elif a == '1':
+        if len(category) > 0:
+            allproducts = Rentals.objects.filter(
+                rentals_type=rentals_type, category__in=category).distinct()
+            for p in allproducts:
+                filters.append(p.brand_name)
+
+        context = {'products': allproducts}
+        t = render_to_string('rental_card.html', context)
+        print(filters)
+
+        return JsonResponse({'data': t, 'len': len(t), 'product_len': len(allproducts), 'filters': filters})
+
+
+@ csrf_exempt
+def FilterRentalsBrand(request):
+    category = request.POST.getlist('category[]')
+    brands = request.POST.getlist('brand[]')
+    gear = request.POST.getlist('gear[]')
+    rentals_type = request.POST.get('rentals_type')
+
+    # if rentals_type == 'Self Driving Vehicle':
+    #     allproducts = Rentals.objects.filter(
+    #         rentals_type='Self Driving Vehicle')
+    # elif rentals_type == 'Sleeping Bag & Tent':
+    #     allproducts = Rentals.objects.filter(
+    #         rentals_type='Sleeping Bag & Tent')
+    # elif rentals_type == 'Trekking Gear':
+    #     allproducts = Rentals.objects.filter(
+    #         rentals_type='Trekking Gear')
+
+    if len(category) > 0:
+        allproducts = Rentals.objects.filter(
+            rentals_type=rentals_type, category__in=category).distinct()
+        if len(brands) > 0:
+            allproducts = Rentals.objects.filter(
+                rentals_type=rentals_type, category__in=category, brand_name__in=brands).distinct()
+            if len(gear) > 0:
+                if gear[0] != "Both":
+                    allproducts = Rentals.objects.filter(
+                        rentals_type=rentals_type, category__in=category, brand_name__in=brands, vehicle_gear_type__in=gear).distinct()
+        elif len(gear) > 0:
+            if gear[0] != "Both":
+                allproducts = Rentals.objects.filter(
+                    rentals_type=rentals_type, category__in=category, vehicle_gear_type__in=gear).distinct()
+    context = {'products': allproducts}
+    t = render_to_string('rental_card.html', context)
+    return JsonResponse({'data': t, 'len': len(t), 'product_len': len(allproducts)})
+
+
+@ csrf_exempt
+def rentalsBooking(request):
+    if request.method == "POST":
+        postData = {
+            "product": request.POST.get('productName'),
+            "date": request.POST.get('date'),
+            "amount": request.POST.get('totalPrice'),
+        }
+        return render(request, 'bookingform.html', {'postData': postData})
+    return render(request, 'course.html')
+

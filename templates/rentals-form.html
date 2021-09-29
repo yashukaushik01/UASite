@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+   <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Universal Adventures</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Tag Manager -->
+    <script src="https://cdn.tiny.cloud/1/2n06ucf71roagptkroonkrn3btoomt1rrw0na61zi98zhb6w/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
+
+    <!-- End Google Tag Manager -->
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="icon" href={% static './img/uni.png' %} sizes="16x16" type="image/png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/owl.carousel.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/magnific-popup.css' %}>
+    <link rel="stylesheet" href={% static 'css/font-awesome.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/themify-icons.css' %}>
+    <link rel="stylesheet" href={% static 'css/nice-select.css' %}>
+    <link rel="stylesheet" href={% static 'css/flaticon.css' %}>
+    <link rel="stylesheet" href={% static 'css/gijgo.css' %}>
+    <link rel="stylesheet" href={% static 'css/animate.css' %}>
+    <link rel="stylesheet" href={% static 'css/slick.css' %}>
+    <link rel="stylesheet" href={% static 'css/slicknav.css' %}>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+
+    <link rel="stylesheet" href={% static 'css/style.css' %}>
+    <link rel="stylesheet" href={% static 'css/tagsinput.css' %}>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+    <style>
+      .div-inline {
+        display: inline-block;
+      }
+      li 
+        {
+            list-style:inherit !important;
+        }
+        .note-editable
+        {
+            padding: 30px !important;
+        }
+        ul {
+
+            padding-left: 30px !important;
+        }
+        .rental-form {
+            padding-top: 110px;
+            padding-bottom: 110px;
+        }
+    </style>
+    
+  </head>
+  <body>
+      <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <nav class="navbar  navbar-expand-lg  fixed-top navbar-light" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/"><img src={% static 'img//Universal Adventures Logo.png'%} width="70px">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#adv">Welcome Admin!</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    {% for msg in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{msg}}</strong>
+        </div>
+    {% endfor %}
+  
+
+    <div class="rental-form">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section_title text-center mb_70">
+                        <h3>Add Rental Product</h3>
+                    </div>
+                </div>
+            </div>
+  
+            <form method="POST" action="/rentals-submit/" enctype="multipart/form-data">
+            {% csrf_token %}
+               <div class="form-data px-2 px-3">
+                    <div class="form-row px-2" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.3);">
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>State</label>
+                            </div>
+                            <div class="col-6">
+                                    <select id="state" name="state" class="form-control">
+                                    <option value="">Select State </option>
+                                    {% if states %}
+                                    {% for state in states %}
+                                        <option value="{{state.state}}">{{state.state}}</option>
+                                    {% endfor %}
+                                    {% endif %}
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>City : </label>
+                            </div>
+                            <div class="col-6">
+                                <select id="city" name="city" class="form-control">
+                                    <option value="">Select City</option>
+                                </select>
+                            </div>
+                        </div>
+                </div>
+
+                 <div class="form-row px-2 my-4" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.3);">
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>Rentals Type:</label>
+                        </div>
+                        <div class="col-6">
+                            <select
+                            class="form-control"
+                            id="rentals-type"
+                            name="rentals_type"
+                            >
+                            <!-- <option selected>Open this select menu</option> -->
+                            <option value="Self Driving Vehicle">Self Driving Vehicle</option>
+                            <option value="Sleeping Bag & Tent">Sleeping Bag & Tent</option>
+                            <option value="Trekking Gear">Trekking Gear</option>
+                            </select>
+        
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>Vehicle Gear Type:</label>
+                        </div>
+                        <div class="col-6">
+                            <select id="vehicle-gear-type" class="form-control" name="vehicle_gear_type">
+                                <option value="">Select Gear</option>
+                                <option value="Gear">Gear</option>
+                                <option value="Gear-Less">Gear-Less</option>
+                            </select>
+        
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>Category: </label>
+                        </div>
+                        <div class="col-6">
+                            <select id="category" class="form-control" name="category" aria-label="Default select example" >
+                            <option value="">Select Category</option>
+                            <option value="Car">Car</option>
+                            <option value="Bike">Bike</option>
+                            <option value="Scooty">Scooty</option>
+                            <option value="SUV">SUV</option>
+                            <option value="Luxury Car">Luxury Car</option>
+                            </select>
+        
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>Brand Name: </label>
+                        </div>
+                        <div class="col-6">
+                            <select id="brand-name" class="form-control" name="brand_name" aria-label="Default select example">
+                            <option value="">Select Brand</option>
+                            <option value="Hyundai">Hyundai</option>
+                            <option value="Maruti Suzuki">Maruti Suzuki</option>
+                            <option value="Kia">Kia</option>
+                            <option value="Honda">Honda</option>
+                            </select>
+        
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label >Product Name:</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="product_name" class="form-control" type="text" />
+                        </div>
+                    </div>
+
+                 </div>
+
+                 <div class="form-row px-2 my-4" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.3);">
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>Product Image: </label>
+                        </div>
+                        <div class="col-6">
+                            <input name="product_image" class="form-control" type="file" />
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>Product Image 2: </label>
+                        </div>
+                        <div class="col-6">
+                            <input name="product_image_2" class="form-control" type="file" />
+                        </div>
+                    </div>
+
+                 </div>
+                 <div class="form-row px-2 my-4" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.3);">
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>Specification 1:</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="specification_1" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>Specification 2:</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="specification_2" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>Specification 3:</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="specification_3" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>Popularity Score:</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="popularity_score" class="form-control type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>Delivery Option:</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="delivery_option" class="form-control type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>Terms & Conditions:</label>
+                        </div>
+                        <div class="col-9">
+                            <textarea id="summernote" name="terms_and_conditions" ></textarea>
+                        </div>
+                    </div>
+
+                 </div>
+                 <div class="form-row px-2 my-4" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.3);">
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>1-3 Days Price:</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="price_1_3" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>4-7 Days Price:</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="price_4_7" class="form-control type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>8-15 Days Price:</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="price_8_15" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>16-30 Days Price:</label>
+                        </div>
+                        <div class="col-6">
+                            <input name="price_16_30" class="form-control" type="text" />
+                        </div>
+                    </div>
+
+                 </div>
+                 <div class="form-row px-2 my-4" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.3);">
+                     <div class="form-group my-3" style="display: flex;width: 100%;justify-content: center;align-items: center;">
+                        <button type="submit" class="btn btn-primary mt-4 mb-4">Submit</button>
+                     </div>
+                 </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+
+<footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-lg-4 ">
+                        <div class="footer_widget">
+                            <div class="footer_logo">
+                                <a href="#">
+                                    <img src={% static 'img/footer.png' %} height="120px" width="300px" alt="">
+                                </a>
+                            </div>
+                            <a href="#">+91 8882654593</a> <br>
+                            <a href="mailto:contact@universaladventures.in">contact@universaladventures.in</a>
+                            </p>
+                            <div class="socail_links">
+                                <ul>
+                                    <li>
+                                        <a href="https://www.facebook.com/universaladventuresindia/">
+                                            <i class="ti-facebook"></i>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="https://www.instagram.com/universaladventuresindia/">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://g.co/kgs/FEs31r">
+                                            <i class="fa fa-google-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Company
+                            </h3>
+                            <ul class="links">
+                                <ul class="links">
+                                    <li><a href="/about/">About</a></li>
+                                    <li><a href="/contact/"> Contact</a></li>
+                                    <li><a href="/privacy-policy/">Privacy-Policy</a></li>
+                                    <li><a href="/partial-payment/">Partial Payment</a></li>
+                                    <li><a href="/refund-policy">Payments & Refund Policy</a></li>
+                                </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Popular destination
+                            </h3>
+                            <ul class="links double_links">
+                                <li><a href="/destination/Goa/">Goa</a></li>
+                                <li><a href="/destination/Karnataka/">Karnataka</a></li>
+                                <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
+                                <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
+                                <li><a href="/destination/Rajasthan/">Rajasthan</a></li>
+                                <li><a href="/destination/Maharashtra/">Maharashtra</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Instagram
+                            </h3>
+                            <div class="instagram_feed">
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/1.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/2.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/3.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/4.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/5.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/6.png' %} alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</footer>
+
+</body>
+    <!-- JS here -->
+    <script src={% static 'js/vendor/modernizr-3.5.0.min.js' %}></script>
+    <script src={% static 'js/vendor/jquery-1.12.4.min.js' %}></script>
+    <script src={% static 'js/popper.min.js' %}></script>
+    <script src={% static 'js/bootstrap.min.js' %}></script>
+    <script src={% static 'js/owl.carousel.min.js' %}></script>
+    <script src={% static 'js/isotope.pkgd.min.js' %}></script>
+    <script src={% static 'js/ajax-form.js' %}></script>
+    <script src={% static 'js/waypoints.min.js' %}></script>
+    <script src={% static 'js/jquery.counterup.min.js' %}></script>
+    <script src={% static 'js/imagesloaded.pkgd.min.js' %}></script>
+    <script src={% static 'js/scrollIt.js' %}></script>
+    <script src={% static 'js/jquery.scrollUp.min.js' %}></script>
+    <script src={% static 'js/wow.min.js' %}""></script>
+    <script src={% static 'js/nice-select.min.js' %}></script>
+    <script src={% static 'js/jquery.slicknav.min.js' %}></script>
+    <script src={% static 'js/jquery.magnific-popup.min.js' %}""></script>
+    <script src={% static 'js/plugins.js' %}></script>
+    <script src={% static 'js/gijgo.min.js' %}></script>
+    <script src={% static 'js/slick.min.js' %}></script>
+    <script src={% static 'js/tagsinput.js' %}></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <!--contact js-->
+
+    <script src={% static 'js/contact.js' %}></script>
+    <script src={% static 'js/jquery.ajaxchimp.min.js' %}></script>
+    <script src={% static 'js/jquery.form.js' %}></script>
+    <script src={% static 'js/jquery.validate.min.js' %}></script>
+    <script src={% static 'js/mail-script.js' %}></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script src= "https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.0.0/dist/js/BsMultiSelect.bs4.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        {% if messages %}
+            {% for message in messages %}
+                swal({
+                    title: "{{message}}",
+                    icon: "success",
+                    });
+            {% endfor %}
+        {% endif %}
+    </script>
+    <script>
+            $('#summernote').summernote({
+                tabsize: 2,
+                height: 250
+            });
+      </script>
+
+    <script>
+      {% comment %} $("#state").on("change", function(){
+        var el = $(this);
+        if(el.val() === "Rajasthan"){
+          $("#city").empty();
+          $("#city").append(
+            $("<option>", { value: "Jaisalmer", text: "Jaisalmer" }, "</option"),
+            $("<option>", { value: "Jaipur", text: "Jaipur" }, "</option")
+         );
+        }else if(el.val() === "Maharastra"){
+          $("#city").empty();
+          $("#city").append(
+            $("<option>", { value: "Mumbai", text: "Mumbai" }, "</option"),
+            $("<option>", { value: "Pune", text: "Pune" }, "</option")        
+          );
+        }
+      }) {% endcomment %}
+      
+     let p =`<option value="">Select City</option>`;
+        $('#state').change((e) =>
+        {
+            {% for city in cities %}
+                    if(e.target.value === "{{city.state.state}}")
+                    {
+                        p += `<option value="{{city.city}}">{{city.city}}</option>`;
+                    }
+            {% endfor %}
+
+            document.getElementById('city').innerHTML = p ;
+            p = '<option value="">Select City</option>';
+
+        })
+        
+    
+      $("#rentals-type").on("change", function () {
+        var el = $(this);
+        if (el.val() === "Sleeping Bag & Tent") {
+          $("#vehicle-gear-type").empty();
+          $("#category").empty();
+          $("#brand-name").empty();
+          $("#vehicle-gear-type").append(
+            $(
+              "<option>", {value: "NA", text:"N/A"}, "</option>"
+            )
+          );
+          $("#category").append(
+            $("<option>", { value: "", text: "Select Brand"}, "</option>"),
+            $(
+              "<option>",
+              { value: "Sleeping Bag", text: "Sleeeping Bag" },
+              "</option"
+            ),
+            $("<option>", { value: "Tent", text: "Tent" }, "</option"),
+            $("<option>", { value: "Combo", text: "Combo" }, "</option")
+          );
+          $("#brand-name").append(
+            $("<option>", { value: "", text: "Select Brand"}, "</option>"),
+            $("<option>", { value: "Quechua", text: "Quechua" }, "</option"),
+            $("<option>", { value: "Generic", text: "Generic" }, "</option"),
+            $(
+              "<option>",
+              { value: "North Face", text: "North Face" },
+              "</option"
+            )
+          );
+        } else if (el.val() === "Trekking Gear") {
+          $("#vehicle-gear-type").empty();
+          $("#category").empty();
+          $("#brand-name").empty();
+          $("#vehicle-gear-type").append(
+            $(
+              "<option>", {value: "NA", text:"NA"}, "</option>"
+            )
+          );
+          $("#category").append(
+            $("<option>", { value: "", text: "Select Category"}, "</option>"),
+            $(
+              "<option>",
+              { value: "Trekking Bag", text: "Trekking Bag" },
+              "</option"
+            ),
+            $(
+              "<option>",
+              { value: "Trekking Shoe", text: "Trekking Shoe" },
+              "</option"
+            )
+          );
+          $("#brand-name").append(
+            $("<option>", { value: "", text: "Select Brand"}, "</option>"),
+            $("<option>", { value: "Quechua", text: "Quechua" }, "</option"),
+            $("<option>", { value: "Generic", text: "Generic" }, "</option"),
+            $(
+              "<option>",
+              { value: "North Face", text: "North Face" },
+              "</option"
+            )
+          );
+        } else if (el.val() === "Self Driving Vehicle") {
+          $("#vehicle-gear-type").empty();
+          $("#category").empty();
+          $("#brand-name").empty();
+          $("#vehicle-gear-type").append(
+            $("<option>", { value: "", text: "Select Gear"}, "</option>"),
+            $("<option>", { value: "Gear", text: "Gear" }, "</option"),
+            $("<option>", { value: "Gear-Less", text: "Gear-Less" }, "</option")
+          );
+          $("#category").append(
+            $("<option>", { value: "", text: "Select Category"}, "</option>"),
+            $("<option>", { value: "Car", text: "Car" }, "</option"),
+            $("<option>", { value: "Bike", text: "Bike" }, "</option"),
+            $("<option>", { value: "Scooty", text: "Scooty" }, "</option"),
+            $("<option>", { value: "SUV", text: "SUV" }, "</option"),
+            $(
+              "<option>",
+              { value: "Luxury Car", text: "Luxury Car" },
+              "</option"
+            )
+          );
+          $("#brand-name").append(
+            $("<option>", { value: "", text: "Select Brand"}, "</option>"),
+            $("<option>", { value: "TVS", text: "TVS" }, "</option"),
+            $(
+              "<option>",
+              { value: "Royal Enfield", text: "Royal Enfield" },
+              "</option"
+            ),
+            $("<option>", { value: "BMW", text: "BMW" }, "</option"),
+            $("<option>", { value: "Hyundai", text: "Hyundai" }, "</option")
+          );
+        }
+      });
+
+
+
+      $("#category").on("change", function(){
+        var el = $(this);
+        if(el.val() === "Bike"){
+          $("#brand-name").empty();
+          $("#brand-name").append(
+            $("<option>", { value: "", text: "Select Brand"}, "</option>"),
+            $("<option>", { value: "Yamaha", text: "Yamaha" }, "</option"),
+            $("<option>", { value: "Hero", text: "Hero" }, "</option"),
+            $("<option>", { value: "Royal Enfield", text: "Royal Enfield" }, "</option"),
+            $("<option>", { value: "Bajaj", text: "Bajaj" }, "</option")
+         );
+        }else if(el.val() === "Scooty"){
+          $("#brand-name").empty();
+          $("#brand-name").append(
+            $("<option>", { value: "", text: "Select Brand"}, "</option>"),
+            $("<option>", { value: "TVS", text: "TVS" }, "</option"),
+            $("<option>", { value: "Honda", text: "Honda" }, "</option")        
+          );
+        }else if(el.val() === "SUV"){
+          $("#brand-name").empty();
+          $("#brand-name").append(
+            $("<option>", { value: "", text: "Select Brand"}, "</option>"),
+            $("<option>", { value: "Mahindra", text: "Mahindra" }, "</option"),
+            $("<option>", { value: "Toyota", text: "Toyota" }, "</option"),
+            $("<option>", { value: "Ford", text: "Ford" }, "</option")        
+          );
+        }else if(el.val() === "Luxury Car"){
+          $("#brand-name").empty();
+          $("#brand-name").append(
+            $("<option>", { value: "", text: "Select Brand"}, "</option>"),
+            $("<option>", { value: "Audi", text: "Audi" }, "</option"),
+            $("<option>", { value: "Tesla", text: "Tesla (Eco-Friendly)" }, "</option"),
+            $("<option>", { value: "Mercedes", text: "Mercedes" }, "</option")        
+          );
+        }else if(el.val() === "Car"){
+          $("#brand-name").empty();
+          $("#brand-name").append(
+            $("<option>", { value: "", text: "Select Brand"}, "</option>"),
+            $("<option>", { value: "Hyundai", text: "Hyundai" }, "</option"),
+            $("<option>", { value: "Maruti", text: "Maruti" }, "</option"),
+            $("<option>", { value: "Kia", text: "Kia" }, "</option"),
+            $("<option>", { value: "Honda", text: "Honda" }, "</option")        
+          );
+        }
+      });
+    </script>
+</html>

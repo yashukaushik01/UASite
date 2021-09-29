@@ -13,14 +13,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale = 1.0, user-scalable = no">
   <!-- Google Tag Manager -->
-  <script>(function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-KH59H8J');</script>
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+      });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-KH59H8J');
+  </script>
 
   <!-- End Google Tag Manager -->
   <!-- <link rel="manifest" href="site.webmanifest"> -->
@@ -46,941 +54,924 @@
 
 
   <link rel="stylesheet" href={% static 'css/style.css' %}>
-  <!-- <link rel="stylesheet" href="css/responsive.css"> -->
-  <style>
-    html,
-    body {
+ 
+<style>
+  html,
+body {
+    overflow-x: hidden;
+    scroll-behavior: smooth !important;
+    transition: all 0.25s ease;
+}
 
-      overflow-x: hidden;
-      scroll-behavior: smooth !important;
-      transition: all 0.25s ease;
-    }
+.datepicker td,
+.datepicker th {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 0.85rem;
+}
 
-    .datepicker td,
-    .datepicker th {
-      width: 2.5rem;
-      height: 2.5rem;
-      font-size: 0.85rem;
-    }
+.inctext {
+    display: block;
+}
 
-    .inctext {
-      display: block;
-    }
+.datepicker {
+    margin-bottom: 3rem;
+}
 
-    .datepicker {
-      margin-bottom: 3rem;
-    }
+#adv_type {
+    height: 170px;
+    overflow-y: scroll;
+}
 
-    #adv_type {
-      height: 170px;
-      overflow-y: scroll;
-    }
+.carousel-control-prev,
+.carousel-control-next {
+    top: auto;
+    bottom: auto;
+    padding: 20px;
+}
 
-    .carousel-control-prev,
-    .carousel-control-next {
-      top: auto;
-      bottom: auto;
-      padding: 20px;
-    }
+.carousel .carousel-indicators {
+    bottom: -50px;
+}
 
+.carousel-indicators li,
+.carousel-indicators li.active {
+    width: 10px;
+    height: 10px;
+    margin: 4px;
+    border-radius: 50%;
+    cursor: pointer;
+    border-color: transparent;
+}
 
-    .carousel .carousel-indicators {
-      bottom: -50px;
-    }
+.carousel-indicators li {
+    background: rgba(0, 0, 0, 0.2);
+}
 
-    .carousel-indicators li,
-    .carousel-indicators li.active {
-      width: 10px;
-      height: 10px;
-      margin: 4px;
-      border-radius: 50%;
-      cursor: pointer;
-      border-color: transparent;
-    }
+.carousel-indicators li.active {
+    background: rgba(0, 0, 0, 0.6);
+}
 
-    .carousel-indicators li {
-      background: rgba(0, 0, 0, 0.2);
-    }
+.open-button {
+    color: white;
+    padding: 16px 10px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    bottom: 4px;
+    right: 4px;
+    background: transparent;
+    text-decoration: none;
+    z-index: 8;
+}
 
-    .carousel-indicators li.active {
-      background: rgba(0, 0, 0, 0.6);
-    }
+/* The popup chat - hidden by default */
+#fr2 {
+    display: none;
+}
 
-    .open-button {
-      color: white;
-      padding: 16px 10px;
-      border: none;
-      cursor: pointer;
-      opacity: 0.8;
-      position: fixed;
-      bottom: 4px;
-      right: 4px;
-      background: transparent;
-      text-decoration: none;
-      z-index: 8;
-    }
+/* Add styles to the form container */
+.form-container {
+    max-width: 300px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 
-    /* The popup chat - hidden by default */
-    #fr2 {
-      display: none;
-    }
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 10px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+}
 
-    /* Add styles to the form container */
-    .form-container {
-      max-width: 300px;
-      padding: 10px;
-      border-radius: 10px;
-      background-color: white;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
-  </style>
-  <style>
-    .slider {
-      -webkit-appearance: none;
-      width: 100%;
-      height: 10px;
-      border-radius: 5px;
-      background: #d3d3d3;
-      outline: none;
-      opacity: 0.7;
-      -webkit-transition: .2s;
-      transition: opacity .2s;
-    }
+.slider:hover {
+    opacity: 1;
+}
 
-    .slider:hover {
-      opacity: 1;
-    }
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 50px;
+    height: 50px;
+    border: 0;
+    background: url("https://img.icons8.com/emoji/48/000000/fire.png");
+    cursor: pointer;
+}
 
-    .slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 50px;
-      height: 50px;
-      border: 0;
-      background: url("https://img.icons8.com/emoji/48/000000/fire.png");
-      cursor: pointer;
-    }
+.slider::-moz-range-thumb {
+    width: 23px;
+    height: 24px;
+    border: 0;
+    background: url("https://img.icons8.com/emoji/48/000000/fire.png");
+    cursor: pointer;
+}
 
-    .slider::-moz-range-thumb {
-      width: 23px;
-      height: 24px;
-      border: 0;
-      background: url("https://img.icons8.com/emoji/48/000000/fire.png");
-      cursor: pointer;
-    }
-  </style>
+.my-box-shadow:hover {
+    transform: scale(1.01);
+    box-shadow: 1px 3px 8px 0px #727484b7;
+}
 
-  <style>
-    .my-box-shadow:hover {
-      transform: scale(1.01);
-      box-shadow: 1px 3px 8px 0px #727484b7;
-    }
+.incimg {
+    width: 75% !important;
+    margin: 0 auto;
+}
 
-    .incimg {
-      width: 75% !important;
-      margin: 0 auto;
-    }
+.inctext {
+    display: flex;
+    justify-content: center;
+    font-size: 0.8em;
+    line-height: 1.3;
+}
 
-    .inctext {
-      display: flex;
-      justify-content: center;
-      font-size: 0.8em;
-      line-height: 1.3;
-    }
+.add-inc {
+    border: 1px solid #00000045 !important;
+    background-color: white;
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
 
+.shadoww {
+    box-shadow: inset 0px -87px 20px -18px #fdfdfddb;
+}
 
-    .add-inc {
-      border: 1px solid #00000045 !important;
-      background-color: white;
-      border-radius: 20px;
-      padding: 5px 10px;
-      font-weight: 500;
-      margin-bottom: 8px;
+.blank-ico {
+    opacity: 1;
+}
 
-    }
+.explore22-ico {
+    animation: explore-key 10s ease infinite;
+}
 
+.search-ico {
+    animation: search-key 10s ease infinite;
+}
 
-    .shadoww {
-      box-shadow: inset 0px -87px 20px -18px #fdfdfddb;
-    }
-
-    <!--Icon Animation-->
-    .blank-ico {
-      opacity: 1;
-    }
-
-    .explore22-ico {
-      animation: explore-key 10s ease infinite;
-    }
-
-    .search-ico {
-      animation: search-key 10s ease infinite;
-    }
-
-    @keyframes search-key {
-      0% {
+@keyframes search-key {
+    0% {
         opacity: 0;
-      }
+    }
 
-      5% {
+    5% {
         opacity: 0;
-      }
+    }
 
-      45% {
+    45% {
         opacity: 0;
-      }
+    }
 
-      50% {
+    50% {
         opacity: 0;
-      }
+    }
 
-      55% {
+    55% {
         opacity: 1;
-      }
+    }
 
-      95% {
+    95% {
         opacity: 1;
-      }
-
-      100% {
-        opacity: 0;
-      }
     }
 
-    @keyframes explore-key {
-      0% {
+    100% {
         opacity: 0;
-      }
+    }
+}
 
-      5% {
+@keyframes explore-key {
+    0% {
+        opacity: 0;
+    }
+
+    5% {
         opacity: 1;
-      }
+    }
 
-      45% {
+    45% {
         opacity: 1;
-      }
+    }
 
-      50% {
+    50% {
         opacity: 0;
-      }
+    }
 
-      55% {
+    55% {
         opacity: 0;
-      }
+    }
 
-      95% {
+    95% {
         opacity: 0;
-      }
+    }
 
-      100% {
+    100% {
         opacity: 0;
-      }
     }
-  </style>
-  <style>
-    html,
-    body {
-      overflow-x: hidden;
-      scroll-behavior: smooth !important;
-      transition: all 0.25s ease;
-    }
+}
 
-    .datepicker td,
-    .datepicker th {
-      width: 2.5rem;
-      height: 2.5rem;
-      font-size: 0.85rem;
-    }
+html,
+body {
+    overflow-x: hidden;
+    scroll-behavior: smooth !important;
+    transition: all 0.25s ease;
+}
 
-    .datepicker {
-      margin-bottom: 3rem;
-    }
+.datepicker td,
+.datepicker th {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 0.85rem;
+}
 
-    .chat-popup {
-      display: none;
-      position: fixed;
-      bottom: 0;
-      z-index: 9;
-    }
+.datepicker {
+    margin-bottom: 3rem;
+}
 
-    .carousel-control-prev,
-    .carousel-control-next {
-      top: auto;
-      bottom: auto;
-      padding: 20px;
-    }
+.chat-popup {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    z-index: 9;
+}
 
-    .ui-autocomplete {
-      max-height: 200px;
-      /* prevent horizontal scrollbar */
-      overflow-x: hidden;
-      overflow-y: auto;
+.carousel-control-prev,
+.carousel-control-next {
+    top: auto;
+    bottom: auto;
+    padding: 20px;
+}
 
+.ui-autocomplete {
+    max-height: 200px;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 
-    }
-
-    /* IE 6 doesn't support max-height
+/* IE 6 doesn't support max-height
    * we use height instead, but this forces the menu to always be this tall
    */
-    * html .ui-autocomplete {
-      height: 250px;
-    }
+* html .ui-autocomplete {
+    height: 250px;
+}
 
+.carousel .carousel-indicators {
+    bottom: -50px;
+}
 
-    .carousel .carousel-indicators {
-      bottom: -50px;
-    }
+.carousel-indicators li,
+.carousel-indicators li.active {
+    width: 10px;
+    height: 10px;
+    margin: 4px;
+    border-radius: 50%;
+    cursor: pointer;
+    border-color: transparent;
+}
 
-    .carousel-indicators li,
-    .carousel-indicators li.active {
-      width: 10px;
-      height: 10px;
-      margin: 4px;
-      border-radius: 50%;
-      cursor: pointer;
-      border-color: transparent;
-    }
+.carousel-indicators li {
+    background: rgba(0, 0, 0, 0.2);
+}
 
-    .carousel-indicators li {
-      background: rgba(0, 0, 0, 0.2);
-    }
+.carousel-indicators li.active {
+    background: rgba(0, 0, 0, 0.6);
+}
 
-    .carousel-indicators li.active {
-      background: rgba(0, 0, 0, 0.6);
-    }
+.open-button {
+    color: white;
+    padding: 16px 10px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    bottom: 4px;
+    right: 4px;
+    background: transparent;
+    text-decoration: none;
+    z-index: 8;
+}
 
-    .open-button {
-      color: white;
-      padding: 16px 10px;
-      border: none;
-      cursor: pointer;
-      opacity: 0.8;
-      position: fixed;
-      bottom: 4px;
-      right: 4px;
-      background: transparent;
-      text-decoration: none;
-      z-index: 8;
-    }
+#ui-id-1 {
+    z-index: 2000;
+}
 
-    #ui-id-1 {
-      z-index: 2000;
-    }
+/* The popup chat - hidden by default */
 
-    /* The popup chat - hidden by default */
+.navbar {
+    padding: 0.3rem 1rem;
+    box-shadow: 0px 1px 3px 1px #88888863;
+    position: static;
+    background-color: transparent;
+    border: none;
+    color: white;
+    transition: background-color 0.5s ease 0s;
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    background-image: linear-gradient(0deg,
+            rgb(0 0 0 / 0%) 1%,
+            rgba(0, 0, 0, 0.6699054621848739) 100%);
+}
 
+/* Solid class attached on scroll past first section */
 
+.navbar.solid {
+    background-color: gray;
+    transition: background-color 0.5s ease 0s;
+    box-shadow: 0 0 4px grey;
+}
 
-    .navbar {
-      padding: .3rem 1rem;
-      box-shadow: 0px 1px 3px 1px #88888863;
-      position:static;
-    }
+.navbar-toggler-icon {
+    display: none;
+}
 
-    .dropdown-item {
-      width: auto;
-    }
+.navbar-light .navbar-toggler {
+    border-color: rgba(0, 0, 0, 0);
+}
 
-    .navbar-toggler-icon {
-      display: none;
-    }
+.dropdown-item {
+    width: auto;
+}
 
-    .navbar-light .navbar-toggler {
-      border-color: rgba(0, 0, 0, 0);
-    }
+.status-btn {
+    background: rgba(0, 0, 0, 0.555);
+    color: white;
+    border-color: rgba(0, 0, 0, 0.555);
+    box-shadow: none;
+}
 
-    #fr2 {
-      display: none;
+.status-btn:not(:disabled):not(.disabled):active:focus,
+.status-btn:hover,
+.status-btn:focus {
+    box-shadow: none;
+}
+
+#fr2 {
+    display: none;
+}
+
+#exploreview2 {
+    display: none;
+}
+
+#mobilemodal {
+    display: none;
+}
+
+#exampleModal {
+    margin-top: 7%;
+}
+
+.mobile-searchbox {
+    display: none;
+}
+
+.laptop-searchbox {
+    display: block;
+}
+
+@media only screen and (max-width: 600px) {
+    #navbarResponsive {
+        display: none;
     }
 
     #exploreview2 {
-      display: none;
+        display: block;
     }
 
     #mobilemodal {
-      display: none;
+        display: block;
     }
 
     #exampleModal {
-      margin-top: 7%;
+        margin-top: 30%;
+        margin-right: 0%;
     }
 
     .mobile-searchbox {
-      display: none;
+        display: block;
     }
 
     .laptop-searchbox {
-      display: block;
-    }
-
-    .top-rated-image img {
-      height: 270px;
-      width: 200px;
-      border-radius: 10px;
-    }
-
-    .top-rated-body {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .top-exp-dt {
-      display: block;
-    }
-
-    .top-rated-main {
-      display: none;
-    }
-
-    .popular-tags-div 
-    {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-
-    .popular-tags {
-      display: flex;
-      margin: 10px;
-      padding: 5px;
-      padding-left: 20px;
-      padding-right: 20px;
-      background-color: #007bff;
-      border-radius: 25px;
-      border: 1px solid #007bff;
-    }
-    .popular-tags:hover
-    {
-      background-color: #0666ce;
-      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.19);
-    }
-
-    .popular-tags p {
-      color: white;
-    }
-
-    .travel-guide-main {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-
-    .travel-guide-card 
-    {
-      display: flex;
-      flex-direction: row;
-      justify-content:left;
-      margin:10px;
-      width: 400px;
-      border: 1px solid rgb(136, 139, 239);
-    }
-
-    .travel-guide-image img {
-      height: 150px;
-      width: 150px;
-    }
-
-    .travel-guide-body
-    {
-      padding: 10px;
-      align-self: flex-start;
-    }
-
-
-
-    @media only screen and (max-width: 600px) {
-      #navbarResponsive {
         display: none;
-      }
-
-      #exploreview2 {
-        display: block;
-      }
-
-      #mobilemodal {
-        display: block;
-      }
-
-      #exampleModal {
-        margin-top: 30%;
-        margin-right: 0%;
-      }
-
-      .mobile-searchbox {
-        display: block;
-      }
-
-      .laptop-searchbox {
-        display: none;
-      }
-
-      .top-exp-dt {
-        display: none;
-      }
-
-      .top-rated-main {
-        display: block;
-        overflow-x: scroll;
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-      }
-
     }
+}
 
-
-    @media (max-width: 991px) {
-      .tourhelpcard {
-        max-height: 90px !important;
-        padding-left: 10px;
-      }
-
-      .adventure-category {
-        max-height: 100px !important;
-
-      }
+@media (max-width: 415px) {
+    .nav-link {
+        font-size: 13px !important;
+        margin: 5px;
     }
+}
 
+/* Add styles to the form container */
+.form-container {
+    max-width: 300px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 
-
-    /* Add styles to the form container */
-    .form-container {
-      max-width: 300px;
-      padding: 10px;
-      border-radius: 10px;
-      background-color: white;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
-
-    @media (min-width: 992px) {
-      .carousel-content {
+@media (min-width: 992px) {
+    .carousel-content {
         height: 100vh;
         min-height: 40rem;
         padding-top: 4.5rem;
         padding-bottom: 0;
-      }
+    }
 
-      .carousel-content p {
+    .carousel-content p {
         font-size: 1.15rem;
-      }
+    }
 
-      .carousel-content h3 {
+    .carousel-content h3 {
         font-size: 2.5rem;
-      }
-
     }
+}
 
-    @media (min-width: 1200px) {
-      .carousel-content h3 {
-        font-size: 3.0rem;
-      }
+@media (min-width: 1200px) {
+    .carousel-content h3 {
+        font-size: 3rem;
     }
+}
 
-    .carousel-content {
-      position: absolute;
-      bottom: 8%;
-      left: 5%;
-      z-index: 50;
-      color: white;
-    }
+.carousel-content {
+    position: absolute;
+    bottom: 8%;
+    left: 5%;
+    z-index: 50;
+    color: white;
+}
 
-    .custom-select {
-      padding: 0 1.75rem .375rem .75rem;
-    }
+.custom-select {
+    padding: 0 1.75rem 0.375rem 0.75rem;
+}
 
+.blank-ico {
+    opacity: 1;
+}
 
-    <!--Icon Animation-->
-    .blank-ico {
-      opacity: 1;
-    }
+.explore22-ico {
+    animation: explore-key 10s ease infinite;
+}
 
-    .explore22-ico {
-      animation: explore-key 10s ease infinite;
-    }
+.search-ico {
+    animation: search-key 10s ease infinite;
+}
 
-    .search-ico {
-      animation: search-key 10s ease infinite;
-    }
-
-    @keyframes search-key {
-      0% {
+@keyframes search-key {
+    0% {
         opacity: 0;
-      }
+    }
 
-      5% {
+    5% {
         opacity: 0;
-      }
+    }
 
-      45% {
+    45% {
         opacity: 0;
-      }
+    }
 
-      50% {
+    50% {
         opacity: 0;
-      }
+    }
 
-      55% {
+    55% {
         opacity: 1;
-      }
+    }
 
-      95% {
+    95% {
         opacity: 1;
-      }
-
-      100% {
-        opacity: 0;
-      }
     }
 
-    @keyframes explore-key {
-      0% {
+    100% {
         opacity: 0;
-      }
+    }
+}
 
-      5% {
+@keyframes explore-key {
+    0% {
+        opacity: 0;
+    }
+
+    5% {
         opacity: 1;
-      }
+    }
 
-      45% {
+    45% {
         opacity: 1;
-      }
-
-      50% {
-        opacity: 0;
-      }
-
-      55% {
-        opacity: 0;
-      }
-
-      95% {
-        opacity: 0;
-      }
-
-      100% {
-        opacity: 0;
-      }
     }
 
-
-    .navbar {
-      background-color: transparent;
-      border: none;
-      color: white;
-      transition: background-color 0.5s ease 0s;
-      position: absolute;
-      z-index: 100;
-      width: 100%;
-      background-image: linear-gradient(0deg, rgb(0 0 0 / 0%) 1%, rgba(0, 0, 0, 0.6699054621848739) 100%);
+    50% {
+        opacity: 0;
     }
 
-
-
-    /* Solid class attached on scroll past first section */
-
-    .navbar.solid {
-      background-color: gray;
-      transition: background-color 0.5s ease 0s;
-      box-shadow: 0 0 4px grey;
-
+    55% {
+        opacity: 0;
     }
-  </style>
-  <style>
-    /* .fixed-top {
-    position: relative;
+
+    95% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.owl-prev,
+.owl-next {
+    position: absolute;
+    top: 45%;
+    border: 2px solid rgb(32, 184, 255) !important;
+    color: rgb(32, 184, 255) !important;
+    font-size: 30px !important;
+    width: 50px !important;
+    height: 50px !important;
+    line-height: 40px !important;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #fff !important;
+    opacity: 0.9;
+}
+
+.owl-prev:hover,
+.owl-next:hover {
+    opacity: 1;
+    font-size: 35px !important;
+    line-height: 20px !important;
+}
+
+.owl-prev {
+    left: -25px !important;
+}
+
+.owl-next {
+    right: -25px !important;
+}
+
+.owl-prev.disabled,
+.owl-next.disabled {
+    pointer-events: none;
+    opacity: 0.25;
+}
+
+
+/* banner */
+.banner {
+    box-shadow: 0px 1px 2px 0px #72748461;
+    background-position: center;
+    background-size: cover;
+}
+
+.banner-hr {
+    width: 90%;
+    margin-top: 75px !important;
+    position: absolute;
+    border-top: 2px solid;
+    color: #ffffff14;
+    right: 0px;
+    left: 0px
+}
+
+.banner-title {
+    border-left: 10px solid white;
+    font-weight: 500;
+    color: white;
+    font-size: 46px;
+    text-shadow: 1px 1px 3px #000000e3;
+}
+
+.banner-links {
+    border: 2px solid white;
+    border-radius: 100px;
+    color: white;
+    font-weight: 500;
+    background-color: #00000087;
+    font-size: 1.3rem;
+}
+
+.banner-tags {
+    border: 2px solid white;
+    border-radius: 50px;
+    color: black;
+    background-color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+#explore__city__items .owl-prev,
+#explore__city__items .owl-next {
     top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1030;
-} */
-    .owl-carousel 
-    {
-      perspective: 100px;
-    }
-    .owl-carousel .owl-nav {
-      overflow: hidden;
-      height: 0px;
-      margin: 10px;
+}
+
+
+/* title heading design */
+.title-heading {
+    border-left: 4px solid #007bff;
+    padding: 10px;
+    padding-right: 0;
+}
+
+/*  explore items  */
+#explore__city__items {
+    padding: 0 25px;
+}
+
+.city_item a {
+    border: 1.5px solid #007bff;
+    border-radius: 30px;
+    color: #000
+}
+
+.city_item a:hover {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.19);
+    color: #007bff !important;
+}
+
+/*  adventure  */
+#adventure-link {
+    width: fit-content;
+    margin-left: auto;
+}
+
+.tour-link-block {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap
+}
+
+#adventure-link,
+.tour-link {
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 2px solid #007bff;
+    color: #000;
+    font-size: 1em;
+    font-weight: 500;
+    text-align: center;
+    transition: 0.5s ease;
+}
+
+.tour-link {
+    width: fit-content;
+    margin: 5px;
+}
+
+#adventure-link:hover,
+.tour-link:hover {
+    background-color: #007bff !important;
+    color: #fff;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.19);
+}
+
+/* Card Design  of pop-adv and tour package */
+.box-shadow {
+    -webkit-box-shadow: 0 1px 1px rgba(72, 78, 85, 0.6);
+    box-shadow: 0 1px 1px rgba(72, 78, 85, 0.6);
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -ms-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+}
+
+.box-shadow:hover {
+    -webkit-transform: translateY(-15px);
+    -moz-transform: translateY(-15px);
+    -ms-transform: translateY(-15px);
+    -o-transform: translateY(-15px);
+    transform: translateY(-15px);
+}
+
+.adventure-carousel .card,
+.tour-carousel .card {
+    width: 300px;
+    border-radius: 8px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.adventure-carousel .card-body,
+.tour-carousel .card-body {
+    min-height: 160px;
+    padding: 0px;
+}
+
+.adventure-carousel .card-text,
+.tour-carousel .card-text {
+    padding: 10px 15px 0px 15px;
+    min-height: 160px;
+}
+
+.adventure-carousel .card img,
+.tour-carousel .card img {
+    height: 200px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.adventure-carousel .card svg,
+.tour-carousel .card svg {
+    position: absolute;
+    bottom: -0.1rem;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -ms-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    filter: drop-shadow(2px -9px 4px rgba(0, 69, 134, 0.2));
+}
+
+.adventure-carousel .card:hover svg,
+.tour-carousel .card:hover svg {
+    filter: drop-shadow(2px -9px 4px rgba(0, 69, 134, 0.4));
+}
+
+.adventure-carousel .nav-button,
+.tour-carousel .nav-button {
+    top: 48% !important;
+}
+
+.duration span {
+    color: gray;
+    font-weight: 500;
+}
+
+.rating span,
+.rating span a {
+    color: gray;
+}
+
+.rating .rating-points {
+    font-size: 14px;
+    padding: 2px 4px;
+    background: #4caf50;
+    color: white;
+    border-radius: 4px;
+}
+
+.vertical_hr {
+    opacity: 0.4;
+    padding: 5px;
+    font-weight: 400 !important;
+}
+
+.sale-price {
+    color: rgb(220, 46, 46);
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.regular-price,
+.regular-price i {
+    text-decoration: line-through;
+    color: gray;
+}
+
+/* popular tags */
+.popular-tags-div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.popular-tags-link {
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    color: #555;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+    transition: 0.5s ease;
+    margin: 3px;
+}
+
+.popular-tags-link:hover {
+    background-color: #007bff !important;
+    color: #fff;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.19);
+}
+
+/* travel guide */
+.travel-guide-carousel .card {
+    border-radius: 8px;
+    margin-top: 20px;
+    background-color: rgba(165, 180, 252, 1);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.travel-guide-carousel .card-body {
+    display: flex;
+    align-items: center;
+}
+
+.travel-guide-carousel .card-title {
+    margin: 0;
+    margin-top: 5px;
+    font-weight: 400;
+}
+
+.travel-guide-carousel .card img {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.travel-guide-carousel .feature {
+    position: absolute;
+    top: 100%;
+    left: 20px;
+    margin-top: -1.2rem;
+    color: rgba(139, 92, 246, 1);
+    background: #fff;
+    border-radius: 25px;
+}
+
+.travel-guide-carousel .feature:hover {
+    color: #0056b3;
+}
+
+.travel-guide-carousel .card-title {
+    text-transform: capitalize;
+    color: #fff;
+}
+
+@media screen and (max-width:992px) {
+    .travel-guide-carousel .card {
+        width: 300px;
     }
 
-    .owl-carousel .nav-button {
-      height: 25px;
-      width: 25px;
-      border-radius: 50%;
-      border: 1px solid black;
-      cursor: pointer;
-      position: absolute;
-      font-size: 12px;
-      top: 30% !important;
-    }
-
-    .owl-carousel .owl-prev.disabled,
-    .owl-carousel .owl-next.disabled {
-      pointer-events: none;
-      opacity: 0.25;
-    }
-
-    .owl-carousel .owl-prev {
-      left: -25px !important;
-    }
-
-    .owl-carousel .owl-next {
-      right: -15px !important;
-    }
-
-    .owl-theme .owl-nav [class*=owl-] {
-      color: #fff;
-      font-size: 30px;
-      background: transparent;
-      width: 35px;
-      height: 35px;
-      line-height: 35px;
-      border-radius: 50%;
-      text-align: center;
-      padding-top: -10px;
-      background-color: rgba(85, 85, 85, 0.829);
-      
-    }
-    ..owl-theme .owl-nav [class*=owl-]:hover
-    {
-      background-color: green;
-    }
-    .owl-carousel .prev-carousel:hover {
-      background-position: 0px -53px;
-      box-shadow: 2px 2px 10px green;
-    }
-
-    .owl-carousel .next-carousel:hover {
-      background-position: -24px -53px;
-    }
-
-    /* ================================= loc items =============== */
-    #city_item a:hover
-    {
-      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.19);
-      color: #007bff !important;
-
-    }
-    /* ================================= loc items =============== */
-    /* ================================= loc items =============== */
-    #adventure__all__block
-    {
-      transition: 0.5s ease;
-    }
-    #adventure__all__block:hover
-    {
-      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.19) !important;
-      color: #007bff !important;
-
-    }
-    /* ================================= loc items =============== */
-
-    /* =================== product item ========================== */
-    .item.product__items
-    {
-      transition: all 0.5s ease;
-
-    }
-    .item.product__items:hover
-    {
-      transform: translateZ(2px);
-      box-shadow: 2px 2px 10px rgba(39, 39, 39, 0.349) !important;
-    }
-    /* =================== product item ========================== */
-    /* ======================== tour block ======================= */
-    .trip__link__block
-    {
-      transition:0.5s ease;
-    }
-    .trip__link__block:hover
-    {
-      color: #007bff !important;
-      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.19);
-    }
-    /* ======================== tour block ======================= */
-  </style>
-  <style>
-    .explore-by-city
-    {
-      position: relative;
-    }
-    @media (max-width:820px)
-    {
-      .explore_by_city_block
-      {
-        display: flex;
-        flex-direction: column;
-      }
-      .explore_by_city_block h3
-      {
-        flex: 1;
-        width:100% !important;
-        /* white-space: nowrap; */
-        padding-top: 25px;
-        padding-bottom: 25px;
-        font-size: 24px;
-      }
-      .city__scroller
-      {
-        margin-left:auto ;
-        margin-right:auto ;
-      }
-      .popular-adventure
-      {
-        flex-direction: column;
-      }
-      .popular-adventure h3
-      {
+    .travel-guide-carousel .card img {
         width: 100%;
-        font-size: 24px;
-        white-space: normal;
-        
-      }
-      .popular-adventure a
-      {
-        font-size: 13px;
-        flex: 1 !important;
-        align-self: flex-end !important;
-
-      }
-      .pl-3, .px-3 {
-          padding-left: 0rem !important;
-      }
-
-      .pr-3, .px-3 {
-          padding-right: 0rem !important;
-      }
-      .col-4 {
-          -webkit-box-flex: 0;
-          -ms-flex: 0 0 33.333333%;
-          flex: 0 0 33.333333%;
-          max-width: 100.333333%;
-      }
-      .col-6 {
-        -webkit-box-flex: 0;
-        -ms-flex: 0 0 50%;
-        flex: 0 0 50%;
-        max-width: 100%;
-     }
-     .tour__package__block
-     {
-       width: 100% !important;
-       display: flex;
-       flex-direction: column;
-     }
-     .tour__package__block h2
-     {
-       flex: 1 !important;
-       font-size: 24px;
-     }
-     .tour__package__block a
-     {
-       flex: 1 !important;
-       width: 100% !important;
-       white-space: nowrap;
-       margin: 10px;
-       align-self: center;
-     }
-     .tour__package__block .all__tour__category
-     {
-       flex-direction: column;
-     }
-     .tour__package__block a:nth-child(1)
-     {
-       padding: 0 !important;
-     }
-     .tour__package__block a.col-2 {
-          max-width: 100.666667%;
-      }
-
+        height: 300px;
     }
-    @media (max-width:594px)
-    {
-      .owl-carousel .nav-button
-      {
+
+    .travel-guide-carousel .card-body {
+        height: 120px;
+    }
+}
+
+/* disable owl carousel for travel guide after 992px */
+@media (min-width:992px) {
+
+    .travel-cards-carousel .owl-next,
+    .travel-cards-carousel .owl-prev {
         display: none;
-      }
-      .no-js .owl-carousel, .owl-carousel.owl-loaded 
-      {
-        display: block;
-        width: 454px;
-      }
-      .col-8 {
-        -webkit-box-flex: 0;
-        -ms-flex: 0 0 66.666667%;
-        flex: 0 0 66.666667%;
-        max-width: 100.666667%;
-      }
-
-
     }
-    
-    @media (max-width:415px)
-    {
-      .no-js .owl-carousel, .owl-carousel.owl-loaded {
-          display: block;
-          width: 341px;
-      }
-      .owl-carousel .owl-theme.ml-2, .mx-2 
-      {
-            margin-left: 0.5rem !important;
-      }
-      #explore__city__items.mx-2
-      {
-        margin-left: -10px !important;
-      }
-      .card-header 
-      {
-        font-size: 12px;
-        display: flex;
-        justify-content: space-between;
 
-      }
-      .nav-link 
-      {
-        font-size: 13px !important;
-        margin: 5px;
-
-      }
+    .travel-cards-carousel .owl-stage {
+        transform: none !important;
+        transition: none !important;
+        width: auto !important;
     }
-    @media (max-width:350px)
-    {
-      .no-js .owl-carousel, .owl-carousel.owl-loaded 
-      {
-          display: block;
-          width: 300px;
-      }
-      .card-header 
-      {
-        font-size: 12px;
-        display: flex;
-        justify-content: space-between;
 
-      }
-      .nav-link 
-      {
-        font-size: 13px !important;
-        margin: 5px;
+    .travel-cards-carousel .owl-stage {
+        display: grid;
+        grid-template-columns: 32% 32% 32%;
+        gap: 0px 20px;
+        justify-content: stretch;
+    }
 
-      }
-      .travel-guide-image img
-      {
-        width: 100px;
+    .travel-cards-carousel .owl-stage .owl-item {
+        justify-self: stretch;
+        width: 100% !important;
+    }
+
+    .travel-guide-carousel .card img {
+        width: 100%;
+        height: 250px;
+    }
+
+    .travel-guide-carousel .card-body {
         height: 100px;
-      }
     }
-    @media (max-width:320px)
-    {
-      .no-js .owl-carousel, .owl-carousel.owl-loaded 
-      {
-          display: block;
-          width: 280px;
-      }
+}
+
+@media (max-width: 770px) {
+
+    .owl-carousel .owl-prev,
+    .owl-carousel .owl-next {
+        display: none;
     }
-  </style>
 
-
+    #explore__city__items {
+        padding: 0px;
+    }
+}
+</style>
+ 
 </head>
 
 <body>
@@ -1012,7 +1003,8 @@
               <button class="btn btn-secondary"
                 style="background-color:transparent;border:none;padding: 0px;font-weight: 600;color: white !important;font-size: 19px !important;"
                 type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false"> <img src={% static 'img//Nav Menu Icons//User white.svg' %}>
+                aria-expanded="false">
+                <img src={% static 'img//Nav Menu Icons//User white.svg' %}>
                 Hello {{user}}
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="options"
@@ -1022,11 +1014,9 @@
                     static 'img//Nav Menu Icons//wallet.svg' %} height="25px"><span class="col-md-10 pl-2">UA Cash:
                     &#8377;{{wallet.amount}}</span></a>
                 {% endfor %}
-                <a class="dropdown-item" href="/profile/" id="profileview"><img class="col-md-2 p-0" src={%
-                    static 'img//Nav Menu Icons//user profile.svg' %} height="25px"><span
+                <a class="dropdown-item" href="/profile/" id="profileview"><img class="col-md-2 p-0" src={% static 'img//Nav Menu Icons//user profile.svg' %} height="25px"><span
                     class="col-md-10 pl-2">Profile</span></a>
-                <a class="dropdown-item" href="/profile/#booking"><img class="col-md-2 p-0" src={%
-                    static 'img//Nav Menu Icons//bookings.svg' %} height="25px"><span
+                <a class="dropdown-item" href="/profile/#booking"><img class="col-md-2 p-0" src={% static 'img//Nav Menu Icons//bookings.svg' %} height="25px"><span
                     class="col-md-10 pl-2">Bookings</span></a>
                 <hr>
                 <a class="dropdown-item" href="/accounts/logout"><button type="button" class="btn btn-warning"
@@ -1041,17 +1031,16 @@
           {% else %}
           <li class="nav-item"><a class="nav-link js-scroll-trigger"
               style="font-weight: 600;color: white !important;padding-right: 50px;font-size: 19px !important;cursor: pointer;"
-              href="#" id="modal" data-toggle="modal" data-target="#log"><img src={%
-                static 'img//Nav Menu Icons//User white.svg' %}> Login</a></li>
-
+              href="#" id="modal" data-toggle="modal" data-target="#log">
+              <img src={% static 'img//Nav Menu Icons//User white.svg' %}> Login</a></li>
           {% endif %}
         </ul>
       </div>
       <div>
 
 
-        <i id="exploreview2"><img class="explore-ico" style="position: absolute;" 
-          src={% static 'img//Nav Menu Icons//Explore white.svg' %}></i>
+        <i id="exploreview2"><img class="explore-ico" style="position: absolute;"
+            src={% static 'img//Nav Menu Icons//Explore white.svg' %}></i>
         <i id="mobilemodal" style="padding-left: 45px; color:white; height:32px;">
           <img src={% static 'img//Nav Menu Icons//User white.svg' %}></i>
       </div>
@@ -1071,7 +1060,6 @@
             Sign in with Google
           </a>
 
-
         </div>
       </div>
     </div>
@@ -1088,16 +1076,15 @@
           <ul>
             {% for wallet in amount %}
             <li>
-              <h4 class="pb-1 pl-2"><img src={% static 'img//Nav Menu Icons//wallet.svg' %} height="30px"
+              <h4 class="pb-1 pl-2"><img src='{% static 'img//Nav Menu Icons//wallet.svg' %}' height="30px"
                   style="margin-left:-10px;margin-right:5px" class="pr-2"> UA Wallet:&#8377;{{wallet.amount}}</h4>
             </li>
             {% endfor %}
-            <li><a href="/profile/" class="pb-1 pl-2"><img src={% static 'img//Nav Menu Icons//user profile.svg' %}
-                  height="30px" style="margin-left:-10px;margin-right:5px" class="pr-2"><span
+            <li><a href="/profile/" class="pb-1 pl-2"><img src="{% static 'img//Nav Menu Icons//user profile.svg' %}" height="30px" style="margin-left:-10px;margin-right:5px" class="pr-2"><span
                   style="margin-left:8px">Profile</span></a></li>
-            <li class="mt-2"> <a href="/profile/#booking" class="pb-1 pl-2"><img src={%
-                  static 'img//Nav Menu Icons//bookings.svg' %} height="30px" style="margin-left:-10px;margin-right:5px"
-                  class="pr-2"><span style="margin-left:8px">Bookings</span></a></li>
+            <li class="mt-2"> <a href="/profile/#booking" class="pb-1 pl-2"><img src="{% static 'img//Nav Menu Icons//bookings.svg' %}" height="30px"
+                  style="margin-left:-10px;margin-right:5px" class="pr-2"><span
+                  style="margin-left:8px">Bookings</span></a></li>
           </ul>
           <div class="mt-2 pt-2" style="border-top:1px solid black">
             <center>
@@ -1119,6 +1106,7 @@
       </div>
     </div>
   </div>
+
   <!-- expert modal -->
   <div class="modal fade" id="expertModal" tabindex="-1" aria-labelledby="expertModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -1262,172 +1250,103 @@
     </div>
   </div>
 
-  </div>
 
+  <!-- products start  -->
+  <div class="popular_places_area" id="adv" style="padding: 0px;">
 
-  <!-- popular_destination_area_start  -->
-  <div class="popular_places_area" id="adv" style="padding-top: 0px;">
-
-
+    <!-- banner -->
     {% for destination in destination %}
-    <div class="row mb-0"
-      style="box-shadow: 0px 1px 2px 0px #72748461;background-image: linear-gradient(rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.2)), url('{{destination.image.url}} ');background-position: center;background-size: cover;">
+    <div class="banner row m-0 w-100"
+      style="background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),url('{{destination.image.url}}');">
 
       <hr
-        style="width: 90%;margin-top: 75px!important;position: absolute;border-top: 2px solid;color: #ffffff14;right: 0px;left: 0px;">
+        class="banner-hr">
       <div class="container" style="margin-top:60px;">
         <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-4 " style="top: 20px;">
-            <div
-              style="border-left: 10px solid white;font-weight: 500;color: white;font-size: 46px;text-shadow: 1px 1px 3px #000000e3;">
+          <div class="col-md-6 col-sm12 mb-4 " style="top: 20px;">
+            <div class="banner-title">
               &nbsp;{{city}}</div>
             <div class="ml-2">
-              <a href="/adventure/all/?state={{city}}" class="btn mt-2 px-4 mr-2"
-                style="border: 2px solid white;border-radius: 100px;color: white;font-weight: 500;background-color: #00000087;font-size: 1.3rem;">Adventures</a>
-              <a href="/tour/all/?state={{city}}" class="btn mt-2 px-4"
-                style="border: 2px solid white;border-radius: 100px;color: white;font-weight: 500;background-color: #00000087;font-size: 1.3rem;">Tours</a>
+              <a href="/adventure/all/?state={{city}}" class="banner-links btn mt-2 px-4 mr-2">Adventures</a>
+              <a href="/tour/all/?state={{city}}" class="banner-links btn mt-2 px-4 ">Tours</a>
 
             </div>
             <div class="ml-2" style="bottom: 1px">
-              <a href="/travel-guide/{{city}}/{{things_to_do.manual_slug}}" class="btn mt-2"
-                style="border: 2px solid white;border-radius: 50px;color: black;background-color: #ffffff;font-size: 0.8rem;font-weight: 500;">Things
-                To Do </a> <br>
-              <a href="/travel-guide/{{city}}/{{top_places_to_visit.manual_slug}}" class="btn mt-2"
-                style="border: 2px solid white;border-radius: 50px;color: black;background-color: #ffffff;font-size: 0.8rem;font-weight: 500;">Top
-                Places to Visit</a> <br>
-            </div>
-            <div class="ml-2" style="bottom: 1px">
-              <a href="#" class="btn mt-2"
-                style="border: 2px solid white;border-radius: 50px;color: black;background-color: #ffffff;font-size: 0.8rem;font-weight: 500;">{{city}}’s
+            {% if things_to_do.manual_slug %}
+              <a href="/travel-guide/{{city}}/{{things_to_do.manual_slug}}" class="banner-tags btn mt-2">Things To Do </a> 
+            {% else %}
+              <a href="/travel-guide/{{city}}/#" class="banner-tags btn mt-2">Things To Do </a> 
+            {% endif %}
+              <br>
+              {% if top_places_to_visit.manual_slug %}
+              <a href="/travel-guide/{{city}}/{{top_places_to_visit.manual_slug}}" class="banner-tags btn mt-2">Top Places to Visit</a> 
+              {% else %}
+              <a href="/travel-guide/{{city}}/#" class="banner-tags btn mt-2">Top Places to Visit</a> 
+              {% endif %}
+                <br>
+            <!-- </div>
+            <div class="ml-2" style="bottom: 1px"> -->
+              <a href="#faq" class="banner-tags btn mt-2">{{city}}’s
                 FAQs</a>
-              <a href="#travel-guide" class="btn mt-2"
-                style="border: 2px solid white;border-radius: 50px;color: black;background-color: #ffffff;font-size: 0.8rem;font-weight: 500;">{{city}}’s
+              <a href="#general-travel-guide" class="banner-tags btn mt-2">{{city}}’s
                 Travel Guide</a>
             </div>
-
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-2" id="editor">
+          
+          <!-- About/Covid/Reach -->
+          <div class="col-md-6 col-sm-12 my-2" id="editor">
+            <div class="row panel" style="justify-content: center;">
+              <!-- about -->
+                <button class="btn btn-sm btn-info status-btn collapsed m-1" type="button" data-parent="#newEditor" data-toggle="collapse" data-target="#oneCollapse" aria-expanded="false" aria-controls="oneCollapse">
+                  About
+                </button>
+                
+                <!-- covid status -->
+                <button class="btn btn-sm btn-info status-btn collapsed m-1" type="button" data-parent="#newEditor" data-toggle="collapse" data-target="#twoCollapse" aria-expanded="false" aria-controls="twoCollapse">
+                  Covid Status
+                </button>
+                
+                <!-- reach -->
+                <button class="btn btn-sm btn-info status-btn collapsed m-1" type="button" data-parent="#newEditor" data-toggle="collapse" data-target="#threeCollapse" aria-expanded="false" aria-controls="#threeCollapse">
+                  How To Reach
+                </button>
 
-            <div class="card mt-3 tab-card pb-4 status__block"
-              style="background-color: white;
-              color: #000;
-              box-shadow: 0px 1px 2px 0px #72748461;
-              width: 100%;border-radius: 10px;
-              display: flex;justify-content: space-between;">
-              <div class="card-header tab-card-header">
 
-                <ul class="nav nav-tabs card-header-tabs"
-                style="display: flex;width: 100%;justify-content: space-between;margin-left: 0;" id="myTab" role="tablist">
-
-                  <li class="nav-item px-2 pt-1 card-items" style="margin: 10px;margin-bottom: 0;
-                   text-align: center;
-                  border-radius: 5px 5px 0 0;color: #fff !important;" >
-                    <a class="nav-link" style="border: none;width: 100%;color: #fff;"  id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One"
-                      aria-selected="true">About</a>
-                  </li>
-
-                  <li class="nav-item px-5 pt-1 card-items" style="margin: 10px;" >
-                    <a class="nav-link" id="two-tab" style="border: none;width: 100%;"   data-toggle="tab" href="#two" role="tab" aria-controls="Two"
-                      aria-selected="false">Covid status</a>
-                  </li>
-
-                  <li class="nav-item px-3 pt-1 card-items" style="margin: 10px;">
-                    <a class="nav-link" id="three-tab" style="border: none;width: 100%;"   data-toggle="tab" href="#three" role="tab" aria-controls="Three"
-                      aria-selected="false">How To Reach</a>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
-                  <div style="height: 100px; overflow: hidden;" id="maindetails">
-                    <div id="highlights" class="ml-3" style="text-align: justify;">
+                <div class="collapse" id="oneCollapse">
+                  <div class="card">
+                    <div class="cross" style="position:absolute; top:0px; right:5px; font-size:20px; cursor:pointer;"  data-toggle="collapse" data-target="#oneCollapse" aria-expanded="false" aria-controls="oneCollapse">
+                      <i class="fas fa-times"></i>
+                    </div>
+                    <div class="card-body text-justify" style="padding: 20px !important;">
                       {{destination.readmore}}
                     </div>
                   </div>
-                  <button onclick="myFunction()" id="myBtn" class="btn text-primary float-right mx-3"
-                    style="border: 0.5px solid #007bff;padding: 2px 10px;position: absolute;box-shadow: none;bottom: 5px;">
-                    Read more</button>
                 </div>
-                <div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
-                  <div style="height: 100px; overflow: hidden;" id="maindetails2">
-                    <div id="highlights" class="ml-3" style="text-align: justify;">
+
+                <div class="collapse" id="twoCollapse">
+                  <div class="card">
+                    <div class="cross" style="position:absolute; top:0px; right:5px; font-size:20px; cursor:pointer;" data-toggle="collapse" data-target="#twoCollapse" aria-expanded="false" aria-controls="twoCollapse">
+                      <i class="fas fa-times"></i>
+                    </div>
+                    <div class="card-body text-justify" style="padding: 20px !important;">
                       {{destination.readmore}}
+                      
                     </div>
                   </div>
-                  <button onclick="myFunction2()" id="myBtn2" class="btn text-primary float-right mx-3"
-                    style="border: 0.5px solid #007bff;padding: 2px 10px;position: absolute;box-shadow: none;bottom: 5px;">Read
-                    more</button>
                 </div>
-                <div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
-                  <div style="height: 100px; overflow: hidden;" id="maindetails3">
-                    <div id="highlights" class="ml-3" style="text-align: justify;">
-                      {{destination.readmore}}
+
+                <div class="collapse" id="threeCollapse">
+                  <div class="card">
+                    <div class="cross" style="position:absolute; top:0px; right:5px; font-size:20px; cursor:pointer;"
+                    data-toggle="collapse" data-target="#threeCollapse" aria-expanded="false" aria-controls="#threeCollapse">
+                      <i class="fas fa-times"></i>
+                    </div>
+                    <div class="card-body text-justify" style="padding: 20px !important;">
+                    {{destination.readmore}}
                     </div>
                   </div>
-                  <button onclick="myFunction3()" id="myBtn3" class="btn text-primary float-right mx-3"
-                    style="border: 0.5px solid #007bff;padding: 2px 10px;position: absolute;box-shadow: none;bottom: 5px;">Read
-                    more</button>
                 </div>
               </div>
-            </div>
-
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-2" id="editor2"
-            style="display: none; padding-left: 30px;padding-right: 30px;">
-
-            <div class="card mt-3 tab-card"
-              style="background-color: rgb(255 255 255);box-shadow: 0px 1px 2px 0px #72748461;width: 100%;border-radius: 10px;display: flex;justify-content: center;padding: 20px 10px;">
-              <div class="card-header tab-card-header">
-                <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                  <li class="nav-item">
-                    <a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One"
-                      aria-selected="true">About</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two"
-                      aria-selected="false">Covid Status</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="Three"
-                      aria-selected="false">How To Reach</a>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
-                  <div style="height: 100px; overflow: hidden;" id="maindetails">
-                    <div id="highlights" class="ml-3" style="text-align: justify;">
-                      {{destination.readmore}}
-                    </div>
-                  </div>
-                  <button onclick="myFunction()" id="myBtn" class="btn text-primary float-right "
-                    style="border: 0.5px solid #007bff;padding: 2px 10px;position: absolute;box-shadow: none;bottom: 5px;">Read
-                    more</button>
-                </div>
-                <div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
-                  <div style="height: 100px; overflow: hidden;" id="maindetails2">
-                    <div id="highlights" class="ml-3" style="text-align: justify;">
-                      {{destination.readmore}}
-                    </div>
-                  </div>
-                  <button onclick="myFunction2()" id="myBtn2" class="btn text-primary float-right "
-                    style="border: 0.5px solid #007bff;padding: 2px 10px;position: absolute;box-shadow: none;bottom: 5px;margin-left: 20px;">Read
-                    more</button>
-                </div>
-                <div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
-                  <div style="height: 100px; overflow: hidden;" id="maindetails3">
-                    <div id="highlights" class="ml-3" style="text-align: justify;">
-                      {{destination.readmore}}
-                    </div>
-                  </div>
-                  <button onclick="myFunction3()" id="myBtn3" class="btn text-primary float-right "
-                    style="border: 0.5px solid #007bff;padding: 2px 10px;position: absolute;box-shadow: none;bottom: 5px;">Read
-                    more</button>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -1437,614 +1356,616 @@
 
     <div class="container">
 
-      <div class="row mt-4 d-sm-flex explore_by_city_block mx-2" style="margin-top:50px">
-        <h3 class="col-lg-4 col-md-12 col-sm-12 col-4 explore-by-city mt-2 pt-1" 
-        style="border-left: 4px solid #007bff;height: 55px;">Explore By Cities</h3>
-        <div class="col-lg-8 col-md-11 col-sm-11 col-8 city__scroller" >
-          <div class="owl-carousel owl-theme my-2 mx-2 px-4 col-sm-12" id="explore__city__items">
-            {% for location in destination_loc%}
-            <div class="item my-2 mt-3" id="city_item">
-              <a class="mx-1 py-2 px-4" href="/city/{{location}}"
-                style="border:1.5px solid #007bff;border-radius:30px;color: #000;">{{location}}</a>
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-
-      <div class="row mt-4 mx-2 popular-adventure" style="margin-top:50px;
-      display: flex;justify-content: space-between;align-items:center;">
-        <h3  style="border-left:4px solid #007bff;padding: 10px; padding-right: 0;">Popular Adventures in {{city}}</h3>
-        <a href="/adventure/all/?state={{city}}">
-          <div class="p-2" id="adventure__all__block"
-            style="color: #000; border-radius: 10px;
-            border: 2px solid #007bff;font-weight: 500;
-             width: fit-content;align-self: flex-end;margin-left: 4rem;">
-            See All Adventures</div>
-        </a>
-      </div>
-
-      <div class="container" style="margin-top:30px; margin-bottom: 7%">
-        <div class="top-exp-dt my-2 py-2 mx-2">
-          <div class="owl-carousel owl-theme my-2">
-            {% for prod in popular %}
-            <div class="item product__items" style="width: 200px;min-height: 400px;
-            box-shadow: 2px 2px 10px rgba(218, 216, 216, 0.822);
-             border-radius: 10px;">
-              <a href="/products/{{prod.manual_slug}}">
-                <div class="top-rated-image">
-                  {% with prod.images_set.all|first as image %}
-                  <img src="{{image.image.url}}" />
-                  {% endwith %}
-
-                  <div class="days"
-                    style="margin-top: -25px; margin-left:15px; color: white;z-index:10;;font-weight:200;">
-                    <i class="fa fa-clock-o" style="color:#fff"></i>
-                    <a href="#" style="color: white;">{{prod.duration}}</a>
-                    <i class="fa fa-map-marker ml-2"></i>
-                    <a href="#" style="color: white;">{{prod.city}}</a>
-                  </div>
-                  <div class="top-rated-body my-1 px-2 mb-2">
-                    <a href="#">
-                      <h4>{{prod.name}}</h4>
-                    </a>
-                    <div>
-                      <i class="fa fa-star" style="color: gold;"></i> ({{prod.rating}})<a href="#"> {{prod.reviews}} Reviews</a>
-                    </div>
-                    <div class="px-2 my-1" style="display: flex;flex-direction: row;justify-content: space-between;align-items:center;">
-                      <span style='display: block; 
-                      text-decoration:line-through; 
-                      color: gray;'><i
-                          class="fa fa-inr"></i>{{prod.regular}}</span>
-
-                      <span style="display: block; color:rgb(220, 46, 46); font-size: 20px;font-weight: 600;"><i
-                          class="fa fa-inr"></i>{{prod.sale}} </span>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-        <div class="top-rated-main">
-          {% for prod in popular %}
-          <div class="item product__items mx-2 my-2" style="width: 200px;min-height: 400px;
-            box-shadow: 2px 2px 10px rgba(218, 216, 216, 0.822);
-             border-radius: 10px;">
-              <a href="/products/{{prod.manual_slug}}">
-                <div class="top-rated-image">
-                  {% with prod.images_set.all|first as image %}
-                  <img src="{{image.image.url}}" />
-                  {% endwith %}
-
-                  <div class="days"
-                    style="margin-top: -25px; margin-left:15px; color: white;z-index:10;;font-weight:200;">
-                    <i class="fa fa-clock-o" style="color:#fff"></i>
-                    <a href="#" style="color: white;">{{prod.duration}}</a>
-                    <i class="fa fa-map-marker ml-2"></i>
-                    <a href="#" style="color: white;">{{prod.city}}</a>
-                  </div>
-                  <div class="top-rated-body my-1 px-2 mb-2">
-                    <a href="#">
-                      <h4>{{prod.name}}</h4>
-                    </a>
-                    <div>
-                      <i class="fa fa-star" style="color: gold;"></i> ({{prod.rating}})<a href="#"> {{prod.reviews}} Reviews</a>
-                    </div>
-                    <div class="px-3 my-1" style="display: flex;flex-direction: row;justify-content: space-between;align-items:center;">
-                      <span style='display: block; 
-                      text-decoration:line-through; 
-                      color: gray;'><i
-                          class="fa fa-inr"></i>{{prod.regular}}</span>
-
-                      <span style="display: block; color:rgb(220, 46, 46); font-size: 20px;font-weight: 600;"><i
-                          class="fa fa-inr"></i>{{prod.sale}} </span>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-          {% endfor %}
-        </div> 
-      </div>
-
-
-
-
-      <div class="row mt-4 tour__package__block mx-2" style="margin-top:50px;display: flex;justify-content: space-between;">
-        <h3 class="col-lg-4 col-md-4 col-sm-4 col-4 py-3" style="border-left: 4px solid #007bff;padding: 10px;padding-right: 0;">Tour Package for {{city}}</h3>
-        <div style="display: flex;" class="all__tour__category">
-        <div style="display: flex;justify-content: space-evenly;">
-          <a href="/tour/Family-Trips/?state={{city}}">
-            <div class="text-center p-2 trip__link__block mx-2"
-              style=" border-radius: 10px; 
-             border: 2px solid #007bff;color: #000;font-size: 1em;font-weight: 500;"
-              id="fam">Family Trips</div>
-          </a>
-          <a href="/tour/Romantic-Trips/?state={{city}}">
-            <div class="text-center p-2 trip__link__block"
-              style=" border-radius: 10px;border: 2px solid #007bff;color:#000;font-size: 1em;font-weight: 500;">
-              Romantic Trips</div>
-          </a>
-        </div>
-        <div style="display: flex; justify-content: space-evenly;">
-          <a href="/tour/Trip-with-Friends/?state={{city}}">
-            <div class="text-center p-2 trip__link__block mx-2"
-              style=" border-radius: 10px;border: 2px solid #007bff;color: #000;font-size: 1em;font-weight: 500;">
-              Trip with Friends</div>
-          </a>
-          <a href="/tour/all/?state={{city}}">
-            <div class="text-center p-2 trip__link__block"
-              style=" border-radius: 10px;border: 2px solid #007bff;color: #000;font-size: 1em;font-weight: 500;">
-              See All</div>
-          </a>
-        </div>
-      </div>
-      </div>
-
-      <div class="container" style="margin-top:30px; margin-bottom: 7%">
-        <div class="top-exp-dt">
-          <div class="owl-carousel owl-theme pl-2 my-2 mx-2" 
-          style=" margin-left: 20px !important;">
-            {% for prod in tour %}
-            <div class="item product__items" style="width: 200px;min-height: 400px;
-            box-shadow: 2px 2px 10px rgba(218, 216, 216, 0.822);
-             border-radius: 10px;">
-              <a href="/products/{{prod.manual_slug}}">
-                <div class="top-rated-image">
-                  {% with prod.images_set.all|first as image %}
-                  <img src="{{image.image.url}}" />
-                  {% endwith %}
-
-                  <div class="days"
-                    style="margin-top: -25px; margin-left:15px; color: white;z-index:10;;font-weight:200;">
-                    <i class="fa fa-clock-o" style="color:#fff"></i>
-                    <a href="#" style="color: white;">{{prod.duration}}</a>
-                    <i class="fa fa-map-marker ml-2"></i>
-                    <a href="#" style="color: white;">{{prod.city}}</a>
-                  </div>
-                  <div class="top-rated-body my-1 px-2 mb-2">
-                    <a href="#">
-                      <h4>{{prod.name}}</h4>
-                    </a>
-                    <div>
-                      <i class="fa fa-star" style="color: gold;"></i> ({{prod.rating}})<a href="#"> {{prod.reviews}} Reviews</a>
-                    </div>
-                    <div class="px-2 my-1" style="display: flex;flex-direction: row;justify-content: space-between;align-items:center;">
-                      <span style='display: block; 
-                      text-decoration:line-through; 
-                      color: gray;'><i
-                          class="fa fa-inr"></i>{{prod.regular}}</span>
-
-                      <span style="display: block; color:rgb(220, 46, 46); font-size: 20px;font-weight: 600;"><i
-                          class="fa fa-inr"></i>{{prod.sale}} </span>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-        <div class="top-rated-main">
-          {% for prod in tour %}
-          <div class="item product__items" style="width: 200px;min-height: 400px;
-            box-shadow: 2px 2px 10px rgba(218, 216, 216, 0.822);
-             border-radius: 10px;">
-              <a href="/products/{{prod.manual_slug}}">
-                <div class="top-rated-image">
-                  {% with prod.images_set.all|first as image %}
-                  <img src="{{image.image.url}}" />
-                  {% endwith %}
-
-                  <div class="days"
-                    style="margin-top: -25px; margin-left:15px; color: white;z-index:10;;font-weight:200;">
-                    <i class="fa fa-clock-o" style="color:#fff"></i>
-                    <a href="#" style="color: white;">{{prod.duration}}</a>
-                    <i class="fa fa-map-marker ml-2"></i>
-                    <a href="#" style="color: white;">{{prod.city}}</a>
-                  </div>
-                  <div class="top-rated-body my-1 px-2 mb-2">
-                    <a href="#">
-                      <h4>{{prod.name}}</h4>
-                    </a>
-                    <div>
-                      <i class="fa fa-star" style="color: gold;"></i> ({{prod.rating}})<a href="#"> {{prod.reviews}} Reviews</a>
-                    </div>
-                    <div class="px-2 my-1" style="display: flex;flex-direction: row;justify-content: space-between;align-items:center;">
-                      <span style='display: block; 
-                      text-decoration:line-through; 
-                      color: gray;'><i
-                          class="fa fa-inr"></i>{{prod.regular}}</span>
-
-                      <span style="display: block; color:rgb(220, 46, 46); font-size: 20px;font-weight: 600;"><i
-                          class="fa fa-inr"></i>{{prod.sale}} </span>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-
-      <h3 class="mx-2 py-3" style="margin-top:70px;border-left: 4px solid #007bff;padding:10px 20px;">Popular Tags  </h3>
-      <div class="container popular-tags-div" style="margin-top:30px; margin-bottom: 5%">
-         {% for tags in populartags %} 
-          <a class="popular-tags" href="{{tags.link}}"> 
-           <p>{{tags.name}}</p> 
-          </a>
-         {% endfor %} 
-         <a class="popular-tags" href="{{tags.link}}"> 
-           <p>Tag 1</p> 
-          </a>
-          <a class="popular-tags" href="{{tags.link}}"> 
-           <p>Tag 2</p> 
-          </a>
-
-      </div>
-
-
-      <h3 class="mx-2 py-3 px-4" style="margin-top:70px;border-left: 4px solid #007bff; " id="travel-guide">{{city}}’s Travel Guide</h3>
-      <div class="container travel-guide-main" style="margin-top:30px; margin-bottom: 5%">
-        {% for guide in travelguide %}
-        <div class="travel-guide-card" style="border: none;
-        box-shadow: 2px 2px 10px rgba(218, 216, 216, 0.822);
-        border-radius: 10px;overflow: hidden;">
-          <div class="travel-guide-image">
-            <img src="{{guide.image.url}}">
-          </div>
-          <div class="travel-guide-body">
-            <h4><a href="#">{{guide.heading}}</a></h4>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-
-
-
-      <h3 class="mx-2 py-3 px-4" style="margin-top:70px;border-left:4px solid #007bff;">FAQs about {{city}}</h2>
-      <div class="container" style="margin-top:30px; margin-bottom: 5%">
-        {% for i in destination %}
-        {{i.faq|safe}}
-        {% endfor %}
-      </div>
-
-    </div>
-  </div>
-
-
-  <button class="open-button" onclick="openForm()">
-    <img src={% static 'img/calling.svg' %}
-      style="filter: drop-shadow(0.15rem 0.15rem 0.3rem rgba(0, 0, 0, 0.5));width: 55px;" />
-  </button>
-
-
-  <div class="chat-popup" id="myForm">
-    <div style="background-color: #000000ab;width: 100vw;height: 1000vw;backdrop-filter: blur(1px);">
-      <div style="max-width: 1000px;position: fixed;bottom: 0px;right: 15px;">
-
-        <div class="form-container" id="fr2" style="text-align: center;">
-          <img src={% static 'img/Universal Adventures Logo.png' %} width="70px" style="margin-bottom: 1rem;">
-          <h3 style="margin-bottom: 1rem;">Thank You!</h3>
-          <h3 style="margin-bottom: 1rem;">Our Expert Will Call You In A Moment</h3>
-          <button class="btn btn-info" onclick="closeForm()">Close</button>
-        </div>
-        <form action="/" class="form-container mb-3 p-3" id='formg' name="google-sheet"
-          style="max-width: 380px;border-radius: 10px 0px 10px 10px;">
-
-          <!-- <i onclick="closeForm()" class="fa fa-times" style="float: right; cursor: pointer;"></i> -->
-
-          <div class="mt-n3" onclick="closeForm()"
-            style="position: absolute;cursor: pointer;background-color: #d82343;color: white;font-weight: 600;right: 0px;padding: 5px 15px;margin-top: -3.1rem;border-radius: 5px 5px 0px 0px;">
-            Close</div>
-          <h3>How can we help you?</h3>
-          <p>Please send your query or Call Us</p>
-          <div class="form-group row mb-0">
-            <div class="col-md-12">
-              <input type="text" class="form-control" id="inputname" placeholder="Name" name="Name">
-            </div>
-          </div>
-
-          <div class="form-group row mb-0">
-            <div class="col-md-12">
-              <input type="tel" class="form-control" id="inputPhone" placeholder="Phone" name="Phone">
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-md-12">
-              <textarea class="form-control" id="inputEmail3" placeholder="Message (optional)" name="Email"
-                style="height: 100px;"></textarea>
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-md-12">
-              <button type="submit" onclick="Sub()" class="btn btn-primary">Send Enquiry</button>&nbsp;or &nbsp; <button
-                type="button" class="btn bg-white text-danger float-right" onclick="location.href='tel:8882654593'"
-                style="border: 1px solid #ee4347;"><i class="fas fa-headset mr-2" aria-hidden="true"></i>Call
-                Expert</button>
-
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <footer class="footer">
-    <div class="footer_top">
-      <div class="container">
+      <!-- explore cities -->
+      <div class="explore_by_city_block mt-4" >
         <div class="row">
-          <div class="col-xl-4 col-md-6 col-lg-4 ">
-            <div class="footer_widget">
-              <div class="footer_logo">
-                <a href="#">
-                  <img src={% static 'img/footer.png' %} width="200px" alt="">
+        <div class="col-lg-4 col-12">
+        <h3 class="title-heading">Explore By Cities</h3>
+      </div>
+        <div class="col-lg-8 col-12">
+          <div class="owl-carousel owl-theme m-2" id="explore__city__items">
+            {% for location in destination_loc%}
+            <div class="item my-2 mt-3 city_item">
+              <a class="mx-1 py-2 px-4" href="/city/{{location}}">{{location}}</a>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        </div>
+      </div>
+
+
+      <!-- popular adventure -->
+      <div class="popular-adventure mt-4">
+        <div class="row">
+        <div class="col-md-8 col-12">
+          <h3 class="title-heading">Popular Adventures in {{city}}</h3>
+        </div>
+        <div class="col-md-4 col-12">
+          <a href="/adventure/all/?state={{city}}">
+            <div id="adventure-link"> See All Adventures</div>
+          </a>
+        </div>
+        </div>
+
+        <div class="adventure-carousel">
+        <div>
+            <div class="owl-carousel owl-theme my-2 wave-cards-carousel">
+              {% for prod in popular %}
+              <div class="item card box-shadow mx-auto" >
+                <a href="/products/{{prod.manual_slug}}">
+                <!-- img div  -->
+                <div style="position: relative;">
+                    {% with prod.images_set.all|first as image %}
+                    <img src="{{image.image.url}}" class="card-img-top" alt="...">
+                    {% endwith %}
+                  <!-- wave div -->
+                  <div class="wave">
+                    <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 50px; width: 100%;">
+                      <path d="M-21.22,5.24 C13.20,296.34 422.34,-40.16 530.70,153.25 L500.00,150.00 L0.00,150.00 Z"
+                        style="stroke: none; fill: #fff;"></path>
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- text div -->
+                <div class="card-body">
+                  <div class="card-text row" style="align-content: space-between">
+                    <!-- title -->
+                    <div class="col-12">
+                      <a href="/products/{{prod.manual_slug}}">
+                        <h4 class="">{{prod.name}}</h4>
+                      </a>
+                    </div>
+                    <!-- duration  -->
+                    <div class="col-12 duration">
+                      <span>
+                        <i class="far fa-clock"></i>
+                        {{prod.duration}} </span>
+                      <span class="vertical_hr">
+                        |
+                      </span>
+                      <span>
+                        <i class="fa fa-map-marker"></i>
+                        {{prod.city}}</span>
+                    </div>
+                    <!-- rating -->
+                    <div class="col-12 rating">
+                      <span>
+                        <i class="fa fa-star" style="color: gold;"></i>
+                        <span class="rating-points">
+                          {{prod.rating}}
+                        </span>
+                      </span>
+                      <span class="vertical_hr">
+                        |
+                      </span>
+                      <span>
+                        <a href="#">{{prod.reviews}} Reviews</a>
+                      </span>
+                    </div>
+                    <!-- price -->
+                    <div class="col-12">
+                      <span class="sale-price">
+                        <i class="fa fa-inr"></i>{{prod.sale}}
+                      </span>
+                      <span class="regular-price">
+                        <i class="fa fa-inr"></i>{{prod.regular}}
+                      </span>
+                      <a href="/products/{{prod.manual_slug}}" class="btn btn-sm btn-info" style="float: right;">
+                        Details</a>
+                    </div>
+                  </div>
+
+                </div>
                 </a>
               </div>
-              <a href="#">+91 8882654593</a> <br>
-              <a href="mailto:contact@universaladventures.in">contact@universaladventures.in</a>
-              </p>
-              <div class="socail_links">
-                <ul>
-                  <li>
-                    <a href="https://www.facebook.com/universaladventuresindia/">
-                      <i class="ti-facebook"></i>
-                    </a>
-                  </li>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
 
-                  <li>
-                    <a href="https://www.instagram.com/universaladventuresindia/">
-                      <i class="fa fa-instagram"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://g.co/kgs/FEs31r">
-                      <i class="fa fa-google-plus"></i>
-                    </a>
-                  </li>
-                </ul>
+
+      <!-- tour package -->
+      <div class="tour-package mt-4">
+        <div class="row">
+          <div class="col-md-4 col-12">
+          <h3 class="title-heading">Tour Package for {{city}}</h3>
+          </div>
+
+          <div class="col-md-8 col-12 tour-link-block">
+              <a href="/tour/Family-Trips/?state={{city}}" class="tour-link">
+                Family Trips
+              </a>
+              <a href="/tour/Romantic-Trips/?state={{city}}" class="tour-link">
+                  Romantic Trips
+                </a> 
+            
+              <a href="/tour/Trip-with-Friends/?state={{city}}" class="tour-link">
+                  Trip with Friends
+              </a>
+              <a href="/tour/all/?state={{city}}" class="tour-link" style="margin-right: 0;">
+                  See All
+              </a>
+          </div>
+        </div>
+
+        <div class="tour-carousel">
+          <div>
+            <div class="owl-carousel owl-theme my-2 wave-cards-carousel">
+
+              {% for prod in tour %}
+              <div class="item card box-shadow mx-auto">
+                <a href="/products/{{prod.manual_slug}}">
+                <!-- img div  -->
+                <div style="position: relative;">
+                    {% with prod.images_set.all|first as image %}
+                    <img src="{{image.image.url}}" class=" card-img-top" alt="...">
+                    {% endwith %}
+                  <!-- wave div -->
+                  <div class="wave">
+                    <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 50px; width: 100%;">
+                      <path d="M-21.22,5.24 C13.20,296.34 422.34,-40.16 530.70,153.25 L500.00,150.00 L0.00,150.00 Z"
+                        style="stroke: none; fill: #fff;"></path>
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- text div -->
+                <div class="card-body">
+                  <div class="card-text row" style="align-content: space-between">
+                    <!-- title -->
+                    <div class="col-12">
+                      <a href="/products/{{prod.manual_slug}}">
+                        <h4 class="">{{prod.name}}</h4>
+                      </a>
+                    </div>
+                    <!-- duration  -->
+                    <div class="col-12 duration">
+                      <span>
+                        <i class="far fa-clock"></i>
+                        {{prod.duration}} </span>
+                      <span class="vertical_hr">
+                        |
+                      </span>
+                      <span>
+                        <i class="fa fa-map-marker"></i>
+                        {{prod.city}}</span>
+                    </div>
+                    <!-- rating -->
+                    <div class="col-12 rating">
+                     <span>
+                        <i class="fa fa-star" style="color: gold;"></i>
+                        <span class="rating-points">
+                          {{prod.rating}}
+                        </span>
+                      </span>
+                      <span class="vertical_hr">
+                        |
+                      </span>
+                      <span>
+                        <a href="#">{{prod.reviews}} Reviews</a>
+                      </span>
+                    </div>
+                    <!-- price -->
+                    <div class="col-12">
+                      <span class="sale-price">
+                        <i class="fa fa-inr"></i>{{prod.sale}}
+                      </span>
+                      <span class="regular-price">
+                        <i class="fa fa-inr"></i>{{prod.regular}}
+                      </span>
+                      <a href="/products/{{prod.manual_slug}}" class="btn btn-sm btn-info" style="float: right;">
+                        Details</a>
+                    </div>
+                  </div>
+                </div>
+                </a>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+      <!-- popular tags -->
+      <div class="popular-tags mt-4">
+        <div class="row">
+          <div class="col-12">
+            <h3 class="title-heading">Popular Tags</h3>
+          </div>
+          <div class="popular-tags-div col-12">
+            {% for tags in populartags %} 
+              <a class="popular-tags" href="{{tags.link}}"> 
+              <p>{{tags.name}}</p> 
+              </a>
+            {% endfor %} 
+          </div>
+        </div>
+      </div>
+
+
+      <!-- travels guide -->
+      <div class="travel-guide mt-4" id="general-travel-guide">
+        <h3 class="title-heading">{{city}}’s Travel Guide</h3>
+
+        <div class="travel-guide-carousel">
+          <div class="owl-carousel owl-theme my-2 mx-0 travel-cards-carousel row">
+            {% for guide in travelguide %}
+            <div class="item card box-shadow">
+            <!-- img div  -->
+              <div style="position: relative">
+                <img src="{{guide.image.url}}" class="card-img-top" alt="..." />
+                <!-- feature div -->
+                <div >
+                  <a href="/travel-guide/{{city}}/{{guide.manual_slug}}" class="feature px-3 py-2 ">Featured</a>
+                </div>
               </div>
 
+              <div class="card-body">
+                <h3 class="card-title"><a href="/travel-guide/{{city}}/{{guide.manual_slug}}">{{guide.heading}}</a></h3>
+              </div>
             </div>
-          </div>
-          <div class="col-xl-2 col-md-6 col-lg-2">
-            <div class="footer_widget">
-              <h3 class="footer_title">
-                Company
-              </h3>
-              <ul class="links">
-                <ul class="links">
-                  <li><a href="/about/">About</a></li>
-                  <li><a href="/contact/"> Contact</a></li>
-                  <li><a href="/privacy-policy/">Privacy-Policy</a></li>
-                  <li><a href="/partial-payment/">Partial Payment</a></li>
-                  <li><a href="/refund-policy">Payments & Refund Policy</a></li>
-                </ul>
-            </div>
-          </div>
-          <div class="col-xl-3 col-md-6 col-lg-3">
-            <div class="footer_widget">
-              <h3 class="footer_title">
-                Popular destination
-              </h3>
-              <ul class="links double_links">
-                <li><a href="/destination/Goa/">Goa</a></li>
-                <li><a href="/destination/Karnataka/">Karnataka</a></li>
-                <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
-                <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
-                <li><a href="/destination/Rajasthan/">Rajasthan</a></li>
-                <li><a href="/destination/Maharashtra/">Maharashtra</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-xl-3 col-md-6 col-lg-3">
-            <div class="footer_widget">
-              <h3 class="footer_title">
-                Instagram
-              </h3>
-              <div class="instagram_feed" id="ing">
+            {% endfor %}
 
+          </div>
+        </div>
+      </div>
+
+
+      <!-- FAQ's -->
+      <div class="faqs my-4" id="faq">
+      <h3 class="title-heading">FAQs about {{city}}</h3>
+        <div class="container">
+          {% for i in destination %}
+          {{i.faq|safe}}
+          {% endfor %}
+        </div>
+      </div>
+  </div>
+
+
+    <button class="open-button" onclick="openForm()">
+      <img src={% static 'img/calling.svg' %}
+        style="filter: drop-shadow(0.15rem 0.15rem 0.3rem rgba(0, 0, 0, 0.5));width: 55px;" />
+    </button>
+
+
+    <div class="chat-popup" id="myForm">
+      <div style="background-color: #000000ab;width: 100vw;height: 1000vw;backdrop-filter: blur(1px);">
+        <div style="max-width: 1000px;position: fixed;bottom: 0px;right: 15px;">
+
+          <div class="form-container" id="fr2" style="text-align: center;">
+            <img src={% static 'img/Universal Adventures Logo.png' %} width="70px" style="margin-bottom: 1rem;">
+            <h3 style="margin-bottom: 1rem;">Thank You!</h3>
+            <h3 style="margin-bottom: 1rem;">Our Expert Will Call You In A Moment</h3>
+            <button class="btn btn-info" onclick="closeForm()">Close</button>
+          </div>
+          <form action="/" class="form-container mb-3 p-3" id='formg' name="google-sheet"
+            style="max-width: 380px;border-radius: 10px 0px 10px 10px;">
+
+            <!-- <i onclick="closeForm()" class="fa fa-times" style="float: right; cursor: pointer;"></i> -->
+
+            <div class="mt-n3" onclick="closeForm()"
+              style="position: absolute;cursor: pointer;background-color: #d82343;color: white;font-weight: 600;right: 0px;padding: 5px 15px;margin-top: -3.1rem;border-radius: 5px 5px 0px 0px;">
+              Close</div>
+            <h3>How can we help you?</h3>
+            <p>Please send your query or Call Us</p>
+            <div class="form-group row mb-0">
+              <div class="col-md-12">
+                <input type="text" class="form-control" id="inputname" placeholder="Name" name="Name">
+              </div>
+            </div>
+
+            <div class="form-group row mb-0">
+              <div class="col-md-12">
+                <input type="tel" class="form-control" id="inputPhone" placeholder="Phone" name="Phone">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-12">
+                <textarea class="form-control" id="inputEmail3" placeholder="Message (optional)" name="Email"
+                  style="height: 100px;"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-12">
+                <button type="submit" onclick="Sub()" class="btn btn-primary">Send Enquiry</button>&nbsp;or &nbsp;
+                <button type="button" class="btn bg-white text-danger float-right"
+                  onclick="location.href='tel:8882654593'" style="border: 1px solid #ee4347;"><i
+                    class="fas fa-headset mr-2" aria-hidden="true"></i>Call
+                  Expert</button>
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer_top">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-4 col-md-6 col-lg-4 ">
+              <div class="footer_widget">
+                <div class="footer_logo">
+                  <a href="#">
+                    <img src={% static 'img/footer.png' %} width="200px" alt="">
+                  </a>
+                </div>
+                <a href="#">+91 8882654593</a> <br>
+                <a href="mailto:contact@universaladventures.in">contact@universaladventures.in</a>
+                </p>
+                <div class="socail_links">
+                  <ul>
+                    <li>
+                      <a href="https://www.facebook.com/universaladventuresindia/">
+                        <i class="ti-facebook"></i>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="https://www.instagram.com/universaladventuresindia/">
+                        <i class="fa fa-instagram"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://g.co/kgs/FEs31r">
+                        <i class="fa fa-google-plus"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-xl-2 col-md-6 col-lg-2">
+              <div class="footer_widget">
+                <h3 class="footer_title">
+                  Company
+                </h3>
+                <ul class="links">
+                  <ul class="links">
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/"> Contact</a></li>
+                    <li><a href="/privacy-policy/">Privacy-Policy</a></li>
+                    <li><a href="/partial-payment/">Partial Payment</a></li>
+                    <li><a href="/refund-policy">Payments & Refund Policy</a></li>
+                  </ul>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-lg-3">
+              <div class="footer_widget">
+                <h3 class="footer_title">
+                  Popular destination
+                </h3>
+                <ul class="links double_links">
+                  <li><a href="/destination/Goa/">Goa</a></li>
+                  <li><a href="/destination/Karnataka/">Karnataka</a></li>
+                  <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
+                  <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
+                  <li><a href="/destination/Rajasthan/">Rajasthan</a></li>
+                  <li><a href="/destination/Maharashtra/">Maharashtra</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-lg-3">
+              <div class="footer_widget">
+                <h3 class="footer_title">
+                  Instagram
+                </h3>
+                <div class="instagram_feed" id="ing">
+
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </footer>
-  <!-- JS here -->
-  <script src={% static 'js/vendor/modernizr-3.5.0.min.js' %}></script>
-  <script src={% static 'js/vendor/jquery-1.12.4.min.js' %}></script>
-  <script src={% static 'js/popper.min.js' %}></script>
-  <script src={% static 'js/bootstrap.min.js' %}></script>
-  <script src={% static 'js/owl.carousel.min.js' %}></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-  <script src={% static 'js/isotope.pkgd.min.js' %}></script>
-  <script src={% static 'js/ajax-form.js' %}></script>
-  <script src={% static 'js/waypoints.min.js' %}></script>
-  <script src={% static 'js/jquery.counterup.min.js' %}></script>
-  <script src={% static 'js/imagesloaded.pkgd.min.js' %}></script>
-  <script src={% static 'js/scrollIt.js' %}></script>
-  <script src={% static 'js/jquery.scrollUp.min.js' %}></script>
-  <script src={% static 'js/wow.min.js' %}""></script>
-  <script src={% static 'js/nice-select.min.js' %}></script>
-  <script src={% static 'js/jquery.slicknav.min.js' %}></script>
-  <script src={% static 'js/jquery.magnific-popup.min.js' %}""></script>
-  <script src={% static 'js/plugins.js' %}></script>
-  <script src={% static 'js/gijgo.min.js' %}></script>
-  <script src={% static 'js/slick.min.js' %}></script>
-  <script src={% static 'js/tagsinput.js' %}></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <!--contact js-->
+    </footer>
 
-  <script src={% static 'js/contact.js' %}></script>
-  <script src={% static 'js/jquery.ajaxchimp.min.js' %}></script>
-  <script src={% static 'js/jquery.form.js' %}></script>
-  <script src={% static 'js/jquery.validate.min.js' %}></script>
-  <script src={% static 'js/mail-script.js' %}></script>
-  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.0.0/dist/js/BsMultiSelect.bs4.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-    $(function () {
-
-      $("#example").bsMultiSelect();
-
-    });
-
-
-    if ($('#city_item.item').length > 5) {
-      $('.owl-carousel').owlCarousel({
-        stagePadding: 0,
-        loop: false,
-        margin: 20,
-        autoWidth: true,
-        nav: true,
-        rewind: false,
-        navText: [
-          "<div class='nav-button owl-prev'>‹</div>",
-          "<div class='nav-button owl-next'>›</div>",
-        ],
-      })
-
-    }
-    else {
-      $('.owl-carousel').owlCarousel({
-        stagePadding: 0,
-        loop: false,
-        margin: 30,
-        autoWidth: true,
-        nav: true,
-        singleItem: false,
-        navText: [
-          "<div class='nav-button owl-prev'>‹</div>",
-          "<div class='nav-button owl-next'>›</div>",
-        ],
-      })
-
-    }
+ </div>
 
 
 
+    <!-- JS here -->
+    <script src={% static 'js/vendor/modernizr-3.5.0.min.js' %}></script>
+    <script src={% static 'js/vendor/jquery-1.12.4.min.js' %}></script>
+    <script src={% static 'js/popper.min.js' %}></script>
+    <script src={% static 'js/bootstrap.min.js' %}></script>
+    <script src={% static 'js/owl.carousel.min.js' %}></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src={% static 'js/isotope.pkgd.min.js' %}></script>
+    <script src={% static 'js/ajax-form.js' %}></script>
+    <script src={% static 'js/waypoints.min.js' %}></script>
+    <script src={% static 'js/jquery.counterup.min.js' %}></script>
+    <script src={% static 'js/imagesloaded.pkgd.min.js' %}></script>
+    <script src={% static 'js/scrollIt.js' %}></script>
+    <script src={% static 'js/jquery.scrollUp.min.js' %}></script>
+    <script src={% static 'js/wow.min.js' %}""></script>
+    <script src={% static 'js/nice-select.min.js' %}></script>
+    <script src={% static 'js/jquery.slicknav.min.js' %}></script>
+    <script src={% static 'js/jquery.magnific-popup.min.js' %}""></script>
+    <script src={% static 'js/plugins.js' %}></script>
+    <script src={% static 'js/gijgo.min.js' %}></script>
+    <script src={% static 'js/slick.min.js' %}></script>
+    <script src={% static 'js/tagsinput.js' %}></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <!--contact js-->
 
-    // $(document).ready(function () {
-    //   // Transition effect for navbar 
-    //   $(window).scroll(function () {
-    //     // checks if window is scrolled more than 500px, adds/removes solid class
-    //     if ($(this).scrollTop() > 100) {
-    //       $('.navbar').addClass('solid');
-    //     } else {
-    //       $('.navbar').removeClass('solid');
-    //     }
-    //   });
-    // });
-    function inc() {
-      console.log($('#example').val())
-      var arr = $('#example').val()
-      var complete = ``;
-      arr.forEach(element => {
-        complete = complete + element
+    <script src={% static 'js/contact.js' %}></script>
+    <script src={% static 'js/jquery.ajaxchimp.min.js' %}></script>
+    <script src={% static 'js/jquery.form.js' %}></script>
+    <script src={% static 'js/jquery.validate.min.js' %}></script>
+    <script src={% static 'js/mail-script.js' %}></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.0.0/dist/js/BsMultiSelect.bs4.min.js">
+    </script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+      $(function () {
+
+        $("#example").bsMultiSelect();
+
       });
 
-      $('#inclusion').val(complete)
-      console.log(complete)
-    }
-  </script>
-  <script>
-    $('#datepicker').datepicker({
-      iconsLibrary: 'fontawesome',
-      icons: {
-        rightIcon: '<span class="fa fa-caret-down"></span>'
+
+        $('#explore__city__items').owlCarousel({
+          stagePadding: 0,
+          loop: false,
+          margin: 2,
+          autoWidth: true,
+          nav: true,
+          rewind: false,
+          navText: ["‹","›"],
+        })
+        
+        $('.wave-cards-carousel').owlCarousel({
+          stagePadding: 0,
+          loop: false,
+          margin: 15,
+          autoWidth: true,
+          nav: true,
+          singleItem: false,
+          navText: ["‹","›"],
+        })
+
+
+        $('.travel-cards-carousel').owlCarousel({
+          stagePadding: 0,
+          loop: false,
+          margin: 20,
+          autoWidth: true,
+          nav: true,
+          navText: ["‹","›"],
+        })
+
+      // banner about/covid status/reach  toggler
+      $('.collapsed').on('click',function(){$('.collapse').collapse('hide');})
+
+
+      // $(document).ready(function () {
+      //   // Transition effect for navbar 
+      //   $(window).scroll(function () {
+      //     // checks if window is scrolled more than 500px, adds/removes solid class
+      //     if ($(this).scrollTop() > 100) {
+      //       $('.navbar').addClass('solid');
+      //     } else {
+      //       $('.navbar').removeClass('solid');
+      //     }
+      //   });
+      // });
+
+      function inc() {
+        // console.log($('#example').val())
+        var arr = $('#example').val()
+        var complete = ``;
+        arr.forEach(element => {
+          complete = complete + element
+        });
+
+        $('#inclusion').val(complete)
+        // console.log(complete)
       }
-    });
-  </script>
-  <script>
-    window.onload = function () {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-      }
-      console.log(calcCrow(59.3293371, 13.4877472, 59.3225525, 13.4619422).toFixed(1));
-
-
-
-      //This function takes in latitude and longitude of two location and returns the distance between them as the crow flies (in km)
-      function calcCrow(lat1, lon1, lat2, lon2) {
-        var R = 6371; // km
-        var dLat = toRad(lat2 - lat1);
-        var dLon = toRad(lon2 - lon1);
-        var lat1 = toRad(lat1);
-        var lat2 = toRad(lat2);
-
-        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-          Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        var d = R * c;
-        return d;
-      }
-
-      // Converts numeric degrees to radians
-      function toRad(Value) {
-        return Value * Math.PI / 180;
-      }
-
-    }
-
-    function showPosition(position) {
-      console.log(`Latitude: ${position.coords.latitude}
-Longitude:  ${position.coords.longitude}`);
-    }
-    $(function () {
-      $.widget("custom.catcomplete", $.ui.autocomplete, {
-        _create: function () {
-          this._super();
-          this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
-        },
-        _renderMenu: function (ul, items) {
-          var that = this,
-            currentCategory = "";
-          $.each(items, function (index, item) {
-            var li;
-            if (item.category != currentCategory) {
-              ul.append("<li class='ui-autocomplete-category'><h4>" + item.category + "</h4></li>");
-              currentCategory = item.category;
-            }
-            li = that._renderItemData(ul, item);
-            if (item.category) {
-              li.attr("aria-label", item.category + " : " + item.label);
-            }
-          });
+    </script>
+    <script>
+      $('#datepicker').datepicker({
+        iconsLibrary: 'fontawesome',
+        icons: {
+          rightIcon: '<span class="fa fa-caret-down"></span>'
         }
       });
+    </script>
+    <script>
+      window.onload = function () {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+        console.log(calcCrow(59.3293371, 13.4877472, 59.3225525, 13.4619422).toFixed(1));
 
 
-      $("#search").catcomplete({
-        source: "{% url 'autosuggest' %}",
+
+        //This function takes in latitude and longitude of two location and returns the distance between them as the crow flies (in km)
+        function calcCrow(lat1, lon1, lat2, lon2) {
+          var R = 6371; // km
+          var dLat = toRad(lat2 - lat1);
+          var dLon = toRad(lon2 - lon1);
+          var lat1 = toRad(lat1);
+          var lat2 = toRad(lat2);
+
+          var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+          var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+          var d = R * c;
+          return d;
+        }
+
+        // Converts numeric degrees to radians
+        function toRad(Value) {
+          return Value * Math.PI / 180;
+        }
+
+      }
+
+      function showPosition(position) {
+//         console.log(`Latitude: ${position.coords.latitude}
+// Longitude:  ${position.coords.longitude}`);
+      }
+      $(function () {
+        $.widget("custom.catcomplete", $.ui.autocomplete, {
+          _create: function () {
+            this._super();
+            this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
+          },
+          _renderMenu: function (ul, items) {
+            var that = this,
+              currentCategory = "";
+            $.each(items, function (index, item) {
+              var li;
+              if (item.category != currentCategory) {
+                ul.append("<li class='ui-autocomplete-category'><h4>" + item.category + "</h4></li>");
+                currentCategory = item.category;
+              }
+              li = that._renderItemData(ul, item);
+              if (item.category) {
+                li.attr("aria-label", item.category + " : " + item.label);
+              }
+            });
+          }
+        });
+
+
+        $("#search").catcomplete({
+          source: "{% url 'autosuggest' %}",
+        });
       });
-    });
 
-    $("#closemodal").click(function () {
-      $("#exampleModal").css("display", "none");
-    });
-    $("#selectstate").change(function () {
-      var o = $("#selectstate").val();
-      document.location = `/location/${o}`;
-    });
-    $("#selectstate2").change(function () {
-      var o2 = $("#selectstate2").val();
-      document.location = `/location/${o2}`;
-    });
+      $("#closemodal").click(function () {
+        $("#exampleModal").css("display", "none");
+      });
+      $("#selectstate").change(function () {
+        var o = $("#selectstate").val();
+        document.location = `/location/${o}`;
+      });
+      $("#selectstate2").change(function () {
+        var o2 = $("#selectstate2").val();
+        document.location = `/location/${o2}`;
+      });
 
-    $("#closemodal2").click(function () {
-      $("#exampleModal").css("display", "none");
-    });
-    function f50() {
-      $('#f1').empty();
-      card50 = `<div class="modal-body"   style="margin-top:-50px">
+      $("#closemodal2").click(function () {
+        $("#exampleModal").css("display", "none");
+      });
+
+      function f50() {
+        $('#f1').empty();
+        card50 = `<div class="modal-body"   style="margin-top:-50px">
                            <br></br>
                            <center>
                              <h4  style="color:rgb(73, 73, 73);">What Type of Tour?</h4>
@@ -2106,11 +2027,12 @@ Longitude:  ${position.coords.longitude}`);
                               </a>
                             
                              </div>`
-      $("#f1").html(card50);
-    };
-    function f52() {
-      $("#f1").empty();
-      card52 = `<div class="modal-body"   style=" height:350px">       
+        $("#f1").html(card50);
+      };
+
+      function f52() {
+        $("#f1").empty();
+        card52 = `<div class="modal-body"   style=" height:350px">       
                           
                           <span class="badge badge-light mb-2 w-100 mt-5" onclick="f54()" style="border: 1px solid #8080804f;filter: drop-shadow(0.2rem 0.2rem 0.2rem rgba(0,0,0,0.2));height: 70px;border-radius: 10px;"  name="adventure" >
                           <div class="row">
@@ -2149,11 +2071,12 @@ Longitude:  ${position.coords.longitude}`);
                           </span>
                         
                          </div>`
-      $("#f1").html(card52);
-    };
-    function f51() {
-      $("#f1").empty();
-      card51 = `<div class="modal-body"   style="margin-top:-50px">
+        $("#f1").html(card52);
+      };
+
+      function f51() {
+        $("#f1").empty();
+        card51 = `<div class="modal-body"   style="margin-top:-50px">
                            <br><br/>
                            <a href="/adventures/High-Fly">
                              <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" >
@@ -2210,11 +2133,12 @@ Longitude:  ${position.coords.longitude}`);
                               </span>
                                </a>
                          </div>`
-      $("#f1").html(card51);
-    };
-    function f53() {
-      $("#f1").empty();
-      card53 = `<div class="modal-body"  style="margin-top:-50px">
+        $("#f1").html(card51);
+      };
+
+      function f53() {
+        $("#f1").empty();
+        card53 = `<div class="modal-body"  style="margin-top:-50px">
                            <br><br/>
                             <a href="/adventure/Paragliding"> 
                             <span class="badge badge-light mb-2 w-100" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" >
@@ -2300,39 +2224,48 @@ Longitude:  ${position.coords.longitude}`);
                               </a>
                  
                          </div>`
-      $("#f1").html(card53);
-    };
+        $("#f1").html(card53);
+      };
+    </script>
 
-  </script>
+    <script>
+      const scriptURL =
+        'https://script.google.com/macros/s/AKfycbwYSC2ULRCT0W7swcxJN8ag7fwol5M9PfEdOZzhBNEal2DpphI/exec'
+      const form = document.forms['google-sheet2']
 
-  <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwYSC2ULRCT0W7swcxJN8ag7fwol5M9PfEdOZzhBNEal2DpphI/exec'
-    const form = document.forms['google-sheet2']
+      form.addEventListener('submit', e => {
+        e.preventDefault()
+        fetch(scriptURL, {
+            method: 'POST',
+            body: new FormData(form)
+          })
+          .then(response => {
+            // console.log("Thanks for Contacting us..! We Will Contact You Soon...")
+          }
+          )
+          .catch(error => console.error('Error!', error.message))
+      })
+    </script>
+    <script>
+      const scriptURL =
+        'https://script.google.com/macros/s/AKfycbz3b-aJKpurIAiNBZr1nwMAO2IFCvHCp6fgjfzR80Zk3Kt2Rdw-/exec'
+      const form = document.forms['google-sheet']
 
-    form.addEventListener('submit', e => {
-      e.preventDefault()
-      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-        .then(response => console.log("Thanks for Contacting us..! We Will Contact You Soon..."))
-        .catch(error => console.error('Error!', error.message))
-    })
-  </script>
-  <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbz3b-aJKpurIAiNBZr1nwMAO2IFCvHCp6fgjfzR80Zk3Kt2Rdw-/exec'
-    const form = document.forms['google-sheet']
+      form.addEventListener('submit', e => {
+        e.preventDefault()
+        fetch(scriptURL, {
+            method: 'POST',
+            body: new FormData(form)
+          })
+          .then(response => console.log("Thanks for Contacting us..! We Will Contact You Soon..."))
+          .catch(error => console.error('Error!', error.message))
+      })
+    </script>
 
-    form.addEventListener('submit', e => {
-      e.preventDefault()
-      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-        .then(response => console.log("Thanks for Contacting us..! We Will Contact You Soon..."))
-        .catch(error => console.error('Error!', error.message))
-    })
-  </script>
-
-  <script>
-
-    $("#exploreview").click(function () {
-      $('#f1').empty();
-      card61 = `     <div class="modal-body"  id="f1">
+    <script>
+      $("#exploreview").click(function () {
+        $('#f1').empty();
+        card61 = `     <div class="modal-body"  id="f1">
           <center>
             {% if user.is_authenticated %}
            <h3 style="color:rgb(73, 73, 73);">Hi {{user}}</h3>
@@ -2393,12 +2326,12 @@ Longitude:  ${position.coords.longitude}`);
                                </a></span>
 
            </div>`
-      $('#f1').html(card61);
-      $('#exampleModal').modal('show');
-    });
-    $("#exploreview2").click(function () {
-      $('#f1').empty();
-      card61 = `     <div class="modal-body"  id="f1">
+        $('#f1').html(card61);
+        $('#exampleModal').modal('show');
+      });
+      $("#exploreview2").click(function () {
+        $('#f1').empty();
+        card61 = `     <div class="modal-body"  id="f1">
           <center>
             {% if user.is_authenticated %}
            <h3 style="color:rgb(73, 73, 73);">Hi {{user}}</h3>
@@ -2459,25 +2392,26 @@ Longitude:  ${position.coords.longitude}`);
                                </a></span>
 
            </div>`
-      $('#f1').html(card61);
-      $('#exampleModal').modal('show');
-    });
-    $("#dropdownMenuButton").click(function () {
-      $("#options").toggle();
-    });
-    $("#mobilemodal").click(function () {
-      $("#exampleModalmobile").modal('show');
-    });
-    $("#closemodalmain").click(function () {
-      $("#exampleModal").modal('hide');
-    });
-    $("#adventurenear").click(function () {
-      $("#adventurelist").css("display", "none");
-      $("#adventurelocationnear").css("display", "block");
-    });
-    function f54() {
-      $('#f1').empty();
-      card54 = `        <div class="modal-body" id="adventureonlocation"  style="height:350px">
+        $('#f1').html(card61);
+        $('#exampleModal').modal('show');
+      });
+      $("#dropdownMenuButton").click(function () {
+        $("#options").toggle();
+      });
+      $("#mobilemodal").click(function () {
+        $("#exampleModalmobile").modal('show');
+      });
+      $("#closemodalmain").click(function () {
+        $("#exampleModal").modal('hide');
+      });
+      $("#adventurenear").click(function () {
+        $("#adventurelist").css("display", "none");
+        $("#adventurelocationnear").css("display", "block");
+      });
+
+      function f54() {
+        $('#f1').empty();
+        card54 = `        <div class="modal-body" id="adventureonlocation"  style="height:350px">
                <div style="margin-left:25%">
                <select class="custom-select w-75 mt-5" id="selectstate">
                       <option selected>Select State</option>
@@ -2488,14 +2422,14 @@ Longitude:  ${position.coords.longitude}`);
                    </div>   
                
               </div>`
-      $('#f1').html(card54);
-    };
+        $('#f1').html(card54);
+      };
 
-    function f1(e) {
-      value1 = $(e).attr('value')
-      $('#f1').empty();
-      $('#f1').css("margin-top", "0px");
-      let card1 = ` <div class="modal-body">
+      function f1(e) {
+        value1 = $(e).attr('value')
+        $('#f1').empty();
+        $('#f1').css("margin-top", "0px");
+        let card1 = ` <div class="modal-body">
             <h5 style="color:red;">When are you planning to go?</h5>
             <span class="badge badge-light mb-2 w-100" onclick="f2(this)" value="In 1-2 week" style="border:1px solid gray;filter:drop-shadow(0.3rem 0.3rem 0.4rem rgba(0,0,0,0.5))" id="${value1}" name="adventure2">
             <center>
@@ -2518,13 +2452,14 @@ Longitude:  ${position.coords.longitude}`);
             </center>
             </span>
             </div>`;
-      $('#f1').html(card1)
-    }
-    function f2(e) {
-      value1 = $(e).attr('value')
-      value2 = $(e).attr('id')
-      $('#f1').empty()
-      let card2 = `<div class="modal-body">
+        $('#f1').html(card1)
+      }
+
+      function f2(e) {
+        value1 = $(e).attr('value')
+        value2 = $(e).attr('id')
+        $('#f1').empty()
+        let card2 = `<div class="modal-body">
             <h3  style="color: black;">Searching best tour destinations of the season! 
                 Please wait.</h3>
                 
@@ -2534,18 +2469,18 @@ margin-right: auto;
 width: 50%;">
 
         </div>`
-      $('#f1').html(card2)
-      setTimeout(function () {
-        $('#f1').empty()
-        n = new Date();
-        y = n.getFullYear();
-        m = n.getMonth() + 1;
-        h = n.getHours();
-        mm = n.getMinutes()
-        d = n.getDate();
-        let date = d + "/" + m + "/" + y + "(" + h + ":" + mm + ")";
-        let num = Math.floor(Math.random() * (400 - 100 + 1)) + 100;
-        let card3 = `<div class="modal-body">
+        $('#f1').html(card2)
+        setTimeout(function () {
+          $('#f1').empty()
+          n = new Date();
+          y = n.getFullYear();
+          m = n.getMonth() + 1;
+          h = n.getHours();
+          mm = n.getMinutes()
+          d = n.getDate();
+          let date = d + "/" + m + "/" + y + "(" + h + ":" + mm + ")";
+          let num = Math.floor(Math.random() * (400 - 100 + 1)) + 100;
+          let card3 = `<div class="modal-body">
             <h3  style="color: black;">Found ${num} results for you...</h3><br>
             Please provide your contact number, our <b> ${value2} </b> expert will discuss tour package with you over phone call.
             <form action="\" name="popup">
@@ -2569,31 +2504,36 @@ width: 50%;">
             <div class="text-center">OR</div>
             You can directly call our expert now:<br><button onclick="location.href='tel:8882654593'"class="btn btn-danger btn-block"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;8882654593</button>
         </div>`
-        $('#f1').html(card3)
-      }, 3000);
-    }
-    function finish() {
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbz5GdxDJ5-LmqJMEEIZKCQpOT9VRdN4wpqjwnc_4VgVLzqSW-79/exec'
-      const form = document.forms['popup']
+          $('#f1').html(card3)
+        }, 3000);
+      }
 
-      form.addEventListener('submit', e => {
-        e.preventDefault()
-        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-          .then(response => console.log("Thanks for Contacting us..! We Will Contact You Soon..."))
-          .catch(error => console.error('Error!', error.message))
-      })
+      function finish() {
+        const scriptURL =
+          'https://script.google.com/macros/s/AKfycbz5GdxDJ5-LmqJMEEIZKCQpOT9VRdN4wpqjwnc_4VgVLzqSW-79/exec'
+        const form = document.forms['popup']
 
-      $('#exampleModal').modal('hide')
+        form.addEventListener('submit', e => {
+          e.preventDefault()
+          fetch(scriptURL, {
+              method: 'POST',
+              body: new FormData(form)
+            })
+            .then(response => 
+            {
+              // console.log("Thanks for Contacting us..! We Will Contact You Soon...")
+            })
+            .catch(error => console.error('Error!', error.message))
+        })
 
-    }
+        $('#exampleModal').modal('hide')
 
-
-  </script>
-  <script>
-    if ($('.gi').length) {
-      var trendsSlider = $('.gi');
-      trendsSlider.owlCarousel(
-        {
+      }
+    </script>
+    <script>
+      if ($('.gi').length) {
+        var trendsSlider = $('.gi');
+        trendsSlider.owlCarousel({
           loop: true,
           margin: 30,
           nav: true,
@@ -2601,166 +2541,176 @@ width: 50%;">
           autoplayHoverPause: true,
           autoplay: false,
           navText: ["<i class='fa fa-chevron-left pre'></i>", "<i class='fa fa-chevron-right nx'></i>"],
-          responsive:
-          {
-            0: { items: 1.5 },
-            575: { items: 1.5 },
-            991: { items: 3.5 }
+          responsive: {
+            0: {
+              items: 1.5
+            },
+            575: {
+              items: 1.5
+            },
+            991: {
+              items: 3.5
+            }
           }
         });
-    }
-  </script>
-  <script>
-    $(document).ready(function () {
-      $("#multi-item-example").swiperight(function () {
-        $(this).carousel('prev');
+      }
+    </script>
+    <script>
+      $(document).ready(function () {
+        $("#multi-item-example").swiperight(function () {
+          $(this).carousel('prev');
+        });
+        $("#multi-item-example").swipeleft(function () {
+          $(this).carousel('next');
+        });
       });
-      $("#multi-item-example").swipeleft(function () {
-        $(this).carousel('next');
-      });
-    });
-  </script>
-  <script>
-    function openForm() {
-      document.getElementById("myForm").style.display = "block";
+    </script>
+    <script>
+      function openForm() {
+        document.getElementById("myForm").style.display = "block";
 
-    }
-
-    function closeForm() {
-      document.getElementById("myForm").style.display = "none";
-
-    }
-    function Sub() {
-      document.getElementById("formg").style.display = "none";
-      document.getElementById("fr2").style.display = "block";
-    }
-  </script>
-  <script>
-    setTimeout(function () {
-      $('.loader_bg').fadeToggle();
-    }, 2000);
-  </script>
-  <script>
-    const instagramRegExp = new RegExp(/<script type="text\/javascript">window\._sharedData = (.*);<\/script>/)
-
-    const fetchInstagramPhotos = async (accountUrl) => {
-      const response = await axios.get(accountUrl)
-      const json = JSON.parse(response.data.match(instagramRegExp)[1])
-      const edges = json.entry_data.ProfilePage[0].graphql.user.edge_owner_to_timeline_media.edges.splice(
-        0, 9)
-      const photos = edges.map(({
-        node
-      }) => {
-        return {
-          url: `https://www.instagram.com/p/${node.shortcode}/`,
-          thumbnailUrl: node.thumbnail_src,
-          displayUrl: node.display_url,
-          caption: node.edge_media_to_caption.edges.length > 0 ? node.edge_media_to_caption.edges[0].node.text : ""
-        }
-      })
-      return photos
-    }
-
-    (async () => {
-      try {
-        const photos = await fetchInstagramPhotos('https://www.instagram.com/universaladventuresindia/')
-        const container = document.getElementById("ing")
-        console.log(photos);
-        photos.forEach(el => {
-          const a = document.createElement('a')
-          const img = document.createElement('img')
-          const div = document.createElement('div')
-          a.setAttribute('href', el.url)
-          a.setAttribute('target', '_blank')
-          a.setAttribute('rel', 'noopener noreferrer')
-          a.classList.add('instagram-photo')
-
-          img.setAttribute('src', el.thumbnailUrl)
-          img.setAttribute('alt', el.caption)
-
-          a.appendChild(img)
-          div.classList.add('single_insta')
-          div.appendChild(a)
-          container.appendChild(div)
-        })
-      } catch (e) {
-        console.error('Fetching Instagram photos failed', e)
-      }
-    })()
-  </script>
-  <script>
-    var TxtType = function (el, toRotate, period) {
-      this.toRotate = toRotate;
-      this.el = el;
-      this.loopNum = 0;
-      this.period = parseInt(period, 10) || 2000;
-      this.txt = '';
-      this.tick();
-      this.isDeleting = false;
-    };
-
-    TxtType.prototype.tick = function () {
-      var i = this.loopNum % this.toRotate.length;
-      var fullTxt = this.toRotate[i];
-
-      if (this.isDeleting) {
-        this.txt = fullTxt.substring(0, this.txt.length - 1);
-      } else {
-        this.txt = fullTxt.substring(0, this.txt.length + 1);
       }
 
-      this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
+      function closeForm() {
+        document.getElementById("myForm").style.display = "none";
 
-      var that = this;
-      var delta = 200 - Math.random() * 100;
-
-      if (this.isDeleting) { delta /= 2; }
-
-      if (!this.isDeleting && this.txt === fullTxt) {
-        delta = this.period;
-        this.isDeleting = false;
-      } else if (this.isDeleting && this.txt === '') {
-        this.isDeleting = false;
-        this.loopNum++;
-        delta = 500;
       }
 
+      function Sub() {
+        document.getElementById("formg").style.display = "none";
+        document.getElementById("fr2").style.display = "block";
+      }
+    </script>
+    <script>
       setTimeout(function () {
-        that.tick();
-      }, delta);
-    };
+        $('.loader_bg').fadeToggle();
+      }, 2000);
+    </script>
+    <script>
+      const instagramRegExp = new RegExp(/<script type="text\/javascript">window\._sharedData = (.*);<\/script>/)
 
-    window.onload = function () {
-      var elements = document.getElementsByClassName('typewrite');
-      for (var i = 0; i < elements.length; i++) {
-        var toRotate = elements[i].getAttribute('data-type');
-        var period = elements[i].getAttribute('data-period');
-        if (toRotate) {
-          new TxtType(elements[i], JSON.parse(toRotate), period);
-        }
+      const fetchInstagramPhotos = async (accountUrl) => {
+        const response = await axios.get(accountUrl)
+        const json = JSON.parse(response.data.match(instagramRegExp)[1])
+        const edges = json.entry_data.ProfilePage[0].graphql.user.edge_owner_to_timeline_media.edges.splice(
+          0, 9)
+        const photos = edges.map(({
+          node
+        }) => {
+          return {
+            url: `https://www.instagram.com/p/${node.shortcode}/`,
+            thumbnailUrl: node.thumbnail_src,
+            displayUrl: node.display_url,
+            caption: node.edge_media_to_caption.edges.length > 0 ? node.edge_media_to_caption.edges[0].node
+              .text : ""
+          }
+        })
+        return photos
       }
-      // INJECT CSS
-      var css = document.createElement("style");
-      css.type = "text/css";
-      css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
-      document.body.appendChild(css);
-    };
+
+      (async () => {
+        try {
+          const photos = await fetchInstagramPhotos('https://www.instagram.com/universaladventuresindia/')
+          const container = document.getElementById("ing")
+          // console.log(photos);
+          photos.forEach(el => {
+            const a = document.createElement('a')
+            const img = document.createElement('img')
+            const div = document.createElement('div')
+            a.setAttribute('href', el.url)
+            a.setAttribute('target', '_blank')
+            a.setAttribute('rel', 'noopener noreferrer')
+            a.classList.add('instagram-photo')
+
+            img.setAttribute('src', el.thumbnailUrl)
+            img.setAttribute('alt', el.caption)
+
+            a.appendChild(img)
+            div.classList.add('single_insta')
+            div.appendChild(a)
+            container.appendChild(div)
+          })
+        } catch (e) {
+          console.error('Fetching Instagram photos failed', e)
+        }
+      })()
+    </script>
+    <script>
+      var TxtType = function (el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 2000;
+        this.txt = '';
+        this.tick();
+        this.isDeleting = false;
+      };
+
+      TxtType.prototype.tick = function () {
+        var i = this.loopNum % this.toRotate.length;
+        var fullTxt = this.toRotate[i];
+
+        if (this.isDeleting) {
+          this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+          this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
+
+        var that = this;
+        var delta = 200 - Math.random() * 100;
+
+        if (this.isDeleting) {
+          delta /= 2;
+        }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+          delta = this.period;
+          this.isDeleting = false;
+        } else if (this.isDeleting && this.txt === '') {
+          this.isDeleting = false;
+          this.loopNum++;
+          delta = 500;
+        }
+
+        setTimeout(function () {
+          that.tick();
+        }, delta);
+      };
+
+      window.onload = function () {
+        var elements = document.getElementsByClassName('typewrite');
+        for (var i = 0; i < elements.length; i++) {
+          var toRotate = elements[i].getAttribute('data-type');
+          var period = elements[i].getAttribute('data-period');
+          if (toRotate) {
+            new TxtType(elements[i], JSON.parse(toRotate), period);
+          }
+        }
+        // INJECT CSS
+        var css = document.createElement("style");
+        css.type = "text/css";
+        css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+        document.body.appendChild(css);
+      };
 
 
-    function complete() {
-      clearInterval(timer);
-      timer = null;
-    }
-  </script>
+      function complete() {
+        clearInterval(timer);
+        timer = null;
+      }
+    </script>
 
-  <script>
-    $("#expertpackage").click(function () {
-      $('#expertModal').modal('show');
-    });
-    function f56(e) {
-      value1 = $(e).attr('value')
-      $('#f56').empty()
-      let card56 = `    <div class="modal-body">
+    <script>
+      $("#expertpackage").click(function () {
+        $('#expertModal').modal('show');
+      });
+
+      function f56(e) {
+        value1 = $(e).attr('value')
+        $('#f56').empty()
+        let card56 = `    <div class="modal-body">
             <h3 style="color: black;">Have you decided the destination?</h3>
         <div class="form-row">
             <div class="form-group col-md-12 mb-0">
@@ -2776,13 +2726,14 @@ more suggestions</input></button>
             </div>
             </div>
         </div>`
-      $('#f56').html(card56)
-    }
-    function f57(e) {
-      value1 = $(e).attr('value')
-      if (value1 == "Yes, I have decided my destination") {
-        $('#f56').empty()
-        let card57 = `<div class="modal-body">
+        $('#f56').html(card56)
+      }
+
+      function f57(e) {
+        value1 = $(e).attr('value')
+        if (value1 == "Yes, I have decided my destination") {
+          $('#f56').empty()
+          let card57 = `<div class="modal-body">
         <h3 style="color: black;">Please select the Location</h3>
             <div class="form-row">
                 <div class="form-group col-md-6 mb-0">
@@ -2797,11 +2748,39 @@ more suggestions</input></button>
     <br>
            <button type="submit" onclick="f58(this)" class="btn btn-success btn-block  float-right" >Next</button>
             <br><br>`
-        $('#f56').html(card57)
+          $('#f56').html(card57)
+        } else {
+          $('#f56').empty()
+          let card57 = `    <div class="modal-body">
+            <h3 style="color: black;">When do you want to go?</h3>
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-0">
+                  <select id='gMonth2' class="form-control" onchange="f59(this)">
+                     <option value='' selected>--Select Month--</option>
+                     <option value='1'>Janaury</option>
+                     <option value='2'>February</option>
+                     <option value='3'>March</option>
+                     <option value='4'>April</option>
+                     <option value='5'>May</option>
+                     <option value='6'>June</option>
+                     <option value='7'>July</option>
+                     <option value='8'>August</option>
+                     <option value='9'>September</option>
+                     <option value='10'>October</option>
+                     <option value='11'>November</option>
+                     <option value='12'>December</option>
+                     </select>
+                </div>
+            </div>
+        </div>`
+          $('#f56').html(card57)
+        }
       }
-      else {
+
+      function f58(e) {
+        value1 = $(e).attr('value')
         $('#f56').empty()
-        let card57 = `    <div class="modal-body">
+        let card58 = ` <div class="modal-body">
             <h3 style="color: black;">When do you want to go?</h3>
             <div class="form-row">
                 <div class="form-group col-md-6 mb-0">
@@ -2823,40 +2802,13 @@ more suggestions</input></button>
                 </div>
             </div>
         </div>`
-        $('#f56').html(card57)
+        $('#f56').html(card58)
       }
-    }
-    function f58(e) {
-      value1 = $(e).attr('value')
-      $('#f56').empty()
-      let card58 = ` <div class="modal-body">
-            <h3 style="color: black;">When do you want to go?</h3>
-            <div class="form-row">
-                <div class="form-group col-md-6 mb-0">
-                  <select id='gMonth2' class="form-control" onchange="f59(this)">
-                     <option value='' selected>--Select Month--</option>
-                     <option value='1'>Janaury</option>
-                     <option value='2'>February</option>
-                     <option value='3'>March</option>
-                     <option value='4'>April</option>
-                     <option value='5'>May</option>
-                     <option value='6'>June</option>
-                     <option value='7'>July</option>
-                     <option value='8'>August</option>
-                     <option value='9'>September</option>
-                     <option value='10'>October</option>
-                     <option value='11'>November</option>
-                     <option value='12'>December</option>
-                     </select>
-                </div>
-            </div>
-        </div>`
-      $('#f56').html(card58)
-    }
-    function f59(e) {
-      value1 = $(e).attr('value')
-      $('#f56').empty()
-      let card59 = ` <div class="modal-body">
+
+      function f59(e) {
+        value1 = $(e).attr('value')
+        $('#f56').empty()
+        let card59 = ` <div class="modal-body">
             <h3 style="color: black;">How many members are you there?</h3>
             <div class="form-row">
               <div class="form-group col-md-6 mb-0">
@@ -2867,12 +2819,13 @@ more suggestions</input></button>
             <br>
            <button type="submit" onclick="f60(this)" class="btn btn-success btn-block  float-right" >Next</button>
         </div>`
-      $('#f56').html(card59)
-    }
-    function f60(e) {
-      value1 = $(e).attr('value')
-      $('#f56').empty()
-      let card60 = `<div class="modal-body">
+        $('#f56').html(card59)
+      }
+
+      function f60(e) {
+        value1 = $(e).attr('value')
+        $('#f56').empty()
+        let card60 = `<div class="modal-body">
             <h3  style="color: black;">Thanks! We have assigned one expert specially for you </h3>
             <p>Please Provide the contact Info, our
 expert will contact you very soon!</p>
@@ -2899,184 +2852,193 @@ availiable to talk.
            <button type="submit" onclick="finish2()" class="btn btn-success btn-block  float-right" >Submit</button>
     </form>
         </div>`
-      $('#f56').html(card60)
-    }
-
-  </script>
-  <script>
-    !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'weatherwidget-io-js');
-  </script>
-  <script>
-    var width = $(window).width();
-    (function () {
-      window.onresize = displayWindowSize;
-      window.onload = displayWindowSize;
-      function displayWindowSize() {
-        console.log('hello')
-        let myWidth = window.innerWidth;
-        if (myWidth <= '576') {
-          $('#editor').css('display', 'none')
-          $('#editor2').css('display', 'block')
-          $('#fam').html('Family Trip')
-
-        }
-        else {
-          $('#editor').css('display', 'block')
-          $('#editor2').css('display', 'none')
-          $('#fam').html('Family Trip')
-        }
-      };
-
-    })();
-    function myFunction() 
-    {
-
-      var height = document.getElementById("maindetails");
-      var btnText = document.getElementById("myBtn");
-      console.log(height.style.height)
-
-      if (height.style.height === "100px") {
-        height.style.height = "100%"
-        btnText.innerHTML = "Read less";
-        $('#h').removeClass('shadoww');
-      } else {
-        height.style.height = "100px"
-        btnText.innerHTML = "Read more";
-        $('#h').addClass('shadoww');
+        $('#f56').html(card60)
       }
-    }
-    function myFunction2() {
-
-      var height = document.getElementById("maindetails2");
-      var btnText = document.getElementById("myBtn2");
-      console.log(height.style.height)
-
-      if (height.style.height === "100px") {
-        height.style.height = "100%"
-        btnText.innerHTML = "Read less";
-        $('#h2').removeClass('shadoww');
-      } else {
-        height.style.height = "100px"
-        btnText.innerHTML = "Read more";
-        $('#h2').addClass('shadoww');
-      }
-    }
-    function myFunction3() {
-
-      var height = document.getElementById("maindetails3");
-      var btnText = document.getElementById("myBtn3");
-      console.log(height.style.height)
-
-      if (height.style.height === "100px") {
-        height.style.height = "100%"
-        btnText.innerHTML = "Read less";
-        $('#h2').removeClass('shadoww');
-      } else {
-        height.style.height = "100px"
-        btnText.innerHTML = "Read more";
-        $('#h2').addClass('shadoww');
-      }
-    }
-  </script>
-  <script>
-
-    function nav1() {
-      var covid = `{% for destination in destination   %}{{destination.covid_status}} {% endfor %}`
-      $('#st').empty()
-      $('#st').html(covid)
-      $("#multiCollapseExample1").slideDown(400);
-    }
-    function nav2() {
-      var covid = `{% for destination in destination   %}{{destination.how_to_reach}} {% endfor %}`
-      $('#st').empty()
-      $('#st').html(covid)
-      $("#multiCollapseExample1").slideDown(400);
-    }
-    function nav3() {
-      $('#st').empty()
-      var covid = `<a class="weatherwidget-io" href="https://forecast7.com/en/32d2477d19/{{city}}/" data-label_1="{{city}}" data-label_2="WEATHER" data-theme="original" >{{city}} WEATHER</a> `
-      $('#st').html(covid)
-      $("#multiCollapseExample1").slideDown(400);
-    }
-    function closenav() {
-      $("#multiCollapseExample1").slideUp(400);
-    }
-    function openForm() {
-      document.getElementById("myForm").style.display = "block";
-    }
-
-    function closeForm() {
-      document.getElementById("myForm").style.display = "none";
-    }
-    function Sub() {
-      document.getElementById("formg").style.display = "none";
-      document.getElementById("fr2").style.display = "block";
-
-    }
-  </script>
-
-  <script>
-    setTimeout(function () {
-      $('.loader_bg').fadeToggle();
-    }, 2000);
-  </script>
-  <script>
-    function filter_data() {
-      var state = `{{state.name}}`
-      var level = get_filter('level')
-      var duration = get_filter('duration')
-      var city = get_filter('city')
-      var da = ``;
-      var formData = {
-        'level': level,
-        'duration': duration,
-        'state': state,
-        'city': city,
-        'minimum_price': $('#hidden_minimum_price').val(),
-        'maximum_price': $('#hidden_maximum_price').val()
-      };
-      $.ajax({
-        type: 'POST',
-        url: `/filter-data/`,
-        data: formData,
-        encode: true,
-        beforeSend: function () {
-          $('#products').html('Loading...')
-        },
-        success: function (res) {
-          da = da + res.data
-          document.getElementById('products').innerHTML = da
+    </script>
+    <script>
+      ! function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (!d.getElementById(id)) {
+          js = d.createElement(s);
+          js.id = id;
+          js.src = 'https://weatherwidget.io/js/widget.min.js';
+          fjs.parentNode.insertBefore(js, fjs);
         }
-      })
-    }
-    function get_filter(class_name) {
-      var filter = []
-      $('.' + class_name + ':checked').each(function () {
-        filter.push($(this).val());
-      });
-      return filter;
-    }
-    $('.common_selector').click(function () {
-      filter_data();
-    })
+      }(document, 'script', 'weatherwidget-io-js');
+    </script>
+    <script>
+      var width = $(window).width();
+      (function () {
+        window.onresize = displayWindowSize;
+        window.onload = displayWindowSize;
 
+        function displayWindowSize() {
+          // console.log('hello')
+          let myWidth = window.innerWidth;
+          if (myWidth <= '576') {
+            $('#fam').html('Family Trip')
 
-  </script>
-  <script>
-    $("#price_range").slider({
-      range: true,
-      min: 1000,
-      max: 100000,
-      values: [1000, 100000],
-      step: 500,
-      stop: function (event, ui) {
-        $('#price_show').html('&#8377;' + ui.values[0] + '-' + '&#8377;' + ui.values[1]);
-        $('#hidden_minimum_price').val(ui.values[0]);
-        $('#hidden_maximum_price').val(ui.values[1]);
+          } else {
+            $('#fam').html('Family Trip')
+          }
+        };
+
+      })();
+
+      function myFunction() {
+
+        var height = document.getElementById("maindetails");
+        var btnText = document.getElementById("myBtn");
+        // console.log(height.style.height)
+
+        if (height.style.height === "100px") {
+          height.style.height = "100%"
+          btnText.innerHTML = "Read less";
+          $('#h').removeClass('shadoww');
+        } else {
+          height.style.height = "100px"
+          btnText.innerHTML = "Read more";
+          $('#h').addClass('shadoww');
+        }
+      }
+
+      function myFunction2() {
+
+        var height = document.getElementById("maindetails2");
+        var btnText = document.getElementById("myBtn2");
+        // console.log(height.style.height)
+
+        if (height.style.height === "100px") {
+          height.style.height = "100%"
+          btnText.innerHTML = "Read less";
+          $('#h2').removeClass('shadoww');
+        } else {
+          height.style.height = "100px"
+          btnText.innerHTML = "Read more";
+          $('#h2').addClass('shadoww');
+        }
+      }
+
+      function myFunction3() {
+
+        var height = document.getElementById("maindetails3");
+        var btnText = document.getElementById("myBtn3");
+        // console.log(height.style.height)
+
+        if (height.style.height === "100px") {
+          height.style.height = "100%"
+          btnText.innerHTML = "Read less";
+          $('#h2').removeClass('shadoww');
+        } else {
+          height.style.height = "100px"
+          btnText.innerHTML = "Read more";
+          $('#h2').addClass('shadoww');
+        }
+      }
+    </script>
+    <script>
+      function nav1() {
+        var covid = `{% for destination in destination   %}{{destination.covid_status}} {% endfor %}`
+        $('#st').empty()
+        $('#st').html(covid)
+        $("#multiCollapseExample1").slideDown(400);
+      }
+
+      function nav2() {
+        var covid = `{% for destination in destination   %}{{destination.how_to_reach}} {% endfor %}`
+        $('#st').empty()
+        $('#st').html(covid)
+        $("#multiCollapseExample1").slideDown(400);
+      }
+
+      function nav3() {
+        $('#st').empty()
+        var covid =
+          `<a class="weatherwidget-io" href="https://forecast7.com/en/32d2477d19/{{city}}/" data-label_1="{{city}}" data-label_2="WEATHER" data-theme="original" >{{city}} WEATHER</a> `
+        $('#st').html(covid)
+        $("#multiCollapseExample1").slideDown(400);
+      }
+
+      function closenav() {
+        $("#multiCollapseExample1").slideUp(400);
+      }
+
+      function openForm() {
+        document.getElementById("myForm").style.display = "block";
+      }
+
+      function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+      }
+
+      function Sub() {
+        document.getElementById("formg").style.display = "none";
+        document.getElementById("fr2").style.display = "block";
+
+      }
+    </script>
+
+    <script>
+      setTimeout(function () {
+        $('.loader_bg').fadeToggle();
+      }, 2000);
+    </script>
+    <script>
+      function filter_data() {
+        var state = `{{state.name}}`
+        var level = get_filter('level')
+        var duration = get_filter('duration')
+        var city = get_filter('city')
+        var da = ``;
+        var formData = {
+          'level': level,
+          'duration': duration,
+          'state': state,
+          'city': city,
+          'minimum_price': $('#hidden_minimum_price').val(),
+          'maximum_price': $('#hidden_maximum_price').val()
+        };
+        $.ajax({
+          type: 'POST',
+          url: `/filter-data/`,
+          data: formData,
+          encode: true,
+          beforeSend: function () {
+            $('#products').html('Loading...')
+          },
+          success: function (res) {
+            da = da + res.data
+            document.getElementById('products').innerHTML = da
+          }
+        })
+      }
+
+      function get_filter(class_name) {
+        var filter = []
+        $('.' + class_name + ':checked').each(function () {
+          filter.push($(this).val());
+        });
+        return filter;
+      }
+      $('.common_selector').click(function () {
         filter_data();
-      }
-    });
-  </script>
+      })
+    </script>
+    <script>
+      $("#price_range").slider({
+        range: true,
+        min: 1000,
+        max: 100000,
+        values: [1000, 100000],
+        step: 500,
+        stop: function (event, ui) {
+          $('#price_show').html('&#8377;' + ui.values[0] + '-' + '&#8377;' + ui.values[1]);
+          $('#hidden_minimum_price').val(ui.values[0]);
+          $('#hidden_maximum_price').val(ui.values[1]);
+          filter_data();
+        }
+      });
+    </script>
 
 
 

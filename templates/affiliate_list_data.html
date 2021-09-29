@@ -1,0 +1,44 @@
+{% if affiliateusers %}
+ <table class="table table-hover" >
+                            <thead class="table-dark text-center">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Payment</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Photo Id</th>
+                                    <th scope="col">Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                {% for affiliateuser in affiliateusers reversed %}
+                                <tr>
+                                    <th scope="col">{{forloop.counter}}</th>
+                                    <th scope="col">{{affiliateuser.name}}</th>
+                                    <th scope="col">{{affiliateuser.phone}}</th>
+                                    <th scope="col">{{affiliateuser.email}}</th>
+                                    <th scope="col">{{affiliateuser.bank_name}} </br>Ac. No. : {{affiliateuser.account_number}} 
+                                    </br>Ifsc No. : {{affiliateuser.ifsc_code}} </br> Uid : {{affiliateuser.upi_id}} </th>
+                                    <th scope="col">{{affiliateuser.status}}</th>
+                                    <th scope="col">
+                                    <button class="btn btn-danger" data-id="{{affiliateuser.photo_copy.url}}">Photo Id</button>
+                                    </th>
+                                    {% if status == 'inactive' %}
+                                    <th scope="col">
+                                       <a class="btn btn-primary my-2"  href="/affiliate-user-action/active/{{affiliateuser.aid}}" target="_blank">Active</a> 
+                                    </th>
+                                    {% else %}
+                                    <th scope="col">
+                                       <a class="btn btn-primary my-2"  href="/affiliate-user-action/inactive/{{affiliateuser.aid}}" target="_blank">Inactive</a> 
+                                    </th>
+                                    {% endif %}
+                                  </tr>
+                                {% endfor %}
+        </tbody>
+</table>
+{% else %}
+<h1 class="text-center">No data Found</h1>
+{% endif %} 

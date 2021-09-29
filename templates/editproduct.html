@@ -200,23 +200,25 @@
                 </div>
                 <div class="form-group col-md-6 mb-0">
                     <label>Select state*</label>
-                    <select onchange="print_city('state', this.selectedIndex);" id="sts" name ="state" class="form-control" required></select> 
-                    </select>
-                <script language="javascript">print_state("sts");</script>
+                    <select id="sts" name ="state" class="form-control" required>
+                         <option value="{{product.state}}" selected>{{product.state}}</option>
+                    {% if states %}
+                        {% for state in states %}
+                         <option value="{{state.state}}">{{state.state}}</option>
+                        {% endfor %}
+                    {% endif %}
+                    </select> 
                 </div>
                 <div class="form-group col-md-6 mb-0">
                     <label>Select city*</label>
-                    <select id ="state" class="form-control" name="city" required>
+                    <select id ="city_data" class="form-control" name="city" required>
                         <option selected="selected" value="{{product.city}}">{{product.city}}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-6 mb-0">
                     <label>Enter the location within city*</label>
-                    <select  name="loca_city"  class="form-control">
+                    <select name="loca_city" name="loca_city"  class="form-control">
                         <option selected="selected" value="{{product.loca_city}}">{{product.loca_city}}</option>
-                        <option value="Kasol">Kasol</option>
-                        <option value="Calangute">Calangute</option>
-                        <option value="Mcleodgank">Mcleodgank</option>
                     </select>
                 </div>
                 <div class="form-group col-md-4 mb-0">
@@ -519,6 +521,36 @@
     <script src= "https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.0.0/dist/js/BsMultiSelect.bs4.min.js"></script>
     
     <!-- ====================== delete js ==================  -->
+
+<script>
+     let p =`<option value="">Select City</option>`;
+        $('#sts').change((e) =>
+        {
+            {% for city in cities %}
+                    if(e.target.value === "{{city.state.state}}")
+                    {
+                        p += `<option value="{{city.city}}">{{city.city}}</option>`;
+                    }
+            {% endfor %}
+
+            document.getElementById('city_data').innerHTML = p ;
+            p = '<option value="">Select City</option>';
+
+        })
+    let q = `<option value="">Select Locality</option>`;
+    $('#city_data').change((e) =>
+    {
+        {% for locality in locality %}
+                    if(e.target.value === "{{locality.city.city}}")
+                    {
+                        q += `<option value="{{locality.locality}}">{{locality.locality}}</option>`;
+                    }
+        {% endfor %}
+        document.getElementById('locality').innerHTML = q ;
+        q = `<option value="">Select Locality</option>`;
+
+    })
+    </script>
 
     <script>
         $(window).ready(() =>

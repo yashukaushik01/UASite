@@ -66,7 +66,12 @@ urlpatterns = [
     path('blog/', views.blog, name="BlogHome"),
     path('walletpromo/', views.walletpromo, name="WalletPromo"),
     path('promocode/', views.promocode, name="Promocode"),
+
     path('affiliate/', views.affiliate, name="affiliate"),
+    path('affiliate-add/', views.affiliateUser, name="affiliate-add"),
+    path('affiliate-list/', views.affiliateList, name="affiliate-list"),
+    path('affiliate-list-data/', views.affiliateListData, name="affiliate-list-data"),
+
     path('about/', views.About, name="about"),
     path('contact/', views.Contact, name="contact"),
     path('blogpos/<slug:slug>', views.blogpost, name="BlogPost"),
@@ -89,4 +94,14 @@ urlpatterns = [
     path('course-entry-form/',views.courseEntryForm,name="courceEntryForm"),
     path('course/',views.course,name="course"),
     path('state-city',views.StateCity,name="state-city"),
+
+
+     # rentals-form
+    path('rentals-form/', views.rentalsForm, name='rentals-form'),
+    path('rentals-submit/', views.rentalsSubmit, name='rentals-submit'),
+    path('rentals/<slug:slug>/', views.rentals, name='rentals'),
+    path('filter-rentals/', views.FilterRentals, name='filter-rentals'),
+    path('filter-rentals-brand/', views.FilterRentalsBrand,
+         name='filter-rentals-brand'),
+    path('rentals-booking', views.rentalsBooking, name='rentals-booking'),
 ]

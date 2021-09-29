@@ -1,5 +1,7 @@
 from django.core.checks import messages
 from django.db import models
+import random
+import math
 from django.urls import reverse
 from django.db.models.deletion import CASCADE
 from django.db.models.fields import CharField
@@ -716,6 +718,7 @@ class promo(models.Model):
         return self.coupon
 
 
+
 class Affiliate(models.Model):
     coupon = models.CharField(null=False, default="", max_length=50)
     email = models.CharField(null=False, default="", max_length=500)
@@ -727,6 +730,42 @@ class Affiliate(models.Model):
 
     def __str__(self):
         return self.coupon
+
+# =============================== affiliate user link ==============================
+class AffiliateUser(models.Model):
+    name = models.CharField(max_length=500,null=True,blank=True)
+    email = models.EmailField(max_length=500,null=True,blank=True)
+    phone = models.CharField(max_length=16,null=True,blank=True)
+    bank_name = models.CharField(max_length=100,null=True,blank=True)
+    account_number = models.CharField(max_length=100,null=True,blank=True)
+    ifsc_code = models.CharField(max_length=100,null=True,blank=True)
+    upi_id = models.CharField(max_length=200,null=True,blank=True)
+    status = models.CharField(max_length=200, choices=Status_Type_CHOICES, default='inactive', null=True, blank=True)
+    photo_copy = models.FileField(upload_to='uploads/affiliate_photo_id',null=True,blank=True)
+    aid = models.CharField(max_length=10,null=True,blank=True)
+
+    def __str__(self):
+        return str(self.name +" - "+ self.aid)
+
+
+def pre_save_post_Affiliate1(sender, instance, *args, **kwargs):
+    digits = [i for i in range(0, 10)]
+    random_str = ""
+    for i in range(6):
+        index = math.floor(random.random() * 10)
+        random_str += str(digits[index])
+    aid = random_str
+
+    exists = AffiliateUser.objects.filter(aid=str(aid)).exists()
+    if exists:
+        pre_save_post_Affiliate1(sender,instance)
+    instance.aid = str(aid)
+
+
+pre_save.connect(pre_save_post_Affiliate1, sender=AffiliateUser)
+    
+
+
 
 
 class Purchase(models.Model):
@@ -1235,6 +1274,35 @@ class Locality(models.Model):
 
     def __str__(self):
         return str(str(self.city) +"-"+ self.locality)
+
+
+
+# rentals-form
+class Rentals(models.Model):
+    state = models.CharField(max_length=122)
+    city = models.CharField(max_length=122)
+    rentals_type = models.CharField(max_length=122)
+    vehicle_gear_type = models.CharField(max_length=122)
+    category = models.CharField(max_length=122)
+    brand_name = models.CharField(max_length=122)
+    product_name = models.CharField(max_length=122)
+    product_image = models.ImageField(
+        null=True, blank=True, upload_to="uploads/rentals-img")
+    product_image_2 = models.ImageField(
+        null=True, blank=True, upload_to="uploads/rentals-img")
+    specification_1 = models.CharField(max_length=122)
+    specification_2 = models.CharField(max_length=122)
+    specification_3 = models.CharField(max_length=122)
+    popularity_score = models.CharField(max_length=122)
+    delivery_option = models.CharField(max_length=122)
+    terms_and_conditions = models.TextField()
+    price_1_3 = models.CharField(max_length=122)
+    price_4_7 = models.CharField(max_length=122)
+    price_8_15 = models.CharField(max_length=122)
+    price_16_30 = models.CharField(max_length=122)
+
+    def __str__(self):
+        return self.product_name
     
     
     
