@@ -30,7 +30,6 @@ from functools import reduce
 from django.forms.models import model_to_dict
 from django.conf import settings
 from django.core.mail import send_mail , EmailMessage
-import affiliate
 
 
 def error_404(request, exception):
@@ -2011,7 +2010,7 @@ def rentals(request, slug):
                 Rentals.objects.all(), 15)
 
         page_number = request.GET.get('page')
-        
+
         page_obj = paginator.get_page(page_number)
         context = {
             'products': page_obj,
