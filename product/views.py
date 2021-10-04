@@ -12,7 +12,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
 from .models import Affiliate, Cities, CityHotelData, Erp,Populartags, Product, Destination, Images, StateItineraryData, TopPicksEntryForm, duration, phone, Purchase, states, des, promo, AdventureTourTypes, TravelGuide,BestPackage,ProductEnquiry ,AffiliateUser
 from .models import Blogpost, wallet
-from .models import Itinerary,ItineraryData , Rentals
+from .models import Itinerary,ItineraryData , Rentals , AffiliateEarning
 from .models import State as States , Locality as Localities 
 from .forms import CityHotelDataForm, ItineraryDataForm, ItineraryForm, ProductEnquiryForm, ProductForm, Addphone, StateItineraryDataForm, purchaseform, UpdateForm, BlogForm, UpdateItineraryForm, ErpForm, UpdateErpForm, TravelGuideEntryForm, PopularTagForm,Top_picks_entryForm,BestPackageForm,CourseEntryForm,AffiliateUserForm
 from django.views.decorators.csrf import csrf_exempt
@@ -26,11 +26,11 @@ from taggit.models import Tag
 import re
 import json
 from django.contrib.admin.views.decorators import staff_member_required
-from django.db.models import Q
 from functools import reduce
 from django.forms.models import model_to_dict
 from django.conf import settings
 from django.core.mail import send_mail , EmailMessage
+import affiliate
 
 
 def error_404(request, exception):
@@ -40,6 +40,41 @@ def error_404(request, exception):
 
 def index(request):
     allprods = []
+    allDesti = []
+
+    allDesti.append({
+        'name':'Goa',
+        'prod': len(Product.objects.filter(state = 'Goa'))
+    })
+    allDesti.append({
+        'name':'Himachal-Pradesh',
+        'prod': len(Product.objects.filter(state = 'Himachal-Pradesh'))
+    })
+    allDesti.append({
+        'name':'Kedarnath',
+        'prod': len(Product.objects.filter(city = 'Kedarnath'))
+    })
+    allDesti.append({
+        'name':'Ladakh',
+        'prod': len(Product.objects.filter(state = 'Ladakh'))
+    })
+    allDesti.append({
+        'name':'Manali',
+        'prod': len(Product.objects.filter(city = 'Manali'))
+    })
+    allDesti.append({
+        'name':'Kashmir',
+        'prod': len(Product.objects.filter(state = 'Kashmir'))
+    })
+    allDesti.append({
+        'name':'Dehradun',
+        'prod': len(Product.objects.filter(city = 'Dehradun'))
+    })
+    allDesti.append({
+        'name':'All',
+        'prod': len(Product.objects.all())
+    })
+
     catprods = Product.objects.values("category", "id")
     cats = {item["category"] for item in catprods}
     for cat in cats:
@@ -58,6 +93,7 @@ def index(request):
         'allprods': allprods,
         'amount': status,
         'populartags': Populartags.objects.filter(tag='Index Tag'),
+        'allDesti':allDesti
     }
     return render(request, 'index.html', context)
 
@@ -511,10 +547,12 @@ def SendErpMail(request):
         email = request.POST.get('email')
         phone_no = request.POST.get('phone_no')
         booking_id = request.POST.get('booking_id')
+        booking_date = request.POST.get('booking_date')
         tour_name = request.POST.get('tour_name')
         tour_date = request.POST.get('tour_date')
         total_package_cost = request.POST.get('total_package_cost')
         payment = request.POST.get('payment1')
+        payment_no = request.POST.get('payment_no')
         payment_date = request.POST.get('payment_date')
         payment_mod = request.POST.get('payment_mod')
         due_payment_amount = request.POST.get('due_payment_amount')
@@ -527,10 +565,12 @@ def SendErpMail(request):
                 'email':email,
                 'phone_no':phone_no,
                 'booking_id':booking_id,
+                'booking_date':booking_date,
                 'tour_name':tour_name,
                 'tour_date':tour_date,
                 'total_package_cost':total_package_cost,
                 'payment':payment,
+                'payment_no':payment_no,
                 'payment_date':payment_date,
                 'payment_mod':payment_mod,
                 'due_payment_amount':due_payment_amount
@@ -539,7 +579,8 @@ def SendErpMail(request):
             mail = EmailMessage(
             subject = 'Payment Recept',
             body=message,
-            from_email='bookings@universaladventures.in',
+            from_email='adiblog2021@gmail.com',
+            # from_email='bookings@universaladventures.in',
             to=['aditya2462001@gmail.com',]
             )
             mail.content_subtype = "html"
@@ -611,16 +652,21 @@ def affiliateUser(request):
     if request.user.is_active:
         if AffiliateUser.objects.filter(email = request.user.email).exists():
             messages.success(request,'Email id is already exits please try again')
-            render(request,'affiliate_form.html',context)
+            return redirect('/affiliate')
 
     if request.method == 'POST':
         form = AffiliateUserForm(request.POST or None , request.FILES or None)
         print(form.errors)
         if AffiliateUser.objects.filter(email = form['email'] ).exists():
             messages.success(request,'Email id is already exits please try again')
-            render(request,'affiliate_form.html',context)
+            return render(request,'affiliate_form.html',context)
         if form.is_valid():
             form.save()
+            affiliate_earning = AffiliateEarning(aid = form ,margin_earned = 0)
+            affiliate_earning.save()
+        else:
+            messages.success(request,'Something wents wrong please try again!')
+            return redirect('/affiliate-add')
 
         messages.success(request,'Your account is created wait for approval')
     context = {
@@ -628,6 +674,7 @@ def affiliateUser(request):
     }
 
     return render(request,'affiliate_form.html',context)
+
 @staff_member_required
 def affiliateList(request):
     return render(request,'affiliate_list.html')
@@ -641,6 +688,34 @@ def affiliateListData(request):
     data = render_to_string('affiliate_list_data.html',{'affiliateusers':affiliateUsers,'status':status})
 
     return  JsonResponse({'data':data})
+
+
+@staff_member_required
+def AffiliateUserStatus(request,status,slug):
+    if status == 'active':
+        affiliate_user = AffiliateUser.objects.get(aid = slug)
+        affiliate_user.status = 'active'
+        affiliate_user.save()
+
+    elif status == 'inactive':
+        affiliate_user = AffiliateUser.objects.get(aid = slug)
+        affiliate_user.status = 'inactive'
+        affiliate_user.save()
+
+    messages.info(request,'Account is activated !!')
+    return redirect('/affiliate-list')
+
+
+def AffiliateDashbord(request):
+    if request.user.is_active:
+        affiliate_user = None
+        try:
+            affiliate_user = AffiliateUser.objects.get(email = request.user.email)
+            affiliate_earining = AffiliateEarning.objects.get(aid = affiliate_user)
+            print(affiliate_user)
+        except Exception as e:
+            pass
+    return render(request,'affiliate-dashboard.html',{'affiliateUser':affiliate_user})
 
 
 
@@ -951,57 +1026,68 @@ def FilterData(request):
     loc = request.POST.getlist('loc[]')
 
     a = slug.split('-')
-    allproducts = Product.objects.filter(
-        category='Adventure', adventuretype=slug)
-    if len(a) > 1:
+
+    allproducts = Product.objects.filter(category='Adventure',adventuretype__in=a,
+    sale__gte=min_price,sale__lte=max_price).distinct()
+
+    slug1 = ''
+
+    if len(a) >= 2:
         slug1 = a[0]+' '+a[1]
         allproducts = Product.objects.filter(
-            category='Adventure', tag_category=slug1).distinct()
+            category='Adventure', adventuretype__in=slug1).distinct()
+
     if len(typee) > 0:
         allproducts = Product.objects.filter(
             category='Adventure',  adventuretype__in=typee, sale__gte=min_price, sale__lte=max_price).distinct()
-    if len(citye) > 0:
-        allproducts = Product.objects.filter(
-            category='Adventure', adventuretype=slug,  city__in=citye, sale__gte=min_price, sale__lte=max_price).distinct()
-    if len(citye) > 0 and len(a) > 1:
+
+    if len(citye) > 0 and len(a) >= 2:
         slug1 = a[0]+' '+a[1]
         allproducts = Product.objects.filter(
-            category='Adventure', tag_category=slug1,  city__in=citye, sale__gte=min_price, sale__lte=max_price).distinct()
-    if len(adventure) > 0:
+            category='Adventure', adventuretype=slug1,  city__in=citye, sale__gte=min_price, sale__lte=max_price).distinct()
+    elif len(citye) > 0:
         allproducts = Product.objects.filter(
-            category='Adventure', adventuretype=slug,  adventurelevel__in=adventure, sale__gte=min_price, sale__lte=max_price).distinct()
-    if len(adventure) > 0 and len(a) > 1:
+            category='Adventure', adventuretype=slug,  city__in=citye,sale__gte=min_price, sale__lte=max_price).distinct()
+
+    if len(adventure) > 0 and len(a) >= 2:
         slug1 = a[0]+' '+a[1]
         allproducts = Product.objects.filter(
-            category='Adventure', tag_category=slug1,  adventurelevel__in=adventure, sale__gte=min_price, sale__lte=max_price).distinct()
-    if len(duration) > 0:
+            category='Adventure', adventuretype=slug1,  adventurelevel__in=adventure, sale__gte=min_price, sale__lte=max_price).distinct()
+    elif len(adventure) > 0:
+        print(adventure)
+        allproducts = Product.objects.filter( category='Adventure',adventuretype__in=a,adventurelevel__in=adventure, 
+        sale__gte=min_price, sale__lte=max_price).distinct()
+        print(allproducts)
+    if len(duration) > 0 and len(a) >= 2:
+        slug1 = a[0]+' '+a[1]
+        allproducts = Product.objects.filter(
+            category='Adventure', adventuretype=slug1,  duration__in=duration, sale__gte=min_price, sale__lte=max_price).distinct()
+    elif len(duration) > 0:
         allproducts = Product.objects.filter(
             category='Adventure', adventuretype=slug,  duration__in=duration, sale__gte=min_price, sale__lte=max_price).distinct()
-    if len(duration) > 0 and len(a) > 1:
+    if len(loc) > 0 and len(a) >= 2:
         slug1 = a[0]+' '+a[1]
         allproducts = Product.objects.filter(
-            category='Adventure', tag_category=slug1,  duration__in=duration, sale__gte=min_price, sale__lte=max_price).distinct()
-    if len(loc) > 0:
+            category='Adventure', adventuretype=slug1,  adventureloc__in=loc, sale__gte=min_price, sale__lte=max_price).distinct()
+    elif len(loc) > 0:
         allproducts = Product.objects.filter(
             category='Adventure', adventuretype=slug,  adventureloc__in=loc, sale__gte=min_price, sale__lte=max_price).distinct()
-    if len(loc) > 0 and len(a) > 1:
+    if len(search) > 0 and len(a) >= 2:
         slug1 = a[0]+' '+a[1]
         allproducts = Product.objects.filter(
-            category='Adventure', tag_category=slug1,  adventureloc__in=loc, sale__gte=min_price, sale__lte=max_price).distinct()
-    if len(search) > 0:
+            category='Adventure', adventuretype=slug1,  name__icontains=search, sale__gte=min_price, sale__lte=max_price).distinct()
+    elif len(search) > 0:
         allproducts = Product.objects.filter(
             category='Adventure', adventuretype=slug, name__icontains=search,).distinct()
-    if len(search) > 0 and len(a) > 1:
-        slug1 = a[0]+' '+a[1]
-        allproducts = Product.objects.filter(
-            category='Adventure', tag_category=slug1,  name__icontains=search, sale__gte=min_price, sale__lte=max_price).distinct()
-    if min_price > 1000 or max_price < 100000:
-        allproducts = Product.objects.filter(
-            category='Adventure', adventuretype=slug, sale__gte=min_price, sale__lte=max_price).order_by('sale').distinct()
-    if min_price > 1000 or max_price < 100000 and len(a) > 1:
+
+    if (min_price > 1000 or max_price < 100000) and len(a) >= 2:
         slug1 = a[0]+' '+a[1]
         allproducts = Product.objects.filter(
             category='Adventure', tag_category=slug1, sale__gte=min_price, sale__lte=max_price).order_by('sale').distinct()
+    elif min_price > 1000 or max_price < 100000:
+        allproducts = Product.objects.filter(
+            category='Adventure', adventuretype__in=a, sale__gte=min_price, sale__lte=max_price).order_by('sale').distinct()
+        print(allproducts)
 
 
     if category == 'Tour':

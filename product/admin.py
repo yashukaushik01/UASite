@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Cities, CityHotelData, ItineraryData, Product, Countries, State, StateItineraryData, states, Destination, Images, phone, Purchase, duration, Blogpost, wallet, Itinerary, Erp, Citie, promo, Affiliate, AdventureTourTypes, TravelGuide, Populartags,TopPicksEntryForm,BestPackage,ProductEnquiry,Course,Locality,AffiliateUser,Rentals
+from .models import Cities, CityHotelData, ItineraryData, Product, Countries, State, StateItineraryData, states, Destination, Images, phone, Purchase, duration, Blogpost, wallet, Itinerary, Erp, Citie, promo, Affiliate, AdventureTourTypes, TravelGuide, Populartags,TopPicksEntryForm,BestPackage,ProductEnquiry,Course,Locality,AffiliateUser ,AffiliateEarning,Rentals
 
 admin.site.register(Product)
 admin.site.register(Destination)
@@ -31,6 +31,7 @@ admin.site.register(Locality)
 admin.site.register(Rentals)
 
 admin.site.register(AffiliateUser)
+admin.site.register(AffiliateEarning)
 # Register your models here.
 
 

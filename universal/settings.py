@@ -57,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'simple_affiliate.middleware.affiliate_middleware',
 ]
 AUTHENTICATION_BACKENDS = [
 
@@ -117,6 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'METHOD': 'oauth2',
@@ -172,6 +174,13 @@ DATE_INPUT_FORMATS = [
     '%d %B %Y', '%d %B, %Y',            # '25 October 2006', '25 October, 2006'
 ]
 
+
+
+
+X_FRAME_OPTIONS = 'ALLOWALL'
+
+XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 STATIC_URL = '/static/'
@@ -190,9 +199,14 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 SOCIAL_AUTH_FACEBOOK_KEY = '537819890592864'  # App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = '9cc11615020b717c35e6a81945fdf896'  # app key
 
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'ua.india.bookings@gmail.com'
 EMAIL_HOST_PASSWORD = "ua.bookings19"
+# EMAIL_HOST_USER = 'ua.india.bookings@gmail.com'
+# EMAIL_HOST_PASSWORD = "ua.bookings19"

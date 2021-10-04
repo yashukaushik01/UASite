@@ -69,8 +69,10 @@ urlpatterns = [
 
     path('affiliate/', views.affiliate, name="affiliate"),
     path('affiliate-add/', views.affiliateUser, name="affiliate-add"),
+    path('affiliate-dashboard/', views.AffiliateDashbord, name="affiliate-dashboard"),
     path('affiliate-list/', views.affiliateList, name="affiliate-list"),
     path('affiliate-list-data/', views.affiliateListData, name="affiliate-list-data"),
+    path('affiliate-user-status/<status>/<slug>', views.AffiliateUserStatus, name="affiliate-user-status"),
 
     path('about/', views.About, name="about"),
     path('contact/', views.Contact, name="contact"),

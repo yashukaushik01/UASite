@@ -88,6 +88,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </nav>
 
     <div class="container" style="min-height: 100vh;margin-top: 5rem;">
+    {% if request.user.is_active %}
         <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="section_title text-center mb_70">
@@ -97,14 +98,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="form-data">
+            <div class="form-data my-4 px-2 py-2" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.3);">
                 <div class="form-row">
                     <div class="form-group row col-12">
                         <div class="col-3">
                             <label>Name*</label>
                         </div>
                         <div class="col-6">
-                            <input type="text" name="name" class="form-control" placeholder="Name" required />
+                            <input type="text" name="name" value="{{request.user.first_name}} {{request.user.last_name}}" class="form-control" placeholder="Name" required />
                         </div>
                     </div>
                 </div>
@@ -114,14 +115,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <label>Email*</label>
                         </div>
                         <div class="col-6">
-                            <input type="email" name="email" class="form-control" value="{{request.user.email}}" placeholder="Email" required />
+                            <input type="email" name="email" class="form-control" value="{{request.user.email}}" style="pointer-events: none;background-color: rgb(185, 183, 183);" placeholder="Email" required />
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="form-data">
-                <div class="form-row ">
+                <div class="form-row">
                     <div class="form-group row col-12">
                         <div class="col-3">
                             <label>Mobile Number*</label>
@@ -131,6 +129,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="form-data my-4 px-2 py-2" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.3);">
                 <h2>Payment Details</h2>
                 <p class="mb-3">For Withdraw purpose</p>
                 <div class="form-row">
@@ -173,8 +174,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </div>
                     </div>
                 </div>
+            </div>
                 
-            <div class="form-data">
+            <div class="form-data my-4 px-2 py-2" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.3);">
                 <h3 class="mt-3">Your Identification Proof</h3>
                 <div class="form-group row col-12">
                     <div class="col-3">
@@ -187,12 +189,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
 
             <div class="form-btn" style="width: 100%;display: flex;justify-content: center;align-items: center;">
-                <button type="submit" class="btn-danger px-4 py-2">Create Affiliate</button>
+                <button type="submit" class="btn-danger px-4 py-2" style="border-radius: 5px;">Create Affiliate</button>
             </div>
 
      
         </form>
     </div>
+    {% else %}
+    <h1>Please login first and then apply for the affiliate user</h1>
+    {% endif %}
 </div>
 
 <footer class="footer">

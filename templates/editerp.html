@@ -212,9 +212,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </div>
         <div class="row">
-                <div class="col-lg-6">
-                    <!-- <div class="section_title  mb_70"></div> -->
-                  
+              <div class="form-group col-md-6 mb-0">
+                    <label>Booking Date*</label>
+                    <input type="date" class="form-control booking_date" value="{{post.booking_date|date:'Y-m-d'}}" name="booking_date">
                 </div>
         </div>
           
@@ -256,11 +256,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <div class="form-row">
                         <div class="form-group col-md-2 mb-0">
                             <label>payment</label>
-                            <input type="text" class="form-control payment" value="{{post.payment_client1}}" name="payment_client1">
+                            <input type="text" class="form-control payment" data-payment="{{post.payment_client1}}" value="{{post.payment_client1}}" name="payment_client1">
                         </div>
                          <div class="form-group col-md-3 mb-0">
                             <label>payment Date</label>
-                            <input type="date" class="form-control payment_date" value="{{post.payment_date1}}" name="payment_date1">
+                            <input type="date" class="form-control payment_date"  value="{{post.payment_date1}}" name="payment_date1">
                         </div>
                         <div class="form-group col-md-2 mb-0">
                             <label>Mode of payment*</label>
@@ -283,7 +283,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <div class="form-row">
                             <div class="form-group col-md-2 mb-0">
                                 <label>payment</label>
-                                <input type="text" class="form-control payment" value="{{post.payment_client2}}" name="payment_client2">
+                                <input type="text" class="form-control payment" data-payment="{{post.payment_client2}}" value="{{post.payment_client2}}" name="payment_client2">
                             </div>
                              <div class="form-group col-md-3 mb-0">
                                 <label>payment Date</label>
@@ -311,7 +311,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <div class="form-row">
                                 <div class="form-group col-md-2 mb-0">
                                     <label>payment</label>
-                                    <input type="text" class="form-control payment" value="{{post.payment_client3}}" name="payment_client3">
+                                    <input type="text" class="form-control payment" data-payment="{{post.payment_client3}}" value="{{post.payment_client3}}" name="payment_client3">
                                 </div>
                                  <div class="form-group col-md-3 mb-0">
                                     <label>payment Date</label>
@@ -338,7 +338,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 <div class="form-row">
                                     <div class="form-group col-md-2 mb-0">
                                         <label>payment</label>
-                                        <input type="text" class="form-control payment" value="{{post.payment_client4}}" name="payment_client4">
+                                        <input type="text" class="form-control payment" data-payment="{{post.payment_client4}}" value="{{post.payment_client4}}" name="payment_client4">
                                     </div>
                                      <div class="form-group col-md-3 mb-0">
                                         <label>payment Date</label>
@@ -1388,6 +1388,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </script>
     </body>
     <script>
+        $('.booking_date').change(() =>{
+            console.log($('.booking_date').val());
+        })
         $('#datepicker').datepicker({
             iconsLibrary: 'fontawesome',
             icons: {
@@ -1420,35 +1423,50 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     {
         btn.addEventListener('click',() =>
         {
-            $.ajax({
-            url:'/send-erp-mail/',
-            method:'POST',
-            data:{
-                'name':`{{post.name}}`,
-                'email':`{{post.email}}`,
-                'phone_no':`{{post.phone}}`,
-                'booking_id':`{{post.booking_id}}`,
-                 'tour_date':`{{post.start_date}}`,
-                 'tour_name':`{{post.package}}`,
-                 'total_package_cost':`{{post.net}}`,
-                 'payment1':all_payments[index].value,
-                 'payment_date':all_payment_date[index].value,
-                 'payment_mod':all_payments_mod[index].value,
-                 'due_payment_amount':`{{post.due}}`,
+            if(all_payments[index].getAttribute('data-payment') !== 'None' )
+            {
+                        console.log(`{{post.booking_date}}`);
+                        $.ajax({
+                        url:'/send-erp-mail/',
+                        method:'POST',
+                        data:{
+                            'name':`{{post.name}}`,
+                            'email':`{{post.email}}`,
+                            'phone_no':`{{post.phone}}`,
+                            'booking_id':`{{post.booking_id}}`,
+                            'booking_date':`{{post.booking_date}}`,
+                             'tour_date':`{{post.start_date}}`,
+                             'tour_name':`{{post.package}}`,
+                             'total_package_cost':`{{post.total_cost}}`,
+                             'payment1':all_payments[index].value,
+                             'payment_no':index+1,
+                             'payment_date':all_payment_date[index].value,
+                             'payment_mod':all_payments_mod[index].value,
+                             'due_payment_amount':`{{post.due}}`,
 
-            },
-            beforeSend: function () {
-                btn.innerHTML = 'Loading...';
-            },
-            success:(response)=>{
-                    swal({
-                        title: response.data,
-                        icon: response.status,
-                    });
-                    btn.innerHTML = 'Send Mail';
+                        },
+                        beforeSend: function () {
+                            btn.innerHTML = 'Loading...';
+                        },
+                        success:(response)=>{
+                                swal({
+                                    title: response.data,
+                                    icon: response.status,
+                                });
+                                btn.innerHTML = 'Send Mail';
+
+                        }
+                    })
 
             }
-        })
+            else
+            {
+                swal({
+                        title:"Payment Not Save or Done At.",
+                        icon:'warning',
+                });
+
+            }
 
         })
     })

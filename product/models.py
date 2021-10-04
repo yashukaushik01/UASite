@@ -219,6 +219,7 @@ class Erp(models.Model):
         max_length=2000, default="", null=True, blank=True)
     booking_id = models.CharField(
         max_length=2000, default="", null=True, blank=True)
+    booking_date = models.DateField(auto_now=False, auto_now_add=False)
     payment_client1 = models.CharField(
         max_length=2000, default="", null=True, blank=True)
     payment_date1 = models.CharField(
@@ -763,6 +764,17 @@ def pre_save_post_Affiliate1(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(pre_save_post_Affiliate1, sender=AffiliateUser)
+
+
+class AffiliateEarning(models.Model):
+    aid = models.ForeignKey(AffiliateUser, on_delete=models.CASCADE)
+    margin_earned = models.CharField(null=False, default="", max_length=50)
+    total_price = models.IntegerField(null=True, default=0)
+
+
+    def __str__(self):
+        return str(self.aid)
+    
     
 
 
@@ -778,6 +790,7 @@ class Purchase(models.Model):
     orderAmount = models.CharField(null=True, max_length=50)
     referenceId = models.CharField(null=True, max_length=100)
     coupon_uid = models.CharField(null=False, default="", max_length=500)
+    aid = models.CharField(max_length=50,null=True,blank=True)
     created = models.DateTimeField(
         null=True, auto_now=True, auto_now_add=False, blank=True)
 

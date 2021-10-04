@@ -71,18 +71,48 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         width: 100%;
         height: 100vh;
         z-index: 11111111;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: blue;
+        display: none;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+    .photoId__container
+    {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        height: 650px;
+        width: 600px;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+
     }
     .photo__id
     {
-        height: 600px;
-        width: 500px;
-        border-radius: 5px;
-        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        height: 100%;
+    }
+    .close__model
+    {
+        position: absolute;
+        top: 10px;
+        right: 20px;
 
+    }
+    .close__model button
+    {
+        background-color: transparent;
+        font-size: 40px;
+        font-weight: 600;
+        border: none;
+        outline: none;
+        transition: all 0.5s ease;
+
+    }
+    .close__model button:hover
+    {
+        color: aqua;
     }
     </style>
 </head>
@@ -126,7 +156,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="col-6">
                 <select name="status" id="status" class="form-control">
                     <option value="">Select Status</option>
-                    <option value="acitve">Active User</option>
+                    <option value="active">Active User</option>
                     <option value="inactive">Inactive User</option>
                 </select>
             </div>
@@ -137,10 +167,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
 
         <div class="photo__id__model active" id="photoModel">
-            <object data="./file/Doc1.pdf" type="application/pdf" id="photo__id">
-                <p>Your web browser doesn't have a PDF plugin.
-                 <a href="./filename.pdf">click here to download the PDF file.</a></p>
-              </object>
+            <div class="close__model">
+                <button class="close__btn"> &times; </button>
+            </div>
+            <div class="photoId__container">
+                
+            </div>
         </div>
 </div>
 
@@ -289,6 +321,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script src={% static 'js/mail-script.js' %}></script>
 
     </body>
+    <script>
+        $('.close__btn').click(() =>{
+            $('.photo__id__model').fadeOut(200);
+        })
+    </script>
 
     <script>
         const getData = (status) =>
@@ -301,6 +338,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             },
             success: (response) => {
                     document.querySelector('.main__container').innerHTML = response.data ;
+
+                    const photo_id__file = document.querySelectorAll('.photo__id__file');
+
+                    photo_id__file.forEach((Pid_f) =>{
+                        Pid_f.addEventListener('click',() =>
+                        {
+                            const url = Pid_f.getAttribute('data-id');
+                            $('.photoId__container').html(`  <iframe src="${url}" width="100%" height="100%"></iframe>`)
+                            $('.photo__id__model').fadeIn(200);
+
+                        } )
+                    })
                
             }
         })
