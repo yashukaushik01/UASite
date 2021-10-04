@@ -107,7 +107,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <section class="affiliate-user-dashboard">
         {% if request.user.is_active %}
             {% if affiliateUser %}
-                <p>Hello world {{affiliateUser.name}}</p>
+                {% if affiliateUser.status == 'active' %}
+                    <p>Hello world {{affiliateUser.name}}</p>
+                {% else %}
+                    <p>Affiliate user is not active wait untill activation</p>
+                {% endif %}
             {% endif %}
          <h1>Hello world</h1>
         {% else %}

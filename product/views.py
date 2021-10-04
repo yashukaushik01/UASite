@@ -2003,16 +2003,15 @@ def rentals(request, slug):
 
     if slug == 'all':
         if len(city) > 0:
-            paginator = Paginator(Product.objects.filter(
-                category='Adventure', city=city), 15)
-
+            paginator = Paginator(Rentals.objects.filter(city=city), 15)
         elif len(state) > 0:
-            paginator = Paginator(Product.objects.filter(
-                category='Adventure', state=state), 15)
+            paginator = Paginator(Rentals.objects.filter(state=state), 15)
         else:
             paginator = Paginator(
-                Product.objects.filter(category='Adventure'), 15)
+                Rentals.objects.all(), 15)
+
         page_number = request.GET.get('page')
+        
         page_obj = paginator.get_page(page_number)
         context = {
             'products': page_obj,
