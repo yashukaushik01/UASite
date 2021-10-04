@@ -1380,13 +1380,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
               <input type="button" value="Reset" id="reset" style="display:none">
               
               <div class="badges" id="brands_filters" style="display: none">
-                {% comment %} <input type="button" value="Reset"> {% endcomment %}
                 {% for brand in brands %}
-                  {% comment %} <button class="brand_badge" value={{filter}}> {% endcomment %}
                   <label for="badge-check-{{brand}}" class="badge badge-primary ml-3" > 
                     <input type="checkbox" id="badge-check-{{brand}}" class="brand_badge brand" style="" value="{{brand}}"> {{brand}}
                   </label>
-
                 {% endfor %}
               </div>
             </div>
@@ -1394,12 +1391,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 
             <div  id="dan">
-            
               <!-- Start Desktop View -->
                 <div id="products" class="content-desktop ml-3 ">
                   {% for product in products %}
-
-                    
                       <!-- The Modal -->
                       <div id="ModalMy" class="modal mx-4 mc" style="z-index: 1111; position: fixed; top:0%; left: 0%;width: 100%;height: 100%;display: none; width:fit-content;">
                         <!-- Modal content -->
@@ -1409,8 +1403,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                         style=" margin-top: 1.6rem; border:1px solid blue;  background-color: rgb(255, 255, 255); cursor: pointer;box-shadow: 1px 3px 8px 0px #72748452;transition: transform .3s;"
                                         name="{{product.adventuretype}}"> 
                                       <div class="col-lg-5 px-0 py-0" >
-                                              
-                                          {% comment %} <a href="/products/{{product.manual_slug}}"> {% endcomment %}
                                           <span id="productImage">
                                             <img src="/abcd/{{product.product_image}}" class="img-responsive"
                                               width="200px" height="250px" style="height: 84%;    object-fit: cover;    width: 100%;" />
@@ -1490,14 +1482,13 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
                                                 <div>
                                                     <div style="border:1px solid yellow; background-color:yellow" class="pt-2 text-center">
-                                                        {% comment %} <h5>Terms & Conditions</h5> {% endcomment %}
-
                                                       <div class="accordion accordion-flush" id="accordionFlushExample">
                                                         <div class="accordion-item">
                                                           <h2 class="accordion-header" id="flush-headingOne">
                                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                                                               Terms & Conditions
                                                             </button>
+                                                            <label for=""> <input type="checkbox" required> I accept </label>
                                                           </h2>
                                                           <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                                             <div class="accordion-body">{{product.terms_and_conditions|safe}}</div>
@@ -1507,63 +1498,29 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
                                                     </div>
                                                     <div  class="pt-2 text-center">
-                                                        {% comment %} style="border:1px solid blue; background-color:blue;"  <h5 style="color:white;" class="text-center">Book Now</h5> {% endcomment %}
                                                         <button class="btn btn-primary btn-lg btn-block" type="submit" style="cursor: pointer;border-radius: 12px;color:white;background-image: linear-gradient(93deg, #53b2fe, #065af3);
                                                           box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.2) !important">Book Now</button>
                                                     </div>
                                                 </div> 
                                               </div>
                                             </div>
-                                          
-                                        
-                                          {% comment %} </a> {% endcomment %}
                                       </div>
                         </div>
                       </form>
                       </div>
-                    
-                    {% comment %} {% endautoescape %}                   {% endcomment %}
 
                   <div class="row my-box-shadow product__data pc" data-item="{{product.product_name}}" id="product_name" 
                     style="margin-top: 1.6rem;border:1px solid blue; background-color: rgb(255, 255, 255);cursor: pointer;box-shadow: 1px 3px 8px 0px #72748452;transition: transform .3s;"
                     name="">
                     <div class="col-lg-3 px-0 py-0">
-
-
                       <img src="/abcd/{{product.product_image}}" class="img-responsive" 
-                          width="200px" height="250px" style="height: 100%;    object-fit: cover;    width: 100%;" />
-                          
-                          {% comment %} <span class="icon" id="image__data" style="display:none; padding: 11px 0 5px 5px;
-                        position: absolute;
-                        bottom: 0px;
-                        left: 0px;
-                        font-size: 15px;
-                        width: 100%;
-                        background-color: rgba(0,0,0,0.5);
-                        color: #ffffff;"><i class="far fa-clock"></i> {{product.duration}}  | 
-                          <span style="text-align: right; ">
-                          <i class="fas fa-map-marker-alt"></i> 
-                                {% if product.loca_city %} 
-                                {{product.loca_city}} 
-                                <span style="color: #fff;">, </span>
-                                {% endif %}
-                                {{product.city}}
-                            </span>
-                        </span> {% endcomment %}
-                        {% comment %} </a> {% endcomment %}
-                      {% comment %} {% endwith %} {% endcomment %}
-
+                          width="200px" height="250px" style="height: 100%;    object-fit: cover;    width: 100%;" />                          
                     </div>
                     
                     <div class="col-lg-6 pt-3">
-                      {% comment %} <a href="/products/{{product.manual_slug}}"> {% endcomment %}
                         <h3 class="mt-0" name="product_name" >{{product.product_name}}</h3>
                         <div class="row" id="duration__block">
                           <div class="col">
-                            {% comment %} <span class="icon" style="padding: 0px 3px 0px 6px;    position: relative;
-                                            vertical-align: middle;
-                                            font-size: 16px;
-                                            color: rgba(59,68,78,0.7);"><i class="far fa-clock"></i></span> {% endcomment %}
                             {% if product.vehicle_gear_type != "NA" %}
                             <span style="padding-right: 5px;
                                                 border-right: 1px solid rgba(59,68,78,0.3);    position: relative;
@@ -1580,20 +1537,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                 vertical-align: middle;
                                 font-size: 16px;
                                 color: rgba(59,68,78,0.7);">
-                              {% comment %} {% if product.loca_city %}
-                              {{product.loca_city}}
-                              <span>,</span>
-                              {% endif %} {% endcomment %}
                               {{product.city}}</span>
                           </div>
                         </div>
-                        {% comment %} <hr class="mt-1 mb-0" style="opacity:0.4;"> {% endcomment %}
                         {% autoescape off %}
-                        {% comment %} <div class="row mt-0 text-center" id="inn">{{product.delivery_option}} </div> {% endcomment %}
-                        {% comment %} <hr class="mt-2 mb-2" style="opacity:0.4;"> {% endcomment %}
-                        {% comment %} <div class="row pl-1" style="font-size: 1rem;">
-                          {{product.specification_2}}
-                        </div> {% endcomment %}
                         <div class="ml-3">
                           <ul>
                             <li style="list-style-type: disc;">{{product.specification_1}}</li>
@@ -1606,7 +1553,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     {% endautoescape %}
                     <div class=" col-lg-3 pt-3 pb-3"
                     style="border-left: 1px solid blue;display: flex;justify-content: center;align-items: center;">
-                    {% comment %} <a href="/products/{{product.manual_slug}}"> {% endcomment %}
                         <div>
                           <div class="custom_12">
                             <div class="row" >  {% comment %}   style="justify-content: center;" {% endcomment %}
@@ -1614,11 +1560,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                 <span class="btn "
                                   style="font-size: 14px;top: 2px;padding: 1px 7px;background: yellow;color: black;border-radius: 4px;padding-top: 3px;">
                                   Popularity: {{product.popularity_score}}/5</span>
-
                               </div>
                             </div>
-
-
                           </div>
                           <hr class="mt-2">
                           
@@ -1629,125 +1572,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
                             <p class="mt-2 btn btn-success view__details_btn" style="border-radius:24px; border:1px solid blue; width: 100%; bottom: 10px; left: 0px; background-color:white; color:black;">8-15 Days</p>
                             <p class="mt-2 btn btn-success view__details_btn" style="border-radius:24px; border:1px solid blue; width: 100%; bottom: 10px; left: 0px; background-color:white; color:black;">16-30 Days</p>
                           </div>
-                          {% comment %} <p class="mt-2"><a class="btn btn-success view__details_btn" style=" width: 100%; bottom: 10px; left: 0px;" 
-                              type="button" href="/products/{{product.manual_slug}}">View Details</a></p> {% endcomment %}
-
                         </div>
-                        {% comment %} </a> {% endcomment %}
                       </div>
                   </div>
                   {% endfor %} 
                 </div>
-                <!-- Desktop View End -->
-
-              {% comment %} <!-- Start Mobile View -->
-                <div id="products" class="content-mobile" >
-                {% for product in products %}
-                <div class="my-box-shadow" style="margin-top: 1.6rem;background-color: rgb(255, 255, 255);cursor: pointer;box-shadow: 1px 3px 8px 0px #72748452;"  name="{{product.adventuretype}}">
-                  <div class="row p-0 m-0" 
-                    style="box-shadow: 1px 3px 8px 0px #72748452;"
-                  >
-                    <div class="col-12 px-0 py-0">
-
-
-                      {% with product.images_set.all|first as image %}
-
-                      <a href="/products/{{product.manual_slug}}">
-                        
-                        <img src="{{image.image.url}}" class="image-responsive"
-                        style="position: relative; width: 100%;object-fit: cover; height: 100%; " />
-                        
-                        <span class="icon" style="padding: 11px 0 5px 5px;
-                        position: absolute;
-                        bottom: 0px;
-                        left: 0px;
-                        font-size: 15px;
-                        width: 100%;
-                        background-color: rgba(0,0,0,0.5);
-                        color: #ffffff;"><i class="far fa-clock"></i> {{product.duration}}  | 
-                          <span style="text-align: right; ">
-                          <i class="fas fa-map-marker-alt"></i> 
-                                {% if product.loca_city %} 
-                                {{product.loca_city}} 
-                                <span style="color: #fff;">, </span>
-                                {% endif %}
-                                {{product.city}}
-                            </span>
-                        </span>
-                          
-                      </a>
-                      {% endwith %}
-                    </div>
-                  </div> {% endcomment %}
-
-                  <!-- Content Column -->
-                  {% comment %} <div class="row">
-                    <div class="col-12 pt-3 mx-auto ">
-                      <a href="/products/{{product.manual_slug}}">
-                        <h3 class="mt-0 mx-2">{{product.name}}</h3>
-                        <hr class="mt-1 mb-0" style="opacity:0.4;">
-                        {% autoescape off %}
-                        <div class="row mt-0 mx-2 text-center" id="inn">{{product.inclusion}} </div>
-                        <hr class="mt-2 mb-2 " style="opacity:0.4;">
-                        <div class="row mx-2" style="font-size: 1rem;">
-                          {{product.a_inclusion}}
-                        </div>
-                      </a>
-                    </div>
-                    {% endautoescape %}
-                  </div>
-
-                  <!-- Price Review Column -->
-                  <div class="row">
-                    <div class="col-12 px-0" >
-                      <div class="pt-2">
-                          <a href="/products/{{product.manual_slug}}">
-
-                            <div class="row m-0"> 
-                              <div class="col-5 text-center" style="font-size: 0.6rem; padding: 0; margin:0 auto; display: flex; justify-content: center; flex-direction: column;">
-                                <div>
-                                <span style="color: #fecb19;">
-                                  <script>
-                                    for (var i = 1; i <= {{ product.rating }}; i++) {
-                                      document.write('<i class="fa fa-star" style="font-size: 0.9rem;"> </i>');
-                                    }
-                                  </script>
-                                </span>
-                                <span
-                                  style="font-size: 14px;padding:5px;background: #4caf50;color: white;border-radius: 4px;">
-                                  {{product.rating}}</span>
-                                </div>
-
-                                <div class="text-center">
-                                <p style="font-size: 16px;">{{product.reviews}} reviews<p>
-                                </div>
-                              </div>
-
-
-                              <div class="col-7 price__block">
-                                <p class="custom-price" style="font-size: 16px;">Starting from <span style="text-decoration: line-through; font-size: 16px; margin-right: 5px;">&#8377;{{product.regular}} 
-                                    </span></p>
-                                <p class="custom-price-main" ><strong style="color:#ec2929; display: inline; font-size: 1.4rem;">&#8377;{{product.sale}} </strong>  
-                                  <script>
-                                    for (var i = 1; i <= 1; i++) {
-                                        let per =  (({{product.regular}} - {{product.sale}})*100/{{product.regular}}).toFixed(0);
-                                        document.write(`<span style="font-size:14px; font-weight:bold; text-align:center; border: 1px solid red; border-radius:30px; padding: 2px 8px;"> ${per}% Off </span>`);
-                                      }
-                                    </script>
-                                </p>
-
-                              </div>
-                            </div>
-                          </a>
-                        </div>
-                        <p class="my-2" style="width:90%;margin:0 auto;"><a class="btn btn-success" style="width: 100%;"
-                              type="button" href="/products/{{product.manual_slug}}">View Details</a></p>
-                    </div>
-                  </div>
-
-                </div>
-                {% endfor %}
-                <!-- End Mobile View  --> {% endcomment %}
 
                 <div class="pagination my-3 mx-1 px-2 py-2 page__navigations" style="width: fit-content;
                 background-color: #fff;
@@ -1776,30 +1605,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     {% endif %}
                   </span>
                 </div>
-                <!-- <nav aria-label="...">
-                          <ul class="pagination">
-                              {% if products.has_previous %}
-                              <li class="page-item">
-                                  <span href="?page={{ products.previous_page_number }}" class="page-link">Previous</span>
-                                </li>
-                              {% else %}
-                            <li class="page-item">
-                              <span href="#" class="page-link" tabindex="-1" aria-disabled="true">Previous</span>
-                            </li>
-                            {% endif %}
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active">
-                              <span class="page-link">
-                                2
-                                <span class="sr-only">(current)</span>
-                              </span>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">Next</a>
-                            </li>
-                          </ul>
-                        </nav> -->
               </div>
             </div>
           </div>
@@ -1815,137 +1620,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
     </div>
     {% endautoescape %}
 
-    <button class="open-button" onclick="openForm()">
-      <img src={% static 'img/calling.svg' %}
-        style="filter: drop-shadow(0.15rem 0.15rem 0.3rem rgba(0, 0, 0, 0.5));width: 55px;" /></button>
+{% comment %} rentals end here {% endcomment %}
 
-    <div class="chat-popup" id="myForm">
-      <div class="form-container" id="fr2" style="text-align: center;">
-        <img src={% static 'img/Universal Adventures Logo.png' %} width="70px" style="margin-bottom: 1rem;">
-        <h3 style="margin-bottom: 1rem;">Thank You!</h3>
-        <h3 style="margin-bottom: 1rem;">Our Expert Will Call You In A Moment</h3>
-        <button class="btn btn-info" onclick="closeForm()">Close</button>
-      </div>
-      <form action="/" class="form-container mb-3 p-3" id='formg' name="google-sheet"
-        style="max-width: 380px;border-radius: 10px 0px 10px 10px;">
 
-        <!-- <i onclick="closeForm()" class="fa fa-times" style="float: right; cursor: pointer;"></i> -->
-
-        <div class="mt-n3" onclick="closeForm()"
-          style="position: absolute;cursor: pointer;background-color: #d82343;color: white;font-weight: 600;right: 0px;padding: 5px 15px;margin-top: -3.1rem;border-radius: 5px 5px 0px 0px;">
-          Close</div>
-        <h3>How can we help you?</h3>
-        <p>Please send your query or Call Us</p>
-        <div class="form-group row mb-0">
-          <div class="col-md-12">
-            <input type="text" class="form-control" id="inputname" placeholder="Name" name="Name">
-          </div>
-        </div>
-
-        <div class="form-group row mb-0">
-          <div class="col-md-12">
-            <input type="tel" class="form-control" id="inputPhone" placeholder="Phone" name="Phone">
-          </div>
-        </div>
-        <div class="form-group row">
-          <div class="col-md-12">
-            <textarea class="form-control" id="inputEmail3" placeholder="Message (optional)" name="Email"
-              style="height: 100px;"></textarea>
-          </div>
-        </div>
-        <div class="form-group row">
-          <div class="col-md-12">
-            <button type="submit" onclick="Sub()" class="btn btn-primary">Send Enquiry</button>&nbsp;or &nbsp; <button
-              type="button" class="btn bg-white text-danger float-right" onclick="location.href='tel:8882654593'"
-              style="border: 1px solid #ee4347;"><i class="fas fa-headset mr-2" aria-hidden="true"></i>Call
-              Expert</button>
-
-          </div>
-        </div>
-      </form>
-    </div>
-
-    <!-- <footer class="footer">
-        <div class="footer_top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-4 col-md-6 col-lg-4 ">
-                        <div class="footer_widget">
-                            <div class="footer_logo">
-                                <a href="#">
-                                    <img src={% static 'img/footer.png' %} width="200px" alt="">
-                                </a>
-                            </div>
-                            <a href="#">+91 8882654593</a> <br>
-                            <a href="mailto:contact@universaladventures.in">contact@universaladventures.in</a>
-                            </p>
-                            <div class="socail_links">
-                                <ul>
-                                    <li>
-                                        <a href="https://www.facebook.com/universaladventuresindia/">
-                                            <i class="ti-facebook"></i>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="https://www.instagram.com/universaladventuresindia/">
-                                            <i class="fa fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://g.co/kgs/FEs31r">
-                                            <i class="fa fa-google-plus"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-md-6 col-lg-2">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                Company
-                            </h3>
-                             <ul class="links">
-                                <ul class="links">
-                                <li><a href="/about/">About</a></li>
-                                <li><a href="/contact/"> Contact</a></li>
-                                <li><a href="/privacy-policy/">Privacy-Policy</a></li>
-                                <li><a href="/partial-payment/">Partial Payment</a></li>
-                                <li><a href="/refund-policy">Payments & Refund Policy</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6 col-lg-3">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                Popular destination
-                            </h3>
-                           <ul class="links double_links">
-                                <li><a href="/destination/Goa/">Goa</a></li>
-                                <li><a href="/destination/Karnataka/">Karnataka</a></li>
-                                <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
-                                <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
-                                <li><a href="/destination/Rajasthan/">Rajasthan</a></li>
-                                <li><a href="/destination/Maharashtra/">Maharashtra</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6 col-lg-3">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                Instagram
-                            </h3>
-                            <div class="instagram_feed" id="ing">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer> -->
     <!-- JS here -->
     <script src={% static 'js/vendor/modernizr-3.5.0.min.js' %}></script>
     <script src={% static 'js/vendor/jquery-1.12.4.min.js' %}></script>
@@ -2776,23 +2453,6 @@ width: 50%;">
         document.getElementById("fr2").style.display = "block";
       }
     </script>
-    <!-- <script>
-      $(function () {
-        $(window).scroll(function () 
-        {
-            var mainbottom = $("header").offset().top + $("header").height();
-          if ($(this).scrollTop() < mainbottom) {
-
-            $('nav').removeClass('first');
-
-          } else {
-
-            $('nav').addClass('first');
-
-          }
-        })
-      })
-    </script> -->
     <script>
       setTimeout(function () {
         $('.loader_bg').fadeToggle();

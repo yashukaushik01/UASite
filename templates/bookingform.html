@@ -106,17 +106,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <h6 class="my-0 p-0" style="display: inline;"><i class="fa fa-calendar" aria-hidden="true"></i> Date : </h6>
           <span class="text-muted " style="display: inline;">{{postData.date}}</span>
         </div>
+        {% if postData.adultPrice %}
         <div class="col-lg-6 col-md-6 col-sm-6 col-6 p-0 mt-2">
           <h6 class="my-0" style="display: inline;"><i class="fa fa-users" aria-hidden="true"></i> Guests : </h6>
           <span class="text-muted ml-2" style="display: inline;">{{postData.number}} Adult<div id="children2" style="display: inline;">,{{postData.number2}} Child</div></span>
         </div>
-        
+        {% endif %}
       </div>
 
 
 
 
       <ul class="list-group mb-3 mt-3">
+      {% if postData.adultPrice %}
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
             <h6 class="my-0" style="display: inline;">Adult :</h6>
@@ -153,7 +155,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="text-muted">&#8377; {% widthratio postData.childPrice 1 postData.number2 %}</span>
         </li>
       </div>
-
+      {% endif %}
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
             <h6 class="my-0" style="display: inline;">Booking Fee & Tax :</h6>
