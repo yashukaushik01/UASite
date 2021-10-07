@@ -49,6 +49,50 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         min-height:100vh;
         /* background:green; */
     }
+    .affiliate-user-notactive
+    {
+        height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        color: #000;
+        
+    }
+    .affiliate-user-notactive h3
+    {
+        padding: 20px 3rem;
+        box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+
+    }
+    .not-affiliate-user
+    {
+        height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        color: #000;
+
+    }
+    .not-affiliate-user
+    {
+         padding: 20px 3rem;
+        box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+
+    }
+    .affiliate-user-active
+    {
+        min-height:100vh;
+        padding:20px 0;
+
+    }
+    .affiliate-user-details 
+    {
+        margin:2rem 0 !important;
+        box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+        padding: 10px;
+    }
     </style>
 
 </head>
@@ -104,16 +148,158 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </div>
     </div>
+        <!--Withdraw Amount Modal-->
+        <div class="modal fade " id="withdraw-form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Withdraw Amount Form</h5>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/affiliate-withdraw/" method="POST">
+                            <p>Available Balance : Rs. {{affiliate_earn.total_earn}} </p>
+                            <div class="form-group">
+                                <!-- <label for="exampleInputEmail2">Name</label> -->
+                                <input type="text" name="aid" class="form-control" value="{{affiliateUser.aid}}" id="exampleInputEmail2"
+                                    placeholder="your aid" style="pointer-events: none;" required>
+                            </div>
+                            <div class="form-group">
+                                <!-- <label for="exampleInputEmail2">Name</label> -->
+                                <input type="text" name="name" class="form-control" value="{{affiliateUser.name}}" id="exampleInputEmail2"
+                                    placeholder="Enter your name" required>
+                            </div>
+                            <div class="form-group">
+                                <!-- <label for="exampleInputEmail1">Email address</label> -->
+                                <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"
+                                 value="{{affiliateUser.email}}"   required>
+                            </div>
+                            <div class="form-group">
+                                <!-- <label for="exampleInputPhone1">Phone Number</label> -->
+                                <input type="password" name="phone" class="form-control" id="exampleInputPhone1"
+                                    placeholder="+91-XXXXXXXXXX" value="{{affiliateUser.phone}}" required>
+                            </div>
+                            <div class="form-group">
+                                <!-- <label for="withdrawAmount">Amount</label> -->
+                                <input type="Number" class="form-control" name="amount" id="withdrawAmount"
+                                    placeholder="Enter Amount" required>
+                            </div>                       
+                            <button type="submit" class="btn btn-success">Withdraw</button>
+                        </form>
+                    </div> 
+                </div>
+            </div>
+        </div>
+
     <section class="affiliate-user-dashboard">
         {% if request.user.is_active %}
             {% if affiliateUser %}
                 {% if affiliateUser.status == 'active' %}
-                    <p>Hello world {{affiliateUser.name}}</p>
+                <div class="container affiliate-user-active">
+                    <h1 class="my-4">Affiliate User</h1>
+                    <div class="container affiliate-user-details row col-12 my-4">
+                        <div class="col-12">
+                            <h3>Hello {{affiliateUser.name}},</h3>
+                        </div>
+                        <div class="row col-12 my-3 px-4" style="width:100%;display: flex;justify-content: space-between;">
+                            <p class="btn btn-warning">affiliate Id : {{affiliateUser.aid}}</p>
+                            <p class="btn btn-warning">Total Amount: Rs {{affiliate_earn.total_earn}} </p>
+                             <p>
+                                 <a  href="#" class="btn btn-success" id="withdraw" data-toggle="modal" 
+                                 data-target="#withdraw-form">Withdraw Amount</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="container create-link">
+                        <div class="container my-4 py-3" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.3);">
+                            <h4 class="text-center py-3">Create Link</h4>
+                            <div class="form-row row col-md-12 col-12">
+                                    <div class="col-9">
+                                        <input type="text" name="link" id="affiliate-link" class="form-control" placeholder="Enter The Product Link" />
+                                    </div>
+                                    <div class="col-3">
+                                        <button class="btn btn-danger form-control create-link-btn">Create Link</button>
+                                    </div>
+                            </div>
+                        </div>
+
+                        <div class="container my-4 py-3" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.3);">
+                            <h3 class="text-center mt-2 pt-3">Created Link</h3>
+                            <div class="container row col-md-12 col-12 created-link-section py-3">
+                                    <div class="col-9">
+                                        <h3 class="Created-Linked-box form-control" >{{affiliateLinks.last.link}}</h3>
+                                    </div>
+                                    <div class="col-3">
+                                        <button class="btn btn-success copy_btn form-control">Copy</button>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container all-link-table mt-3 py-3">
+                        <h4>All links Created</h4>
+                            <table class="table table-striped">
+                
+                                    <thead class="thead-row">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Link</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Hits</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody class="all_link_table">
+                                        {% for link in affiliateLinks %}
+                                         <tr>
+                                            <td>{{forloop.counter}}</td>
+                                            <td>{{link.link}}</td>
+                                            <td>{{link.date}}</td>
+                                            <td>-</td>
+                                        </tr> 
+                                        {% endfor %}
+
+                                    </tbody>
+                            </table>
+                    </div>
+                    <div class="container all-link-table">
+                            <h4 class="mt-3">All Product Purches through link</h4>
+                            <table class="table table-striped">
+                                    <thead class="thead-row">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Product</th>
+                                            <th scope="col">OrderAmount</th>
+                                            <th scope="col">Margin</th>
+                                            <th scope="col">date</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        {% for purchase in affiliate_purchases %}
+                                         <tr>
+                                            <td>{{forloop.counter}}</td>
+                                            <td>{{purchase.product}}</td>
+                                            <td>{{purchase.margin}}</td>
+                                            <td>{{purchase.orderAmount}}</td>
+                                            <td>{{purchase.date}}</td>
+                                        </tr> 
+                                        {% endfor %}
+
+                                    </tbody>
+                            </table>
+                    </div>
+                </div>
                 {% else %}
-                    <p>Affiliate user is not active wait untill activation</p>
+                <div class="container affiliate-user-notactive">
+                    <h3 class="text-center">Affiliate user is not active wait untill activation</h3>
+                </div>
                 {% endif %}
+                {% else %}
+                <div class="container not-affiliate-user row mt-5">
+                    <h3 class="text-center col-12">You are not affiliate user please register yourself to connect with us.</h3>
+                    <a href="{% url 'affiliate-add' %}" class="btn btn-success col-12">Affiliate Registration</a>
+                </div>
             {% endif %}
-         <h1>Hello world</h1>
         {% else %}
          <h1>Good Bay</h1>
         
@@ -266,6 +452,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         crossorigin="anonymous"></script>
 
     <script src={% static 'js/main.js' %}></script>
+    <script>
+        $('.create-link-btn').click(() =>{
+            $('.copy_btn').text('Copy');
+            const link = $('#affiliate-link').val() ;
+            $.ajax({
+                url:'/affiliate-link/',
+                method:'POST',
+                data:{
+                    link:link
+                },
+                success:(response) =>{
+                    console.log(response);
+                    $('.Created-Linked-box').html(response.data);
+                    let table_data = '';
+                    response.all_links.forEach((link,index) =>{
+                        table_data += `<tr> <td>${index+1}</td>
+                                        <td>${link.link}</td>
+                                        <td>${link.date}</td>
+                                        <td>-</td></tr>`
+                    })
+                    $('.all_link_table').html(table_data);
+                }
+            })
+        })
+
+        $('.copy_btn').click(() =>{
+           const link =  $('.Created-Linked-box').text();
+            console.log(link);
+            navigator.clipboard.writeText(link);
+            $('.copy_btn').text('Copied');
+
+
+        })
+    </script>
+
     <script>
         $(function () {
             $(window).scroll(function () {

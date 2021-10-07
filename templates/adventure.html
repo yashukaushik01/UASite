@@ -2652,6 +2652,7 @@ width: 50%;">
           'minimum_price': $('#hidden_minimum_price').val(),
           'maximum_price': $('#hidden_maximum_price').val()
         };
+        console.log(formData);
         $.ajax({
           type: 'POST',
           url: `/filter-data/`,
@@ -2719,6 +2720,7 @@ width: 50%;">
           'minimum_price': $('#hidden_minimum_price').val(),
           'maximum_price': $('#hidden_maximum_price').val()
         };
+        console.log(formData);
         $.ajax({
           type: 'POST',
           url: `/filter-data/`,

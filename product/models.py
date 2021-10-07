@@ -152,6 +152,7 @@ class Product(models.Model):
         max_length=10000, default="", null=True, blank=True)
     tags = TaggableManager()
     promo_code = models.CharField(max_length=100,default='AU')
+    margin = models.IntegerField(null=True,blank=True,default=0)
 
     def __str__(self):
         return self.name
@@ -733,6 +734,12 @@ class Affiliate(models.Model):
         return self.coupon
 
 # =============================== affiliate user link ==============================
+def from_100000():
+    largest = AffiliateUser.objects.all().order_by('aid').last()
+    if not largest:
+        return 123456
+    return largest.aid + 1
+
 class AffiliateUser(models.Model):
     name = models.CharField(max_length=500,null=True,blank=True)
     email = models.EmailField(max_length=500,null=True,blank=True)
@@ -741,43 +748,49 @@ class AffiliateUser(models.Model):
     account_number = models.CharField(max_length=100,null=True,blank=True)
     ifsc_code = models.CharField(max_length=100,null=True,blank=True)
     upi_id = models.CharField(max_length=200,null=True,blank=True)
+    date = models.DateField(auto_now=False, auto_now_add=True)
     status = models.CharField(max_length=200, choices=Status_Type_CHOICES, default='inactive', null=True, blank=True)
     photo_copy = models.FileField(upload_to='uploads/affiliate_photo_id',null=True,blank=True)
-    aid = models.CharField(max_length=10,null=True,blank=True)
+    aid = models.PositiveBigIntegerField(default=from_100000,null=True,blank=True)
 
     def __str__(self):
-        return str(self.name +" - "+ self.aid)
-
-
-def pre_save_post_Affiliate1(sender, instance, *args, **kwargs):
-    digits = [i for i in range(0, 10)]
-    random_str = ""
-    for i in range(6):
-        index = math.floor(random.random() * 10)
-        random_str += str(digits[index])
-    aid = random_str
-
-    exists = AffiliateUser.objects.filter(aid=str(aid)).exists()
-    if exists:
-        pre_save_post_Affiliate1(sender,instance)
-    instance.aid = str(aid)
-
-
-pre_save.connect(pre_save_post_Affiliate1, sender=AffiliateUser)
-
+        return str(self.name)
 
 class AffiliateEarning(models.Model):
     aid = models.ForeignKey(AffiliateUser, on_delete=models.CASCADE)
-    margin_earned = models.CharField(null=False, default="", max_length=50)
+    margin = models.CharField(null=True,max_length=50)
     total_price = models.IntegerField(null=True, default=0)
 
 
     def __str__(self):
         return str(self.aid)
-    
+
+class AffiliateLink(models.Model):
+    aid = models.ForeignKey(AffiliateUser, on_delete=models.CASCADE)
+    link = models.CharField(max_length=50000,null=True,blank=True)
+    date = models.DateField( auto_now=False, auto_now_add=True)
+
+    def __str__(self):
+        return str(self.aid)
+
+Payment_Status_Type_CHOICES = (
+    ('done', 'DONE'),
+    ('notdone', 'NOTDONE'),
+)
+
+class AffiliateWithdraw(models.Model):
+    aid = models.ForeignKey(AffiliateUser ,on_delete=models.CASCADE)
+    name = models.CharField(max_length=10000,null=True,blank=True)
+    email = models.EmailField(max_length=254,null=True,blank=True)
+    phone_number = models.CharField(max_length=50,null=True,blank=True)
+    amount = models.CharField(max_length=2000,null=True,blank=True)
+    payemt_status =  models.CharField(max_length=200, choices=Payment_Status_Type_CHOICES,
+     default='notdone', null=True, blank=True)
     
 
-
+    def __str__(self):
+        return str(self.aid)
+    
 
 
 class Purchase(models.Model):
@@ -791,6 +804,7 @@ class Purchase(models.Model):
     referenceId = models.CharField(null=True, max_length=100)
     coupon_uid = models.CharField(null=False, default="", max_length=500)
     aid = models.CharField(max_length=50,null=True,blank=True)
+    margin = models.IntegerField(default=0,null=True,blank=True)
     created = models.DateTimeField(
         null=True, auto_now=True, auto_now_add=False, blank=True)
 
@@ -806,8 +820,7 @@ class TravelGuide(models.Model):
     manual_slug = models.SlugField(
         max_length=100, null=True, blank=True)
     heading = models.CharField(max_length=500, null=True, blank=True)
-    summary = models.CharField(
-        max_length=500000, default="", null=True, blank=True)
+    summary = models.TextField(null=True, blank=True)
     blog1 = models.CharField(
         max_length=50000, null=True, blank=True)
     blog2 = models.CharField(
