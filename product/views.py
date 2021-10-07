@@ -1379,7 +1379,7 @@ def checkout(request):
         if affiliate_user is not None:
             affiliate_ern = AffiliateEarning.objects.get(aid = affiliate_user)
             margin_earned = (int(request.POST.get('amount'))*int(prod.margin))//100
-            affiliate_ern.total_earn = int(affiliate_ern.total_earn) + margin_earned
+            affiliate_ern.total_price = int(affiliate_ern.total_price) + margin_earned
             margin_earned.save()
         
         sortedKeys = sorted(postData)
