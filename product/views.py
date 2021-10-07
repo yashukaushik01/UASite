@@ -1348,6 +1348,7 @@ def promocode(request):
 def checkout(request):
     if request.method == "POST":
         prod = get_object_or_404(Product, id=request.POST.get('orderid'))
+        # 3116246b3ec6d019344fd492a26113
         postData = {
             "appId": '3116246b3ec6d019344fd492a26113',
             "orderId": uuid.uuid4().hex[:6].upper(),
@@ -1357,8 +1358,8 @@ def checkout(request):
             "customerName": request.POST.get('name'),
             "customerPhone": request.POST.get('phone'),
             "customerEmail": request.POST.get('email'),
-            "returnUrl": 'https://universaladventures.in/handlerequest/',
-            "notifyUrl": 'https://universaladventures.in/'
+            "returnUrl": 'http://127.0.0.1:8000/handlerequest/',
+            "notifyUrl": 'http://127.0.0.1:8000/'
         }
         dates = datetime.datetime.strptime(
             request.POST.get('date'), "%Y-%m-%d").strftime("%Y-%m-%d")
@@ -1375,12 +1376,6 @@ def checkout(request):
             'number'), orderId=postData["orderId"], orderAmount=request.POST.get('amount'), 
             coupon_uid=request.POST.get('coupon_id'),aid = affiliateId,margin = prod.margin)
         purchase.save()
-
-        if affiliate_user is not None:
-            affiliate_ern = AffiliateEarning.objects.get(aid = affiliate_user)
-            margin_earned = (int(request.POST.get('amount'))*int(prod.margin))//100
-            affiliate_ern.total_price = int(affiliate_ern.total_price) + margin_earned
-            affiliate_ern.save()
         
         sortedKeys = sorted(postData)
         signatureData = ""
@@ -1390,6 +1385,7 @@ def checkout(request):
         message = signatureData.encode('utf-8')
         # get secret key from your config
         secretkey = "b8caf62ce5e932034897da856129873bf0dace3e"
+        # secretkey = "96d9e9a3801fc8914dde8e92a19ad866302335f5"
         secret = secretkey.encode('utf-8')
         signature = base64.b64encode(
             hmac.new(secret, message, digestmod=hashlib.sha256).digest()).decode("utf-8")
@@ -1408,8 +1404,8 @@ def checkout2(request):
             "customerName": request.POST.get('name'),
             "customerPhone": request.POST.get('phone'),
             "customerEmail": request.POST.get('email'),
-            "returnUrl": 'https://universaladventures.in/handlerequestpartial/',
-            "notifyUrl": 'https://universaladventures.in/'
+            "returnUrl": 'http://127.0.0.1:8000/handlerequestpartial/',
+            "notifyUrl": 'http://127.0.0.1:8000/'
         }
         sortedKeys = sorted(postData)
         signatureData = ""
@@ -1419,6 +1415,7 @@ def checkout2(request):
         message = signatureData.encode('utf-8')
         # get secret key from your config
         secretkey = "b8caf62ce5e932034897da856129873bf0dace3e"
+        # secretkey = "96d9e9a3801fc8914dde8e92a19ad866302335f5"
         secret = secretkey.encode('utf-8')
         signature = base64.b64encode(
             hmac.new(secret, message, digestmod=hashlib.sha256).digest()).decode("utf-8")
@@ -1439,8 +1436,8 @@ def checkout3(request):
             "customerPhone": request.POST.get('phone'),
             "customerEmail": request.POST.get('email'),
             "paymentType": request.POST.get('payment_type'),
-            "returnUrl": 'https://universaladventures.in/handlerequestpartial/',
-            "notifyUrl": 'https://universaladventures.in/'
+            "returnUrl": 'http://127.0.0.1:8000/handlerequestpartial/',
+            "notifyUrl": 'http://127.0.0.1:8000/'
         }
         sortedKeys = sorted(postData)
         signatureData = ""
@@ -1490,6 +1487,15 @@ def cash(request):
         purc.status = request.POST.get('txStatus')
         purc.referenceId = request.POST.get('referenceId')
         purc.save()
+        if len(purc.aid) != 0:
+            if AffiliateUser.objects.filter(aid = purc.aid).exists():
+                affiliate_user = AffiliateUser.objects.get(aid = purc.aid)
+                affiliate_ern = AffiliateEarning.objects.get(aid = affiliate_user)
+                margin_earned = (int(request.POST.get('amount'))*int(purc.margin))//100
+                affiliate_ern.total_price = int(affiliate_ern.total_price) + margin_earned
+                affiliate_ern.save()
+
+
         signatureData = ""
         signatureData = postData['orderId'] + postData['orderAmount'] + postData['referenceId'] + \
             postData['txStatus'] + postData['paymentMode'] + \

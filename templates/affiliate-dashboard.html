@@ -276,13 +276,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                     
                                     <tbody>
                                         {% for purchase in affiliate_purchases %}
-                                         <tr>
-                                            <td>{{forloop.counter}}</td>
-                                            <td>{{purchase.product}}</td>
-                                            <td>{{purchase.margin}}</td>
-                                            <td>{{purchase.orderAmount}}</td>
-                                            <td>{{purchase.date}}</td>
-                                        </tr> 
+                                            {% if purchase.status == 'SUCCESS' %}
+                                            <tr>
+                                                <td>{{forloop.counter}}</td>
+                                                <td>{{purchase.product}}</td>
+                                                <td>{{purchase.orderAmount}}</td>
+                                                <td>{{purchase.margin}}</td>
+                                                <td>{{purchase.date}}</td>
+                                            </tr> 
+                                            {% endif %}
                                         {% endfor %}
 
                                     </tbody>
