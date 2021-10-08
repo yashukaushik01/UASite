@@ -714,11 +714,11 @@ def AffiliateUserStatus(request,status,slug):
 
 def AffiliateDashbord(request):
     print(request.affiliate_id)
+    affiliate_user = None
+    affiliate_links = None
+    affiliate_purchases = None
+    affiliate_earining = None
     if request.user.is_active:
-        affiliate_user = None
-        affiliate_links = None
-        affiliate_purchases = None
-        affiliate_earining = None
         try:
             affiliate_user = AffiliateUser.objects.get(email = request.user.email)
             affiliate_earining = AffiliateEarning.objects.get(aid = affiliate_user)
