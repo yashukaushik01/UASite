@@ -11,14 +11,25 @@
     <title>Universal Adventures</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
- <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KH59H8J');</script>
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-KH59H8J');
+    </script>
 
-<!-- End Google Tag Manager -->
+    <!-- End Google Tag Manager -->
     <!-- <link rel="manifest" href="site.webmanifest"> -->
     <link rel="icon" href={% static './img/uni.png' %} sizes="16x16" type="image/png">
     <!-- Place favicon.ico in the root directory -->
@@ -39,69 +50,423 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css"
         integrity="sha512-YdYyWQf8AS4WSB0WWdc3FbQ3Ypdm0QCWD2k4hgfqbQbRCJBEgX0iAegkl2S1Evma5ImaVXLBeUkIlP6hQ1eYKQ=="
         crossorigin="anonymous" />
+
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
+        integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous" />
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <link rel="stylesheet" href={% static 'css/style.css' %}>
-    <link rel="stylesheet" href={% static 'css/rough.css' %}>
 
-    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
     <style>
-    .affiliate-user-dashboard
-    {
-        min-height:100vh;
-        /* background:green; */
-    }
-    .affiliate-user-notactive
-    {
-        height: 80vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 30px;
-        color: #000;
-        
-    }
-    .affiliate-user-notactive h3
-    {
-        padding: 20px 3rem;
-        box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+        * {
+            box-sizing: border-box;
+        }
 
-    }
-    .not-affiliate-user
-    {
-        height: 80vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 30px;
-        color: #000;
+        :root {
+            /* Media */
+            --clr-instagram: linear-gradient(to right, hsl(37, 97%, 70%), hsl(329, 70%, 58%));
 
-    }
-    .not-affiliate-user
-    {
-         padding: 20px 3rem;
-        box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+            /* Light Theme Colors */
+            --clr-theme-bg: hsl(0, 0%, 100%);
+            --clr-theme-pattern: hsl(225, 100%, 98%);
+            --clr-theme-card-bg: hsl(227, 47%, 96%);
+            --clr-theme-text: hsl(228, 12%, 44%);
+            --clr-theme-text-secondary: hsl(230, 17%, 14%);
+        }
 
-    }
-    .affiliate-user-active
-    {
-        min-height:100vh;
-        padding:20px 0;
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            /* 14px */
+            background-color: var(--clr-theme-bg);
+            color: var(--clr-theme-text-secondary);
+        }
 
-    }
-    .affiliate-user-details 
-    {
-        margin:2rem 0 !important;
-        box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-        padding: 10px;
-    }
+
+        h1,
+        h2,
+        h3 {
+            color: var(--clr-theme-text-secondary);
+        }
+
+        p {
+            color: var(--clr-theme-text);
+        }
+
+        small {
+            font-weight: bold;
+        }
+
+        /* Generate form  */
+        #product-link,
+        #affiliate-link {
+            width: 75%;
+            display: inline-block;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: .25rem;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        }
+
+        #create-link-btn {
+            display: inline-block;
+            width: fit-content
+        }
+
+        @media (max-width: 440px) {
+
+            #product-link,
+            #affiliate-link {
+                width: 100%;
+            }
+
+            #create-link-btn {
+                display: block;
+                margin: 10px auto;
+            }
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-radius: 8px;
+            margin-top: 10px;
+            background: #0F2027;
+        }
+
+        @media (min-width: 640px) {
+            .header {
+                flex-direction: row;
+                justify-content: space-between;
+                padding-top: 2.5rem;
+            }
+        }
+
+        /* Headings Area */
+        .header__heading-area {
+            padding-bottom: 0.3125rem;
+            border-bottom: 0.125rem solid var(--clr-theme-card-bg);
+        }
+
+        @media (min-width: 640px) {
+            .header__heading-area {
+                border-bottom-color: transparent;
+            }
+        }
+
+        .heading-area__title {
+            color: #fff !important;
+            font-size: 1.5625rem;
+            margin: 0;
+            padding: 10px;
+        }
+
+        @media (min-width: 640px) {
+            .heading-area__title {
+                font-size: 2rem;
+            }
+        }
+
+        .heading-area__paragraph {
+            color: #fff !important;
+            font-size: 0.9375rem;
+            font-weight: bold;
+            padding: 10px;
+            margin-top: 0.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .heading-area__paragraph {
+                font-size: 1.06rem;
+            }
+        }
+
+        .heading-area-btns {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .heading-area-btns button,
+        .heading-area-btns a {
+            min-width: 200px;
+        }
+
+        .user-icon {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .user-icon i {
+            font-size: 2.5rem;
+        }
+
+        @media screen and (max-width: 770px) {
+            .user-icon {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 420px) {
+            .contact_exec {
+                text-align: center;
+            }
+        }
+
+        /* Dashboard Cards */
+        .dash-cards {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            grid-gap: 1.5rem 2rem;
+            padding-bottom: 1.5rem;
+        }
+
+        @media (min-width:640px) {
+            .dash-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width:1200px) {
+            .dash-cards {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        /* Card */
+        .dash-card {
+            position: relative;
+            background-color: var(--clr-theme-card-bg);
+            border-radius: 8px;
+            padding: 1.5625rem 0;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* Card Top Border Style */
+        .dash-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: transparent;
+            background-image: var(--clr-instagram);
+
+        }
+
+        .dash-card__user-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .user-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .user-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .user-icon {
+            font-size: 2rem;
+            margin-right: 5px;
+            background-color: pink;
+            background-image: var(--clr-instagram);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dash-card .user-info__icon {
+            display: flex;
+            font-size: 2rem;
+            margin-right: 0.3125rem;
+            background-color: pink;
+            background-image: var(--clr-instagram);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+        }
+
+        .user-info__username {
+            font-size: 1.3rem;
+            color: var(--clr-theme-text);
+        }
+
+        .dash-card__followers-info {
+            margin-top: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .followers-info__count {
+            font-size: 2.25rem;
+            margin: 0;
+        }
+
+        .followers-info__text {
+            font-weight: 600;
+            font-size: 14px;
+            color: green;
+        }
+
+        .accordion-body,
+        .card {
+            background-color: var(--clr-theme-card-bg);
+            color: #000;
+        }
+
+        .collapseCloseBtn {
+            padding: .5rem .5rem;
+            margin: -.5rem -.5rem -.5rem auto;
+            float: right;
+            font-weight: bold;
+        }
+
+        .modal-footer {
+            padding: .75rem;
+        }
+
+        .conversion-img {
+            max-width: 100%;
+            height: 100%;
+            min-height: 300px;
+            display: block;
+            margin: auto 0 auto auto;
+        }
+
+        .conversion-text {
+            font-size: 24px;
+            color: green;
+            text-align: end;
+            padding-right: 15%;
+        }
+
+
+        @media (min-width:320px) {
+            .conversion-text {
+                text-align: center;
+                padding-right: 0;
+            }
+        }
+
+        @media (min-width:760px) {
+            .conversion-text {
+                text-align: end;
+                padding-right: 30%;
+            }
+        }
+
+        @media (min-width:990px) {
+            .conversion-text {
+                text-align: end;
+                padding-right: 20%;
+            }
+        }
+
+        @media (min-width:1024px) {
+            .conversion-text {
+                text-align: end;
+                padding-right: 20%;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .conversion-text {
+                text-align: end;
+                padding-right: 15%;
+            }
+        }
+
+        /* profile table */
+        table {
+            background-color: var(--clr-theme-card-bg);
+            border-collapse: collapse !important;
+            border: none !important;
+        }
+
+        th,
+        td {
+            box-sizing: border-box;
+            padding: 0.75em 1em;
+        }
+
+        th {
+            font-weight: bold;
+            white-space: pre;
+        }
+
+        td {
+            font-size: 16px;
+            vertical-align: middle !important;
+            border: none !important;
+        }
+
+        tbody tr {
+            transition: all 0.125s ease-in-out;
+        }
+
+        tr:hover {
+            background: #f8d7da !important;
+        }
+
+        .left-align {
+            width: 500px;
+            text-align: left;
+        }
+
+        .right-align {
+            width: 500px;
+            text-align: right;
+        }
+
+        .productNameData {
+            min-width: 300px;
+        }
+
+        @media screen and (max-width: 990px) {
+            .table-scroll {
+                overflow-x: scroll;
+            }
+        }
     </style>
 
 </head>
 
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <nav class="navbar  navbar-expand-lg  navbar-light" style="box-shadow: 1px 1px 10px rgba(0,0,0,0.5);" id="mainNav">
         <div class="container">
             <a class="navbar-brand js-scroll-trigger" href="/"><img
@@ -142,173 +507,654 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <span class="fa fa-google-plus"></span>
                         Sign in with Google
                     </a>
-
-
                 </div>
             </div>
         </div>
     </div>
-        <!--Withdraw Amount Modal-->
-        <div class="modal fade " id="withdraw-form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Withdraw Amount Form</h5>
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+
+
+{% if request.user.is_active %}
+    {% if affiliateUser %}
+        {% if affiliateUser.status == 'active' %}
+            <div class="container">  
+                <header class="header">
+                    <div class="heading-area header__heading-area">
+                        <div class="user-icon">
+                            <i class="p-3 fa fa-user-circle"></i>
+                        </div>
+                        <div style="display: inline-block">
+                            <h1 class="heading-area__title">Hi, {{affiliateUser.name}}</h1>
+                            <p class="heading-area__paragraph">Affiliate ID: {{affiliateUser.aid}}</p>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <form action="/affiliate-withdraw/" method="POST">
-                            <p>Available Balance : Rs. {{affiliate_earn.total_earn}} </p>
-                            <div class="form-group">
-                                <!-- <label for="exampleInputEmail2">Name</label> -->
-                                <input type="text" name="aid" class="form-control" value="{{affiliateUser.aid}}" id="exampleInputEmail2"
-                                    placeholder="your aid" style="pointer-events: none;" required>
+
+                    <div class="heading-area-btns pt-3 px-3">
+                        <!-- Profile Modal trigger Button -->
+                        <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#ProfileModal">
+                            My Profile
+                        </button>
+
+                        <!-- Referral Modal trigger Button -->
+                        <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
+                            data-bs-target="#ReferralModal">
+                            Generate Referral Link
+                        </button>
+
+                        <!-- Withdraw Modal trigger Button -->
+                        <button type="button" class="btn btn-primary m-1" data-bs-toggle="collapse"
+                            data-bs-target="#earningModal" aria-expanded="false" aria-controls="earningModal">
+                            Withdraw Amount
+                        </button>
+
+                    </div>
+                </header>
+
+                <!-- Withdraw Amount Collapse -->
+                <div class="collapse my-4" id="earningModal">
+                    <div class="card card-body">
+                        <div>
+                            <button type="button" class="btn-close collapseCloseBtn" data-bs-toggle="collapse"
+                                data-bs-target="#earningModal" aria-expanded="true" aria-controls="earningModal">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-12 mb-4 mb-lg-2">
+                                <div class="earning-details">
+                                    <h5># Your Earnings</h5>
+                                    <hr />
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td class="left-align">Total Earnings</td>
+                                                <td class="right-align">Rs {{affiliate_earn.total_price}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="left-align">Amount Withdraw Till Date</td>
+                                                <td class="right-align">Rs {{total_withdraw_amount}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="left-align">Available Balance</td>
+                                                <td class="right-align">Rs {{remain_price}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="left-align">
+                                                    Withdrawable Amount <i class="fas fa-info-circle"></i>
+                                                </td>
+                                                <td class="right-align">Rs {{affiliate_earn.withdrawlable_amount}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <form action="/affiliate-withdraw/" method="POST">
+                                        {% csrf_token %}
+                                        <div class="input-group mb-3">
+                                            <input type="hidden" value="{{affiliateUser.aid}}" name="aid" class="form-control" />
+                                            
+                                            <span class="input-group-text">Enter Amount:</span>
+                                            <input type="text" name="withdraw-amount" class="form-control" aria-label="Amount (to the nearest rupees)"
+                                                style="text-align: right; margin-top: 0 !important;" placeholder="Rs." />
+                                            <span class="input-group-text">.00</span>
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <button type="submit" class="btn btn-success">Withdraw Amount</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <!-- <label for="exampleInputEmail2">Name</label> -->
-                                <input type="text" name="name" class="form-control" value="{{affiliateUser.name}}" id="exampleInputEmail2"
-                                    placeholder="Enter your name" required>
+                            <div class="col-lg-6 col-12 mb-4 mb-lg-2">
+                                <h5># Withdraw History</h5>
+                                <hr />
+                                <div class="table-scroll">
+                                    <table class="table table-striped text-center">
+                                        <thead class="table-danger">
+                                            <tr>
+                                                <th>Request Date</th>
+                                                <th>Withdraw Amount</th>
+                                                <th>Payment Status</th>
+                                                <th>View Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="">
+                                            {% for withdraw in affiliate_withdraw %}
+                                            <tr>
+                                                <td>{{withdraw.request_date}}</td>
+                                                <td>Rs. {{withdraw.amount}}</td>
+                                                <td>{{withdraw.payemt_status|title}}</td>
+                                                <td>
+                                                    <!-- View details Modal trigger Button -->
+                                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                                        data-bs-target="#viewDetailsModal{{forloop.counter}}">
+                                                        View
+                                                    </button>
+                                                    <!-- Withdraw History Modal -->
+                                                    <div id="viewDetailsModal{{forloop.counter}}" class="modal fade" data-bs-backdrop="static"
+                                                        data-bs-keyboard="false" tabindex="-1"
+                                                        aria-labelledby="viewDetailsModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="WithdrawModalLabel">
+                                                                        # Withdraw History
+                                                                    </h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="earning-details">
+                                                                        <table>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td class="left-align">Request Date</td>
+                                                                                    <td class="right-align">
+                                                                                        <strong>{{withdraw.request_date}}</strong>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="left-align">Amount</td>
+                                                                                    <td class="right-align"><strong>Rs
+                                                                                            {{withdraw.amount}}</strong></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="left-align">IP Address</td>
+                                                                                    <td class="right-align">{{withdraw.ip}}</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <hr />
+                                                                        <table>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td class="left-align">Account Number</td>
+                                                                                    <td class="right-align">{{withdraw.account_number}}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="left-align">Account Holder Name
+                                                                                    </td>
+                                                                                    <td class="right-align">{{withdraw.name}}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="left-align">IFSC Code</td>
+                                                                                    <td class="right-align">{{withdraw.ifsc_code}}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="left-align">Bank Name</td>
+                                                                                    <td class="right-align">{{withdraw.bank_name}}</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <hr />
+                                                                        <table>
+                                                                            <tbody>
+                                                                                <tr class="">
+                                                                                    <td class="right-align">
+                                                                                        <strong>Status: <i
+                                                                                                class="fas fa-info-circle"></i></strong>
+                                                                                    </td>
+                                                                                    <td class="left-align">
+                                                                                        <button class="btn btn-sm btn-success">
+                                                                                            {{withdraw.payemt_status}}
+                                                                                        </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <!-- <label for="exampleInputEmail1">Email address</label> -->
-                                <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"
-                                 value="{{affiliateUser.email}}"   required>
-                            </div>
-                            <div class="form-group">
-                                <!-- <label for="exampleInputPhone1">Phone Number</label> -->
-                                <input type="password" name="phone" class="form-control" id="exampleInputPhone1"
-                                    placeholder="+91-XXXXXXXXXX" value="{{affiliateUser.phone}}" required>
-                            </div>
-                            <div class="form-group">
-                                <!-- <label for="withdrawAmount">Amount</label> -->
-                                <input type="Number" class="form-control" name="amount" id="withdrawAmount"
-                                    placeholder="Enter Amount" required>
-                            </div>                       
-                            <button type="submit" class="btn btn-success">Withdraw</button>
-                        </form>
-                    </div> 
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-    <section class="affiliate-user-dashboard">
-        {% if request.user.is_active %}
-            {% if affiliateUser %}
-                {% if affiliateUser.status == 'active' %}
-                <div class="container affiliate-user-active">
-                    <h1 class="my-4">Affiliate User</h1>
-                    <div class="container affiliate-user-details row col-12 my-4">
-                        <div class="col-12">
-                            <h3>Hello {{affiliateUser.name}},</h3>
+                <!-- Cards -->
+                <div class="dash-cards my-3">
+                    <div class="dash-card user-info">
+                        <div class="user-title">
+                            <span class="user-icon">
+                                <i class="fas fa-link"></i>
+                            </span>
+                            <small class="user-info__username">Referral Links</small>
                         </div>
-                        <div class="row col-12 my-3 px-4" style="width:100%;display: flex;justify-content: space-between;">
-                            <p class="btn btn-warning">affiliate Id : {{affiliateUser.aid}}</p>
-                            <p class="btn btn-warning">Total Amount: Rs {{affiliate_earn.total_earn}} </p>
-                             <p>
-                                 <a  href="#" class="btn btn-success" id="withdraw" data-toggle="modal" 
-                                 data-target="#withdraw-form">Withdraw Amount</a>
-                            </p>
+                        <div class="followers-info dash-card__followers-info">
+                            <h2 class="followers-info__count">
+                                {{link_count}}
+                            </h2>
                         </div>
+                        <!-- Referral Links -->
+                        <button id="referralBtn" class="referralLinksBtns btn btn-primary w-50 d-block" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#referralLinks" aria-expanded="false"
+                            aria-controls="referralLinks">
+                            View All
+                        </button>
                     </div>
-                    <div class="container create-link">
-                        <div class="container my-4 py-3" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.3);">
-                            <h4 class="text-center py-3">Create Link</h4>
-                            <div class="form-row row col-md-12 col-12">
-                                    <div class="col-9">
-                                        <input type="text" name="link" id="affiliate-link" class="form-control" placeholder="Enter The Product Link" />
-                                    </div>
-                                    <div class="col-3">
-                                        <button class="btn btn-danger form-control create-link-btn">Create Link</button>
-                                    </div>
-                            </div>
+
+                    <div class="dash-card user-info">
+                        <div class="user-title">
+                            <span class="user-icon">
+                                <i class="fas fa-mouse-pointer"></i>
+                            </span>
+                            <small class="user-info__username">Link Visits</small>
+                        </div>
+                        <div class="followers-info dash-card__followers-info">
+                            <h2 class="followers-info__count">
+                                {{total_hits}}
+                            </h2>
+                        </div>
+                        <!-- Link Visits -->
+                        <button id="linkVisitBtn" class="referralLinksBtns btn btn-primary w-50 d-block" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#referralLinks" aria-expanded="false"
+                            aria-controls="referralLinks">
+                            View All
+                        </button>
+                    </div>
+
+                    <div class="dash-card user-info">
+                        <div class="user-title">
+                            <span class="user-icon">
+                                <i class="fas fa-exchange-alt"></i>
+                            </span>
+                            <small class="user-info__username">Conversion Rate</small>
+                        </div>
+                        <div class="followers-info dash-card__followers-info">
+                            <h2 class="followers-info__count">
+                                {{total_success_booking}}
+                                <small class="followers-info__text">{{conversion_rate}}%</small>
+                            </h2>
+                        </div>
+                        <!-- Conversion Rate -->
+                        <button id="conversionBtn" class="conversionBtns btn btn-primary w-50 d-block" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#conversionRate" aria-expanded="false"
+                            aria-controls="conversionRate">
+                            More Info
+                        </button>
+                    </div>
+
+                    <div class="dash-card user-info">
+                        <div class="user-title">
+                            <span class="user-icon">
+                                <i class="fas fa-hand-holding-usd"></i>
+                            </span>
+                            <small class="user-info__username">Total Earnings</small>
                         </div>
 
-                        <div class="container my-4 py-3" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.3);">
-                            <h3 class="text-center mt-2 pt-3">Created Link</h3>
-                            <div class="container row col-md-12 col-12 created-link-section py-3">
-                                    <div class="col-9">
-                                        <h3 class="Created-Linked-box form-control" >{{affiliateLinks.last.link}}</h3>
-                                    </div>
-                                    <div class="col-3">
-                                        <button class="btn btn-success copy_btn form-control">Copy</button>
-                                    </div>
-                            </div>
+                        <div class="followers-info dash-card__followers-info">
+                            <h2 class="followers-info__count">
+                                <i class="fas fa-rupee-sign"></i> {{affiliate_earn.total_price}}
+                            </h2>
+                            <small class="followers-info__text"><i class="fas fa-rupee-sign"></i> {{affiliate_earn.remain_price}}</small>
                         </div>
+                        <!-- Total Earnings -->
+                        <button id="totalEarningsBtn" class="earningBtn btn btn-primary w-50 d-block" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#totalEarnings" aria-expanded="false"
+                            aria-controls="totalEarnings">
+                            View Details
+                        </button>
                     </div>
-                    <div class="container all-link-table mt-3 py-3">
-                        <h4>All links Created</h4>
-                            <table class="table table-striped">
-                
-                                    <thead class="thead-row">
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Link</th>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Hits</th>
-                                        </tr>
-                                    </thead>
-                                    
-                                    <tbody class="all_link_table">
-                                        {% for link in affiliateLinks %}
+                </div>
+
+                <!-- Referral Links and Link Visits Collapse -->
+                <div class="collapse my-3" id="referralLinks">
+                    <div class="card card-body">
+                        <div>
+                            <h5 class="card-title d-inline-block"># Referral Links And Link Visits</h5>
+                            <button id="linkVisitBtn" class="referralLinksBtns btn-close collapseCloseBtn" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#referralLinks" aria-expanded="true"
+                                aria-controls="referralLinks"></button>
+                        </div>
+                        <div class="table-scroll">
+                            <table class="text-center table table-striped">
+                                <thead class="table-danger">
+                                    <tr>
+                                        <th>Sr No</th>
+                                        <th>Date Created</th>
+                                        <th>Product Name</th>
+                                        <th>Product Link</th>
+                                        <th>Link Visits</th>
+                                        <th>Get Link</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="all_link_table">
+                                   {% for link in affiliateLinks %}
                                          <tr>
                                             <td>{{forloop.counter}}</td>
-                                            <td>{{link.link}}</td>
-                                            <td>{{link.date}}</td>
-                                            <td>-</td>
+                                            <td>{{link.link.date}}</td>
+                                            {% if link.link.product_name %}
+                                                <td class="productNameData">{{link.link.product_name}}</td>
+                                            {% else %}
+                                                <td class="productNameData">-</td>
+                                            {% endif %}
+                                            <td class="all_product_links">{{link.link.link}}</td>
+                                            <td>{{link.hits}}</td>
+                                             <td>
+                                                <button class="btn btn-sm btn-primary copy_links_btn">Copy Link</button>
+                                            </td>
                                         </tr> 
                                         {% endfor %}
-
-                                    </tbody>
+                                </tbody>
                             </table>
+                        </div>
                     </div>
-                    <div class="container all-link-table">
-                            <h4 class="mt-3">All Product Purches through link</h4>
-                            <table class="table table-striped">
-                                    <thead class="thead-row">
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Product</th>
-                                            <th scope="col">OrderAmount</th>
-                                            <th scope="col">Margin</th>
-                                            <th scope="col">date</th>
-                                        </tr>
-                                    </thead>
-                                    
-                                    <tbody>
-                                        {% for purchase in affiliate_purchases %}
-                                            {% if purchase.status == 'SUCCESS' %}
+                </div>
+
+                <!-- Conversion Rate Collapse -->
+                <div class="collapse my-3" id="conversionRate">
+                    <div class="card card-body">
+                        <div>
+                            <h5 class="card-title d-inline-block"># Conversion Rate</h5>
+                            <button id="conversionBtn" class="conversionBtns btn-close collapseCloseBtn" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#conversionRate" aria-expanded="true"
+                                aria-controls="conversionRate"></button>
+                        </div>
+                        <div class="row g-0">
+                            <div class="col-6">
+                                <div>
+                                    <img class="conversion-img" src={% static 'img/affiliate-page/conversion.png' %} alt="Conversion Image" />
+                                </div>
+                                <div>
+                                    <h5 class="conversion-text my-3">{{conversion_rate}}%</h5>
+                                </div>
+                            </div>
+                            <div class="col-6 row g-0">
+                                <div class="col-12">
+                                    <span><i class="far fa-hand-point-right"></i> {{link_count}} Referral Links </span>
+                                </div>
+                                <div class="col-12"><i class="far fa-hand-point-right"></i> {{total_hits}} Link Clicks</div>
+                                <div class="col-12 pt-2"><i class="far fa-hand-point-right"></i> {{total_success_booking}} Successful Bookings</div>
+                                <div class="col-12"><i class="far fa-hand-point-right"></i> Rs. 435 Earned Through Link Clicks
+                                </div>
+                                <div class="col-12"><i class="far fa-hand-point-right"></i>
+                                    Rs. {{affiliate_earn.total_price}} Earned Through affiliate Program
+                                </div>
+                                <div class="col-12 d-flex align-items-center">
+                                    <span><i class="far fa-hand-point-right"></i> Your Conversion Rate</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Earning Collapse -->
+                <div class="collapse my-3" id="totalEarnings">
+                    <div class="card card-body">
+                        <div>
+                            <h5 class="card-title d-inline-block"># Total Earnings</h5>
+                            <button id="totalEarningsBtn" class="earningBtn btn-close collapseCloseBtn" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#totalEarnings" aria-expanded="true"
+                                aria-controls="totalEarnings">
+                        </div>
+                        <div class="table-scroll">
+                            <table class="table table-striped text-center">
+                                <thead class="table-danger">
+                                    <tr>
+                                        <th>Booking Date</th>
+                                        <th>Product Name</th>
+                                        {% comment %} <th>Service Date</th> {% endcomment %}
+                                        <th>Total Package Cost</th>
+                                        <th>Margin Earned</th>
+                                        <th>Service Status</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                     {% for purchase in affiliate_purchases %}
                                             <tr>
-                                                <td>{{forloop.counter}}</td>
-                                                <td>{{purchase.product}}</td>
+                                                <td>{{purchase.date}}</td>
+                                                <td class="productNameData" >{{purchase.product}}</td>
                                                 <td>{{purchase.orderAmount}}</td>
                                                 <td>{{purchase.margin}}</td>
-                                                <td>{{purchase.date}}</td>
+                                                <td>{{purchase.status}}</td>
                                             </tr> 
-                                            {% endif %}
                                         {% endfor %}
-
-                                    </tbody>
+                                    <tr>
+                                        <td>01/01/2021</td>
+                                        <td class="productNameData">Scuba Diving with water sports Combo at Grande Island</td>
+                                        {% comment %} <td>dd/mm/yyyy</td> {% endcomment %}
+                                        <td>Rs 1830</td>
+                                        <td>Rs 349</td>
+                                        <td>Cancelled</td>
+                                    </tr>
+                                </tbody>
                             </table>
+                        </div>
                     </div>
                 </div>
-                {% else %}
-                <div class="container affiliate-user-notactive">
-                    <h3 class="text-center">Affiliate user is not active wait untill activation</h3>
-                </div>
-                {% endif %}
-                {% else %}
-                <div class="container not-affiliate-user row mt-5">
-                    <h3 class="text-center col-12">You are not affiliate user please register yourself to connect with us.</h3>
-                    <a href="{% url 'affiliate-add' %}" class="btn btn-success col-12">Affiliate Registration</a>
-                </div>
-            {% endif %}
-        {% else %}
-         <h1 class="mt-5" style="margin-top:30px">Please Login then View Dashboard.</h1>
-        
-        {% endif %}
-        
 
-    </section>
+                <!-- Profile Modal -->
+                <div id="ProfileModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                    aria-labelledby="ProfileModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ProfileModalLabel"># Your Profile</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="user-details">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td class="left-align">Full Name</td>
+                                                <td class="right-align">{{affiliateUser.name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="left-align">Email ID</td>
+                                                <td class="right-align">{{affiliateUser.email}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="left-align">Phone No.</td>
+                                                <td class="right-align">{{affiliateUser.phone}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="left-align">Aadhar Card Id</td>
+                                                <td class="right-align"><a href="{{affiliateUser.photo_copy.url}}">Download Uploaded Addhar</a></td>
+                                            </tr>
+                                            {% comment %} <tr>
+                                                <td class="left-align">Address</td>
+                                                <td class="right-align">221 xyz street, Abc</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="left-align">Alternate Name</td>
+                                                <td class="right-align">Jklmn Pqrst</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="left-align">Alternate No.</td>
+                                                <td class="right-align">0987654321</td>
+                                            </tr> {% endcomment %}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <hr />
+
+                                <div class="bank-details">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td class="left-align">Account Number</td>
+                                                <td class="right-align">{{affiliateUser.account_number}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="left-align">Account Holder Name</td>
+                                                <td class="right-align">{{affiliateUser.name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="left-align">IFSC Code</td>
+                                                <td class="right-align">{{affiliateUser.ifsc_code}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="left-align">Bank Name</td>
+                                                <td class="right-align">{{affiliateUser.bank_name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="left-align">UPI Number</td>
+                                                <td class="right-align">{{affiliateUser.upi_id}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+                                    Close
+                                </button>
+                                <a href="tel:9999999999"  class="btn btn-danger">
+                                    Update Details <i class="far fa-edit"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Generate Link Modal -->
+                <div id="ReferralModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                    aria-labelledby="ReferralModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ReferralModalLabel">
+                                    # Generate Referral Link
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="product-detalis my-2">
+                                    <div class="product-details">
+                                        <label for="#product-link" class="py-2">Product Link
+                                        </label>
+                                        <input type="text" name="link" id="product-link" class=""
+                                            placeholder="Enter The Product Link" />
+                                        <button class="btn btn-danger create-link-btn" id="create-link-btn">
+                                            Generate
+                                        </button>
+                                    </div>
+
+                                    <div class="affiliate-details my-2">
+                                        <label for="#affiliate-link" class="py-2">Affilaite Link
+                                        </label>
+                                        <input type="text" id="affiliate-link" class="Created-Linked-box" placeholder="Enter The Product Link" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer justify-content-around">
+                                <div><i id="copy_btn" class="far fa-3x fa-copy " style="color: darkgoldenrod;"></i></div>
+                                <div><i class="fab fa-3x fa-whatsapp" style="color: limegreen;"></i></div>
+                                <div><i class="fab fa-3x fa-facebook" style="color: cornflowerblue;"></i></div>
+                                <div><i class="far fa-3x fa-envelope" style="color: darkorange;"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion Help Center -->
+                <div class="accordion my-4" id="accordionExample" style="max-width: 600px">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Ques1: How does UA affliate program works ?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                Answer1 : How does UA affliate program works ?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Ques2 : How does UA affliate program works ?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                Answer2 : How does UA affliate program works ?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Ques3 : How does UA affliate program works ?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                Answer3 : How does UA affliate program works ?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        {% else %}
+            <!-- when user login but not a affiliator -->
+            <div class="container" style="margin:3rem; 0">
+                <header class="header">
+                    <div class="heading-area">
+                        <div class="user-icon">
+                            <i class="p-3 fa fa-user-circle"></i>
+                        </div>
+                        <div style="display: inline-block">
+                            <h1 class="heading-area__title">Hi,{{request.user.username}}</h1>
+                            <p class="heading-area__paragraph">Nice to See You</p>
+                        </div>
+                    </div>
+                </header>
+                <div class="contact_exec my-2 p-2">
+                    <h3 style="margin-top: 30px;">To Become An Affiliator Please Registe yourself</h3>
+                    <button class="btn btn-success">Register for Affiliater</button>
+                </div>
+            </div>
+            <!-- ENDS  when user login but not a affiliator -->
+        {% endif %}
+    {%else%}
+
+      <h3 class="text-center col-12">You are not affiliate user please register yourself to connect with us.</h3>
+      <a href="{% url 'affiliate-add' %}" class="btn btn-success col-12">Affiliate Registration</a>
+    {% endif %}
+    {% else %}
+          <!--  when user is not logged in -->
+        <header class="container header" style="margin:4rem;">
+            <div class="heading-area">
+                <div class="user-icon">
+                    <i class="p-3 fa fa-user-circle"></i>
+                </div>
+                <div style="display: inline-block">
+                    <h1 class="heading-area__title">Hi, {{request.user.username}}</h1>
+                    <p class="heading-area__paragraph">Please Login to Earn As Affiliator...</p>
+                </div>
+            </div>
+            <div class="heading-area-btns pt-3 px-3">
+                <a href="#" class="btn px-4 btn-primary" id="modal" data-toggle="modal" data-target="#log">Login Now</a>
+            </div>
+        </header>
+
+      <!-- user logged in and is an affiliator -->
+      {% endif %}
+    
+
+
+
+
+
+
+
+
     <footer class="footer">
         <div class="footer_top">
             <div class="container">
@@ -317,7 +1163,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <div class="footer_widget">
                             <div class="footer_logo">
                                 <a href="#">
-                                    <img src={% static 'img/footer.png' %}  width="200px" alt="">
+                                    <img src={% static 'img/footer.png' %} width="200px" alt="">
                                 </a>
                             </div>
                             <a href="#">+91 8882654593</a> <br>
@@ -351,14 +1197,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <h3 class="footer_title">
                                 Company
                             </h3>
-                             <ul class="links">
+                            <ul class="links">
                                 <ul class="links">
-                                <li><a href="/about/">About</a></li>
-                                <li><a href="/contact/"> Contact</a></li>
-                                <li><a href="/privacy-policy/">Privacy-Policy</a></li>
-                                <li><a href="/partial-payment/">Partial Payment</a></li>
-                                <li><a href="/refund-policy">Payments & Refund Policy</a></li>
-                            </ul>
+                                    <li><a href="/about/">About</a></li>
+                                    <li><a href="/contact/"> Contact</a></li>
+                                    <li><a href="/privacy-policy/">Privacy-Policy</a></li>
+                                    <li><a href="/partial-payment/">Partial Payment</a></li>
+                                    <li><a href="/refund-policy">Payments & Refund Policy</a></li>
+                                </ul>
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-6 col-lg-3">
@@ -367,7 +1213,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 Popular destination
                             </h3>
                             <ul class="links double_links">
-                               <li><a href="/destination/Goa/">Goa</a></li>
+                                <li><a href="/destination/Goa/">Goa</a></li>
                                 <li><a href="/destination/Karnataka/">Karnataka</a></li>
                                 <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
                                 <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
@@ -439,6 +1285,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script src={% static 'js/plugins.js' %}></script>
     <script src={% static 'js/gijgo.min.js' %}></script>
     <script src={% static 'js/slick.min.js' %}></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js"
+        integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u" crossorigin="anonymous">
+    </script>
 
 
 
@@ -452,41 +1301,109 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"
         integrity="sha512-RCgrAvvoLpP7KVgTkTctrUdv7C6t7Un3p1iaoPr1++3pybCyCsCZZN7QEHMZTcJTmcJ7jzexTO+eFpHk4OCFAg=="
         crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script src={% static 'js/main.js' %}></script>
+
+        <script>
+        {% if messages %}
+            {% for message in messages %}
+                swal({
+                    title: "{{message}}",
+                    icon: "{{message.tags}}",
+                    });
+            {% endfor %}
+        {% endif %}
+    </script> 
+
     <script>
-        $('.create-link-btn').click(() =>{
-            $('.copy_btn').text('Copy');
-            const link = $('#affiliate-link').val() ;
+        $('.create-link-btn').click(() => {
+            const link = $('#product-link').val();
+           // console.log(link)
             $.ajax({
-                url:'/affiliate-link/',
-                method:'POST',
-                data:{
-                    link:link
+                url: '/affiliate-link/',
+                method: 'POST',
+                data: {
+                    link: link
                 },
-                success:(response) =>{
+                success: (response) => {
                     console.log(response);
-                    $('.Created-Linked-box').html(response.data);
-                    let table_data = '';
-                    response.all_links.forEach((link,index) =>{
-                        table_data += `<tr> <td>${index+1}</td>
-                                        <td>${link.link}</td>
-                                        <td>${link.date}</td>
-                                        <td>-</td></tr>`
-                    })
-                    $('.all_link_table').html(table_data);
+                    if(response.data.length !== 0)
+                    {
+                        $('.Created-Linked-box').val(response.data);
+                        let table_data = `<tr> 
+                                            <td>-</td>
+                                            <td>${response.date}</td>
+                                            <td>${response.product_name}</td>
+                                            <td>${response.link}</td>
+                                            <td>${response.affiliate_link_hit}</td>
+                                            <td> <button class="btn btn-sm btn-primary">Copy Link</button></td>
+                                        </tr>`;
+                        $('.all_link_table').append(table_data);
+                    }
+                    else
+                    {
+                        alert('Link is already created!');
+                    }
                 }
             })
         })
 
-        $('.copy_btn').click(() =>{
-           const link =  $('.Created-Linked-box').text();
-            console.log(link);
+        $('#copy_btn').click(() => {
+            const link = $('.Created-Linked-box').val();
+            document.querySelector('.Created-Linked-box').style.color = 'green';
             navigator.clipboard.writeText(link);
-            $('.copy_btn').text('Copied');
-
-
         })
+
+        const copy_links_btn = document.querySelectorAll('.copy_links_btn');
+        const all_product_links = document.querySelectorAll('.all_product_links');
+        copy_links_btn.forEach((e,index) =>
+        {
+            e.addEventListener('click',() =>
+            {
+               const link =  all_product_links[index].textContent;
+               navigator.clipboard.writeText(link);
+               e.innerHTML = 'coppied' ;
+
+            })
+        })
+
+        $('.referralLinksBtns').click(() => {
+            var linkVisitBtn = document.getElementById("linkVisitBtn");
+            var referralBtn = document.getElementById("referralBtn");
+            var linkVisitBtnStatus = document.getElementById("linkVisitBtn").getAttribute('aria-expanded');
+
+            if (linkVisitBtnStatus == 'true') {
+                linkVisitBtn.innerText = "Scroll Down";
+                referralBtn.innerText = "Scroll Down";
+            } else {
+                linkVisitBtn.innerText = "View All";
+                referralBtn.innerText = "View All";
+            }
+        });
+
+        $('.conversionBtns').click(() => {
+            var conversionBtn = document.getElementById("conversionBtn")
+            var conversionBtnStatus = document.getElementById("conversionBtn").getAttribute('aria-expanded');
+
+            if (conversionBtnStatus == 'true') {
+                conversionBtn.innerText = "Scroll Down";
+            } else {
+                conversionBtn.innerText = "More Info";
+            }
+        });
+
+        $('.earningBtn').click(() => {
+            var totalEarningsBtn = document.getElementById("totalEarningsBtn")
+            var totalEarningsBtnStatus = document.getElementById("totalEarningsBtn").getAttribute(
+                'aria-expanded');
+
+            if (totalEarningsBtnStatus == 'true') {
+                totalEarningsBtn.innerText = "Scroll Down";
+            } else {
+                totalEarningsBtn.innerText = "View Details";
+            }
+        });
     </script>
 
     <script>
@@ -504,21 +1421,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 }
             })
         })
-        var addSerialNumber = function () {
-            $('table tr').each(function (index) {
-                $(this).find('td:nth-child(1)').html(index -1 + 1);
-            });
-        };
+        // var addSerialNumber = function () {
+        //     $('table tr').each(function (index) {
+        //         $(this).find('td:nth-child(1)').html(index - 1 + 1);
+        //     });
+        // };
 
-        addSerialNumber();
+        // addSerialNumber();
     </script>
     <!-- Table Js-->
     <script>
-    //   document
-    //     .querySelector(".table-scroll")
-    //     .addEventListener("scroll", function (e) {
-    //       this.querySelector(".thead-row").style.top = this.scrollTop + "px";
-    //     });
+        //   document
+        //     .querySelector(".table-scroll")
+        //     .addEventListener("scroll", function (e) {
+        //       this.querySelector(".thead-row").style.top = this.scrollTop + "px";
+        //     });
 
         var myModal = document.getElementById('withdraw-form')
         var myInput = document.getElementById('withdraw')

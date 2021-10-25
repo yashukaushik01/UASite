@@ -14,7 +14,7 @@ class UpdateForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ('name', 'manual_slug', 'tag_category', 'description', 'duration', 'sale_child', 'start_loc', 'map', 'highlights', 'city', 'adventurelevel', 'adventureloc', 'reviews', 'inclusion', 'order', 'child', 'cashback', 'ques1', 'ques2', 'ques3', 'ques4',
-                  'ques5', 'ans1', 'ans2', 'ans3', 'ans4', 'ans5', 'additional_info', 'a_inclusion', 'overview', 'rating', 'regular', 'sale', 'category', 'days', 'location', 'state', 'country', 'duration_type', 'loca_city', 'adventuretype', 'discount','margin',)
+                  'ques5', 'ans1', 'ans2', 'ans3', 'ans4', 'ans5', 'additional_info', 'a_inclusion', 'overview', 'rating', 'regular', 'sale', 'category', 'days', 'location', 'state', 'country', 'duration_type', 'loca_city', 'adventuretype', 'discount','margin','available_for_agent',)
 
 
 class PopularTagForm(forms.ModelForm):

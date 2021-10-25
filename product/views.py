@@ -10,7 +10,7 @@ from django.http.response import JsonResponse
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
-from .models import Affiliate, AffiliateWithdraw, Cities, CityHotelData, Erp,Populartags, Product, Destination, Images, StateItineraryData, TopPicksEntryForm, duration, phone, Purchase, states, des, promo, AdventureTourTypes, TravelGuide,BestPackage,ProductEnquiry 
+from .models import Affiliate, AffiliateWithdraw, Cities, CityHotelData, Erp, LinkHits,Populartags, Product, Destination, Images, StateItineraryData, TopPicksEntryForm, duration, phone, Purchase, states, des, promo, AdventureTourTypes, TravelGuide,BestPackage,ProductEnquiry 
 from .models import Blogpost, wallet
 from .models import Itinerary,ItineraryData , Rentals ,AffiliateUser, AffiliateEarning , AffiliateLink
 from .models import State as States , Locality as Localities 
@@ -30,6 +30,7 @@ from functools import reduce
 from django.forms.models import model_to_dict
 from django.conf import settings
 from django.core.mail import message, send_mail , EmailMessage
+from django.contrib.sites.shortcuts import get_current_site
 
 
 def error_404(request, exception):
@@ -73,6 +74,7 @@ def index(request):
         'name':'All',
         'prod': len(Product.objects.all())
     })
+    print(len(Product.objects.all()))
 
     catprods = Product.objects.values("category", "id")
     cats = {item["category"] for item in catprods}
@@ -714,71 +716,182 @@ def AffiliateUserStatus(request,status,slug):
 
 def AffiliateDashbord(request):
     print(request.affiliate_id)
+    print(request.GET.get('aid'))
     affiliate_user = None
     affiliate_links = None
     affiliate_purchases = None
     affiliate_earining = None
+    affiliate_withdraw = None
+    total_withdraw_amount = 0
+    link_count = 0 
+    total_hits = 0
+    remain_price = 0
+    total_success_booking = 0
+    conversion_rate = 0
+    links =[]
     if request.user.is_active:
         try:
             affiliate_user = AffiliateUser.objects.get(email = request.user.email)
             affiliate_earining = AffiliateEarning.objects.get(aid = affiliate_user)
-            affiliate_links = AffiliateLink.objects.filter(aid = affiliate_user)
             affiliate_purchases = Purchase.objects.filter(aid = affiliate_user.aid)
             affiliate_earining = AffiliateEarning.objects.get(aid = affiliate_user)
+            affiliate_links = AffiliateLink.objects.filter(aid = affiliate_user)
+            affiliate_link_hits = LinkHits.objects.filter(aid = affiliate_user.aid )
+            affiliate_withdraw = AffiliateWithdraw.objects.filter(aid = affiliate_user)
+            for i in affiliate_links:
+                link_hits = LinkHits.objects.filter(aid = affiliate_user.aid , product_link = i.product_link)
+                links.append({'link' : i,'hits':len(link_hits)})
+            for i in affiliate_withdraw:
+                total_withdraw_amount += int(i.amount)
+            for i in affiliate_purchases:
+                if i.status == 'SUCCESS':
+                    total_success_booking += 1
+
+            conversion_rate = ( int(len(affiliate_purchases)) *100) / len(affiliate_link_hits)
+
+            print(conversion_rate)
+            
+            link_count = len(affiliate_links)
+            total_hits = len(affiliate_link_hits)
+            remain_price = affiliate_earining.remain_price
+
         except Exception as e:
             pass
-    return render(request,'affiliate-dashboard.html',{'affiliateUser':affiliate_user,
-    'affiliateLinks':affiliate_links,
+    context = {
+    'affiliateUser':affiliate_user,
+    'affiliateLinks':links,
     'affiliate_purchases':affiliate_purchases,
-    'affiliate_earn':affiliate_earining})
+    'affiliate_earn':affiliate_earining,
+    'affiliate_withdraw':affiliate_withdraw,
+    'link_count':link_count,
+    'total_hits':total_hits,
+    'total_withdraw_amount':total_withdraw_amount,
+    'remain_price':remain_price,
+    'total_success_booking':total_success_booking,
+    'conversion_rate':conversion_rate
+    }
+    return render(request,'affiliate-dashboard.html',context)
 
 @csrf_exempt
 def affiliateLink(request):
     if request.user.is_active:
         affiliate_user = AffiliateUser.objects.get(email = request.user.email)
+        product_name = None
+        product_link = None
         if request.method == 'POST':
             link = request.POST.get('link')
+            split_link = link.split('/')
 
-            created_link = link + '?' + f'aid={affiliate_user.aid}'
+            if len(split_link) >= 4:
+                if Product.objects.filter(manual_slug = split_link[4]):
+                    product = Product.objects.get(manual_slug = split_link[4] )
+                    product_name = product.name
+                    product_link = f'/products/{product.manual_slug}/?aid={affiliate_user.aid}'
+            
+            if link[len(link) - 1] == '/':
+                created_link = link + f'?aid={affiliate_user.aid}'
+            else:
+                created_link = link + f'/?aid={affiliate_user.aid}'
+
             print(created_link)
 
-            affiliate_link = AffiliateLink(aid = affiliate_user , link = created_link)
-            affiliate_link.save()
-            all_links_arr = []
-            all_links = AffiliateLink.objects.filter(aid = affiliate_user).values()
-            for i in all_links:
-                all_links_arr.append(i)
+            if AffiliateLink.objects.filter(link = created_link).exists():
+                return JsonResponse({'data':''})
 
-    return JsonResponse({'data':created_link,'all_links':all_links_arr})
+            affiliate_link = AffiliateLink(aid = affiliate_user,
+             link = created_link,
+             product_name = product_name,
+             product_link = product_link)
+            affiliate_link.save()
+            if LinkHits.objects.filter(aid = affiliate_user.aid,product_link = product_link).exists:
+                created_link_hit = len(LinkHits.objects.filter(aid = affiliate_user.aid,product_link = product_link))
+
+    return JsonResponse({'data':created_link,'date':affiliate_link.date,'link':created_link,'product_name':product_name,
+    'product_link':product_link,'affiliate_link_hit':created_link_hit})
     
 
 def affiliateWithdraw(request):
     if request.method == 'POST':
         aid = request.POST.get('aid')
-        email = request.POST.get('email')
-        name = request.POST.get('name')
-        phone = request.POST.get('number')
-        amount = request.POST.get('amount')
+        amount = request.POST.get('withdraw-amount')
+        ip = request.META.get('REMOTE_ADDR')
 
         if AffiliateUser.objects.filter(aid = aid).exists():
-            affiliate_user = AffiliateUser.objects.get(aid = aid, email = email , name = name)
+            affiliate_user = AffiliateUser.objects.get(aid = aid)
             affiliate_earn = AffiliateEarning.objects.get(aid = affiliate_user)
-            if int(affiliate_earn.total_price) == 0 or int(affiliate_earn.total_price) < amount:
+            if int(affiliate_earn.withdrawlable_amount) == 0 or int(affiliate_earn.withdrawlable_amount) < int(amount):
                 messages.info(request,'in your account not have sufficient balance')
                 return redirect('/affiliate-dashboard')
             
-            affiliate_withdraw = AffiliateWithdraw(aid = affiliate_user , email = email , name = name 
-            ,phone_number = phone , amount = amount)
+            affiliate_earn.withdrawlable_amount = int(affiliate_earn.withdrawlable_amount) - int(amount)
+            affiliate_earn.save()
+
+            affiliate_withdraw = AffiliateWithdraw(aid = affiliate_user,ip = ip,account_number = affiliate_user.account_number,
+            name=affiliate_user.name,ifsc_code =affiliate_user.ifsc_code,bank_name = affiliate_user.bank_name, amount = amount)
             affiliate_withdraw.save()
 
-            message.info(request,'Your Withdraw request is recored please wait until accepeted')
+            messages.success(request,'Your Withdraw request is recored please wait until accepeted')
+            
     return redirect('/affiliate-dashboard')
+
+@staff_member_required
+def affiliate_withdraw_list(request):
+    withdraw_requests = AffiliateWithdraw.objects.all()
+
+    context = {
+        'affiliate_requests':withdraw_requests
+    }
+    return render(request,'affiliate-withdraw-list.html',context)
+
+@staff_member_required
+def AffiliatePayment(request):
+    aid = request.GET.get('aid')
+    withdraw_id = request.GET.get('withdraw_id')
+    payment_status = request.GET.get('payment_status')
+    if AffiliateUser.objects.filter(aid = aid).exists():
+        affiliate_user = AffiliateUser.objects.get(aid = aid)
+        affiliate_earning = AffiliateEarning.objects.get(aid = affiliate_user)
+        affiliate_withdraw = AffiliateWithdraw.objects.get(id = withdraw_id)
+        if payment_status == 'processed':
+            affiliate_withdraw.payemt_status = 'processed'
+            affiliate_withdraw.save()
+            affiliate_earning.remain_price = affiliate_earning.remain_price - int(affiliate_withdraw.amount)
+            affiliate_earning.save()
+        elif payment_status == 'declined':
+            affiliate_withdraw.payemt_status = 'declined'
+            affiliate_withdraw.save()
+            affiliate_earning.withdrawlable_amount = affiliate_earning.withdrawlable_amount + int(affiliate_withdraw.amount)
+            affiliate_earning.save()
+
+    
+        messages.success(request,'Payment status updated')
+
+        return redirect('/affiliate-withdraw-list/')
+
+    return redirect('/affiliate-add')
+
+
+
+
+
+# ======================== agent dashboard ===================================
+def Agent_dashborad(request):
+    return render(request,'agent-dashboard.html',{})
 
 
 
 
 def product(request, slug):
-    print(slug)
+    print(request.path)
+    if request.GET.get('aid'):
+        if AffiliateUser.objects.filter(aid = request.GET.get('aid')).exists():
+            affiliate_user = AffiliateUser.objects.get(aid = request.GET.get('aid'))
+            product_link = request.path + "?aid=" + str(affiliate_user.aid)
+            ip = request.META.get('REMOTE_ADDR')
+            if not LinkHits.objects.filter(product_link = product_link,ip_address = ip):
+                link_hit = LinkHits(aid = affiliate_user.aid ,ip_address = ip , product_link = product_link )
+                link_hit.save()
+
     product = get_object_or_404(Product, manual_slug=slug)
     city = product.city
     recommended = Product.objects.filter(city=city)
@@ -1487,12 +1600,17 @@ def cash(request):
         purc.status = request.POST.get('txStatus')
         purc.referenceId = request.POST.get('referenceId')
         purc.save()
+
         if len(purc.aid) != 0:
             if AffiliateUser.objects.filter(aid = purc.aid).exists():
                 affiliate_user = AffiliateUser.objects.get(aid = purc.aid)
                 affiliate_ern = AffiliateEarning.objects.get(aid = affiliate_user)
                 margin_earned = (int(request.POST.get('amount'))*int(purc.margin))//100
                 affiliate_ern.total_price = int(affiliate_ern.total_price) + margin_earned
+                affiliate_ern.remain_price = int(affiliate_ern.remain_price) + margin_earned
+                if request.POST.get('txStatus') == 'SUCCESS':
+                    affiliate_ern.withdrawlable_amount = int(affiliate_ern.withdrawlable_amount) + margin_earned
+
                 affiliate_ern.save()
 
 
@@ -1832,7 +1950,7 @@ def ProductUpdate(request, slug):
                 except Exception as e:
                     break
 
-            return redirect('index')
+            return redirect('/productslist')
     else:
         form = UpdateForm()
         formset = ImageFormSet(queryset=Images.objects.none())

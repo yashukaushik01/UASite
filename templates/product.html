@@ -1,7 +1,7 @@
 ﻿{% load static %}
 {% block content %}
 {% load socialaccount %}
-{% load crispy_forms_tags %}
+{% comment %} {% load crispy_forms_tags %} {% endcomment %}
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -423,10 +423,10 @@
             <a class="navbar-brand js-scroll-trigger" href="/"><img
                 src={% static 'img//Nav Menu Icons//UA Logo white.svg' %} height="40px">
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            {% comment %} <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-            </button>
+            </button> {% endcomment %}
               <div class="navbar-collapse collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
                       <li class="nav-item"> <a class="nav-link js-scroll-trigger" id="exploreview" style ="font-weight: 600;color: white !important;padding-right: 50px;font-size: 19px !important;cursor: pointer;"><img class="explore-ico" src={% static 'img//Nav Menu Icons//Explore white.svg' %}> Explore</a></li>
@@ -1174,13 +1174,13 @@
                             <div class="row pt-4">
                                 <div class="col-12">
                                     {% if user.is_authenticated %}
+                                    <a href="tel:8882654593" class="btn btn-primary btn-lg btn-block" style="cursor: pointer;border-radius: 12px;color:white;background-image: linear-gradient(93deg, #53b2fe, #065af3);
+                                                box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.2) !important">Apply Coupon &
+                                        Checkout</a>
                                     <!-- {% if user.phone == "" %}
                                             <a class="btn btn-primary btn-lg btn-block" href="#" data-toggle="modal" data-target="#phone"  style="cursor: pointer;color:white;border-radius: 12px;background-image: linear-gradient(93deg, #53b2fe, #065af3);
                                             box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.2) !important">Apply Coupon & Checkout</a>
                                         {% else %} -->
-                                    <button class="btn btn-primary btn-lg btn-block" type="submit" style="cursor: pointer;border-radius: 12px;color:white;background-image: linear-gradient(93deg, #53b2fe, #065af3);
-                                                box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.2) !important">Apply Coupon &
-                                        Checkout</button>
                                     <!-- {% endif %} -->
                                     {% else %}
                                     <!-- <a class="nav-link js-scroll-trigger" href="#" id="modal"
@@ -1205,7 +1205,8 @@
                 width: 100%;
                 background-color: white;
                 color: black;
-                text-align: center;">
+                text-align: center;
+                display:none">
                         <div class="row">
                             <div class="col-lg-5 col-md-5 col-sm-5 col-5 mt-1">
                                 Rs {{product.sale}}
@@ -1455,6 +1456,93 @@
 
 
     <script src={% static 'js/main.js' %}></script>
+
+     <script>
+        function increaseValue() 
+        {
+            var value = parseInt(document.getElementById('number').value, 10);
+            var child = parseInt(document.getElementById('number2').value, 10);
+            child_value = isNaN(child) ? 0 : child;
+            value = isNaN(value) ? 1 : value;
+            value++;
+            document.getElementById('number').value = value;
+            document.getElementById('ad').innerHTML = value;
+            var value2 = {{product.sale}}
+            var value3 = {{product.sale_child}}
+            document.getElementById('ad2').innerHTML = (value2 * value);
+            value2 = (value2 * value) + (value3 * child_value);
+            document.getElementById('total').innerHTML = 'Rs' + ' ' + value2;
+            document.getElementById('amount').value = value2;
+        }
+
+        function decreaseValue()
+        {
+            var value = parseInt(document.getElementById('number').value, 10);
+            var child = parseInt(document.getElementById('number2').value, 10);
+            child_value = isNaN(child) ? 0 : child;
+            value = isNaN(value) ? 1 : value;
+            value < 1 ? value = 1 : '';
+            if (value > 1) {
+                value--;
+            }
+
+            document.getElementById('number').value = value;
+            document.getElementById('ad').innerHTML = value;
+            var value2 = {{product.sale}}
+            var value3 = {{product.sale_child}}
+            document.getElementById('ad2').innerHTML = (value2 * value);
+            value2 = (value2 * value) + (value3 * child_value);
+            document.getElementById('total').innerHTML = 'Rs' + ' ' + value2;
+            document.getElementById('amount').value = value2;
+        }
+
+        function increaseValue2() 
+        {
+            var value = parseInt(document.getElementById('number2').value, 10);
+            var parent = parseInt(document.getElementById('number').value, 10);
+            parent_value = isNaN(parent) ? 1 : parent;
+            value = isNaN(value) ? 0 : value;
+            value++;
+            document.getElementById('number2').value = value;
+            document.getElementById('ch').innerHTML = value;
+            
+            var value3 = {{product.sale}}
+            var value2 = {{product.sale_child}}
+            if (value > 0) {
+                $('#childbreak').css('display', 'block')
+            }
+            document.getElementById('ch2').innerHTML = (value2 * value);
+            value2 = (value2 * value) + (value3 * parent_value);
+            document.getElementById('total').innerHTML = 'Rs' + ' ' + value2;
+            document.getElementById('amount').value = value2;
+        }
+
+        function decreaseValue2() 
+        {
+            console.log('hello world');
+            var value = parseInt(document.getElementById('number2').value, 10);
+            var parent = parseInt(document.getElementById('number').value, 10);
+            parent_value = isNaN(parent) ? 1 : parent;
+            value = isNaN(value) ? 0 : value;
+            value < 1 ? value = 0 : '';
+            if(value > 0)
+            {
+                value--;
+            }
+
+            document.getElementById('number2').value = value;
+            document.getElementById('ch').innerHTML = value;
+            var value3 = {{product.sale}}
+            var value2 = {{product.sale_child}}
+            if (value == 0) {
+                $('#childbreak').css('display', 'none')
+            }
+            document.getElementById('ch2').innerHTML = (value2 * value);
+            value2 = (value2 * value) + (value3 * parent_value);
+            document.getElementById('total').innerHTML = 'Rs' + ' ' + value2;
+            document.getElementById('amount').value = value2;
+        }
+    </script>
 
     <script>
         $('.owl-carousel').owlCarousel({
@@ -1907,7 +1995,7 @@
         var Question3 = `{{product.ques3}}`;
         var Question4 = `{{product.ques4}}`;
         var Question5 = `{{product.ques5}}`;
-        console.log(discount)
+        {% comment %} console.log(discount) {% endcomment %}
         $('#off').html(discount + ' ' + '%' + ' ' + 'off')
         if (Question1 == "None") {
             $('#q1').css('display', 'none')
@@ -1923,117 +2011,6 @@
         }
         if (Question5 == "None") {
             $('#q5').css('display', 'none')
-        }
-    </script>
-    <script>
-        function increaseValue() {
-            var value = parseInt(document.getElementById('number').value, 10);
-            var child = parseInt(document.getElementById('number2').value, 10);
-            child_value = isNaN(child) ? 0 : child;
-            value = isNaN(value) ? 1 : value;
-            value++;
-            document.getElementById('number').value = value;
-            document.getElementById('ad').innerHTML = value;
-            var value2 = {
-                {
-                    product.sale
-                }
-            }
-            var value3 = {
-                {
-                    product.sale_child
-                }
-            }
-            document.getElementById('ad2').innerHTML = (value2 * value);
-            value2 = (value2 * value) + (value3 * child_value);
-            document.getElementById('total').innerHTML = 'Rs' + ' ' + value2;
-            document.getElementById('amount').value = value2;
-        }
-
-        function decreaseValue() {
-            var value = parseInt(document.getElementById('number').value, 10);
-            var child = parseInt(document.getElementById('number2').value, 10);
-            child_value = isNaN(child) ? 0 : child;
-            value = isNaN(value) ? 1 : value;
-            value < 1 ? value = 1 : '';
-            if (value > 1) {
-                value--;
-            }
-
-            document.getElementById('number').value = value;
-            document.getElementById('ad').innerHTML = value;
-            var value2 = {
-                {
-                    product.sale
-                }
-            }
-            var value3 = {
-                {
-                    product.sale_child
-                }
-            }
-            document.getElementById('ad2').innerHTML = (value2 * value);
-            value2 = (value2 * value) + (value3 * child_value);
-            document.getElementById('total').innerHTML = 'Rs' + ' ' + value2;
-            document.getElementById('amount').value = value2;
-        }
-
-        function increaseValue2() {
-            var value = parseInt(document.getElementById('number2').value, 10);
-            var parent = parseInt(document.getElementById('number').value, 10);
-            parent_value = isNaN(parent) ? 1 : parent;
-            value = isNaN(value) ? 0 : value;
-            value++;
-            document.getElementById('number2').value = value;
-            document.getElementById('ch').innerHTML = value;
-            var value3 = {
-                {
-                    product.sale
-                }
-            }
-            var value2 = {
-                {
-                    product.sale_child
-                }
-            }
-            if (value > 0) {
-                $('#childbreak').css('display', 'block')
-            }
-            document.getElementById('ch2').innerHTML = (value2 * value);
-            value2 = (value2 * value) + (value3 * parent_value);
-            document.getElementById('total').innerHTML = 'Rs' + ' ' + value2;
-            document.getElementById('amount').value = value2;
-        }
-
-        function decreaseValue2() {
-            var value = parseInt(document.getElementById('number2').value, 10);
-            var parent = parseInt(document.getElementById('number').value, 10);
-            parent_value = isNaN(parent) ? 1 : parent;
-            value = isNaN(value) ? 0 : value;
-            value < 1 ? value = 0 : '';
-            if (value > 0) {
-                value--;
-            }
-
-            document.getElementById('number2').value = value;
-            document.getElementById('ch').innerHTML = value;
-            var value3 = {
-                {
-                    product.sale
-                }
-            }
-            var value2 = {
-                {
-                    product.sale_child
-                }
-            }
-            if (value == 0) {
-                $('#childbreak').css('display', 'none')
-            }
-            document.getElementById('ch2').innerHTML = (value2 * value);
-            value2 = (value2 * value) + (value3 * parent_value);
-            document.getElementById('total').innerHTML = 'Rs' + ' ' + value2;
-            document.getElementById('amount').value = value2;
         }
     </script>
     <script>
@@ -2475,7 +2452,7 @@
                     alert("Your Response has been submitted our team will contact you shortly")
                 },
                 error: function () {
-                    alert("There was an error :(")
+                    alert("There was an error :")
                 }
             });
         }
@@ -2489,13 +2466,13 @@
             function displayWindowSize() {
                 let myWidth = window.innerWidth;
                 if (myWidth <= '576') {
-                    $('#bookingcard').empty()
-                    $('#bookingbody').html(` <h3 style="font-weight: 500;text-align: center;padding-bottom: 10px;" >Booking Details</h3>
+                    console.log('yes we did it')
+                    $('#bookingcard').empty();
+
+                    $('#bookingcard').html(`<h3 style="font-weight: 500;text-align: center;padding-bottom: 10px;" >Booking Details</h3>
                     <div class="row " style="padding: 8px 0px;
                     border-top: 1px solid rgba(221,221,221,0.4);
                     border-bottom: 1px solid rgba(221,221,221,0.5);">
-
-
                             <div class="col" style="display:flex;flex-wrap:wrap;">
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-8 pl-0">
                                 <span class="normal" style="color: black;font-weight: 500;">₹ {{product.regular}}</span>
@@ -2548,7 +2525,7 @@
                                     <span>
                                         <div class="btn btn-info" id="increase" onclick="increaseValue()"
                                             value="Increase Value" style="display: inline;">+</div>
-                                    </span> 
+                                    </span>
                                     </div>
                                     </div>
                                     
@@ -2608,23 +2585,26 @@
                             <div class="row pt-4">
                                 <div class="col-12" >
                                     {% if user.is_authenticated %}
-                                            <button class="btn btn-primary btn-lg btn-block" type="submit"
+                                            <a  href="tel:8882654593" class="btn btn-primary btn-lg btn-block"
                                                 style="cursor: pointer;border-radius: 12px;color:white;background-image: linear-gradient(93deg, #53b2fe, #065af3);
-                                                box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.2) !important">Apply Coupon & Checkout</button>
+                                                box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.2) !important">Apply Coupon & Checkout</a>
                                         
                                     {% else %}
                                     <button class="btn btn-primary btn-lg btn-block" type="button" onclick="clickAlert()"
                                         value="Click-2-Alert"  style="cursor: pointer;border-radius: 12px;color:white;background-image: linear-gradient(93deg, #53b2fe, #065af3);
-                                        box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.2) !important">Book
-                                        Now</button>
+                                        box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.2) !important">Book Now</button>
                                     {% endif %}
                                 </div>
                             </div>
 
                         </form>`)
-                    $('.footer2').css('display', 'block')
 
-                } else {
+
+                    $('.footer2').css('display', 'none')
+
+                } 
+                else 
+                {
                     $('#bookingcard').html(`<h3 style="font-weight: 500;text-align: center;padding-bottom: 10px;" >Booking Details</h3>
                     <div class="row " style="padding: 8px 0px;
                     border-top: 1px solid rgba(221,221,221,0.4);
@@ -2744,9 +2724,9 @@
                                 <div class="col-12" >
                                     {% if user.is_authenticated %}
                                         
-                                            <button class="btn btn-primary btn-lg btn-block" type="submit"
+                                            <a class="btn btn-primary btn-lg btn-block" href="tel:8882654593"
                                                 style="cursor: pointer;border-radius: 12px;color:white;background-image: linear-gradient(93deg, #53b2fe, #065af3);
-                                                box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.2) !important">Apply Coupon & Checkout</button>
+                                                box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.2) !important">Apply Coupon & Checkout</a>
                                     
                                     {% else %}
                                     <button class="btn btn-primary btn-lg btn-block" type="button"
@@ -2835,6 +2815,7 @@
             }
         })()
     </script>
+    
 
 </body>
 

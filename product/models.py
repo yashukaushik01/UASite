@@ -4,7 +4,7 @@ import random
 import math
 from django.urls import reverse
 from django.db.models.deletion import CASCADE
-from django.db.models.fields import CharField
+from django.db.models.fields import CharField, DateTimeField
 from django.db.models.fields.related import ForeignKey
 from django.db.models.signals import pre_save
 from django.db.models.signals import post_save
@@ -153,6 +153,7 @@ class Product(models.Model):
     tags = TaggableManager()
     promo_code = models.CharField(max_length=100,default='AU')
     margin = models.IntegerField(null=True,blank=True,default=0)
+    available_for_agent = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -760,36 +761,55 @@ class AffiliateEarning(models.Model):
     aid = models.ForeignKey(AffiliateUser, on_delete=models.CASCADE)
     margin = models.CharField(null=True,max_length=50)
     total_price = models.IntegerField(null=True, default=0)
+    remain_price =  models.IntegerField(null=True,default=0)
+    withdrawlable_amount = models.IntegerField(null=True,default=0)
 
 
     def __str__(self):
         return str(self.aid)
+        
 
 class AffiliateLink(models.Model):
     aid = models.ForeignKey(AffiliateUser, on_delete=models.CASCADE)
     link = models.CharField(max_length=50000,null=True,blank=True)
+    product_name = models.CharField(max_length=50000,null=True,blank=True)
+    product_link = models.CharField(max_length=50000 , null=True,blank=True)
     date = models.DateField( auto_now=False, auto_now_add=True)
 
     def __str__(self):
         return str(self.aid)
 
 Payment_Status_Type_CHOICES = (
-    ('done', 'DONE'),
-    ('notdone', 'NOTDONE'),
+    ('pending', 'PANDING'),
+    ('Processed', 'PROCESSED'),
+    ('declined','DECLINED'),
 )
 
 class AffiliateWithdraw(models.Model):
     aid = models.ForeignKey(AffiliateUser ,on_delete=models.CASCADE)
-    name = models.CharField(max_length=10000,null=True,blank=True)
-    email = models.EmailField(max_length=254,null=True,blank=True)
-    phone_number = models.CharField(max_length=50,null=True,blank=True)
+    ip = models.CharField(max_length=10000,null=True,blank=True)
+    request_date = models.DateTimeField(auto_now=False, auto_now_add=True)
+    account_number = models.CharField(max_length=50,null=True,blank=True)
+    name = models.CharField(max_length=50,null=True,blank=True)
+    ifsc_code = models.CharField(max_length=2000,null=True,blank=True)
+    bank_name = models.CharField(max_length=2000,null=True,blank=True)
     amount = models.CharField(max_length=2000,null=True,blank=True)
     payemt_status =  models.CharField(max_length=200, choices=Payment_Status_Type_CHOICES,
-     default='notdone', null=True, blank=True)
+     default='pending', null=True, blank=True)
     
 
     def __str__(self):
         return str(self.aid)
+        
+
+class LinkHits(models.Model):
+    aid = models.CharField(max_length=500000,null=True,blank=True)
+    ip_address = models.CharField(max_length=4000,null=True,blank=True)
+    product_link = models.CharField(max_length=1000000,null=True,blank=True)
+
+    def __str__(self):
+        return self.ip_address
+    
     
 
 

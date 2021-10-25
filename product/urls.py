@@ -71,10 +71,14 @@ urlpatterns = [
     path('affiliate-add/', views.affiliateUser, name="affiliate-add"),
     path('affiliate-dashboard/', views.AffiliateDashbord, name="affiliate-dashboard"),
     path('affiliate-withdraw/', views.affiliateWithdraw, name="affiliate-withdraw"),
+    path('affiliate-withdraw-list/', views.affiliate_withdraw_list, name="affiliate-withdraw-list"),
+    path('affiliate-payment/', views.AffiliatePayment, name="affiliate-payment"),
     path('affiliate-link/', views.affiliateLink, name="affiliate-link"),
     path('affiliate-list/', views.affiliateList, name="affiliate-list"),
     path('affiliate-list-data/', views.affiliateListData, name="affiliate-list-data"),
     path('affiliate-user-status/<status>/<slug>', views.AffiliateUserStatus, name="affiliate-user-status"),
+
+    path('agent-dashboard/', views.Agent_dashborad, name="agent-dashboard"),
 
     path('about/', views.About, name="about"),
     path('contact/', views.Contact, name="contact"),

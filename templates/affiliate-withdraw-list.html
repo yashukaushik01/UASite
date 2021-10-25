@@ -1,0 +1,355 @@
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Universal Adventures</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href={% static './img/Uni.png' %} sizes="16x16" type="image/png">
+ <!-- Google Tag Manager -->
+<script src="https://cdn.tiny.cloud/1/2n06ucf71roagptkroonkrn3btoomt1rrw0na61zi98zhb6w/tinymce/5/tinymce.min.js" 
+eferrerpolicy="origin"></script>
+
+<script>
+tinymce.init({selector:'#textarea-main'})
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KH59H8J');
+
+</script>
+
+
+<!-- End Google Tag Manager -->
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="icon" href={% static './img/uni.png' %} sizes="16x16" type="image/png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/owl.carousel.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/magnific-popup.css' %}>
+    <link rel="stylesheet" href={% static 'css/font-awesome.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/themify-icons.css' %}>
+    <link rel="stylesheet" href={% static 'css/nice-select.css' %}>
+    <link rel="stylesheet" href={% static 'css/flaticon.css' %}>
+    <link rel="stylesheet" href={% static 'css/gijgo.css' %}"">
+    <link rel="stylesheet" href={% static 'css/animate.css' %}>
+    <link rel="stylesheet" href={% static 'css/slick.css' %}>
+    <link rel="stylesheet" href={% static 'css/slicknav.css' %}>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+
+    <link rel="stylesheet" href={% static 'css/style.css' %}>
+    <link rel="stylesheet" href={% static 'css/tagsinput.css' %}>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <style>
+    a{
+        text-decoration:none;
+    }
+    th
+    {
+        box-shadow: 1px 1px 0px rgba(0,0,0,0.1) !important;
+    }
+    tbody th
+    {
+        font-weight: 500 !important;
+
+    }
+    </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <nav class="navbar  navbar-expand-lg  fixed-top navbar-light" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/"><img
+                    src={% static 'img//Universal Adventures Logo.png' %} width="70px">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#adv">Welcome Admin!</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="min-height: 100vh;margin-top: 5rem;">
+        <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section_title text-center my-4">
+                        <h1>Affiliate Withdraw Details</h1>
+                    </div>
+                </div>
+        </div>
+ 
+
+        <div class="container main__container">
+                {% if affiliate_requests %}
+                        <table class="table" >
+                            <thead class="text-center table-light">
+                                 <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Aid</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">ip</th>
+                                    <th scope="col">Account Details</th>
+                                    <th scope="col">amount</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Payment Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                {% for affiliate_request in affiliate_requests reversed %}
+                                <tr>
+                                    <th scope="col">{{forloop.counter}}</th>
+                                    <th scope="col">{{affiliate_request.aid.aid}}</th>
+                                    <th scope="col">{{affiliate_request.name}}</th>
+                                    <th scope="col">{{affiliate_request.ip}}</th>
+                                    <th scope="col">
+                                            Account No. : {{affiliate_request.account_number}} <br>
+                                            IFSC CODE : {{affiliate_request.ifsc_code}} <br>
+                                            Bank Name : {{affiliate_request.bank_name}} <br>
+                                            </th>
+                                    <th scope="col">{{affiliate_request.amount}}</th>
+                                    <th scope="col">{{affiliate_request.request_date}}</th>
+                                    <th scope="col">{{affiliate_request.payemt_status}}</th>
+                                    <th scope="col" >
+                                        {% if affiliate_request.payemt_status == 'processed' or affiliate_request.payemt_status == 'declined' %}
+                                        <select name="options">
+                                            <option value="" selected>{{affiliate_request.payemt_status}}</option>
+                                        </select>
+                                        {% else %}
+                                        <form action="/affiliate-payment/" class="payment_status_form" method="get">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="aid" value="{{affiliate_request.aid.aid}}">
+                                            <input type="hidden" name="withdraw_id" value="{{affiliate_request.id}}">
+                                            <select name="payment_status" class="payment_status">
+                                                <option value="">Select Payment Option</option>
+                                                <option value="processed">PROCESSED</option>
+                                                <option value="declined">DECLINED</option>
+                                            </select>
+                                        </form>
+                                        {% endif %}
+                                    </th>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endif %} 
+
+                    </div>
+                </div>
+
+    <footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-lg-4 ">
+                        <div class="footer_widget">
+                            <div class="footer_logo">
+                                <a href="#">
+                                     <img src={% static 'img/footer.png' %} height="120px" width="300px" alt="">
+                                </a>
+                            </div>
+                            <a href="#">+91 8882654593</a> <br>
+                            <a href="mailto:contact@universaladventures.in">contact@universaladventures.in</a>
+                            </p>
+                            <div class="socail_links">
+                                <ul>
+                                    <li>
+                                        <a href="https://www.facebook.com/universaladventuresindia/">
+                                            <i class="ti-facebook"></i>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="https://www.instagram.com/universaladventuresindia/">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://g.co/kgs/FEs31r">
+                                            <i class="fa fa-google-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Company
+                            </h3>
+                            <ul class="links">
+                                <ul class="links">
+                                <li><a href="/about/">About</a></li>
+                                <li><a href="/contact/"> Contact</a></li>
+                                <li><a href="/privacy-policy/">Privacy-Policy</a></li>
+                                <li><a href="/partial-payment/">Partial Payment</a></li>
+                                <li><a href="/refund-policy">Payments & Refund Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Popular destination
+                            </h3>
+                            <ul class="links double_links">
+                                <li><a href="/destination/Goa/">Goa</a></li>
+                                <li><a href="/destination/Karnataka/">Karnataka</a></li>
+                                <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
+                                <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
+                                <li><a href="/destination/Rajasthan/">Rajasthan</a></li>
+                                <li><a href="/destination/Maharashtra/">Maharashtra</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Instagram
+                            </h3>
+                            <div class="instagram_feed">
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/1.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/2.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/3.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/4.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/5.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/6.png' %} alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- JS here -->
+    <script src={% static 'js/vendor/modernizr-3.5.0.min.js' %}></script>
+    <script src={% static 'js/vendor/jquery-1.12.4.min.js' %}></script>
+    <script src={% static 'js/popper.min.js' %}></script>
+    <script src={% static 'js/bootstrap.min.js' %}></script>
+    <script src={% static 'js/owl.carousel.min.js' %}></script>
+    <script src={% static 'js/isotope.pkgd.min.js' %}></script>
+    <script src={% static 'js/ajax-form.js' %}></script>
+    <script src={% static 'js/waypoints.min.js' %}></script>
+    <script src={% static 'js/jquery.counterup.min.js' %}></script>
+    <script src={% static 'js/imagesloaded.pkgd.min.js' %}></script>
+    <script src={% static 'js/scrollIt.js' %}></script>
+    <script src={% static 'js/jquery.scrollUp.min.js' %}></script>
+    <!-- <script src={% static 'js/wow.min.js' %}""></script> -->
+    <script src={% static 'js/nice-select.min.js' %}></script>
+    <script src={% static 'js/jquery.slicknav.min.js' %}></script>
+    <script src={% static 'js/jquery.magnific-popup.min.js' %}""></script>
+    <script src={% static 'js/plugins.js' %}></script>
+    <script src={% static 'js/gijgo.min.js' %}></script>
+    <script src={% static 'js/slick.min.js' %}></script>
+    <script src={% static 'js/tagsinput.js' %}></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" 
+     integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <!--contact js-->
+
+    <script src={% static 'js/contact.js' %}></script>
+    <script src={% static 'js/jquery.ajaxchimp.min.js' %}></script>
+    <script src={% static 'js/jquery.form.js' %}></script>
+    <script src={% static 'js/jquery.validate.min.js' %}></script>
+    <script src={% static 'js/mail-script.js' %}></script>
+
+    </body>
+</body>
+<script>
+    {% if messages %}
+        {% for message in messages %}
+            swal({
+                title: "{{message}}",
+                icon: "{{message.tags}}",
+                });
+        {% endfor %}
+    {% endif %}
+</script> 
+<script>
+        const payment_btns = document.querySelectorAll('.payment_status_btn');
+        payment_btns.forEach((btn) =>
+        {
+            btn.addEventListener('click',() =>
+            {
+                const aid = btn.getAttribute('data-aid');
+                const wid = btn.getAttribute('data-wid');
+                $.ajax({
+                    url:'/affiliate-payment/',
+                    method:'GET',
+                    data:{
+                        'aid':aid,
+                        'withdraw_id':wid,
+                    },
+                    success:(response) =>
+                    {
+                        if(response.data === 'yes')
+                        {
+                            window.location = '/affiliate-withdraw-list/';
+                        }
+                    }
+                })
+            })
+        })
+
+        const payment_status_forms =document.querySelectorAll('.payment_status_form');
+        const payment_status = document.querySelectorAll('.payment_status');
+
+        payment_status.forEach((p_s,index) =>
+        {
+            p_s.addEventListener('change',() =>
+            {
+                payment_status_forms[index].submit();
+            })
+        })
+</script>
+
+</html>
+{% endblock %}

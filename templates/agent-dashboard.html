@@ -1,0 +1,747 @@
+{% load static %}
+{% block content %}
+{% load socialaccount %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Universal Adventures</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KH59H8J');</script>
+
+<!-- End Google Tag Manager -->
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="icon" href={% static './img/uni.png' %} sizes="16x16" type="image/png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/owl.carousel.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/magnific-popup.css' %}>
+    <link rel="stylesheet" href={% static 'css/font-awesome.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/themify-icons.css' %}>
+    <link rel="stylesheet" href={% static 'css/nice-select.css' %}>
+    <link rel="stylesheet" href={% static 'css/flaticon.css' %}>
+    <link rel="stylesheet" href={% static 'css/gijgo.css' %}"">
+    <link rel="stylesheet" href={% static ' css/animate.css' %}>
+    <link rel="stylesheet" href={% static 'css/slick.css' %}>
+    <link rel="stylesheet" href={% static 'css/slicknav.css' %}>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css"
+        integrity="sha512-YdYyWQf8AS4WSB0WWdc3FbQ3Ypdm0QCWD2k4hgfqbQbRCJBEgX0iAegkl2S1Evma5ImaVXLBeUkIlP6hQ1eYKQ=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href={% static 'css/style.css' %}>
+    <link rel="stylesheet" href={% static 'css/rough.css' %}>
+
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+    <style>
+    .agent-user-dashboard
+    {
+        min-height:100vh;
+        /* background:green; */
+    }
+    .bookings__section
+    {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 3rem;
+        
+    }
+    .affiliate-user-notactive h3
+    {
+        padding: 20px 3rem;
+        box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+
+    }
+    .not-affiliate-user
+    {
+        height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        color: #000;
+
+    }
+    .not-affiliate-user
+    {
+         padding: 20px 3rem;
+        box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+
+    }
+    .affiliate-user-active
+    {
+        min-height:100vh;
+        padding:20px 0;
+
+    }
+    .affiliate-user-details 
+    {
+        margin:2rem 0 !important;
+        box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+        padding: 10px;
+    }
+    </style>
+
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <nav class="navbar  navbar-expand-lg  navbar-light" style="box-shadow: 1px 1px 10px rgba(0,0,0,0.5);" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/"><img
+                    src={% static 'img//Universal Adventures Logo.png' %} width="200px">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/blog">Our Blog</a></li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/accounts/logout">logout</a></li>
+                    {% else %}<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#" id="modal"
+                            data-toggle="modal" data-target="#log">Login</a></li>
+
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="modal fade" id="log" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <a href="{% provider_login_url "facebook" method="js_sdk" %}"
+                        class="btn btn-block btn-social btn-facebook"
+                        style="background-color:#3b5998;text-align:center;color:white">
+                        <span class="fa fa-facebook"></span>
+                        Sign in with Facebook
+                    </a>
+                    <a href="{% provider_login_url "google"  %}" process="connect"
+                        class="btn btn-block btn-social btn-google"
+                        style="background-color:red;text-align:center;color:white">
+                        <span class="fa fa-google-plus"></span>
+                        Sign in with Google
+                    </a>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+        <!--Withdraw Amount Modal-->
+        <div class="modal fade " id="withdraw-form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Withdraw Amount Form</h5>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/affiliate-withdraw/" method="POST">
+                            <p>Available Balance : Rs. {{affiliate_earn.total_earn}} </p>
+                            <div class="form-group">
+                                <!-- <label for="exampleInputEmail2">Name</label> -->
+                                <input type="text" name="aid" class="form-control" value="{{affiliateUser.aid}}" id="exampleInputEmail2"
+                                    placeholder="your aid" style="pointer-events: none;" required>
+                            </div>
+                            <div class="form-group">
+                                <!-- <label for="exampleInputEmail2">Name</label> -->
+                                <input type="text" name="name" class="form-control" value="{{affiliateUser.name}}" id="exampleInputEmail2"
+                                    placeholder="Enter your name" required>
+                            </div>
+                            <div class="form-group">
+                                <!-- <label for="exampleInputEmail1">Email address</label> -->
+                                <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"
+                                 value="{{affiliateUser.email}}"   required>
+                            </div>
+                            <div class="form-group">
+                                <!-- <label for="exampleInputPhone1">Phone Number</label> -->
+                                <input type="password" name="phone" class="form-control" id="exampleInputPhone1"
+                                    placeholder="+91-XXXXXXXXXX" value="{{affiliateUser.phone}}" required>
+                            </div>
+                            <div class="form-group">
+                                <!-- <label for="withdrawAmount">Amount</label> -->
+                                <input type="Number" class="form-control" name="amount" id="withdrawAmount"
+                                    placeholder="Enter Amount" required>
+                            </div>                       
+                            <button type="submit" class="btn btn-success">Withdraw</button>
+                        </form>
+                    </div> 
+                </div>
+            </div>
+        </div>
+
+    <section class="agent-user-dashboard">
+        {% if request.user.is_active %}
+            <div class="main__dashboard" style="margin-top: 5rem;">
+                <div class="container heading_container mt-4" style="display: flex;justify-content: space-between;">
+                    <div style="display: flex;align-items: center;">
+                        <h2 class="" >Hiiii , User Full Name</h2>
+                        <button class="btn btn-success mx-3">My Profile</button>
+                    </div>
+                    <button class="btn btn-warning">Support</button>
+                </div>
+                <div class="container bookings__section">
+                    <div class="container" style="border: 1px solid black;padding: 0;margin: 10px;">
+                        <div class="" style="padding: 20px;display: flex;">
+                            <div style="flex: 0.3;">
+                                <img src="{% static 'img/svg_icon/1.svg'%}" alt="">
+                            </div>
+                            <div style="flex: 0.7;">
+                                <h3>Availiable Product</h3>
+                                <h1>139</h1>
+                            </div>
+                        </div>
+                        <button class="btn btn-success w-100" style="border-radius: 0px;padding: 20px 0;">Creating Bookings</button>
+                    </div>
+                    <div class="container"  style="border: 1px solid black;padding: 0;margin: 10px;">
+                        <div class="" style="padding: 20px;display: flex;">
+                            <div style="flex: 0.3;">
+                                <img src="{% static 'img/svg_icon/1.svg'%}" alt="">
+                            </div>
+                            <div style="flex: 0.7;">
+                                <h3>Total Bookings</h3>
+                                <h1>139</h1>
+                            </div>
+                        </div>
+                        <button class="btn btn-warning w-100" style="border-radius: 0px;padding: 20px 0;">View Bookings</button>
+                    </div>
+                    <div class="container" style="border: 1px solid black;padding: 0;margin: 10px;">
+                        <div class="" style="padding: 20px;display: flex;">
+                            <div style="flex: 0.3;">
+                                <img src="{% static 'img/svg_icon/1.svg'%}" alt="">
+                            </div>
+                            <div style="flex: 0.7;">
+                                <h3>Total Earning</h3>
+                                <div style="display: flex;align-items: center;">
+                                    <h1>Rs.1390</h1>
+                                    <h4 class="px-2" style="color:rgb(41, 201, 41);">Rs.1090</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-success w-100" style="border-radius: 0px;padding: 20px 0;">Withdraw Amount</button>
+                    </div>
+
+                </div>
+            </div>
+        {% else %}
+        <h2 class="text-center">Please Login for agant dashboard</h2>
+        {% endif %}
+
+        <div class="container created__booking__block">
+            <div class="container upper__container row col-12">
+                <div class="select__state__block row col-6">
+                    <label class="form-label col-3">Select State</label>
+                    <select name="state" id="" class="form-control col-9">
+                        <option  value="">Select State</option>
+                        <option  value="">Goa</option>
+                    </select>
+                </div>
+                <div class="search__block row col-6">
+                    <label class="form-label col-3">Search</label>
+                    <input type="search" name="search" class="form-control col-9" id="">
+
+                </div>
+
+            </div>
+            <div class="container lower__container" style="display:flex;margin-top: 1rem;">
+                <div class="left__filter__block" style="flex:0.3;border: 1px solid #3b5998;">
+                    <h3 style="width:100%;padding:10px;background-color: #3b5998;color: #fff;">Filter</h3>
+                    <div class="filter__container" style="padding: 10px;">
+                        <h4>Adventure Type</h4>
+                        <ul>
+                            <li>
+                                <div class="form-check">
+                                  <input class="form-check-input city common_selector" type="checkbox" value="Bungee Jumping"
+                                    id="defaultCheck1">
+                                  Bungee Jumping
+                                </div>
+                              </li>
+                            <li>
+                                <div class="form-check">
+                                  <input class="form-check-input city common_selector" type="checkbox" value="Bungee Jumping"
+                                    id="defaultCheck1">
+                                  Bungee Jumping
+                                </div>
+                              </li>
+                            <li>
+                                <div class="form-check">
+                                  <input class="form-check-input city common_selector" type="checkbox" value="Bungee Jumping"
+                                    id="defaultCheck1">
+                                  Bungee Jumping
+                                </div>
+                              </li>
+                            <li>
+                                <div class="form-check">
+                                  <input class="form-check-input city common_selector" type="checkbox" value="Bungee Jumping"
+                                    id="defaultCheck1">
+                                  Bungee Jumping
+                                </div>
+                              </li>
+                        </ul>
+                    </div>
+
+
+                </div>
+                <div class="right__product__block" style="flex:0.7;width:100%;margin:10px">
+                    <!-- ------------------------ product start ---------------------------------------- -->
+                        <div class="row my-box-shadow product__data"
+                                style="margin-top: 1.6rem;margin-right:0;margin-left:0;background-color: rgb(255, 255, 255);
+                                cursor: pointer;box-shadow: 1px 3px 8px 0px #72748452;transition: transform .3s;"
+                                name="{{product.adventuretype}}">
+                                <div class="col-lg-3 px-0 py-0">
+                                    <a href="/products/{{product.manual_slug}}">
+                                    <img src="{% static 'img/banner.jpg' %}" class="img-responsive"
+                                        width="200px" height="250px" style="height: 100%;    object-fit: cover;    width: 100%;" />
+                                        
+                                        <span class="icon" id="image__data" style="display:none; padding: 11px 0 5px 5px;
+                                    position: absolute;
+                                    bottom: 0px;
+                                    left: 0px;
+                                    font-size: 15px;
+                                    width: 100%;
+                                    background-color: rgba(0,0,0,0.5);
+                                    color: #ffffff;"><i class="far fa-clock"></i> Product Duration {{product.duration}}  | 
+                                        <span style="text-align: right; ">
+                                        <i class="fas fa-map-marker-alt"></i> 
+                                            {% comment %} {% if product.loca_city %}  {% endcomment %}
+                                            {% comment %} {{product.loca_city}}  {% endcomment %} product city
+                                            <span style="color: #fff;">, </span>
+                                            {% comment %} {% endif %} {% endcomment %}
+                                            {{product.city}} product
+                                        </span>
+                                    </span>
+                                    </a>
+                                    {% comment %} {% endwith %} {% endcomment %}
+
+                                </div>
+                                
+                                <div class="col-lg-6 pt-3">
+                                    <a href="/products/{{product.manual_slug}}">
+                                    <h3 class="mt-0">{{product.name}} Product Name</h3>
+                                    <div class="row">
+                                        <div class="col">
+                                        <span class="icon" style="padding: 0px 3px 0px 6px;    position: relative;
+                                                        vertical-align: middle;
+                                                        font-size: 16px;
+                                                        color: rgba(59,68,78,0.7);"><i class="far fa-clock"></i></span>
+                                        <span style="padding-right: 5px;
+                                                            border-right: 1px solid rgba(59,68,78,0.3);    position: relative;
+                                        vertical-align: middle;
+                                        font-size: 16px;
+                                        color: rgba(59,68,78,0.7);">{{product.duration}} 2 days</span>
+                                        <span class="icon" style="padding: 0px 3px 0px 6px;    position: relative;
+                                        vertical-align: middle;
+                                        font-size: 16px;
+                                        color: rgba(59,68,78,0.7);"><i class="fas fa-map-marker-alt"></i></span>
+                                        <span style="padding-right: 5px;
+                                            position: relative;
+                                            vertical-align: middle;
+                                            font-size: 16px;
+                                            color: rgba(59,68,78,0.7);">
+                                            {% comment %} {% if product.loca_city %} {% endcomment %}
+                                            {% comment %} {{product.loca_city}} {% endcomment %} product city
+                                            <span>,</span>
+                                            {% comment %} {% endif %} {% endcomment %}
+                                            {{product.city}}</span>
+                                        </div>
+                                    </div>
+                                    <hr class="mt-1 mb-0" style="opacity:0.4;">
+                                    {% comment %} {% autoescape off %} {% endcomment %}
+                                    <div class="row mt-0 text-center" id="inn">{{product.inclusion}} hello world</div>
+                                    <hr class="mt-2 mb-2" style="opacity:0.4;">
+                                    <div class="row pl-1" style="font-size: 1rem;">
+                                        {{product.a_inclusion}} hiiii
+                                    </div>
+                                    </a>
+                                </div>
+                                {% comment %} {% endautoescape %} {% endcomment %}
+                                <div class=" col-lg-3 pt-3 pb-3"
+                                style="border-left: 1px solid #0000000f;display: flex;justify-content: center;align-items: center;">
+                                <a href="/products/{{product.manual_slug}}">
+                                    <div>
+                                        <div class="custom_12">
+                                        <div class="row" style="justify-content: center;">
+                                            <div class="col-10 text-center" style="font-size: 0.6rem;">
+                                            <span class="" style="color: #fecb19;">
+                                                <script>
+                                                for (var i = 1; i <= 5 {{ product.rating }}; i++) {
+                                                    document.write('<i class="fa fa-star" style="font-size: 1rem;"></i>');
+                                                }
+                                                </script>
+                                            </span>
+                                            <span class="btn "
+                                                style="font-size: 14px;top: 2px;padding: 1px 7px;background: #4caf50;color: white;border-radius: 4px;padding-top: 3px;">
+                                                {{product.rating}} 5.5</span>
+
+                                            </div>
+                                            <div class="col-12 text-center">
+
+                                            <p style="font-size: 0.8rem;">{{product.reviews}} reviews
+                                            <p>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center" style="min-width: 150px;">
+                                            <hr class="mt-0 mb-1" style="width: 70%;opacity: 0.5;">
+                                            <p class="custom-price" style="margin-left:-10px;">Starting from <span class="custom-price"
+                                                style="text-decoration: line-through;">&#8377;{{product.regular}}</span></p>
+                                            <p class="custom-price-main" style="margin-left:-10px;color:#ec2929; display: inline; font-size: 24px;">&#8377; <strong>{{product.sale}}</strong> 
+                                            </p>
+                                            <p style="font-size: 0.6rem; display: inline;text-align: center;">Per Person</p>
+                                        </div>
+                                        </div>
+
+
+                                        <p class="mt-2"><a class="btn btn-success view__details_btn" style=" width: 100%; bottom: 10px; left: 0px;" 
+                                            type="button" href="/products/{{product.manual_slug}}">TAC : 10%</a></p>
+                                        <p class="mt-2"><a class="btn btn-success view__details_btn" style=" width: 100%; bottom: 10px; left: 0px;" 
+                                            type="button" href="/products/{{product.manual_slug}}">View Details</a></p>
+                                        <p class="mt-2"><a class="btn btn-warning view__details_btn" style=" width: 100%; bottom: 10px; left: 0px;" 
+                                            type="button" href="/products/{{product.manual_slug}}">Book Now</a></p>
+
+                                    </div>
+                                    </a>
+                                    </div>
+                                </div>
+<!-- ------------------------ product end ---------------------------------------- -->
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container total__booking__section my-4" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.2);">
+            <div class="row col-12 my-3">
+                <label class="form-label col-2">Search By Name</label>
+                <input type="search" class="form-control col-4" name="search" id="" />
+            </div>
+            <div class="coupons-table table-scroll">
+                <table class="table table-striped">
+                    
+                    <thead class="thead-row">
+                        <tr>
+                            <th scope="col">Booking Id</th>
+                            <th scope="col">Booking Date</th>
+                            <th scope="col">Guest Name</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Product Cost</th>
+                            <th scope="col">Booking Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                         <tr>
+                            <td>UA32414</td>
+                            <td>05/10/2021 </td>
+                            <td>Guest full name </td>
+                            <td>Scuba Diving with water sports
+                                Combo at Grande Island</td>
+                            <td>Rs. 1830</td>
+                            <td>Success</td>
+                            <td>
+                                <button class="btn btn-success">View <br> Details</button>
+                            </td>
+                        </tr> 
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="container withdrawal__section" style="display: flex;">
+            <div class="container left__withdraw__container mx-2 my-2" style="border: 1px solid black;padding:0;">
+                <h2 class="w-100" style="border: 1px solid black; padding:10px 10px;">My Earnings:</h2>
+                <div class="withdraw__block" style="padding:10px 30px;">
+                    <div class="withdraw__data__block my-4" style="display: flex;justify-content: space-between;">
+                        <p>Amount withdrawn till date:</p>
+                        <p><strong>Rs.x,xxx</strong></p>
+                    </div>
+                    <div class="withdraw__data__block my-4" style="display: flex;justify-content: space-between;">
+                        <p>Availiable Balance:</p>
+                        <p><strong>Rs.x,xxx</strong></p>
+                    </div>
+                    <div class="withdraw__data__block my-4" style="display: flex;justify-content: space-between;">
+                        <p>Withdrawable amount: </p>
+                        <p><strong>Rs.x,xxx</strong></p>
+                    </div>
+                    <div class="withdraw__data__block my-4" style="display: flex;justify-content: space-between;align-items: center;">
+                        <input type="number" name="" class="form-control" style="flex: 0.8;" id="">
+                        <p style="flex: 0.2;padding-left: 10px;"><strong>Rs.</strong></p>
+                    </div>
+                    <button class="btn btn-success w-100">Withdraw Amount</button>
+
+                </div>
+            </div>
+            <div class="container right__withdraw__container mx-2 my-2">
+                <h2>Withdraw History:</h2>
+                <div class="table-scroll">
+                    <table class="table table-striped">
+                        
+                        <thead class="thead-row">
+                            <tr>
+                                <th scope="col">Request <br>Date</th>
+                                <th scope="col">Withdraw <br> Amount</th>
+                                <th scope="col">Payment <br> Status </th>
+                                <th scope="col">view <br> Details </th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                             <tr>
+                                 <td scope="col" >05/10/2021 </td>
+                                 <td scope="col">Aditya</td>
+                                 <td scope="col">Guest full name </td>
+                                <td scope="col">
+                                    <button class="btn btn-success">View <br> Details</button>
+                                </td>
+                            </tr> 
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-lg-4 ">
+                        <div class="footer_widget">
+                            <div class="footer_logo">
+                                <a href="#">
+                                    <img src={% static 'img/footer.png' %}  width="200px" alt="">
+                                </a>
+                            </div>
+                            <a href="#">+91 8882654593</a> <br>
+                            <a href="mailto:contact@universaladventures.in">contact@universaladventures.in</a>
+                            </p>
+                            <div class="socail_links">
+                                <ul>
+                                    <li>
+                                        <a href="https://www.facebook.com/universaladventuresindia/">
+                                            <i class="ti-facebook"></i>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="https://www.instagram.com/universaladventuresindia/">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://g.co/kgs/FEs31r">
+                                            <i class="fa fa-google-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Company
+                            </h3>
+                             <ul class="links">
+                                <ul class="links">
+                                <li><a href="/about/">About</a></li>
+                                <li><a href="/contact/"> Contact</a></li>
+                                <li><a href="/privacy-policy/">Privacy-Policy</a></li>
+                                <li><a href="/partial-payment/">Partial Payment</a></li>
+                                <li><a href="/refund-policy">Payments & Refund Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Popular destination
+                            </h3>
+                            <ul class="links double_links">
+                               <li><a href="/destination/Goa/">Goa</a></li>
+                                <li><a href="/destination/Karnataka/">Karnataka</a></li>
+                                <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
+                                <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
+                                <li><a href="/destination/Rajasthan/">Rajasthan</a></li>
+                                <li><a href="/destination/Maharashtra/">Maharashtra</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Instagram
+                            </h3>
+                            <div class="instagram_feed">
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/1.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/2.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/3.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/4.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/5.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/6.png' %} alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- JS here -->
+    <script src={% static 'js/vendor/modernizr-3.5.0.min.js' %}></script>
+    <script src={% static 'js/vendor/jquery-1.12.4.min.js' %}></script>
+    <script src={% static 'js/popper.min.js' %}></script>
+    <script src={% static 'js/bootstrap.min.js' %}></script>
+    <script src={% static 'js/owl.carousel.min.js' %}></script>
+    <script src={% static 'js/isotope.pkgd.min.js' %}></script>
+    <script src={% static 'js/ajax-form.js' %}></script>
+    <script src={% static 'js/waypoints.min.js' %}></script>
+    <script src={% static 'js/jquery.counterup.min.js' %}></script>
+    <script src={% static 'js/imagesloaded.pkgd.min.js' %}></script>
+    <script src={% static 'js/scrollIt.js' %}></script>
+    <script src={% static 'js/jquery.scrollUp.min.js' %}></script>
+    <script src={% static 'js/wow.min.js' %}""></script>
+    <script src={% static 'js/nice-select.min.js' %}></script>
+    <script src={% static 'js/jquery.slicknav.min.js' %}></script>
+    <script src={% static 'js/jquery.magnific-popup.min.js' %}""></script>
+    <script src={% static 'js/plugins.js' %}></script>
+    <script src={% static 'js/gijgo.min.js' %}></script>
+    <script src={% static 'js/slick.min.js' %}></script>
+
+
+
+    <!--contact js-->
+
+    <script src={% static 'js/contact.js' %}></script>
+    <script src={% static 'js/jquery.ajaxchimp.min.js' %}></script>
+    <script src={% static 'js/jquery.form.js' %}></script>
+    <script src={% static 'js/jquery.validate.min.js' %}></script>
+    <script src={% static 'js/mail-script.js' %}></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"
+        integrity="sha512-RCgrAvvoLpP7KVgTkTctrUdv7C6t7Un3p1iaoPr1++3pybCyCsCZZN7QEHMZTcJTmcJ7jzexTO+eFpHk4OCFAg=="
+        crossorigin="anonymous"></script>
+
+    <script src={% static 'js/main.js' %}></script>
+    <script>
+        $('.create-link-btn').click(() =>{
+            $('.copy_btn').text('Copy');
+            const link = $('#affiliate-link').val() ;
+            $.ajax({
+                url:'/affiliate-link/',
+                method:'POST',
+                data:{
+                    link:link
+                },
+                success:(response) =>{
+                    console.log(response);
+                    $('.Created-Linked-box').html(response.data);
+                    let table_data = '';
+                    response.all_links.forEach((link,index) =>{
+                        table_data += `<tr> <td>${index+1}</td>
+                                        <td>${link.link}</td>
+                                        <td>${link.date}</td>
+                                        <td>-</td></tr>`
+                    })
+                    $('.all_link_table').html(table_data);
+                }
+            })
+        })
+
+        $('.copy_btn').click(() =>{
+           const link =  $('.Created-Linked-box').text();
+            console.log(link);
+            navigator.clipboard.writeText(link);
+            $('.copy_btn').text('Copied');
+
+
+        })
+    </script>
+
+    <script>
+        $(function () {
+            $(window).scroll(function () {
+                var mainbottom = $("header").offset().top + $("header").height();
+                if ($(this).scrollTop() < mainbottom) {
+
+                    $('nav').removeClass('first');
+
+                } else {
+
+                    $('nav').addClass('first');
+
+                }
+            })
+        })
+        var addSerialNumber = function () {
+            $('table tr').each(function (index) {
+                $(this).find('td:nth-child(1)').html(index -1 + 1);
+            });
+        };
+
+        addSerialNumber();
+    </script>
+    <!-- Table Js-->
+    <script>
+    //   document
+    //     .querySelector(".table-scroll")
+    //     .addEventListener("scroll", function (e) {
+    //       this.querySelector(".thead-row").style.top = this.scrollTop + "px";
+    //     });
+
+        var myModal = document.getElementById('withdraw-form')
+        var myInput = document.getElementById('withdraw')
+
+        myModal.addEventListener('shown.bs.modal', function () {
+            myInput.focus()
+        });
+    </script>
+</body>
+
+</html>
+{% endblock %}
