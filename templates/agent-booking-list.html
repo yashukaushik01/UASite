@@ -1,0 +1,54 @@
+{% for booking in bookings %}
+<tr>
+  <td>UA32414</td>
+  <td>{{booking.booking_date}}</td>
+  <td>{{booking.guest_name}}</td>
+  <td>{{booking.product.name}}</td>
+  <td>{{booking.total_price}}</td>
+  <td>{{booking.status}}</td>
+  <td>
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button
+            class="btn btn-success accordion-button collapsed"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseOne{{booking.orderId}}"
+            aria-expanded="true"
+            aria-controls="collapseOne"
+          >
+            View <br />
+            Details
+          </button>
+        </h2>
+        <div
+          id="collapseOne{{booking.orderId}}"
+          class="accordion-collapse collapse"
+          aria-labelledby="headingOne"
+          data-bs-parent="#accordionExample"
+        >
+          <div class="container accordion-body">
+            <div class="row">
+              <div class="col border border-dark">
+                Guest Name: {{booking.guest_name}} Phone Number:
+                {{booking.guest_phone}} Other Number: {{booking.guest_phone}}
+                Email ID: {{booking.guest_email}} No of Guests:
+                {{booking.number_of_guests}}
+              </div>
+              <div class="col border border-dark">
+                Service Date: {{booking.service_date}} Service Status:
+                {{booking.status}} Margin Earned: {{booking.margin_earned}}
+                <div class="text-cebter">
+                  <button class="btn btn-warning">
+                    Download Booking Voucher
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </td>
+</tr>
+{% endfor %}

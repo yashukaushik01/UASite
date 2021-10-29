@@ -24,18 +24,23 @@ urlpatterns = [
     path('erplist/', views.ErpList, name='erplist'),
     path('itinerarylist/', views.ItineraryList, name='itinerarylist'),
 
-    path('state-itinerary-form/',views.stateItinerary , name="stateItineraryForm"),
-    path('state-itinerary-list/',views.StateItineraryList,name="StateItineraryList"),
-    path('get-state-itinerary/',views.GetStateItineraryData,name="GetStateItineraryData"),
-    path('city-hotel-form/',views.cityHotel , name="cityHotel"),
-    path('city-hotel-list/',views.CityHotelList , name="cityHotelList"),
-    path('get-city-hotel/',views.GetCityHotelData , name="GetCityHotelData"),
-    path('add-itinerary-form/',views.AddItineraryData , name="addItineraryForm"),
-    path('getItineraryData/',views.getItineraryData , name="getItineraryData"),
-    path('itinerary-data-edit/<slug:pk>',views.ItineraryDataEdit,name="ItineraryDataEdit"),
-    path('itinerary-data/<slug:slug>',views.itineraryData,name="itinerary-data"),
-    path('itinerary-data-list/',views.ItineraryDataList , name="ItineraryDataList"),
-    path('get-itinerary-list-data/',views.GetItineraryListData , name="GetItineraryListData"),
+    path('state-itinerary-form/', views.stateItinerary, name="stateItineraryForm"),
+    path('state-itinerary-list/', views.StateItineraryList,
+         name="StateItineraryList"),
+    path('get-state-itinerary/', views.GetStateItineraryData,
+         name="GetStateItineraryData"),
+    path('city-hotel-form/', views.cityHotel, name="cityHotel"),
+    path('city-hotel-list/', views.CityHotelList, name="cityHotelList"),
+    path('get-city-hotel/', views.GetCityHotelData, name="GetCityHotelData"),
+    path('add-itinerary-form/', views.AddItineraryData, name="addItineraryForm"),
+    path('getItineraryData/', views.getItineraryData, name="getItineraryData"),
+    path('itinerary-data-edit/<slug:pk>',
+         views.ItineraryDataEdit, name="ItineraryDataEdit"),
+    path('itinerary-data/<slug:slug>',
+         views.itineraryData, name="itinerary-data"),
+    path('itinerary-data-list/', views.ItineraryDataList, name="ItineraryDataList"),
+    path('get-itinerary-list-data/', views.GetItineraryListData,
+         name="GetItineraryListData"),
 
     path('addblog/', views.BlogCreate, name='blogcreate'),
     path('profile/', views.profile, name='profile'),
@@ -55,10 +60,12 @@ urlpatterns = [
     path('state/<slug:slug>/', views.State, name='state'),
     path('locality/<slug:slug>/', views.Locality, name='locality'),
 
-    path('travel-guide/<slug:slug>/<slug:slug1>', views.travelGuide, name='travelguide'),
+    path('travel-guide/<slug:slug>/<slug:slug1>',
+         views.travelGuide, name='travelguide'),
     path('travel-guide-list/', views.travelGuideList, name='travelGuideList'),
     path('travel-guide-data/', views.travelGuideData, name='travelGuideData'),
-    path('travel-guide-edit/<slug:slug>/', views.travelGuideEdit, name='travelGuideEdit'),
+    path('travel-guide-edit/<slug:slug>/',
+         views.travelGuideEdit, name='travelGuideEdit'),
 
     path('partial-payment/', views.Partial, name='partial-payment'),
     path('tour-payment/<slug:slug>', views.TourPayment, name='tourpayment'),
@@ -69,16 +76,20 @@ urlpatterns = [
 
     path('affiliate/', views.affiliate, name="affiliate"),
     path('affiliate-add/', views.affiliateUser, name="affiliate-add"),
-    path('affiliate-dashboard/', views.AffiliateDashbord, name="affiliate-dashboard"),
+    path('affiliate-dashboard/', views.AffiliateDashbord,
+         name="affiliate-dashboard"),
     path('affiliate-withdraw/', views.affiliateWithdraw, name="affiliate-withdraw"),
-    path('affiliate-withdraw-list/', views.affiliate_withdraw_list, name="affiliate-withdraw-list"),
+    path('affiliate-withdraw-list/', views.affiliate_withdraw_list,
+         name="affiliate-withdraw-list"),
     path('affiliate-payment/', views.AffiliatePayment, name="affiliate-payment"),
     path('affiliate-link/', views.affiliateLink, name="affiliate-link"),
     path('affiliate-list/', views.affiliateList, name="affiliate-list"),
-    path('affiliate-list-data/', views.affiliateListData, name="affiliate-list-data"),
-    path('affiliate-user-status/<status>/<slug>', views.AffiliateUserStatus, name="affiliate-user-status"),
+    path('affiliate-list-data/', views.affiliateListData,
+         name="affiliate-list-data"),
+    path('affiliate-user-status/<status>/<slug>',
+         views.AffiliateUserStatus, name="affiliate-user-status"),
 
-    path('agent-dashboard/', views.Agent_dashborad, name="agent-dashboard"),
+    # path('agent-dashboard/', views.Agent_dashborad, name="agent-dashboard"),
 
     path('about/', views.About, name="about"),
     path('contact/', views.Contact, name="contact"),
@@ -93,18 +104,19 @@ urlpatterns = [
     path('itinerary_response/<slug:slug>',
          views.Response_Itinerary, name='Itinerary_response'),
 
-    path('send-erp-mail/',views.SendErpMail,name='SendErpMail'),
-    
-    path('top-picks-entry-form/',views.topPicksEntryForm,name="toppicksentryform"),
-    path('top-picks/<slug:slug>',views.topPicks,name="toppicks"),
-    path('productEnquiry/',views.productEnqueryForm,name="product_enquiry"),
-    # course 
-    path('course-entry-form/',views.courseEntryForm,name="courceEntryForm"),
-    path('course/',views.course,name="course"),
-    path('state-city',views.StateCity,name="state-city"),
+    path('send-erp-mail/', views.SendErpMail, name='SendErpMail'),
+
+    path('top-picks-entry-form/', views.topPicksEntryForm,
+         name="toppicksentryform"),
+    path('top-picks/<slug:slug>', views.topPicks, name="toppicks"),
+    path('productEnquiry/', views.productEnqueryForm, name="product_enquiry"),
+    # course
+    path('course-entry-form/', views.courseEntryForm, name="courceEntryForm"),
+    path('course/', views.course, name="course"),
+    path('state-city', views.StateCity, name="state-city"),
 
 
-     # rentals-form
+    # rentals-form
     path('rentals-form/', views.rentalsForm, name='rentals-form'),
     path('rentals-submit/', views.rentalsSubmit, name='rentals-submit'),
     path('rentals/<slug:slug>/', views.rentals, name='rentals'),
@@ -112,4 +124,27 @@ urlpatterns = [
     path('filter-rentals-brand/', views.FilterRentalsBrand,
          name='filter-rentals-brand'),
     path('rentals-booking', views.rentalsBooking, name='rentals-booking'),
+
+    # agent
+    path('agent-registration/', views.agentRegistration, name='agent-registration'),
+    path('agent-submit/', views.agentSubmit, name='agent-submit'),
+    path('agent-list/', views.agentList, name='agent-list'),
+    path('filter-agents/', views.FilterAgents, name='filter-agents'),
+    path('agent-status/<status>/<slug>',
+         views.AgentStatus, name="agent-status"),
+    path('agent-dashboard/', views.agentDashboard, name='agent-dashboard'),
+    path('filter-agent-products/', views.filterAgentProducts,
+         name='filter-agent-products'),
+    path('agent-product/<slug:slug>/', views.agentProduct, name='agent-product'),
+    path('agent-booking/<slug:slug>/', views.agentBooking, name='agent-booking'),
+    path('agent-products-booking/', views.agentProductBooking,
+         name='agent-products-booking'),
+    path('handlerequestagent/', views.cash_agent, name='cash-agent'),
+    path('agent-withdraw/', views.agentWithdraw,
+         name='agent-withdraw'),
+
+    # testimonial
+    path('testimonials-form/', views.testimonialsForm, name='testimonials-form'),
+    path('testimonials-submit/', views.testimonialsSubmit,
+         name='testimonials-submit')
 ]

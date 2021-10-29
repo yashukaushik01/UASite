@@ -12,7 +12,7 @@ from django.utils.text import slugify
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 import uuid
-
+from datetime import datetime
 Type_CHOICES = (
     ('city', 'CITY'),
     ('state', 'STATE'),
@@ -22,7 +22,6 @@ Type_CHOICES_Ad = (
     ('adventure', 'ADVENTURE'),
     ('tour', 'TOUR'),
 )
-
 
 
 class Destination(models.Model):
@@ -151,8 +150,9 @@ class Product(models.Model):
     ans5 = models.CharField(
         max_length=10000, default="", null=True, blank=True)
     tags = TaggableManager()
-    promo_code = models.CharField(max_length=100,default='AU')
-    margin = models.IntegerField(null=True,blank=True,default=0)
+    promo_code = models.CharField(max_length=100, default='AU')
+    margin = models.IntegerField(null=True, blank=True, default=0)
+    margin_agent = models.CharField(max_length=100, default=0)
     available_for_agent = models.BooleanField(default=False)
 
     def __str__(self):
@@ -721,7 +721,6 @@ class promo(models.Model):
         return self.coupon
 
 
-
 class Affiliate(models.Model):
     coupon = models.CharField(null=False, default="", max_length=50)
     email = models.CharField(null=False, default="", max_length=500)
@@ -735,82 +734,87 @@ class Affiliate(models.Model):
         return self.coupon
 
 # =============================== affiliate user link ==============================
+
+
 def from_100000():
     largest = AffiliateUser.objects.all().order_by('aid').last()
     if not largest:
         return 123456
     return largest.aid + 1
 
+
 class AffiliateUser(models.Model):
-    name = models.CharField(max_length=500,null=True,blank=True)
-    email = models.EmailField(max_length=500,null=True,blank=True)
-    phone = models.CharField(max_length=16,null=True,blank=True)
-    bank_name = models.CharField(max_length=100,null=True,blank=True)
-    account_number = models.CharField(max_length=100,null=True,blank=True)
-    ifsc_code = models.CharField(max_length=100,null=True,blank=True)
-    upi_id = models.CharField(max_length=200,null=True,blank=True)
+    name = models.CharField(max_length=500, null=True, blank=True)
+    email = models.EmailField(max_length=500, null=True, blank=True)
+    phone = models.CharField(max_length=16, null=True, blank=True)
+    bank_name = models.CharField(max_length=100, null=True, blank=True)
+    account_number = models.CharField(max_length=100, null=True, blank=True)
+    ifsc_code = models.CharField(max_length=100, null=True, blank=True)
+    upi_id = models.CharField(max_length=200, null=True, blank=True)
     date = models.DateField(auto_now=False, auto_now_add=True)
-    status = models.CharField(max_length=200, choices=Status_Type_CHOICES, default='inactive', null=True, blank=True)
-    photo_copy = models.FileField(upload_to='uploads/affiliate_photo_id',null=True,blank=True)
-    aid = models.PositiveBigIntegerField(default=from_100000,null=True,blank=True)
+    status = models.CharField(
+        max_length=200, choices=Status_Type_CHOICES, default='inactive', null=True, blank=True)
+    photo_copy = models.FileField(
+        upload_to='uploads/affiliate_photo_id', null=True, blank=True)
+    aid = models.PositiveBigIntegerField(
+        default=from_100000, null=True, blank=True)
 
     def __str__(self):
         return str(self.name)
 
+
 class AffiliateEarning(models.Model):
     aid = models.ForeignKey(AffiliateUser, on_delete=models.CASCADE)
-    margin = models.CharField(null=True,max_length=50)
+    margin = models.CharField(null=True, max_length=50)
     total_price = models.IntegerField(null=True, default=0)
-    remain_price =  models.IntegerField(null=True,default=0)
-    withdrawlable_amount = models.IntegerField(null=True,default=0)
-
+    remain_price = models.IntegerField(null=True, default=0)
+    withdrawlable_amount = models.IntegerField(null=True, default=0)
 
     def __str__(self):
         return str(self.aid)
-        
+
 
 class AffiliateLink(models.Model):
     aid = models.ForeignKey(AffiliateUser, on_delete=models.CASCADE)
-    link = models.CharField(max_length=50000,null=True,blank=True)
-    product_name = models.CharField(max_length=50000,null=True,blank=True)
-    product_link = models.CharField(max_length=50000 , null=True,blank=True)
-    date = models.DateField( auto_now=False, auto_now_add=True)
+    link = models.CharField(max_length=50000, null=True, blank=True)
+    product_name = models.CharField(max_length=50000, null=True, blank=True)
+    product_link = models.CharField(max_length=50000, null=True, blank=True)
+    date = models.DateField(auto_now=False, auto_now_add=True)
 
     def __str__(self):
         return str(self.aid)
+
 
 Payment_Status_Type_CHOICES = (
     ('pending', 'PANDING'),
     ('Processed', 'PROCESSED'),
-    ('declined','DECLINED'),
+    ('declined', 'DECLINED'),
 )
 
+
 class AffiliateWithdraw(models.Model):
-    aid = models.ForeignKey(AffiliateUser ,on_delete=models.CASCADE)
-    ip = models.CharField(max_length=10000,null=True,blank=True)
+    aid = models.ForeignKey(AffiliateUser, on_delete=models.CASCADE)
+    ip = models.CharField(max_length=10000, null=True, blank=True)
     request_date = models.DateTimeField(auto_now=False, auto_now_add=True)
-    account_number = models.CharField(max_length=50,null=True,blank=True)
-    name = models.CharField(max_length=50,null=True,blank=True)
-    ifsc_code = models.CharField(max_length=2000,null=True,blank=True)
-    bank_name = models.CharField(max_length=2000,null=True,blank=True)
-    amount = models.CharField(max_length=2000,null=True,blank=True)
-    payemt_status =  models.CharField(max_length=200, choices=Payment_Status_Type_CHOICES,
-     default='pending', null=True, blank=True)
-    
+    account_number = models.CharField(max_length=50, null=True, blank=True)
+    name = models.CharField(max_length=50, null=True, blank=True)
+    ifsc_code = models.CharField(max_length=2000, null=True, blank=True)
+    bank_name = models.CharField(max_length=2000, null=True, blank=True)
+    amount = models.CharField(max_length=2000, null=True, blank=True)
+    payemt_status = models.CharField(max_length=200, choices=Payment_Status_Type_CHOICES,
+                                     default='pending', null=True, blank=True)
 
     def __str__(self):
         return str(self.aid)
-        
+
 
 class LinkHits(models.Model):
-    aid = models.CharField(max_length=500000,null=True,blank=True)
-    ip_address = models.CharField(max_length=4000,null=True,blank=True)
-    product_link = models.CharField(max_length=1000000,null=True,blank=True)
+    aid = models.CharField(max_length=500000, null=True, blank=True)
+    ip_address = models.CharField(max_length=4000, null=True, blank=True)
+    product_link = models.CharField(max_length=1000000, null=True, blank=True)
 
     def __str__(self):
         return self.ip_address
-    
-    
 
 
 class Purchase(models.Model):
@@ -823,8 +827,8 @@ class Purchase(models.Model):
     orderAmount = models.CharField(null=True, max_length=50)
     referenceId = models.CharField(null=True, max_length=100)
     coupon_uid = models.CharField(null=False, default="", max_length=500)
-    aid = models.CharField(max_length=50,null=True,blank=True)
-    margin = models.IntegerField(default=0,null=True,blank=True)
+    aid = models.CharField(max_length=50, null=True, blank=True)
+    margin = models.IntegerField(default=0, null=True, blank=True)
     created = models.DateTimeField(
         null=True, auto_now=True, auto_now_add=False, blank=True)
 
@@ -885,7 +889,6 @@ class TravelGuide(models.Model):
         upload_to='uploads/products/', null=True, blank=True)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=False)
 
-
     def __str__(self):
         return self.name
 
@@ -898,92 +901,100 @@ class Populartags(models.Model):
     def __str__(self):
         return self.name
 
+
 class TopPicksEntryForm(models.Model):
-    heading = models.CharField(max_length=200,null=True,blank=True)
-    cover_img = models.ImageField(upload_to='uploads/TopPicks/', null=True, blank=True)
+    heading = models.CharField(max_length=200, null=True, blank=True)
+    cover_img = models.ImageField(
+        upload_to='uploads/TopPicks/', null=True, blank=True)
     manual_slug = models.SlugField(max_length=100, null=True, blank=True)
-    box1_text = models.CharField(max_length=200,null=True,blank=True)
-    box1_background = models.ImageField(upload_to='uploads/TopPicks/',null=True,blank = True)
-    box1_url = models.URLField(max_length=200,null=True,blank=True)
-    box2_text = models.CharField(max_length=200,null=True,blank=True)
-    box2_background = models.ImageField(upload_to='uploads/TopPicks/',null=True,blank = True)
-    box2_url = models.URLField(max_length=200,null=True,blank=True)
-    box3_text = models.CharField(max_length=200,null=True,blank=True)
-    box3_background = models.ImageField(upload_to='uploads/TopPicks/',null=True,blank = True)
-    box3_url = models.URLField(max_length=200,null=True,blank=True)
-    text5 = models.CharField(max_length=200,null=True,blank=True)
-    text5_image = models.ImageField(upload_to='uploads/TopPicks/',null=True,blank = True)
-    text_1 = models.CharField(max_length=300,null=True,blank=True)
-    slug_1 = models.CharField(max_length=300,null=True,blank=True)
-    text_2 = models.CharField(max_length=300,null=True,blank=True)
-    slug_2 = models.CharField(max_length=300,null=True,blank=True)
-    text_3 = models.CharField(max_length=300,null=True,blank=True)
-    slug_3 = models.CharField(max_length=300,null=True,blank=True)
-    text_4 = models.CharField(max_length=300,null=True,blank=True)
-    slug_4 = models.CharField(max_length=300,null=True,blank=True)
-    text_5 = models.CharField(max_length=300,null=True,blank=True)
-    slug_5 = models.CharField(max_length=300,null=True,blank=True)
-    text_6 = models.CharField(max_length=300,null=True,blank=True)
-    slug_6 = models.CharField(max_length=300,null=True,blank=True)
-    text_7 = models.CharField(max_length=300,null=True,blank=True)
-    slug_7 = models.CharField(max_length=300,null=True,blank=True)
-    text_8 = models.CharField(max_length=300,null=True,blank=True)
-    slug_8 = models.CharField(max_length=300,null=True,blank=True)
-    text_9 = models.CharField(max_length=300,null=True,blank=True)
-    slug_9 = models.CharField(max_length=300,null=True,blank=True)
-    text_10 = models.CharField(max_length=300,null=True,blank=True)
-    slug_10 = models.CharField(max_length=300,null=True,blank=True)
-    text_11 = models.CharField(max_length=300,null=True,blank=True)
-    slug_11 = models.CharField(max_length=300,null=True,blank=True)
-    text_12 = models.CharField(max_length=300,null=True,blank=True)
-    slug_12 = models.CharField(max_length=300,null=True,blank=True)
-    text_13 = models.CharField(max_length=300,null=True,blank=True)
-    slug_13 = models.CharField(max_length=300,null=True,blank=True)
-    text_14 = models.CharField(max_length=300,null=True,blank=True)
-    slug_14 = models.CharField(max_length=300,null=True,blank=True)
-    text_15 = models.CharField(max_length=300,null=True,blank=True)
-    slug_15 = models.CharField(max_length=300,null=True,blank=True)
-    text_16 = models.CharField(max_length=300,null=True,blank=True)
-    slug_16 = models.CharField(max_length=300,null=True,blank=True)
-    text_17 = models.CharField(max_length=300,null=True,blank=True)
-    slug_17 = models.CharField(max_length=300,null=True,blank=True)
-    text_18 = models.CharField(max_length=300,null=True,blank=True)
-    slug_18 = models.CharField(max_length=300,null=True,blank=True)
-    text_19 = models.CharField(max_length=300,null=True,blank=True)
-    slug_19 = models.CharField(max_length=300,null=True,blank=True)
-    text_20 = models.CharField(max_length=300,null=True,blank=True)
-    slug_20 = models.CharField(max_length=300,null=True,blank=True)
+    box1_text = models.CharField(max_length=200, null=True, blank=True)
+    box1_background = models.ImageField(
+        upload_to='uploads/TopPicks/', null=True, blank=True)
+    box1_url = models.URLField(max_length=200, null=True, blank=True)
+    box2_text = models.CharField(max_length=200, null=True, blank=True)
+    box2_background = models.ImageField(
+        upload_to='uploads/TopPicks/', null=True, blank=True)
+    box2_url = models.URLField(max_length=200, null=True, blank=True)
+    box3_text = models.CharField(max_length=200, null=True, blank=True)
+    box3_background = models.ImageField(
+        upload_to='uploads/TopPicks/', null=True, blank=True)
+    box3_url = models.URLField(max_length=200, null=True, blank=True)
+    text5 = models.CharField(max_length=200, null=True, blank=True)
+    text5_image = models.ImageField(
+        upload_to='uploads/TopPicks/', null=True, blank=True)
+    text_1 = models.CharField(max_length=300, null=True, blank=True)
+    slug_1 = models.CharField(max_length=300, null=True, blank=True)
+    text_2 = models.CharField(max_length=300, null=True, blank=True)
+    slug_2 = models.CharField(max_length=300, null=True, blank=True)
+    text_3 = models.CharField(max_length=300, null=True, blank=True)
+    slug_3 = models.CharField(max_length=300, null=True, blank=True)
+    text_4 = models.CharField(max_length=300, null=True, blank=True)
+    slug_4 = models.CharField(max_length=300, null=True, blank=True)
+    text_5 = models.CharField(max_length=300, null=True, blank=True)
+    slug_5 = models.CharField(max_length=300, null=True, blank=True)
+    text_6 = models.CharField(max_length=300, null=True, blank=True)
+    slug_6 = models.CharField(max_length=300, null=True, blank=True)
+    text_7 = models.CharField(max_length=300, null=True, blank=True)
+    slug_7 = models.CharField(max_length=300, null=True, blank=True)
+    text_8 = models.CharField(max_length=300, null=True, blank=True)
+    slug_8 = models.CharField(max_length=300, null=True, blank=True)
+    text_9 = models.CharField(max_length=300, null=True, blank=True)
+    slug_9 = models.CharField(max_length=300, null=True, blank=True)
+    text_10 = models.CharField(max_length=300, null=True, blank=True)
+    slug_10 = models.CharField(max_length=300, null=True, blank=True)
+    text_11 = models.CharField(max_length=300, null=True, blank=True)
+    slug_11 = models.CharField(max_length=300, null=True, blank=True)
+    text_12 = models.CharField(max_length=300, null=True, blank=True)
+    slug_12 = models.CharField(max_length=300, null=True, blank=True)
+    text_13 = models.CharField(max_length=300, null=True, blank=True)
+    slug_13 = models.CharField(max_length=300, null=True, blank=True)
+    text_14 = models.CharField(max_length=300, null=True, blank=True)
+    slug_14 = models.CharField(max_length=300, null=True, blank=True)
+    text_15 = models.CharField(max_length=300, null=True, blank=True)
+    slug_15 = models.CharField(max_length=300, null=True, blank=True)
+    text_16 = models.CharField(max_length=300, null=True, blank=True)
+    slug_16 = models.CharField(max_length=300, null=True, blank=True)
+    text_17 = models.CharField(max_length=300, null=True, blank=True)
+    slug_17 = models.CharField(max_length=300, null=True, blank=True)
+    text_18 = models.CharField(max_length=300, null=True, blank=True)
+    slug_18 = models.CharField(max_length=300, null=True, blank=True)
+    text_19 = models.CharField(max_length=300, null=True, blank=True)
+    slug_19 = models.CharField(max_length=300, null=True, blank=True)
+    text_20 = models.CharField(max_length=300, null=True, blank=True)
+    slug_20 = models.CharField(max_length=300, null=True, blank=True)
 
     def __str__(self):
         return self.heading
 
+
 class BestPackage(models.Model):
-    top_picks = models.CharField(max_length=50,null=True,blank=True)
-    name = models.CharField(max_length=50,null=True,blank=True)
-    number = models.CharField(max_length=12,null=True,blank=True)
-    email = models.EmailField(max_length=254,null=True,blank=True)
-    date_of_travel = models.DateField(auto_now=False, auto_now_add=False,null=True,blank=True)
-    number_of_people = models.IntegerField(null=True,blank=True)
-    message = models.TextField(null=True,blank=True)
+    top_picks = models.CharField(max_length=50, null=True, blank=True)
+    name = models.CharField(max_length=50, null=True, blank=True)
+    number = models.CharField(max_length=12, null=True, blank=True)
+    email = models.EmailField(max_length=254, null=True, blank=True)
+    date_of_travel = models.DateField(
+        auto_now=False, auto_now_add=False, null=True, blank=True)
+    number_of_people = models.IntegerField(null=True, blank=True)
+    message = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.name
 
 
 class ProductEnquiry(models.Model):
-    product_slug = models.CharField(max_length=300,null=True,blank=True)
-    name = models.CharField(max_length=300,null=True,blank=True)
-    number = models.CharField(max_length=12,null=True,blank=True)
-    email = models.EmailField(max_length=254,null=True,blank=True)
-    date_of_travel = models.DateField(auto_now=False, auto_now_add=False,null=True,blank=True)
-    number_of_people = models.IntegerField(null=True,blank=True)
-    message = models.TextField(null=True,blank=True)
+    product_slug = models.CharField(max_length=300, null=True, blank=True)
+    name = models.CharField(max_length=300, null=True, blank=True)
+    number = models.CharField(max_length=12, null=True, blank=True)
+    email = models.EmailField(max_length=254, null=True, blank=True)
+    date_of_travel = models.DateField(
+        auto_now=False, auto_now_add=False, null=True, blank=True)
+    number_of_people = models.IntegerField(null=True, blank=True)
+    message = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.name
 
-    
-    
+
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         profile, created = wallet.objects.get_or_create(user=instance)
@@ -1023,272 +1034,332 @@ def pre_save_post_reciever3(sender, instance, *args, **kwargs):
 pre_save.connect(pre_save_post_reciever3, sender=Itinerary)
 
 
-
-
-
 # ========================================= course Model =======================================
 
 Type_dur = (
-    ('hour','Hour'),
-    ('day','Day'),
+    ('hour', 'Hour'),
+    ('day', 'Day'),
 )
 
+
 class Course(models.Model):
-    state = models.CharField(max_length=200,null=True,blank=True)
-    city = models.CharField(max_length=200,null=True,blank=True)
-    locality = models.CharField(max_length=200,null=True,blank=True)
-    course_name = models.CharField(max_length=250,null=True,blank=True)
-    course_category = models.CharField(max_length=200,null=True,blank=True)
-    course_duration = models.IntegerField(null=True,blank=True)
-    course_dur_type = models.CharField(max_length=200,choices=Type_dur ,default="" ,null=True,blank=True)
-    course_level = models.CharField(max_length=200,null=True,blank=True)
-    popularity = models.IntegerField(null=True,blank=True)
+    state = models.CharField(max_length=200, null=True, blank=True)
+    city = models.CharField(max_length=200, null=True, blank=True)
+    locality = models.CharField(max_length=200, null=True, blank=True)
+    course_name = models.CharField(max_length=250, null=True, blank=True)
+    course_category = models.CharField(max_length=200, null=True, blank=True)
+    course_duration = models.IntegerField(null=True, blank=True)
+    course_dur_type = models.CharField(
+        max_length=200, choices=Type_dur, default="", null=True, blank=True)
+    course_level = models.CharField(max_length=200, null=True, blank=True)
+    popularity = models.IntegerField(null=True, blank=True)
 
-    course_display_name = models.CharField(max_length=300,null=True,blank=True)
-    certification = models.CharField(max_length=300,null=True,blank=True)
-    trainer_detail = models.CharField(max_length=300,null=True,blank=True)
-    manual_slug = models.SlugField(max_length=300,null=True,blank=True)
+    course_display_name = models.CharField(
+        max_length=300, null=True, blank=True)
+    certification = models.CharField(max_length=300, null=True, blank=True)
+    trainer_detail = models.CharField(max_length=300, null=True, blank=True)
+    manual_slug = models.SlugField(max_length=300, null=True, blank=True)
 
-    summary = models.CharField(max_length=100000,null=True,blank=True)
-    achivement = models.CharField(max_length=100000,null=True,blank=True)
-    course_details = models.CharField(max_length=100000,null=True,blank=True)
-    inclusion = models.CharField(max_length=100000,null=True,blank=True)
-    after_course_next_step = models.CharField(max_length=100000,null=True,blank=True)
-    regular_price = models.IntegerField(default=0,null=True,blank=True)
-    sale_price = models.IntegerField(default=0,null=True,blank=True)
-    cover_image = models.ImageField(upload_to='uploads/course',null=True,blank=True)
-    image2 = models.ImageField(upload_to='uploads/course',null=True,blank=True)
-    image3 = models.ImageField(upload_to='uploads/course',null=True,blank=True)
-    image4 = models.ImageField(upload_to='uploads/course',null=True,blank=True)
+    summary = models.CharField(max_length=100000, null=True, blank=True)
+    achivement = models.CharField(max_length=100000, null=True, blank=True)
+    course_details = models.CharField(max_length=100000, null=True, blank=True)
+    inclusion = models.CharField(max_length=100000, null=True, blank=True)
+    after_course_next_step = models.CharField(
+        max_length=100000, null=True, blank=True)
+    regular_price = models.IntegerField(default=0, null=True, blank=True)
+    sale_price = models.IntegerField(default=0, null=True, blank=True)
+    cover_image = models.ImageField(
+        upload_to='uploads/course', null=True, blank=True)
+    image2 = models.ImageField(
+        upload_to='uploads/course', null=True, blank=True)
+    image3 = models.ImageField(
+        upload_to='uploads/course', null=True, blank=True)
+    image4 = models.ImageField(
+        upload_to='uploads/course', null=True, blank=True)
 
     def __str__(self):
         return self.course_display_name
 
-    
-
 
 class StateItineraryData(models.Model):
-    state = models.CharField(max_length=150,null=True,blank=True)
-    trip_name = models.CharField(max_length=1000,null=True,blank=True)
-    trip_category = models.CharField(max_length=500,null=True,blank=True)
-    locations = models.CharField(max_length=1000,null=True,blank=True)
-    day_schedule_heading = models.CharField(max_length=600,blank=True,null=True)
-    day_schedule_itinerary = models.TextField(null=True,blank=True)
-    activity_name = models.CharField(max_length=500,null=True,blank=True)
-    activity_price = models.IntegerField(null=True,blank=True)
-    other_transport_name = models.CharField(max_length=500,null=True,blank=True)
-    other_transport_price = models.IntegerField(null=True,blank=True)
-
+    state = models.CharField(max_length=150, null=True, blank=True)
+    trip_name = models.CharField(max_length=1000, null=True, blank=True)
+    trip_category = models.CharField(max_length=500, null=True, blank=True)
+    locations = models.CharField(max_length=1000, null=True, blank=True)
+    day_schedule_heading = models.CharField(
+        max_length=600, blank=True, null=True)
+    day_schedule_itinerary = models.TextField(null=True, blank=True)
+    activity_name = models.CharField(max_length=500, null=True, blank=True)
+    activity_price = models.IntegerField(null=True, blank=True)
+    other_transport_name = models.CharField(
+        max_length=500, null=True, blank=True)
+    other_transport_price = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.state
-    
-    
+
+
 class CityHotelData(models.Model):
-    state = models.CharField(max_length=150,null=True,blank=True)
-    city = models.CharField(max_length=150,null=True,blank=True)
-    accommodation_category = models.CharField(max_length=200,null=True,blank=True)
-    stay_name = models.CharField(max_length=500,null=True,blank=True)
-    room_type = models.CharField(max_length=500,null=True,blank=True)
-    meal_type = models.CharField(max_length=500,null=True,blank=True)
-    room_sharing = models.CharField(max_length=500,null=True,blank=True)
-    honeymoon_kit_price = models.IntegerField(blank=True,null=True)
-    total_price = models.IntegerField(blank=True,null=True)
-    hotel_link = models.URLField(max_length=500,null=True,blank=True)
-    image1 = models.ImageField(upload_to='uploads/hotel-img',null=True,blank=True)
-    image2 = models.ImageField(upload_to='uploads/hotel-img',null=True,blank=True)
-    image3 = models.ImageField(upload_to='uploads/hotel-img',null=True,blank=True)
-    image4 = models.ImageField(upload_to='uploads/hotel-img',null=True,blank=True)
-    image5 = models.ImageField(upload_to='uploads/hotel-img',null=True,blank=True)
-    image6 = models.ImageField(upload_to='uploads/hotel-img',null=True,blank=True)
-    image7 = models.ImageField(upload_to='uploads/hotel-img',null=True,blank=True)
+    state = models.CharField(max_length=150, null=True, blank=True)
+    city = models.CharField(max_length=150, null=True, blank=True)
+    accommodation_category = models.CharField(
+        max_length=200, null=True, blank=True)
+    stay_name = models.CharField(max_length=500, null=True, blank=True)
+    room_type = models.CharField(max_length=500, null=True, blank=True)
+    meal_type = models.CharField(max_length=500, null=True, blank=True)
+    room_sharing = models.CharField(max_length=500, null=True, blank=True)
+    honeymoon_kit_price = models.IntegerField(blank=True, null=True)
+    total_price = models.IntegerField(blank=True, null=True)
+    hotel_link = models.URLField(max_length=500, null=True, blank=True)
+    image1 = models.ImageField(
+        upload_to='uploads/hotel-img', null=True, blank=True)
+    image2 = models.ImageField(
+        upload_to='uploads/hotel-img', null=True, blank=True)
+    image3 = models.ImageField(
+        upload_to='uploads/hotel-img', null=True, blank=True)
+    image4 = models.ImageField(
+        upload_to='uploads/hotel-img', null=True, blank=True)
+    image5 = models.ImageField(
+        upload_to='uploads/hotel-img', null=True, blank=True)
+    image6 = models.ImageField(
+        upload_to='uploads/hotel-img', null=True, blank=True)
+    image7 = models.ImageField(
+        upload_to='uploads/hotel-img', null=True, blank=True)
 
     def __str__(self):
         return self.stay_name
 
 
-
 class ItineraryData(models.Model):
-    name = models.CharField(max_length=1000,null=True , blank=True)
-    number = models.CharField(max_length=1000,null=True,blank=True)
-    email = models.EmailField(max_length=254 , null=True,blank=True)
-    slug = models.SlugField(unique=True,null=True,blank=True)
+    name = models.CharField(max_length=1000, null=True, blank=True)
+    number = models.CharField(max_length=1000, null=True, blank=True)
+    email = models.EmailField(max_length=254, null=True, blank=True)
+    slug = models.SlugField(unique=True, null=True, blank=True)
 
-    state = models.CharField(max_length=1000,null=True , blank=True)
-    trip_name = models.CharField(max_length=2000,null=True , blank=True)
-    package_display_name = models.CharField(max_length=2000,null=True , blank=True)
-    date_of_travel = models.DateField(auto_now=False, auto_now_add=False,blank=True,null=True)
-    trip_category = models.CharField(max_length=2000,null=True , blank=True)
-    starting_location = models.CharField(max_length=5000,null=True , blank=True)
-    ending_location = models.CharField(max_length=5000,null=True , blank=True)
-    no_of_days = models.CharField(max_length=2000,null=True , blank=True)
+    state = models.CharField(max_length=1000, null=True, blank=True)
+    trip_name = models.CharField(max_length=2000, null=True, blank=True)
+    package_display_name = models.CharField(
+        max_length=2000, null=True, blank=True)
+    date_of_travel = models.DateField(
+        auto_now=False, auto_now_add=False, blank=True, null=True)
+    trip_category = models.CharField(max_length=2000, null=True, blank=True)
+    starting_location = models.CharField(
+        max_length=5000, null=True, blank=True)
+    ending_location = models.CharField(max_length=5000, null=True, blank=True)
+    no_of_days = models.CharField(max_length=2000, null=True, blank=True)
 
-    trip_highlights = models.CharField(max_length=10000,null=True , blank=True)
-    additional_inclusion =  models.CharField(max_length=10000,null=True , blank=True)
+    trip_highlights = models.CharField(max_length=10000, null=True, blank=True)
+    additional_inclusion = models.CharField(
+        max_length=10000, null=True, blank=True)
 
-    day_1 = models.CharField(max_length=2000,null=True , blank=True)
-    day_heading_1 = models.CharField(max_length=5000,null=True , blank=True)
-    day_itinerary_1 = models.CharField(max_length=20000,null=True , blank=True) 
-    day_2 = models.CharField(max_length=2000,null=True , blank=True)
-    day_heading_2 = models.CharField(max_length=5000,null=True , blank=True)
-    day_itinerary_2 = models.CharField(max_length=20000,null=True , blank=True) 
-    day_3 = models.CharField(max_length=2000,null=True , blank=True)
-    day_heading_3 = models.CharField(max_length=5000,null=True , blank=True)
-    day_itinerary_3 = models.CharField(max_length=20000,null=True , blank=True) 
-    day_4 = models.CharField(max_length=2000,null=True , blank=True)
-    day_heading_4 = models.CharField(max_length=5000,null=True , blank=True)
-    day_itinerary_4 = models.CharField(max_length=20000,null=True , blank=True) 
-    day_5 = models.CharField(max_length=2000,null=True , blank=True)
-    day_heading_5 = models.CharField(max_length=5000,null=True , blank=True)
-    day_itinerary_5 = models.CharField(max_length=20000,null=True , blank=True) 
-    day_6 = models.CharField(max_length=2000,null=True , blank=True)
-    day_heading_6 = models.CharField(max_length=5000,null=True , blank=True)
-    day_itinerary_6 = models.CharField(max_length=20000,null=True , blank=True) 
-    day_7 = models.CharField(max_length=2000,null=True , blank=True)
-    day_heading_7 = models.CharField(max_length=5000,null=True , blank=True)
-    day_itinerary_7 = models.CharField(max_length=20000,null=True , blank=True) 
-    day_8 = models.CharField(max_length=2000,null=True , blank=True)
-    day_heading_8 = models.CharField(max_length=5000,null=True , blank=True)
-    day_itinerary_8 = models.CharField(max_length=20000,null=True , blank=True) 
-    day_9 = models.CharField(max_length=2000,null=True , blank=True)
-    day_heading_9 = models.CharField(max_length=5000,null=True , blank=True)
-    day_itinerary_9 = models.CharField(max_length=20000,null=True , blank=True) 
-    day_10 = models.CharField(max_length=2000,null=True , blank=True)
-    day_heading_10 = models.CharField(max_length=5000,null=True , blank=True)
-    day_itinerary_10 = models.CharField(max_length=20000,null=True , blank=True) 
-    day_11 = models.CharField(max_length=2000,null=True , blank=True)
-    day_heading_11 = models.CharField(max_length=5000,null=True , blank=True)
-    day_itinerary_11 = models.CharField(max_length=20000,null=True , blank=True) 
-    day_12 = models.CharField(max_length=2000,null=True , blank=True)
-    day_heading_12 = models.CharField(max_length=5000,null=True , blank=True)
-    day_itinerary_12 = models.CharField(max_length=20000,null=True , blank=True) 
-    
-    inclusion_exclusion = models.CharField(max_length=20000,null=True , blank=True) 
-    activity_1 = models.CharField(max_length=5000,null=True , blank=True)
-    no_of_person_1 = models.CharField(max_length=5000,null=True , blank=True)
-    activity_price_1 = models.CharField(max_length=5000,null=True , blank=True)
-    activity_2 = models.CharField(max_length=5000,null=True , blank=True)
-    no_of_person_2 = models.CharField(max_length=5000,null=True , blank=True)
-    activity_price_2 = models.CharField(max_length=5000,null=True , blank=True)
-    activity_3 = models.CharField(max_length=5000,null=True , blank=True)
-    no_of_person_3 = models.CharField(max_length=5000,null=True , blank=True)
-    activity_price_3 = models.CharField(max_length=5000,null=True , blank=True)
-    activity_4 = models.CharField(max_length=5000,null=True , blank=True)
-    no_of_person_4 = models.CharField(max_length=5000,null=True , blank=True)
-    activity_price_4 = models.CharField(max_length=5000,null=True , blank=True)
-    activity_5 = models.CharField(max_length=5000,null=True , blank=True)
-    no_of_person_5 = models.CharField(max_length=5000,null=True , blank=True)
-    activity_price_5 = models.CharField(max_length=5000,null=True , blank=True)
+    day_1 = models.CharField(max_length=2000, null=True, blank=True)
+    day_heading_1 = models.CharField(max_length=5000, null=True, blank=True)
+    day_itinerary_1 = models.CharField(max_length=20000, null=True, blank=True)
+    day_2 = models.CharField(max_length=2000, null=True, blank=True)
+    day_heading_2 = models.CharField(max_length=5000, null=True, blank=True)
+    day_itinerary_2 = models.CharField(max_length=20000, null=True, blank=True)
+    day_3 = models.CharField(max_length=2000, null=True, blank=True)
+    day_heading_3 = models.CharField(max_length=5000, null=True, blank=True)
+    day_itinerary_3 = models.CharField(max_length=20000, null=True, blank=True)
+    day_4 = models.CharField(max_length=2000, null=True, blank=True)
+    day_heading_4 = models.CharField(max_length=5000, null=True, blank=True)
+    day_itinerary_4 = models.CharField(max_length=20000, null=True, blank=True)
+    day_5 = models.CharField(max_length=2000, null=True, blank=True)
+    day_heading_5 = models.CharField(max_length=5000, null=True, blank=True)
+    day_itinerary_5 = models.CharField(max_length=20000, null=True, blank=True)
+    day_6 = models.CharField(max_length=2000, null=True, blank=True)
+    day_heading_6 = models.CharField(max_length=5000, null=True, blank=True)
+    day_itinerary_6 = models.CharField(max_length=20000, null=True, blank=True)
+    day_7 = models.CharField(max_length=2000, null=True, blank=True)
+    day_heading_7 = models.CharField(max_length=5000, null=True, blank=True)
+    day_itinerary_7 = models.CharField(max_length=20000, null=True, blank=True)
+    day_8 = models.CharField(max_length=2000, null=True, blank=True)
+    day_heading_8 = models.CharField(max_length=5000, null=True, blank=True)
+    day_itinerary_8 = models.CharField(max_length=20000, null=True, blank=True)
+    day_9 = models.CharField(max_length=2000, null=True, blank=True)
+    day_heading_9 = models.CharField(max_length=5000, null=True, blank=True)
+    day_itinerary_9 = models.CharField(max_length=20000, null=True, blank=True)
+    day_10 = models.CharField(max_length=2000, null=True, blank=True)
+    day_heading_10 = models.CharField(max_length=5000, null=True, blank=True)
+    day_itinerary_10 = models.CharField(
+        max_length=20000, null=True, blank=True)
+    day_11 = models.CharField(max_length=2000, null=True, blank=True)
+    day_heading_11 = models.CharField(max_length=5000, null=True, blank=True)
+    day_itinerary_11 = models.CharField(
+        max_length=20000, null=True, blank=True)
+    day_12 = models.CharField(max_length=2000, null=True, blank=True)
+    day_heading_12 = models.CharField(max_length=5000, null=True, blank=True)
+    day_itinerary_12 = models.CharField(
+        max_length=20000, null=True, blank=True)
 
-    hotel_city_name_1 = models.CharField(max_length=5000,null=True , blank=True)
-    hotel_stay_name_1 = models.CharField(max_length=10000,null=True , blank=True)
-    meal_type_1 = models.CharField(max_length=5000,null=True , blank=True)
-    room_sharing_1  = models.CharField(max_length=5000,null=True , blank=True)
-    honeymoon_kit_price_1 = models.CharField(max_length=5000,null=True , blank=True)
-    number_of_room_1 = models.IntegerField(null=True , blank=True)
-    hotel_nights_1 = models.CharField(max_length=5000,null=True , blank=True)
-    number_of_night_1 = models.IntegerField(null=True , blank=True)
-    hotel_total_cost_1 = models.CharField(max_length=5000,null=True , blank=True)
-    hotel_city_name_2 = models.CharField(max_length=5000,null=True , blank=True)
-    hotel_stay_name_2 = models.CharField(max_length=10000,null=True , blank=True)
-    meal_type_2 = models.CharField(max_length=5000,null=True , blank=True)
-    room_sharing_2  = models.CharField(max_length=5000,null=True , blank=True)
-    honeymoon_kit_price_2 = models.CharField(max_length=5000,null=True , blank=True)
-    number_of_room_2 = models.IntegerField(null=True , blank=True)
-    hotel_nights_2 = models.CharField(max_length=5000,null=True , blank=True)
-    number_of_night_2 = models.IntegerField(null=True , blank=True)
-    hotel_total_cost_2 = models.CharField(max_length=5000,null=True , blank=True)
-    hotel_city_name_3 = models.CharField(max_length=5000,null=True , blank=True)
-    hotel_stay_name_3 = models.CharField(max_length=10000,null=True , blank=True)
-    meal_type_3 = models.CharField(max_length=5000,null=True , blank=True)
-    room_sharing_3  = models.CharField(max_length=5000,null=True , blank=True)
-    honeymoon_kit_price_3 = models.CharField(max_length=5000,null=True , blank=True)
-    number_of_room_3 = models.IntegerField(null=True , blank=True)
-    hotel_nights_3 = models.CharField(max_length=5000,null=True , blank=True)
-    number_of_night_3 = models.IntegerField(null=True , blank=True)
-    hotel_total_cost_3 = models.CharField(max_length=5000,null=True , blank=True)
-    hotel_city_name_4 = models.CharField(max_length=5000,null=True , blank=True)
-    hotel_stay_name_4 = models.CharField(max_length=10000,null=True , blank=True)
-    meal_type_4 = models.CharField(max_length=5000,null=True , blank=True)
-    room_sharing_4  = models.CharField(max_length=5000,null=True , blank=True)
-    honeymoon_kit_price_4 = models.CharField(max_length=5000,null=True , blank=True)
-    number_of_room_4 = models.IntegerField(null=True , blank=True)
-    hotel_nights_4 = models.CharField(max_length=5000,null=True , blank=True)
-    number_of_night_4 = models.IntegerField(null=True , blank=True)
-    hotel_total_cost_4 = models.CharField(max_length=5000,null=True , blank=True)
-    hotel_city_name_5 = models.CharField(max_length=5000,null=True , blank=True)
-    hotel_stay_name_5 = models.CharField(max_length=10000,null=True , blank=True)
-    meal_type_5 = models.CharField(max_length=5000,null=True , blank=True)
-    room_sharing_5  = models.CharField(max_length=5000,null=True , blank=True)
-    honeymoon_kit_price_5 = models.CharField(max_length=5000,null=True , blank=True)
-    number_of_room_5 = models.IntegerField(null=True , blank=True)
-    hotel_nights_5 = models.CharField(max_length=5000,null=True , blank=True)
-    number_of_night_5 = models.IntegerField(null=True , blank=True)
-    hotel_total_cost_5 = models.CharField(max_length=5000,null=True , blank=True)
+    inclusion_exclusion = models.CharField(
+        max_length=20000, null=True, blank=True)
+    activity_1 = models.CharField(max_length=5000, null=True, blank=True)
+    no_of_person_1 = models.CharField(max_length=5000, null=True, blank=True)
+    activity_price_1 = models.CharField(max_length=5000, null=True, blank=True)
+    activity_2 = models.CharField(max_length=5000, null=True, blank=True)
+    no_of_person_2 = models.CharField(max_length=5000, null=True, blank=True)
+    activity_price_2 = models.CharField(max_length=5000, null=True, blank=True)
+    activity_3 = models.CharField(max_length=5000, null=True, blank=True)
+    no_of_person_3 = models.CharField(max_length=5000, null=True, blank=True)
+    activity_price_3 = models.CharField(max_length=5000, null=True, blank=True)
+    activity_4 = models.CharField(max_length=5000, null=True, blank=True)
+    no_of_person_4 = models.CharField(max_length=5000, null=True, blank=True)
+    activity_price_4 = models.CharField(max_length=5000, null=True, blank=True)
+    activity_5 = models.CharField(max_length=5000, null=True, blank=True)
+    no_of_person_5 = models.CharField(max_length=5000, null=True, blank=True)
+    activity_price_5 = models.CharField(max_length=5000, null=True, blank=True)
 
-    vehicle_type_1 = models.CharField(max_length=5000,null=True , blank=True)
-    no_of_unit_1 = models.IntegerField(null=True , blank=True)
-    vehicle_total_price_1 = models.CharField(max_length=5000,null=True , blank=True)
-    vehicle_type_2 = models.CharField(max_length=5000,null=True , blank=True)
-    no_of_unit_2 = models.IntegerField(null=True , blank=True)
-    vehicle_total_price_2 = models.CharField(max_length=5000,null=True , blank=True)
-    vehicle_type_3 = models.CharField(max_length=5000,null=True , blank=True)
-    no_of_unit_3 = models.IntegerField(null=True , blank=True)
-    vehicle_total_price_3 = models.CharField(max_length=5000,null=True , blank=True)
-    vehicle_type_4 = models.CharField(max_length=5000,null=True , blank=True)
-    no_of_unit_4 = models.IntegerField(null=True , blank=True)
-    vehicle_total_price_4 = models.CharField(max_length=5000,null=True , blank=True)
-    vehicle_type_5 = models.CharField(max_length=5000,null=True , blank=True)
-    no_of_unit_5 = models.IntegerField(null=True , blank=True)
-    vehicle_total_price_5 = models.CharField(max_length=5000,null=True , blank=True)
+    hotel_city_name_1 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    hotel_stay_name_1 = models.CharField(
+        max_length=10000, null=True, blank=True)
+    meal_type_1 = models.CharField(max_length=5000, null=True, blank=True)
+    room_sharing_1 = models.CharField(max_length=5000, null=True, blank=True)
+    honeymoon_kit_price_1 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    number_of_room_1 = models.IntegerField(null=True, blank=True)
+    hotel_nights_1 = models.CharField(max_length=5000, null=True, blank=True)
+    number_of_night_1 = models.IntegerField(null=True, blank=True)
+    hotel_total_cost_1 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    hotel_city_name_2 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    hotel_stay_name_2 = models.CharField(
+        max_length=10000, null=True, blank=True)
+    meal_type_2 = models.CharField(max_length=5000, null=True, blank=True)
+    room_sharing_2 = models.CharField(max_length=5000, null=True, blank=True)
+    honeymoon_kit_price_2 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    number_of_room_2 = models.IntegerField(null=True, blank=True)
+    hotel_nights_2 = models.CharField(max_length=5000, null=True, blank=True)
+    number_of_night_2 = models.IntegerField(null=True, blank=True)
+    hotel_total_cost_2 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    hotel_city_name_3 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    hotel_stay_name_3 = models.CharField(
+        max_length=10000, null=True, blank=True)
+    meal_type_3 = models.CharField(max_length=5000, null=True, blank=True)
+    room_sharing_3 = models.CharField(max_length=5000, null=True, blank=True)
+    honeymoon_kit_price_3 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    number_of_room_3 = models.IntegerField(null=True, blank=True)
+    hotel_nights_3 = models.CharField(max_length=5000, null=True, blank=True)
+    number_of_night_3 = models.IntegerField(null=True, blank=True)
+    hotel_total_cost_3 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    hotel_city_name_4 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    hotel_stay_name_4 = models.CharField(
+        max_length=10000, null=True, blank=True)
+    meal_type_4 = models.CharField(max_length=5000, null=True, blank=True)
+    room_sharing_4 = models.CharField(max_length=5000, null=True, blank=True)
+    honeymoon_kit_price_4 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    number_of_room_4 = models.IntegerField(null=True, blank=True)
+    hotel_nights_4 = models.CharField(max_length=5000, null=True, blank=True)
+    number_of_night_4 = models.IntegerField(null=True, blank=True)
+    hotel_total_cost_4 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    hotel_city_name_5 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    hotel_stay_name_5 = models.CharField(
+        max_length=10000, null=True, blank=True)
+    meal_type_5 = models.CharField(max_length=5000, null=True, blank=True)
+    room_sharing_5 = models.CharField(max_length=5000, null=True, blank=True)
+    honeymoon_kit_price_5 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    number_of_room_5 = models.IntegerField(null=True, blank=True)
+    hotel_nights_5 = models.CharField(max_length=5000, null=True, blank=True)
+    number_of_night_5 = models.IntegerField(null=True, blank=True)
+    hotel_total_cost_5 = models.CharField(
+        max_length=5000, null=True, blank=True)
 
-    other_vehicle_type_1 = models.CharField(max_length=5000,null=True , blank=True)
-    other_vehicle_no_of_unit_1 = models.IntegerField(null=True , blank=True)
-    other_vehicle_total_price_1 = models.CharField(max_length=5000,null=True , blank=True)
-    other_vehicle_type_2 = models.CharField(max_length=5000,null=True , blank=True)
-    other_vehicle_no_of_unit_2 = models.IntegerField(null=True , blank=True)
-    other_vehicle_total_price_2 = models.CharField(max_length=5000,null=True , blank=True)
-    other_vehicle_type_3 = models.CharField(max_length=5000,null=True , blank=True)
-    other_vehicle_no_of_unit_3 = models.IntegerField(null=True , blank=True)
-    other_vehicle_total_price_3 = models.CharField(max_length=5000,null=True , blank=True)
-    other_vehicle_type_4 = models.CharField(max_length=5000,null=True , blank=True)
-    other_vehicle_no_of_unit_4 = models.IntegerField(null=True , blank=True)
-    other_vehicle_total_price_4 = models.CharField(max_length=5000,null=True , blank=True)
-    other_vehicle_type_5 = models.CharField(max_length=5000,null=True , blank=True)
-    other_vehicle_no_of_unit_5 = models.IntegerField(null=True , blank=True)
-    other_vehicle_total_price_5 = models.CharField(max_length=5000,null=True , blank=True)
+    vehicle_type_1 = models.CharField(max_length=5000, null=True, blank=True)
+    no_of_unit_1 = models.IntegerField(null=True, blank=True)
+    vehicle_total_price_1 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    vehicle_type_2 = models.CharField(max_length=5000, null=True, blank=True)
+    no_of_unit_2 = models.IntegerField(null=True, blank=True)
+    vehicle_total_price_2 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    vehicle_type_3 = models.CharField(max_length=5000, null=True, blank=True)
+    no_of_unit_3 = models.IntegerField(null=True, blank=True)
+    vehicle_total_price_3 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    vehicle_type_4 = models.CharField(max_length=5000, null=True, blank=True)
+    no_of_unit_4 = models.IntegerField(null=True, blank=True)
+    vehicle_total_price_4 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    vehicle_type_5 = models.CharField(max_length=5000, null=True, blank=True)
+    no_of_unit_5 = models.IntegerField(null=True, blank=True)
+    vehicle_total_price_5 = models.CharField(
+        max_length=5000, null=True, blank=True)
 
-    total_calculated_price = models.CharField(max_length=5000,null=True , blank=True)
-    change_in_activity_price = models.CharField(max_length=5000,null=True , blank=True)
-    change_in_activity_details = models.CharField(max_length=10000,null=True , blank=True)
-    change_in_hotel_price = models.CharField(max_length=5000,null=True , blank=True)
-    change_in_hotel_details = models.CharField(max_length=10000,null=True , blank=True)
-    change_in_transport_price = models.CharField(max_length=5000,null=True , blank=True)
-    change_in_transport_details = models.CharField(max_length=10000,null=True , blank=True)
-    change_in_other_price = models.CharField(max_length=5000,null=True , blank=True)
-    change_in_other_details = models.CharField(max_length=10000,null=True , blank=True)
-    regular_price = models.CharField(max_length=10000,null=True , blank=True)
-    total_trip_cost = models.CharField(max_length=5000,null=True , blank=True)
+    other_vehicle_type_1 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    other_vehicle_no_of_unit_1 = models.IntegerField(null=True, blank=True)
+    other_vehicle_total_price_1 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    other_vehicle_type_2 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    other_vehicle_no_of_unit_2 = models.IntegerField(null=True, blank=True)
+    other_vehicle_total_price_2 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    other_vehicle_type_3 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    other_vehicle_no_of_unit_3 = models.IntegerField(null=True, blank=True)
+    other_vehicle_total_price_3 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    other_vehicle_type_4 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    other_vehicle_no_of_unit_4 = models.IntegerField(null=True, blank=True)
+    other_vehicle_total_price_4 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    other_vehicle_type_5 = models.CharField(
+        max_length=5000, null=True, blank=True)
+    other_vehicle_no_of_unit_5 = models.IntegerField(null=True, blank=True)
+    other_vehicle_total_price_5 = models.CharField(
+        max_length=5000, null=True, blank=True)
 
-    extra_price_off = models.CharField(max_length=5000,null=True , blank=True)
-    end_extra_off = models.CharField(max_length=300,null=True ,blank=True)
+    total_calculated_price = models.CharField(
+        max_length=5000, null=True, blank=True)
+    change_in_activity_price = models.CharField(
+        max_length=5000, null=True, blank=True)
+    change_in_activity_details = models.CharField(
+        max_length=10000, null=True, blank=True)
+    change_in_hotel_price = models.CharField(
+        max_length=5000, null=True, blank=True)
+    change_in_hotel_details = models.CharField(
+        max_length=10000, null=True, blank=True)
+    change_in_transport_price = models.CharField(
+        max_length=5000, null=True, blank=True)
+    change_in_transport_details = models.CharField(
+        max_length=10000, null=True, blank=True)
+    change_in_other_price = models.CharField(
+        max_length=5000, null=True, blank=True)
+    change_in_other_details = models.CharField(
+        max_length=10000, null=True, blank=True)
+    regular_price = models.CharField(max_length=10000, null=True, blank=True)
+    total_trip_cost = models.CharField(max_length=5000, null=True, blank=True)
 
-    payment_type = models.CharField(max_length=5000,null=True , blank=True)
-    number_of_people = models.CharField(max_length=5000,null=True , blank=True)
-    each_people_cost = models.CharField(max_length=5000,null=True , blank=True)
-    
-    agant_name = models.CharField(max_length=5000,null=True , blank=True)
-    agant_number = models.CharField(max_length=5000,null=True , blank=True)
+    extra_price_off = models.CharField(max_length=5000, null=True, blank=True)
+    end_extra_off = models.CharField(max_length=300, null=True, blank=True)
+
+    payment_type = models.CharField(max_length=5000, null=True, blank=True)
+    number_of_people = models.CharField(max_length=5000, null=True, blank=True)
+    each_people_cost = models.CharField(max_length=5000, null=True, blank=True)
+
+    agant_name = models.CharField(max_length=5000, null=True, blank=True)
+    agant_number = models.CharField(max_length=5000, null=True, blank=True)
     itinerary_date_time = models.DateTimeField(auto_now_add=True)
-
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse("ItineraryDatas", kwargs={"slug": self.slug})
-    
-
 
 
 def pre_save_post_reciever4(sender, instance, *args, **kwargs):
@@ -1301,26 +1372,26 @@ pre_save.connect(pre_save_post_reciever4, sender=ItineraryData)
 
 
 class State(models.Model):
-    state = models.CharField(max_length=200,blank=True,null=True)
+    state = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return self.state
 
+
 class Cities(models.Model):
-    state = models.ForeignKey(State,on_delete=models.CASCADE)
-    city = models.CharField(max_length=200,null=True,blank=True)
+    state = models.ForeignKey(State, on_delete=models.CASCADE)
+    city = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
-        return str(str(self.state) +" - "+ self.city)
+        return str(str(self.state) + " - " + self.city)
+
 
 class Locality(models.Model):
-    city = models.ForeignKey(Cities,on_delete=models.CASCADE)
-    locality = models.CharField(max_length=200,null=True,blank=True)
-
+    city = models.ForeignKey(Cities, on_delete=models.CASCADE)
+    locality = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
-        return str(str(self.city) +"-"+ self.locality)
-
+        return str(str(self.city) + "-" + self.locality)
 
 
 # rentals-form
@@ -1349,13 +1420,100 @@ class Rentals(models.Model):
 
     def __str__(self):
         return self.product_name
-    
-    
-    
+
+ # agents-form
 
 
+class Agent(models.Model):
+    agent_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=122)
+    email = models.CharField(max_length=122)
+    phone = models.CharField(max_length=12)
+    aadhar = models.CharField(max_length=12)
+    address = models.CharField(max_length=122)
+    gstin = models.CharField(max_length=15)
+    pan = models.CharField(max_length=12)
+    photo_id = models.FileField(upload_to="uploads/agent-photo-id")
+    alternate_name = models.CharField(max_length=122)
+    alternate_phone = models.CharField(max_length=12)
+    bank_name = models.CharField(max_length=122)
+    account_number = models.CharField(max_length=122)
+    ifsc_code = models.CharField(max_length=122)
+    upi_id = models.CharField(max_length=122)
+    total_earned = models.CharField(max_length=122, default=0)
+    withdrawn_till_date = models.CharField(max_length=122, default=0)
+    available_balance = models.CharField(max_length=122, default=0)
+    # withdrawable_balance = models.CharField(max_length=122, default=0)
+    status = models.CharField(
+        max_length=200, choices=Status_Type_CHOICES, default='inactive', null=True, blank=True)
+
+    def __str__(self):
+        return str(self.agent_id)
 
 
+# testimonial
+class Testimonials(models.Model):
+    product_page_url = models.CharField(max_length=122)
+    display_page_url = models.CharField(max_length=122)
+    full_name = models.CharField(max_length=122)
+    rating = models.CharField(max_length=122)
+    profile_photo = models.ImageField(
+        null=True, blank=True, upload_to="uploads/testimonials")
+    tags = models.CharField(max_length=10000)
+    testimonials = models.CharField(max_length=122)
+    photo_1 = models.ImageField(
+        null=True, blank=True, upload_to="uploads/testimonials")
+    photo_2 = models.ImageField(
+        null=True, blank=True, upload_to="uploads/testimonials")
+    photo_3 = models.ImageField(
+        null=True, blank=True, upload_to="uploads/testimonials")
+    photo_4 = models.ImageField(
+        null=True, blank=True, upload_to="uploads/testimonials")
+    photo_5 = models.ImageField(
+        null=True, blank=True, upload_to="uploads/testimonials")
+    photo_6 = models.ImageField(
+        null=True, blank=True, upload_to="uploads/testimonials")
+    photo_7 = models.ImageField(
+        null=True, blank=True, upload_to="uploads/testimonials")
+    photo_8 = models.ImageField(
+        null=True, blank=True, upload_to="uploads/testimonials")
+
+    def __str__(self):
+        return str(self.full_name)
 
 
-    
+class AgentProductBooking(models.Model):
+    orderId = models.CharField(null=True, max_length=100)
+    agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    guest_name = models.CharField(max_length=122)
+    guest_phone = models.CharField(max_length=122)
+    guest_other_phone = models.CharField(max_length=122, null=True, blank=True)
+    guest_email = models.CharField(max_length=122, null=True, blank=True)
+    number_of_guests = models.CharField(max_length=122)
+    booking_date = models.DateTimeField(
+        default=datetime.today)
+    service_date = models.DateField()
+    product_price = models.CharField(max_length=122)
+    total_price = models.CharField(max_length=122)
+    margin_earned = models.CharField(max_length=122)
+    receipt_send_type = models.CharField(
+        max_length=122, default="Send to mail")
+    terms_and_conditions = models.BooleanField(max_length=122, default=False)
+    status = models.CharField(
+        max_length=122, null=True, blank=True)
+
+    def __str__(self):
+        return self.orderId
+
+
+class AgentWithdrawHistory(models.Model):
+    agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
+    amount = models.CharField(max_length=122)
+    date = models.DateTimeField(default=datetime.today)
+    status = models.CharField(max_length=122)
+    ip = models.CharField(max_length=122)
+    declaration = models.BooleanField(max_length=122, default=True)
+
+    def __str__(self):
+        return self.agent.name + '-' + str(self.date)

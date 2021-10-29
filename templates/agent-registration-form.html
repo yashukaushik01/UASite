@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Universal Adventures</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Tag Manager -->
+    <script src="https://cdn.tiny.cloud/1/2n06ucf71roagptkroonkrn3btoomt1rrw0na61zi98zhb6w/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
+
+    <!-- End Google Tag Manager -->
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="icon" href={% static './img/uni.png' %} sizes="16x16" type="image/png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/owl.carousel.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/magnific-popup.css' %}>
+    <link rel="stylesheet" href={% static 'css/font-awesome.min.css' %}>
+    <link rel="stylesheet" href={% static 'css/themify-icons.css' %}>
+    <link rel="stylesheet" href={% static 'css/nice-select.css' %}>
+    <link rel="stylesheet" href={% static 'css/flaticon.css' %}>
+    <link rel="stylesheet" href={% static 'css/gijgo.css' %}>
+    <link rel="stylesheet" href={% static 'css/animate.css' %}>
+    <link rel="stylesheet" href={% static 'css/slick.css' %}>
+    <link rel="stylesheet" href={% static 'css/slicknav.css' %}>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+
+    <link rel="stylesheet" href={% static 'css/style.css' %}>
+    <link rel="stylesheet" href={% static 'css/tagsinput.css' %}>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+    <style>
+      .div-inline {
+        display: inline-block;
+      }
+      li 
+        {
+            list-style:inherit !important;
+        }
+        .note-editable
+        {
+            padding: 30px !important;
+        }
+        ul {
+
+            padding-left: 30px !important;
+        }
+        .rental-form {
+            padding-top: 110px;
+            padding-bottom: 110px;
+        }
+    </style>
+    
+  </head>
+  <body>
+      <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <nav class="navbar  navbar-expand-lg  fixed-top navbar-light" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/"><img src={% static 'img//Universal Adventures Logo.png'%} width="70px">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#adv">Welcome Admin!</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    {% for msg in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{msg}}</strong>
+        </div>
+    {% endfor %}
+  
+
+{% if request.user.is_authenticated %}
+    <div class="rental-form">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section_title text-center mb_70">
+                        <h3>Agent Registration</h3>
+                    </div>
+                </div>
+            </div>
+                    
+            <form method="POST" action="/agent-submit/" enctype="multipart/form-data">
+            {% csrf_token %}
+               <div class="form-data px-2 px-3">
+                    <div class="form-row px-2" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.3);">
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>Name<span style="color:red">*</span> : </label>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required>
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>Email<span style="color:red">*</span> : </label>
+                            </div>
+                            <div class="col-6">
+                                <input type="email" id="email" name="email" class="form-control" value="{{request.user.email}}" style="pointer-events:none" required>
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>Phone Number<span style="color:red">*</span> : </label>
+                            </div>
+                            <div class="col-6">
+                                <input type="number" id="phone" name="phone" class="form-control" placeholder="Enter your phone number" required>
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>Aadhar Card<span style="color:red">*</span> : </label>
+                            </div>
+                            <div class="col-6">
+                                <input type="number" id="aadhar" name="aadhar" class="form-control" placeholder="Enter your aadhar number" required>
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>Office/Home Address<span style="color:red">*</span> : </label>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" id="address" name="address" class="form-control" placeholder="Enter your address" required>
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>GSTIN<span style="color:red">*</span> : </label>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" id="gstin" name="gstin" class="form-control" placeholder="Enter your GST Number" required>
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>Pan Number : </label>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" id="pan" name="pan" class="form-control" placeholder="(optional)">
+                            </div>
+                        </div>
+                        <div class="form-group row col-12">
+                            <div class="col-3">
+                                <label>Photo ID<span style="color:red">*</span> : </label>
+                            </div>
+                            <div class="col-6">
+                                <input type="file" accept="application/pdf" id="photo-id" name="photo-id" class="form-control" >
+                            </div>
+                        </div>
+                </div>
+
+                 <div class="form-row px-2 my-4" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.3);">
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>Name (Alternate Contact)<span style="color:red">*</span> : </label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" id="alternate-name" name="alternate-name" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>Phone Number (Alternate Contact)<span style="color:red">*</span> : </label>
+                        </div>
+                        <div class="col-6">
+                            <input type="number" id="alternate-phone" name="alternate-phone" class="form-control" required>        
+                        </div>
+                    </div>
+                 </div>
+
+                 <div class="form-row px-2 my-4" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.3);">
+                    <div class="text-center mt-4 w-100" >
+                        <h4>Account Details</h4>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>Bank Name<span style="color:red">*</span> : </label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" id="bank-name" name="bank-name" class="form-control" required/>
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>Account Number<span style="color:red">*</span> : </label>
+                        </div>
+                        <div class="col-6">
+                            <input type="number" id="account-number" name="account-number" class="form-control" required/>
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>IFSC Code<span style="color:red">*</span> : </label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" id="ifsc" name="ifsc-code" class="form-control" required/>
+                        </div>
+                    </div>
+                    <div class="form-group row col-12">
+                        <div class="col-3">
+                            <label>UPI ID<span style="color:red">*</span> : </label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" id="upi" name="upi-id" class="form-control" required/>
+                        </div>
+                    </div>
+                 </div>
+                 
+                 <div class="form-row px-2 my-4" id="last-block" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.3);">
+                     
+                     <div class="form-group my-3" style="display: flex;width: 100%;justify-content: center;align-items: center;">
+                        <button type="submit" id="submit" class="btn btn-primary mt-4 mb-4">Submit</button>
+                     </div>
+                 </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>
+{% else %}
+<script>alert("You are not signed in, Please sign in first")</script>
+{% endif %}    
+<!-- <script>
+    document.getElementById('getotp').addEventListener('click', ()=>{
+        let name = document.getElementById('name').value;
+        let email = document.getElementById('email').value;
+        let phone = document.getElementById('phone').value;
+        let aadhar = document.getElementById('aadhar').value;
+        let address = document.getElementById('address').value;
+        let gstin = document.getElementById('gstin').value;
+        let pan = document.getElementById('pan').value;
+        let alternate_name = document.getElementById('alternate-name').value;
+        let alternate_phone = document.getElementById('alternate-phone').value;
+        let banking_name = document.getElementById('banking-name').value;
+        let account_number = document.getElementById('account-number').value;
+        let ifsc = document.getElementById('ifsc').value;
+        let upi = document.getElementById('upi').value;
+        document.getElementById('last-block').innerHTML=
+                    `<div class="form-group row col-12" id="otp-block" >
+                        <div class="col-3">
+                            <label>OTP<span style="color:red">*</span> : </label>
+                        </div>
+                        <div class="col-6">
+                            <input type="number" id="otp" name="otp" class="form-control" required/>
+                        </div>
+                    </div>
+                     <div class="form-group my-3" style="display: flex;width: 100%;justify-content: center;align-items: center;">
+                        <input type="button" id="verifyotp" value="Verify OTP" class="btn btn-primary mt-4 mb-4">
+                    </div>`
+        var formData = {
+            'name': name,
+            'email': email,
+        }
+        $.ajax({
+            type: 'POST',
+            url: `/send-otp/`,
+            data: formData,
+            success: function(res) {
+                alert(res.message)
+                let correctOtp = res.correctOtp;
+                document.getElementById('verifyotp').addEventListener('click', ()=>{
+                    var enteredOtp = document.getElementById('otp').value;
+                    if(enteredOtp != correctOtp){
+                        alert('OTP not correct, Re-enter OTP')
+                    }else{
+                        alert('OTP verified Successfully!')
+                    }
+                })
+            }
+        })
+    })
+</script> -->
+
+<footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-lg-4 ">
+                        <div class="footer_widget">
+                            <div class="footer_logo">
+                                <a href="#">
+                                    <img src={% static 'img/footer.png' %} height="120px" width="300px" alt="">
+                                </a>
+                            </div>
+                            <a href="#">+91 8882654593</a> <br>
+                            <a href="mailto:contact@universaladventures.in">contact@universaladventures.in</a>
+                            </p>
+                            <div class="socail_links">
+                                <ul>
+                                    <li>
+                                        <a href="https://www.facebook.com/universaladventuresindia/">
+                                            <i class="ti-facebook"></i>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="https://www.instagram.com/universaladventuresindia/">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://g.co/kgs/FEs31r">
+                                            <i class="fa fa-google-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Company
+                            </h3>
+                            <ul class="links">
+                                <ul class="links">
+                                    <li><a href="/about/">About</a></li>
+                                    <li><a href="/contact/"> Contact</a></li>
+                                    <li><a href="/privacy-policy/">Privacy-Policy</a></li>
+                                    <li><a href="/partial-payment/">Partial Payment</a></li>
+                                    <li><a href="/refund-policy">Payments & Refund Policy</a></li>
+                                </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Popular destination
+                            </h3>
+                            <ul class="links double_links">
+                                <li><a href="/destination/Goa/">Goa</a></li>
+                                <li><a href="/destination/Karnataka/">Karnataka</a></li>
+                                <li><a href="/destination/Uttar-Pradesh/">Uttar Pradesh</a></li>
+                                <li><a href="/destination/Uttarakhand/">Uttarakhand</a></li>
+                                <li><a href="/destination/Rajasthan/">Rajasthan</a></li>
+                                <li><a href="/destination/Maharashtra/">Maharashtra</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Instagram
+                            </h3>
+                            <div class="instagram_feed">
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/1.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/2.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/3.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/4.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/5.png' %} alt="">
+                                    </a>
+                                </div>
+                                <div class="single_insta">
+                                    <a href="#">
+                                        <img src={% static 'img/instagram/6.png' %} alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</footer>
+
+</body>
+    <!-- JS here -->
+    <script src={% static 'js/vendor/modernizr-3.5.0.min.js' %}></script>
+    <script src={% static 'js/vendor/jquery-1.12.4.min.js' %}></script>
+    <script src={% static 'js/popper.min.js' %}></script>
+    <script src={% static 'js/bootstrap.min.js' %}></script>
+    <script src={% static 'js/owl.carousel.min.js' %}></script>
+    <script src={% static 'js/isotope.pkgd.min.js' %}></script>
+    <script src={% static 'js/ajax-form.js' %}></script>
+    <script src={% static 'js/waypoints.min.js' %}></script>
+    <script src={% static 'js/jquery.counterup.min.js' %}></script>
+    <script src={% static 'js/imagesloaded.pkgd.min.js' %}></script>
+    <script src={% static 'js/scrollIt.js' %}></script>
+    <script src={% static 'js/jquery.scrollUp.min.js' %}></script>
+    <script src={% static 'js/wow.min.js' %}""></script>
+    <script src={% static 'js/nice-select.min.js' %}></script>
+    <script src={% static 'js/jquery.slicknav.min.js' %}></script>
+    <script src={% static 'js/jquery.magnific-popup.min.js' %}""></script>
+    <script src={% static 'js/plugins.js' %}></script>
+    <script src={% static 'js/gijgo.min.js' %}></script>
+    <script src={% static 'js/slick.min.js' %}></script>
+    <script src={% static 'js/tagsinput.js' %}></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <!--contact js-->
+
+    <script src={% static 'js/contact.js' %}></script>
+    <script src={% static 'js/jquery.ajaxchimp.min.js' %}></script>
+    <script src={% static 'js/jquery.form.js' %}></script>
+    <script src={% static 'js/jquery.validate.min.js' %}></script>
+    <script src={% static 'js/mail-script.js' %}></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script src= "https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.0.0/dist/js/BsMultiSelect.bs4.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        {% if messages %}
+            {% for message in messages %}
+                swal({
+                    title: "{{message}}",
+                    icon: "success",
+                    });
+            {% endfor %}
+        {% endif %}
+    </script>    
+</html>

@@ -1,0 +1,82 @@
+{% load static %}
+{% block content %}
+{% load socialaccount %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Universal Adventures</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KH59H8J');</script>
+
+<!-- End Google Tag Manager -->
+
+
+
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="icon" href={% static './img/Universal Adventures Logo.png' %} sizes="16x16" type="image/png">
+   
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+	    <button onclick="generatePDF()">Download as PDF</button>
+    <div id="invoice" class="container ">
+        <div class="row" style="margin-top:10px;">
+            <div class="col-6">
+                <img class="" style="height: 80px;border-radius: 50%;" alt="User Picture" src={% static 'img//Universal Adventures Logo.png' %}>
+            </div> 
+            <div class="col-6 center">
+                {% comment %} <p><b style="color: black;">Date: </b><span id="datetime"></span></p> {% endcomment %}
+                            
+            </div>
+        </div>
+        <div class="detail">
+            <p><b style="color: black;">Adventure Name: </b>{{booking.product.name}} </p>
+            <p><b style="color: black;">Payment status: </b>{{booking.status}} </p>
+            <p><b style="color: black;">Date of Book: </b>{{booking.service_date}} </p>
+            <p><b style="color: black;">Number of Adult: </b>{{booking.number_of_guests}} </p>
+            {% comment %} <p><b style="color: black;">Date of Booking: </b>{{booking.created}} </p> {% endcomment %}
+            <p><b style="color: black;">Booking Amount: </b>{{booking.total_price}} </p>
+            {% comment %} <p><b style="color: black;">Booking Reference Id: </b>{{booking.referenceId}} </p> {% endcomment %}
+        </div> 
+        <div class="last">
+            <h3>Person Detail</h3>
+            <p><b style="color: black;">Name: </b> {{booking.guest_name}}</p>
+            <p><b style="color: black;">Email: </b>{{booking.guest_phone}} </p>
+            <p><b style="color: black;">Phone Number: </b>{{booking.guest_email}} </p>
+        </div> 
+        <div class="foot text-center">
+            <p><b style="color: black;">www.universaladventures.in</b></p>
+        </div>
+
+    </div>
+
+
+<script src={% static 'js/html2pdf.bundle.min.js' %}></script>
+    <script>
+      function generatePDF() {
+        // Choose the element that our invoice is rendered in.
+        const element = document.getElementById("invoice");
+        // Choose the element and save the PDF for our user.
+        html2pdf()
+          .from(element)
+          .save();
+      }
+    </script>
+    
+</body>
+
+</html>
+{% endblock %}

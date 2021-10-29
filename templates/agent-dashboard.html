@@ -23,6 +23,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <link rel="icon" href={% static './img/uni.png' %} sizes="16x16" type="image/png">
     <!-- Place favicon.ico in the root directory -->
 
+    <!-- Bootstrap here-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
     <!-- CSS here -->
     <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %}>
     <link rel="stylesheet" href={% static 'css/owl.carousel.min.css' %}>
@@ -147,41 +151,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </div>
         <!--Withdraw Amount Modal-->
-        <div class="modal fade " id="withdraw-form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade " id="withdraw-form" tabindex="-1" data-bs-toggle="modal" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Withdraw Amount Form</h5>
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h5 class="modal-title" id="exampleModalLabel">Withdraw Amount: <span id="withdraw-amount-modal"></span></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <hr>
                     <div class="modal-body">
-                        <form action="/affiliate-withdraw/" method="POST">
-                            <p>Available Balance : Rs. {{affiliate_earn.total_earn}} </p>
+                        <form action="/agent-withdraw/" method="POST">
+                            <input type="hidden" name="withdraw-amount" id="withdraw-amount">
+                            <input type="hidden" name="agent_id" id="agent_id" value="{{agent.agent_id}}">
                             <div class="form-group">
-                                <!-- <label for="exampleInputEmail2">Name</label> -->
-                                <input type="text" name="aid" class="form-control" value="{{affiliateUser.aid}}" id="exampleInputEmail2"
-                                    placeholder="your aid" style="pointer-events: none;" required>
+                                <h6 for="">Account Number: {{agent.account_number}}</h6>
+                                <h6 for="">Account Holder Name: {{agent.name}}</h6>
+                                <h6 for="">IFSC Code: {{agent.ifsc_code}}</h6>
+                                <h6 for="">Bank Name: {{agent.bank_name}}</h6>
                             </div>
-                            <div class="form-group">
-                                <!-- <label for="exampleInputEmail2">Name</label> -->
-                                <input type="text" name="name" class="form-control" value="{{affiliateUser.name}}" id="exampleInputEmail2"
-                                    placeholder="Enter your name" required>
-                            </div>
-                            <div class="form-group">
-                                <!-- <label for="exampleInputEmail1">Email address</label> -->
-                                <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"
-                                 value="{{affiliateUser.email}}"   required>
-                            </div>
-                            <div class="form-group">
-                                <!-- <label for="exampleInputPhone1">Phone Number</label> -->
-                                <input type="password" name="phone" class="form-control" id="exampleInputPhone1"
-                                    placeholder="+91-XXXXXXXXXX" value="{{affiliateUser.phone}}" required>
-                            </div>
-                            <div class="form-group">
-                                <!-- <label for="withdrawAmount">Amount</label> -->
-                                <input type="Number" class="form-control" name="amount" id="withdrawAmount"
-                                    placeholder="Enter Amount" required>
-                            </div>                       
+                            <hr>
+                            <label for=""></label><input class="mx-2" type="checkbox" name="decalaration" id="" required>I have checked my account information mention
+                                above, they are correct and my bank account is accepting the payments.
+                            <hr class="my-2">
                             <button type="submit" class="btn btn-success">Withdraw</button>
                         </form>
                     </div> 
@@ -189,76 +180,116 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </div>
 
+    <!-- my profile modal -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-toggle="modal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">My Profile</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Name: {{agent.name}} <br>
+            Email ID: {{agent.email}} <br>
+            Phone Number: {{agent.phone}} <br>
+            Aadhar Card: {{agent.aadhar}} <br>
+            Address: {{agent.address}} <br> <br>
+            GSTIN: {{agent.gstin}} <br>
+            Pan Card: {{agent.pan}} <br> <br>
+            Alternate Person Name: {{agent.alternate_name}} <br>
+            Alternate Person Phone Number: {{agent.alternate_phone}} <br><br>
+            Bank Details <br>
+            Bank Name: {{agent.bank_name}} <br>
+            Account Number: {{agent.account_number}} <br>
+            IFSC Code: {{agent.ifsc_code}} <br>
+            UPI ID: {{agent.upi_id}} <br>
+        </div>
+        <div class="modal-footer">
+            {% comment %} <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> {% endcomment %}
+            <button type="button" class="btn btn-primary">Need to Change?</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    {% comment %} my profile modal ends {% endcomment %}
+
     <section class="agent-user-dashboard">
         {% if request.user.is_active %}
-            <div class="main__dashboard" style="margin-top: 5rem;">
-                <div class="container heading_container mt-4" style="display: flex;justify-content: space-between;">
-                    <div style="display: flex;align-items: center;">
-                        <h2 class="" >Hiiii , User Full Name</h2>
-                        <button class="btn btn-success mx-3">My Profile</button>
-                    </div>
-                    <button class="btn btn-warning">Support</button>
-                </div>
-                <div class="container bookings__section">
-                    <div class="container" style="border: 1px solid black;padding: 0;margin: 10px;">
-                        <div class="" style="padding: 20px;display: flex;">
-                            <div style="flex: 0.3;">
-                                <img src="{% static 'img/svg_icon/1.svg'%}" alt="">
-                            </div>
-                            <div style="flex: 0.7;">
-                                <h3>Availiable Product</h3>
-                                <h1>139</h1>
-                            </div>
+            {% if agent.status == "active" %}
+                <div class="main__dashboard" style="margin-top: 5rem;">
+                    <div class="container heading_container mt-4" style="display: flex;justify-content: space-between;">
+                        <div style="display: flex;align-items: center;">
+                            <h2 class="" >Hiiii , {{agent.name}}</h2>
+                            <button class="btn btn-success mx-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">My Profile</button>
                         </div>
-                        <button class="btn btn-success w-100" style="border-radius: 0px;padding: 20px 0;">Creating Bookings</button>
+                        <button class="btn btn-warning">Support</button>
                     </div>
-                    <div class="container"  style="border: 1px solid black;padding: 0;margin: 10px;">
-                        <div class="" style="padding: 20px;display: flex;">
-                            <div style="flex: 0.3;">
-                                <img src="{% static 'img/svg_icon/1.svg'%}" alt="">
-                            </div>
-                            <div style="flex: 0.7;">
-                                <h3>Total Bookings</h3>
-                                <h1>139</h1>
-                            </div>
-                        </div>
-                        <button class="btn btn-warning w-100" style="border-radius: 0px;padding: 20px 0;">View Bookings</button>
-                    </div>
-                    <div class="container" style="border: 1px solid black;padding: 0;margin: 10px;">
-                        <div class="" style="padding: 20px;display: flex;">
-                            <div style="flex: 0.3;">
-                                <img src="{% static 'img/svg_icon/1.svg'%}" alt="">
-                            </div>
-                            <div style="flex: 0.7;">
-                                <h3>Total Earning</h3>
-                                <div style="display: flex;align-items: center;">
-                                    <h1>Rs.1390</h1>
-                                    <h4 class="px-2" style="color:rgb(41, 201, 41);">Rs.1090</h4>
+                    <div class="container bookings__section">
+                        <div class="container" style="border: 1px solid black;padding: 0;margin: 10px;">
+                            <div class="" style="padding: 20px;display: flex;">
+                                <div style="flex: 0.3;">
+                                    <img src="{% static 'img/svg_icon/1.svg'%}" alt="">
+                                </div>
+                                <div style="flex: 0.7;">
+                                    <h3>Availiable Product</h3>
+                                    <h1>{{ len }}</h1>
                                 </div>
                             </div>
+                            <button class="btn btn-success w-100" id="create_bookings" style="border-radius: 0px;padding: 20px 0;">Creating Bookings</button>
                         </div>
-                        <button class="btn btn-success w-100" style="border-radius: 0px;padding: 20px 0;">Withdraw Amount</button>
-                    </div>
+                        <div class="container"  style="border: 1px solid black;padding: 0;margin: 10px;">
+                            <div class="" style="padding: 20px;display: flex;">
+                                <div style="flex: 0.3;">
+                                    <img src="{% static 'img/svg_icon/1.svg'%}" alt="">
+                                </div>
+                                <div style="flex: 0.7;">
+                                    <h3>Total Bookings</h3>
+                                    <h1>{{ lenBookings }}</h1>
+                                </div>
+                            </div>
+                            <button class="btn btn-warning w-100" id="view_bookings" style="border-radius: 0px;padding: 20px 0;">View Bookings</button>
+                        </div>
+                        <div class="container" style="border: 1px solid black;padding: 0;margin: 10px;">
+                            <div class="" style="padding: 20px;display: flex;">
+                                <div style="flex: 0.3;">
+                                    <img src="{% static 'img/svg_icon/1.svg'%}" alt="">
+                                </div>
+                                <div style="flex: 0.7;">
+                                    <h3>Total Earning</h3>
+                                    <div style="display: flex;align-items: center;">
+                                        <h1>{{agent.total_earned}}</h1>
+                                        <h4 class="px-2" style="color:rgb(41, 201, 41);">Rs.{{agent.available_balance}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-success w-100" id="withdraw_amount" style="border-radius: 0px;padding: 20px 0;">Withdraw Amount</button>
+                        </div>
 
+                    </div>
                 </div>
-            </div>
+            {% else %}
+                <h1>You are not ACTIVE</h1>
+            {% endif %}
         {% else %}
-        <h2 class="text-center">Please Login for agant dashboard</h2>
+        <h2 class="text-center">Please Login for agent dashboard</h2>
         {% endif %}
 
-        <div class="container created__booking__block">
+        <div class="container created__booking__block" id="create_bookings_content" style="display:none;">
             <div class="container upper__container row col-12">
                 <div class="select__state__block row col-6">
                     <label class="form-label col-3">Select State</label>
-                    <select name="state" id="" class="form-control col-9">
+                    <select name="state" id="state" class="form-control col-9">
                         <option  value="">Select State</option>
-                        <option  value="">Goa</option>
+                        {% for state in states %}
+                            <option  value="{{state.state}}">{{state.state}}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div class="search__block row col-6">
                     <label class="form-label col-3">Search</label>
-                    <input type="search" name="search" class="form-control col-9" id="">
-
+                    <input type="search" name="search" class="form-control col-9" id="search">
                 </div>
 
             </div>
@@ -270,47 +301,49 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <ul>
                             <li>
                                 <div class="form-check">
-                                  <input class="form-check-input city common_selector" type="checkbox" value="Bungee Jumping"
+                                  <input class="form-check-input adventuretype common_selector" type="checkbox" value="Bungee Jumping"
                                     id="defaultCheck1">
                                   Bungee Jumping
                                 </div>
-                              </li>
+                            </li>
                             <li>
                                 <div class="form-check">
-                                  <input class="form-check-input city common_selector" type="checkbox" value="Bungee Jumping"
+                                  <input class="form-check-input adventuretype common_selector" type="checkbox" value="Parasailing"
                                     id="defaultCheck1">
-                                  Bungee Jumping
+                                  Parasailing
                                 </div>
-                              </li>
+                            </li>
                             <li>
                                 <div class="form-check">
-                                  <input class="form-check-input city common_selector" type="checkbox" value="Bungee Jumping"
+                                  <input class="form-check-input adventuretype common_selector" type="checkbox" value="River Rafting"
                                     id="defaultCheck1">
-                                  Bungee Jumping
+                                  River Rafting
                                 </div>
-                              </li>
+                            </li>
                             <li>
                                 <div class="form-check">
-                                  <input class="form-check-input city common_selector" type="checkbox" value="Bungee Jumping"
+                                  <input class="form-check-input adventuretype common_selector" type="checkbox" value="Scuba Diving"
                                     id="defaultCheck1">
-                                  Bungee Jumping
+                                  Scuba Diving
                                 </div>
-                              </li>
+                            </li>
                         </ul>
                     </div>
 
 
                 </div>
-                <div class="right__product__block" style="flex:0.7;width:100%;margin:10px">
+                <div class="right__product__block" id="product_block" style="flex:0.7;width:100%;margin:10px;">
                     <!-- ------------------------ product start ---------------------------------------- -->
+                    {% for product in products%}
                         <div class="row my-box-shadow product__data"
                                 style="margin-top: 1.6rem;margin-right:0;margin-left:0;background-color: rgb(255, 255, 255);
                                 cursor: pointer;box-shadow: 1px 3px 8px 0px #72748452;transition: transform .3s;"
                                 name="{{product.adventuretype}}">
                                 <div class="col-lg-3 px-0 py-0">
-                                    <a href="/products/{{product.manual_slug}}">
-                                    <img src="{% static 'img/banner.jpg' %}" class="img-responsive"
-                                        width="200px" height="250px" style="height: 100%;    object-fit: cover;    width: 100%;" />
+                                    {% with product.images_set.all|first as image %}
+                                        <a href="/agent-booking/{{product.manual_slug}}"><img src="{{image.image.url}}" class="img-responsive"
+                                            width="200px" height="250px" style="height: 100%;    object-fit: cover;    width: 100%;" /></a>
+                                    {% endwith %}
                                         
                                         <span class="icon" id="image__data" style="display:none; padding: 11px 0 5px 5px;
                                     position: absolute;
@@ -335,8 +368,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 </div>
                                 
                                 <div class="col-lg-6 pt-3">
-                                    <a href="/products/{{product.manual_slug}}">
-                                    <h3 class="mt-0">{{product.name}} Product Name</h3>
+                                    <a href="/agent-booking/{{product.manual_slug}}">
+                                    <h3 class="mt-0">{{product.name}}</h3>
                                     <div class="row">
                                         <div class="col">
                                         <span class="icon" style="padding: 0px 3px 0px 6px;    position: relative;
@@ -347,7 +380,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                                             border-right: 1px solid rgba(59,68,78,0.3);    position: relative;
                                         vertical-align: middle;
                                         font-size: 16px;
-                                        color: rgba(59,68,78,0.7);">{{product.duration}} 2 days</span>
+                                        color: rgba(59,68,78,0.7);">{{product.duration}}</span>
                                         <span class="icon" style="padding: 0px 3px 0px 6px;    position: relative;
                                         vertical-align: middle;
                                         font-size: 16px;
@@ -357,26 +390,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                             vertical-align: middle;
                                             font-size: 16px;
                                             color: rgba(59,68,78,0.7);">
-                                            {% comment %} {% if product.loca_city %} {% endcomment %}
-                                            {% comment %} {{product.loca_city}} {% endcomment %} product city
+                                            {% if product.loca_city %}
+                                            {{product.loca_city}} 
                                             <span>,</span>
-                                            {% comment %} {% endif %} {% endcomment %}
+                                            {% endif %}
                                             {{product.city}}</span>
                                         </div>
                                     </div>
                                     <hr class="mt-1 mb-0" style="opacity:0.4;">
                                     {% comment %} {% autoescape off %} {% endcomment %}
-                                    <div class="row mt-0 text-center" id="inn">{{product.inclusion}} hello world</div>
+                                    {% comment %} <div class="row mt-0 text-center" id="inn">{{product.inclusion}} </div> {% endcomment %}
                                     <hr class="mt-2 mb-2" style="opacity:0.4;">
                                     <div class="row pl-1" style="font-size: 1rem;">
-                                        {{product.a_inclusion}} hiiii
+                                        {% comment %} {{product.a_inclusion}} {% endcomment %}
                                     </div>
                                     </a>
                                 </div>
                                 {% comment %} {% endautoescape %} {% endcomment %}
                                 <div class=" col-lg-3 pt-3 pb-3"
                                 style="border-left: 1px solid #0000000f;display: flex;justify-content: center;align-items: center;">
-                                <a href="/products/{{product.manual_slug}}">
+                                <a href="/agent-booking/{{product.manual_slug}}">
                                     <div>
                                         <div class="custom_12">
                                         <div class="row" style="justify-content: center;">
@@ -412,27 +445,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
                                         <p class="mt-2"><a class="btn btn-success view__details_btn" style=" width: 100%; bottom: 10px; left: 0px;" 
-                                            type="button" href="/products/{{product.manual_slug}}">TAC : 10%</a></p>
+                                            type="button" href="/agent-booking/{{product.manual_slug}}">TAC : 10%</a></p>
                                         <p class="mt-2"><a class="btn btn-success view__details_btn" style=" width: 100%; bottom: 10px; left: 0px;" 
-                                            type="button" href="/products/{{product.manual_slug}}">View Details</a></p>
+                                            type="button" href="/agent-product/{{product.manual_slug}}">View Details</a></p>
                                         <p class="mt-2"><a class="btn btn-warning view__details_btn" style=" width: 100%; bottom: 10px; left: 0px;" 
-                                            type="button" href="/products/{{product.manual_slug}}">Book Now</a></p>
+                                            type="button" href="/agent-booking/{{product.manual_slug}}">Book Now</a></p>
 
                                     </div>
                                     </a>
                                     </div>
                                 </div>
+                    {% endfor %}
 <!-- ------------------------ product end ---------------------------------------- -->
-
+                   
                 </div>
 
             </div>
         </div>
 
-        <div class="container total__booking__section my-4" style="box-shadow: 1px 1px 5px rgba(0,0,0,0.2);">
+        <div class="container total__booking__section my-4" id="view_bookings_content"  style="box-shadow: 1px 1px 5px rgba(0,0,0,0.2);display:none">
             <div class="row col-12 my-3">
                 <label class="form-label col-2">Search By Name</label>
-                <input type="search" class="form-control col-4" name="search" id="" />
+                <input type="search" class="form-control col-4" name="search" id="searchByName" />
             </div>
             <div class="coupons-table table-scroll">
                 <table class="table table-striped">
@@ -449,77 +483,166 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </tr>
                     </thead>
                     
-                    <tbody>
+                    <tbody id="booking_list">
+                    {% for booking in bookings %}
                          <tr>
                             <td>UA32414</td>
-                            <td>05/10/2021 </td>
-                            <td>Guest full name </td>
-                            <td>Scuba Diving with water sports
-                                Combo at Grande Island</td>
-                            <td>Rs. 1830</td>
-                            <td>Success</td>
+                            <td>{{booking.booking_date}} </td>
+                            <td>{{booking.guest_name}} </td>
+                            <td>{{booking.product.name}}</td>
+                            <td>{{booking.total_price}}</td>
+                            <td>{{booking.status}}</td>
                             <td>
-                                <button class="btn btn-success">View <br> Details</button>
+                                <div class="accordion" id="accordionExample">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingOne">
+                                        <button class="btn btn-success accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne{{booking.orderId}}" aria-expanded="true" aria-controls="collapseOne">View <br> Details</button>
+                                        </h2>
+                                        <div id="collapseOne{{booking.orderId}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <div class="container accordion-body">
+                                                <div class="row">
+                                                    <div class="col border border-dark">
+                                                        Guest Name: {{booking.guest_name}}
+                                                        Phone Number: {{booking.guest_phone}}
+                                                        Other Number: {{booking.guest_phone}}
+                                                        Email ID: {{booking.guest_email}}
+                                                        No of Guests: {{booking.number_of_guests}}
+                                                    </div>
+                                                    <div class="col border border-dark">
+                                                        Service Date: {{booking.service_date}}
+                                                        Service Status: {{booking.status}}
+                                                        Margin Earned: {{booking.margin_earned}}
+                                                        <div class="text-cebter"><button class="btn btn-warning">Download Booking Voucher</button></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr> 
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
 
         </div>
 
-        <div class="container withdrawal__section" style="display: flex;">
-            <div class="container left__withdraw__container mx-2 my-2" style="border: 1px solid black;padding:0;">
-                <h2 class="w-100" style="border: 1px solid black; padding:10px 10px;">My Earnings:</h2>
-                <div class="withdraw__block" style="padding:10px 30px;">
-                    <div class="withdraw__data__block my-4" style="display: flex;justify-content: space-between;">
-                        <p>Amount withdrawn till date:</p>
-                        <p><strong>Rs.x,xxx</strong></p>
+        <div id="withdraw_amount_content" style="display:none">
+            <div class="container withdrawal__section" style="display: flex;">
+                <div class="container left__withdraw__container mx-2 my-2" style="border: 1px solid black;padding:0;">
+                    <h2 class="w-100" style="border: 1px solid black; padding:10px 10px;">My Earnings:{{agent.total_earned}}</h2>
+                    <div class="withdraw__block" style="padding:10px 30px;">
+                        <div class="withdraw__data__block my-4" style="display: flex;justify-content: space-between;">
+                            <p>Amount withdrawn till date:</p>
+                            <p><strong>Rs.{{agent.withdrawn_till_date}}</strong></p>
+                        </div>
+                        <div class="withdraw__data__block my-4" style="display: flex;justify-content: space-between;">
+                            <p>Availiable Balance:</p>
+                            <p><strong>Rs.{{agent.available_balance}}</strong></p>
+                        </div>
+                        <div class="withdraw__data__block my-4" style="display: flex;justify-content: space-between;">
+                            <p>Withdrawable amount: </p>
+                            <p><strong>Rs.{{agent.withdrawable_balance}}</strong></p>
+                        </div>
+                        <div class="withdraw__data__block my-4" style="display: flex;justify-content: space-between;align-items: center;">
+                            <input type="number" name="amount-to-withdraw" class="form-control" style="flex: 0.8;" id="withdraw-amount-input">
+                            <p style="flex: 0.2;padding-left: 10px;"><strong>Rs.</strong></p>
+                            <div id="x"></div>
+                        </div>
+                        <button class="btn btn-success w-100" id="y">Withdraw Amount</button>
+                        <script>
+                            document.getElementById('withdraw-amount-input').addEventListener('input', (evt) => {
+                                amt = evt.target.value;
+                                {% comment %} let flag=false; {% endcomment %}
+                                if(amt > {{agent.available_balance}}){
+                                    document.getElementById('x').innerHTML="Enter amount less than or equal to available"
+                                    {% comment %} flag=false; {% endcomment %}
+                                    document.getElementById('y').setAttribute("data-bs-toggle", "")
+                                    document.getElementById('y').setAttribute("data-bs-target", "")
+                                }else{
+                                    document.getElementById('x').innerHTML=""
+                                    {% comment %} flag=true; {% endcomment %}
+                                    document.getElementById('y').setAttribute("data-bs-toggle", "modal")
+                                    document.getElementById('y').setAttribute("data-bs-target", "#withdraw-form")
+                                }
+                                {% comment %} if(flag){
+                                    document.getElementById('y').setAttribute("data-bs-toggle", "modal")
+                                    document.getElementById('y').setAttribute("data-bs-target", "#withdraw-form")
+                                }else{
+                                    document.getElementById('y').setAttribute("data-bs-toggle", "")
+                                    document.getElementById('y').setAttribute("data-bs-target", "")
+                                } {% endcomment %}
+                                document.getElementById('withdraw-amount-modal').innerHTML = amt;   
+                                document.getElementById('withdraw-amount').value = amt;
+                            })
+                            document.getElementById('y').addEventListener('click', () => {
+                                if(!(document.getElementById('withdraw-amount-input').value)){
+                                    alert('Enter some amount')
+                                }
+                            })
+                        </script>
                     </div>
-                    <div class="withdraw__data__block my-4" style="display: flex;justify-content: space-between;">
-                        <p>Availiable Balance:</p>
-                        <p><strong>Rs.x,xxx</strong></p>
+                </div>
+                <div class="container right__withdraw__container mx-2 my-2">
+                    <h2>Withdraw History:</h2>
+                    <div class="table-scroll">
+                        <table class="table table-striped">
+                            
+                            <thead class="thead-row">
+                                <tr>
+                                    <th scope="col">Serial <br>Nos.</th>
+                                    <th scope="col">Request <br>Date</th>
+                                    <th scope="col">Withdraw <br> Amount</th>
+                                    <th scope="col">Payment <br> Status </th>
+                                    <th scope="col">view <br> Details </th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                            {% for withdraw in withdraws %}
+                                <tr>
+                                    <td scope="col"></td>
+                                    <td scope="col">{{withdraw.date}}</td>
+                                    <td scope="col">{{withdraw.amount}}</td>
+                                    <td scope="col">{{withdraw.status}}</td>
+                                    <td scope="col">
+                                        {% comment %} <button class="btn btn-success">View <br> Details</button> {% endcomment %}
+                                        <div class="accordion" id="accordionExample">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingOne">
+                                                <button class="btn btn-success accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOnea{{withdraw.id}}" aria-expanded="true" aria-controls="collapseOne">View <br> Details</button>
+                                                </h2>
+                                                <div id="collapseOnea{{withdraw.id}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                    <div class="container accordion-body">
+                                                        <div class="row">
+                                                            <div class="col border border-dark">
+                                                                Request Date: {{withdraw.date}}
+                                                                Amount: {{withdraw.amount}}
+                                                                IP Address: {{withdraw.ip}}
+                                                            </div>
+                                                            <div class="col border border-dark">
+                                                                Account Number: {{agent.account_number}}
+                                                                Account Holder Name: {{agent.name}}
+                                                                IFSC: {{agent.ifsc_code}}
+                                                                Bank Name: {{agent.bank_name}}
+                                                                <div class="text-cebter"><button class="btn btn-warning">Download Booking Voucher</button></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                </tr> 
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="withdraw__data__block my-4" style="display: flex;justify-content: space-between;">
-                        <p>Withdrawable amount: </p>
-                        <p><strong>Rs.x,xxx</strong></p>
-                    </div>
-                    <div class="withdraw__data__block my-4" style="display: flex;justify-content: space-between;align-items: center;">
-                        <input type="number" name="" class="form-control" style="flex: 0.8;" id="">
-                        <p style="flex: 0.2;padding-left: 10px;"><strong>Rs.</strong></p>
-                    </div>
-                    <button class="btn btn-success w-100">Withdraw Amount</button>
+
 
                 </div>
-            </div>
-            <div class="container right__withdraw__container mx-2 my-2">
-                <h2>Withdraw History:</h2>
-                <div class="table-scroll">
-                    <table class="table table-striped">
-                        
-                        <thead class="thead-row">
-                            <tr>
-                                <th scope="col">Request <br>Date</th>
-                                <th scope="col">Withdraw <br> Amount</th>
-                                <th scope="col">Payment <br> Status </th>
-                                <th scope="col">view <br> Details </th>
-                            </tr>
-                        </thead>
-                        
-                        <tbody>
-                             <tr>
-                                 <td scope="col" >05/10/2021 </td>
-                                 <td scope="col">Aditya</td>
-                                 <td scope="col">Guest full name </td>
-                                <td scope="col">
-                                    <button class="btn btn-success">View <br> Details</button>
-                                </td>
-                            </tr> 
-                        </tbody>
-                    </table>
-                </div>
-
-
             </div>
         </div>
     </section>
@@ -740,6 +863,148 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         myModal.addEventListener('shown.bs.modal', function () {
             myInput.focus()
         });
+    </script>
+
+    <script>
+    document.getElementById('create_bookings').addEventListener("click", () => {
+        if (document.getElementById('create_bookings_content').style.display == "none"){
+            {% comment %} document.getElementById('create_bookings').style.color = "black"; {% endcomment %}
+            document.getElementById('create_bookings_content').style.display = "block";
+            document.getElementById('view_bookings_content').style.display = "none";
+            document.getElementById('withdraw_amount_content').style.display = "none";
+        }else{
+            document.getElementById('create_bookings').style.color = "white";
+            document.getElementById('create_bookings_content').style.display = "none";
+        }
+    })
+    document.getElementById('view_bookings').addEventListener("click", () => {
+        if (document.getElementById('view_bookings_content').style.display == "none"){
+            document.getElementById('view_bookings_content').style.display = "block";
+            document.getElementById('create_bookings_content').style.display = "none";
+            document.getElementById('withdraw_amount_content').style.display = "none";
+        }else{ 
+            document.getElementById('view_bookings_content').style.display = "none";
+        }
+    })
+    document.getElementById('withdraw_amount').addEventListener("click", () => {
+        if (document.getElementById('withdraw_amount_content').style.display == "none"){
+            document.getElementById('withdraw_amount_content').style.display = "block";
+            document.getElementById('view_bookings_content').style.display = "none";
+            document.getElementById('create_bookings_content').style.display = "none";
+        }else{
+            document.getElementById('withdraw_amount_content').style.display = "none";
+        }
+    })
+
+
+    function filter_data() {
+        {% comment %} var state = `{{state}}`
+        var city = `{{city}}`
+        var slug = `{{slug}}`
+        var level = get_filter('level')
+        var duration = get_filter('duration')
+        var citye = get_filter('city')
+        var type = get_filter('type')
+        var location = get_filter('loc') {% endcomment %}
+        
+        let filter = get_filter('adventuretype')
+        let state = $('#state').val()
+        let search = $('#search').val()
+        {% comment %} if (state.length < 1) {
+          state = 'None'
+        }
+        if (city.length < 1) {
+          city = 'None'
+        } {% endcomment %}
+        var searchh = ''
+        var da = ``;
+        var formData = {
+          'filters': filter,
+          'state': state,
+          'search': search
+        };
+        $.ajax({
+          type: 'POST',
+          url: `/filter-agent-products/`,
+          data: formData,
+          beforeSend: function () {
+            $('#product_block').html('Loading...')
+          },
+          success: function (res) {
+            da = da + res.data
+            {% comment %} var brandsfiltered = []
+            brandsfiltered = res.filters
+            console.log(brandsfiltered) {% endcomment %}
+            document.getElementById('product_block').innerHTML = ""
+            {% comment %} for (x in brandsfiltered){
+              document.getElementById('brands_filters').innerHTML += `<label for="badge-check-${brandsfiltered[x]}" class="badge badge-primary ml-3"> 
+                    <input type="checkbox" id="badge-check-${brandsfiltered[x]}" class="brand_badge brand" style="" value="${brandsfiltered[x]}"> ${brandsfiltered[x]}
+                  </label>`  
+            } {% endcomment %}
+            
+            document.getElementById('product_block').innerHTML = da            
+
+            {% comment %} if(res.product_len > {{len}})
+            {
+              document.getElementById('the_json_data').innerHTML = 'showing <strong> {{len}} </strong>products Result';
+              document.getElementById('the_json_data2').innerHTML = 'showing <strong> {{len}} </strong>products Result';
+            }
+            else
+            {
+              document.getElementById('the_json_data').innerHTML = `showing <strong>${res.product_len} </strong>products Result`;
+              document.getElementById('the_json_data2').innerHTML = `showing <strong>${res.product_len} </strong>products Result`;
+            } {% endcomment %}
+          }
+        })
+      }
+
+      function get_filter(class_name) {
+        var filter = []
+        $('.' + class_name + ':checked').each(function () {
+          filter.push($(this).val());
+        });
+        return filter;
+      }
+
+      $('.common_selector').click(function () {
+        filter_data();
+      })
+
+      $('#state').change((e) => {
+          filter_data();
+      })
+
+      document.getElementById('search').addEventListener('input', () => {
+          filter_data();
+      })
+
+      document.getElementById('searchByName').addEventListener('input', () => {
+          filter_data2();
+      })
+
+    function filter_data2() {
+        let search = $('#searchByName').val()
+        var searchh = ''
+        var da = ``;
+        var formData = {
+          'search': search
+        };
+        $.ajax({
+          type: 'GET',
+          url: `/filter-agent-products/`,
+          data: formData,
+          beforeSend: function () {
+            $('#booking_list').html('Loading...')
+          },
+          success: function (res) {
+            da = da + res.data
+            {% comment %} document.getElementById('booking_list').innerHTML = "" {% endcomment %}
+            document.getElementById('booking_list').innerHTML = da            
+
+          }
+        })
+      }
+
     </script>
 </body>
 

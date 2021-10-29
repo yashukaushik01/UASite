@@ -903,7 +903,49 @@
                                 more</button>
                         </div>
 
-
+                        {% for t in testimonial %}
+                        <!-- Modal -->
+                        <div class="" style="margin:0px 0px 15px 0px" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <div>
+                                        <img src="/abcd/{{t.profile_photo}}" style="height:80px; width:80px;" class="img-thumbnail rounded-circle" alt="...">
+                                        <div style="display:inline-block">
+                                            <h5 class="modal-title mx-2" id="exampleModalLabel">{{t.full_name}}</h5>
+                                            <h6 class="mx-2" >Rating: {{t.rating}}/5 </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-body">
+                                    <h5>{{product}}</h5>
+                                    {{t.tags}}
+                                </div>
+                                <div class="border mb-2 mx-3 px-1">
+                                    <h5>{{t.testimonials}}</h5>
+                                </div>
+                                <div class="text-center">
+                                    {% if t.photo_1 %}
+                                    <img src="/abcd/{{t.photo_1}}" style="height:80px; width:80px" class="rounded mx-3 my-1" alt="...">
+                                    {% endif %}
+                                    {% if t.photo_2 %}
+                                    <img src="/abcd/{{t.photo_2}}" style="height:80px; width:80px" class="rounded mx-3 my-1" alt="...">
+                                    {% endif %}
+                                    {% if t.photo_3 %}
+                                    <img src="/abcd/{{t.photo_3}}" style="height:80px; width:80px" class="rounded mx-3 my-1" alt="...">
+                                    {% endif %}
+                                    {% if t.photo_4 %}
+                                    <img src="/abcd/{{t.photo_4}}" style="height:80px; width:80px" class="rounded mx-3 my-1" alt="...">
+                                    {% endif %}
+                                </div>
+                                {% comment %} <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div> {% endcomment %}
+                            </div>
+                        </div>
+                        </div>
+                    {% endfor %}
 
 
                         {% endautoescape %}
