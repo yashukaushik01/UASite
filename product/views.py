@@ -10,7 +10,7 @@ from django.http.response import JsonResponse
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
-from .models import Affiliate, AffiliateWithdraw, Cities, CityHotelData, Erp, LinkHits, Populartags, Product, Destination, Images, StateItineraryData, TopPicksEntryForm, duration, phone, Purchase, states, des, promo, AdventureTourTypes, TravelGuide, BestPackage, ProductEnquiry
+from .models import Affiliate, AffiliateWithdraw, Cities, CityHotelData, Erp, LinkHits, PartialPayment, Populartags, Product, Destination, Images, StateItineraryData, TopPicksEntryForm, duration, phone, Purchase, states, des, promo, AdventureTourTypes, TravelGuide, BestPackage, ProductEnquiry
 from .models import Blogpost, wallet
 from .models import Itinerary, ItineraryData, Rentals,  Agent, Testimonials, AgentProductBooking, AgentWithdrawHistory, AffiliateUser, AffiliateEarning, AffiliateLink
 from .models import State as States, Locality as Localities
@@ -1534,10 +1534,25 @@ def checkout(request):
 
 def checkout2(request):
     if request.method == "POST":
+        orderId = uuid.uuid4().hex[:6].upper()
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        package_type = request.POST.get('package-type')
+        package_name = request.POST.get('package-name')
+        service_date = request.POST.get('service_date')
+        package_cost = request.POST.get('package-cost')
+        paid_amount = request.POST.get('paid_amount')
+        partialPayment = PartialPayment(orderId=orderId, name=name, email=email, phone=phone, package_type=package_type,
+                                        package_name=package_name, service_date=service_date, package_cost=package_cost, paid_amount=paid_amount)
+        partialPayment.save()
+        purchase = Purchase(partial_pay=partialPayment, date=service_date,
+                            orderId=orderId, orderAmount=paid_amount)
+        purchase.save()
         postData = {
             "appId": '3116246b3ec6d019344fd492a26113',
-            "orderId": uuid.uuid4().hex[:6].upper(),
-            "orderAmount": request.POST.get('amount'),
+            "orderId": orderId,
+            "orderAmount": paid_amount,
             "orderCurrency": 'INR',
             "orderNote": "g",
             "customerName": request.POST.get('name'),
@@ -1549,7 +1564,7 @@ def checkout2(request):
         sortedKeys = sorted(postData)
         signatureData = ""
         for key in sortedKeys:
-            signatureData += key+postData[key]
+            signatureData += key+str(postData[key])
 
         message = signatureData.encode('utf-8')
         # get secret key from your config
@@ -1606,6 +1621,14 @@ def cashpartial(request):
             "signature":  request.POST.get('signature'),
             "txTime":  request.POST.get('txTime')
         }
+        partialPayment = get_object_or_404(
+            PartialPayment, orderId=request.POST.get('orderId'))
+        partialPayment.status = request.POST.get('txStatus')
+        partialPayment.save()
+        purchase = get_object_or_404(
+            Purchase, orderId=request.POST.get('orderId'))
+        purchase.status = request.POST.get('txStatus')
+        purchase.save()
         return render(request, 'partial.html', postData)
 
 
@@ -2737,3 +2760,34 @@ def testimonialsSubmit(request):
         testimonial.save()
         messages.success(request, "Submitted Successfully")
         return redirect('/testimonials-form')
+
+
+# def partialCheckout(request):
+#     if request.method == "POST":
+#         orderId = uuid.uuid4().hex[:6].upper()
+#         name = request.POST.get('name')
+#         email = request.POST.get('email')
+#         phone = request.POST.get('phone')
+#         package_type = request.POST.get('package-type')
+#         package_name = request.POST.get('package-name')
+#         service_date = request.POST.get('service_date')
+#         package_cost = request.POST.get('package-cost')
+#         paid_amount = request.POST.get('paid_amount')
+#         partialPayment = PartialPayment(orderId=orderId, name=name, email=email, phone=phone, package_type=package_type,
+#                                         package_name=package_name, service_date=service_date, package_cost=package_cost, paid_amount=paid_amount)
+#         partialPayment.save()
+#         postData = {
+#             "appId": '3116246b3ec6d019344fd492a26113',
+#             "orderId": orderId,
+#             "orderAmount": paid_amount,
+#             "orderCurrency": 'INR',
+#             "orderNote": "g",
+#             "customerName": name,
+#             "customerPhone": phone,
+#             "customerEmail": email,
+#             "returnUrl": 'http://127.0.0.1:8000/handlerequestpartial/',
+#             "notifyUrl": 'http://127.0.0.1:8000/',
+#             "product": package_name,
+#             "date": service_date,
+#         }
+#         return render(request, 'bookingform.html', {'postData': postData})

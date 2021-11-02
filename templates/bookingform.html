@@ -49,7 +49,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <body style="background-color: #f2f2f2;">
 
-
+{% if postData.orderId %}
+<input type="hidden" name="orderId" value="{{postData.orderId}}">
+{% endif %}
 
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH59H8J"

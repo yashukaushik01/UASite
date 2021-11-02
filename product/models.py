@@ -816,10 +816,29 @@ class LinkHits(models.Model):
     def __str__(self):
         return self.ip_address
 
+class PartialPayment(models.Model):
+    orderId = models.CharField(max_length=122, primary_key=True)
+    name = models.CharField(max_length=122)
+    email = models.CharField(max_length=122)
+    phone = models.CharField(max_length=122)
+    package_type = models.CharField(max_length=122)
+    package_name = models.CharField(max_length=122)
+    service_date = models.DateField(max_length=122, null=True, blank=True)
+    package_cost = models.CharField(max_length=122)
+    paid_amount = models.CharField(max_length=122)
+    status = models.CharField(max_length=122, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.orderId)
+
 
 class Purchase(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    partial_pay = models.ForeignKey(
+        PartialPayment, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, blank=True)
     status = models.CharField(max_length=50, null=True)
     date = models.DateField(null=True, auto_now=False, auto_now_add=False)
     days = models.IntegerField(null=True, default=1)
