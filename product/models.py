@@ -816,6 +816,7 @@ class LinkHits(models.Model):
     def __str__(self):
         return self.ip_address
 
+
 class PartialPayment(models.Model):
     orderId = models.CharField(max_length=122, primary_key=True)
     name = models.CharField(max_length=122)
@@ -823,7 +824,8 @@ class PartialPayment(models.Model):
     phone = models.CharField(max_length=122)
     package_type = models.CharField(max_length=122)
     package_name = models.CharField(max_length=122)
-    service_date = models.DateField(max_length=122, null=True, blank=True)
+    service_date = models.DateField(null=True, blank=True)
+    booking_date = models.DateField(null=True, blank=True, default=None)
     package_cost = models.CharField(max_length=122)
     paid_amount = models.CharField(max_length=122)
     status = models.CharField(max_length=122, null=True, blank=True)
@@ -839,11 +841,21 @@ class Purchase(models.Model):
         Product, on_delete=models.CASCADE, null=True, blank=True)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, blank=True)
+    phone = models.CharField(max_length=12, null=True,
+                             blank=True, default=None)
+    package_type = models.CharField(
+        max_length=122, null=True, blank=True, default=None)
+    booking_date = models.DateField(null=True, blank=True, default=None)
+    number_of_adults = models.CharField(
+        max_length=122, null=True, blank=True, default=None)
+    number_of_child = models.CharField(
+        max_length=122, null=True, blank=True, default=None)
     status = models.CharField(max_length=50, null=True)
     date = models.DateField(null=True, auto_now=False, auto_now_add=False)
     days = models.IntegerField(null=True, default=1)
     orderId = models.CharField(null=True, max_length=100)
     orderAmount = models.CharField(null=True, max_length=50)
+    paidAmount = models.CharField(null=True, max_length=50, default=None)
     referenceId = models.CharField(null=True, max_length=100)
     coupon_uid = models.CharField(null=False, default="", max_length=500)
     aid = models.CharField(max_length=50, null=True, blank=True)

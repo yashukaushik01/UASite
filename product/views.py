@@ -1512,8 +1512,8 @@ def checkout(request):
                     affiliateId = request.affiliate_id
 
         purchase = Purchase(user=request.user, product=prod, date=dates, days=request.POST.get(
-            'number'), orderId=postData["orderId"], orderAmount=request.POST.get('amount'),
-            coupon_uid=request.POST.get('coupon_id'), aid=affiliateId, margin=prod.margin)
+            'number'), orderId=postData["orderId"], orderAmount=request.POST.get('amountTotal'), paidAmount=request.POST.get('amount'), booking_date=datetime.date.today(),
+            coupon_uid=request.POST.get('coupon_id'), aid=affiliateId, margin=prod.margin, phone=request.POST.get('phone'), number_of_adults=request.POST.get('number'), number_of_child=request.POST.get('number2'))
         purchase.save()
 
         sortedKeys = sorted(postData)
@@ -1544,10 +1544,10 @@ def checkout2(request):
         package_cost = request.POST.get('package-cost')
         paid_amount = request.POST.get('paid_amount')
         partialPayment = PartialPayment(orderId=orderId, name=name, email=email, phone=phone, package_type=package_type,
-                                        package_name=package_name, service_date=service_date, package_cost=package_cost, paid_amount=paid_amount)
+                                        package_name=package_name, service_date=service_date, booking_date=datetime.date.today(), package_cost=package_cost, paid_amount=paid_amount)
         partialPayment.save()
         purchase = Purchase(partial_pay=partialPayment, date=service_date,
-                            orderId=orderId, orderAmount=paid_amount)
+                            orderId=orderId, orderAmount=package_cost, paidAmount=paid_amount, phone=phone, package_type=package_type, booking_date=datetime.date.today())
         purchase.save()
         postData = {
             "appId": '3116246b3ec6d019344fd492a26113',
@@ -2760,34 +2760,3 @@ def testimonialsSubmit(request):
         testimonial.save()
         messages.success(request, "Submitted Successfully")
         return redirect('/testimonials-form')
-
-
-# def partialCheckout(request):
-#     if request.method == "POST":
-#         orderId = uuid.uuid4().hex[:6].upper()
-#         name = request.POST.get('name')
-#         email = request.POST.get('email')
-#         phone = request.POST.get('phone')
-#         package_type = request.POST.get('package-type')
-#         package_name = request.POST.get('package-name')
-#         service_date = request.POST.get('service_date')
-#         package_cost = request.POST.get('package-cost')
-#         paid_amount = request.POST.get('paid_amount')
-#         partialPayment = PartialPayment(orderId=orderId, name=name, email=email, phone=phone, package_type=package_type,
-#                                         package_name=package_name, service_date=service_date, package_cost=package_cost, paid_amount=paid_amount)
-#         partialPayment.save()
-#         postData = {
-#             "appId": '3116246b3ec6d019344fd492a26113',
-#             "orderId": orderId,
-#             "orderAmount": paid_amount,
-#             "orderCurrency": 'INR',
-#             "orderNote": "g",
-#             "customerName": name,
-#             "customerPhone": phone,
-#             "customerEmail": email,
-#             "returnUrl": 'http://127.0.0.1:8000/handlerequestpartial/',
-#             "notifyUrl": 'http://127.0.0.1:8000/',
-#             "product": package_name,
-#             "date": service_date,
-#         }
-#         return render(request, 'bookingform.html', {'postData': postData})
